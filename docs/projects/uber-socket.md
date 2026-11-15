@@ -6,7 +6,7 @@ Uber Socket runtime, connectome runtime, cognitive backplane, project mesh, shar
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**25 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
+**29 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
@@ -27,9 +27,13 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 - [`src/uber-socket-shared-content-fabric.mjs`](../../src/uber-socket-shared-content-fabric.mjs) — Shared content fabric for Uber Socket peers · **Use:** share content across connected apps _(tested; imported by 1)_
 - [`src/uber-socket-whole-brain-orchestrator.mjs`](../../src/uber-socket-whole-brain-orchestrator.mjs) — Whole-brain orchestrator for Uber Socket that delegates to the UberMind cognitive exchange · **Use:** route Uber Socket requests through UberMind cognition topology _(imported by 1)_
 
-## Scripts (1)
+## Scripts (5)
 
-- [`scripts/uber-socket-activation-doctor.mjs`](../../scripts/uber-socket-activation-doctor.mjs) _(matched by name only)_
+- [`scripts/uber-orchestration-doctor.mjs`](../../scripts/uber-orchestration-doctor.mjs) — Doctor compiling Uber orchestration plan and integrity checks across sovereign layers. · **Use:** Checks orchestration plane.
+- [`scripts/uber-socket-activation-doctor.mjs`](../../scripts/uber-socket-activation-doctor.mjs) — Doctor resetting and checking Uber Socket runtime peers, documents and connectome isolation. · **Use:** Activation check for the socket.
+- [`scripts/uberagent-autonomy-v2.ps1`](../../scripts/uberagent-autonomy-v2.ps1) — PowerShell UberAgent autonomy v2 node agent installing under LocalAppData with token and disable file. · **Use:** Windows agent for UberBond node.
+- [`scripts/uberagent-legacy.ps1`](../../scripts/uberagent-legacy.ps1) — Legacy PowerShell UberAgent node script with token and disable file. · **Use:** Older Windows agent.
+- [`scripts/uberagent-lite.ps1`](../../scripts/uberagent-lite.ps1) — PowerShell UberAgent Lite with DPAPI-protected UberWorm token and log cache. · **Use:** Lightweight Windows agent for UberWorm.
 
 ## Config, data, artifacts and services (6)
 

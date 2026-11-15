@@ -16,85 +16,85 @@ Host installation, systemd units and operator shell scripts for the self-hosted 
 
 ## Continuity, memory and handoffs
 
-- [`ops/sovereign/uberbond-authorctl`](../../ops/sovereign/uberbond-authorctl) _(matched by name only)_
-- [`ops/sovereign/uberbond-authoring-after-promotion.path`](../../ops/sovereign/uberbond-authoring-after-promotion.path) _(matched by name only)_
-- [`ops/sovereign/uberbond-authoring-continuum`](../../ops/sovereign/uberbond-authoring-continuum) _(matched by name only)_
-- [`ops/sovereign/uberbond-authoring-continuum.service`](../../ops/sovereign/uberbond-authoring-continuum.service) _(matched by name only)_
-- [`ops/sovereign/uberbond-authoring.service`](../../ops/sovereign/uberbond-authoring.service) _(matched by name only)_
-- [`ops/sovereign/uberbond-autonomy-verify.path`](../../ops/sovereign/uberbond-autonomy-verify.path) _(matched by name only)_
-- [`ops/sovereign/uberbond-autonomy-verify.service`](../../ops/sovereign/uberbond-autonomy-verify.service) _(matched by name only)_
-- [`ops/sovereign/uberbond-context-journal-migrate`](../../ops/sovereign/uberbond-context-journal-migrate) _(matched by name only)_
-- [`ops/sovereign/uberbond-context-query`](../../ops/sovereign/uberbond-context-query) _(matched by name only)_
-- [`ops/sovereign/uberbond-founder-console`](../../ops/sovereign/uberbond-founder-console) _(matched by name only)_
-- [`ops/sovereign/uberbond-founder-console.service`](../../ops/sovereign/uberbond-founder-console.service) _(matched by name only)_
-- [`ops/sovereign/uberbond-founder-intent-wake.path`](../../ops/sovereign/uberbond-founder-intent-wake.path) _(matched by name only)_
-- [`ops/sovereign/uberbond-founder-outcome-mission.path`](../../ops/sovereign/uberbond-founder-outcome-mission.path) _(matched by name only)_
-- [`ops/sovereign/uberbond-founder-outcome-mission.service`](../../ops/sovereign/uberbond-founder-outcome-mission.service) _(matched by name only)_
-- [`ops/sovereign/uberbond-founder-outcome-mission.timer`](../../ops/sovereign/uberbond-founder-outcome-mission.timer) _(matched by name only)_
-- [`ops/sovereign/uberbond-founder-private-gateway`](../../ops/sovereign/uberbond-founder-private-gateway) _(matched by name only)_
-- [`ops/sovereign/uberbond-founder-private-gateway.service`](../../ops/sovereign/uberbond-founder-private-gateway.service) _(matched by name only)_
-- [`ops/sovereign/uberbond-local-model-proxy`](../../ops/sovereign/uberbond-local-model-proxy) _(matched by name only)_
-- [`ops/sovereign/uberbond-local-model-proxy.service`](../../ops/sovereign/uberbond-local-model-proxy.service) _(matched by name only)_
-- [`ops/sovereign/uberbond-local-promote.path`](../../ops/sovereign/uberbond-local-promote.path) _(matched by name only)_
-- [`ops/sovereign/uberbond-local-promote.service`](../../ops/sovereign/uberbond-local-promote.service) _(matched by name only)_
-- [`ops/sovereign/uberbond-local-promoter`](../../ops/sovereign/uberbond-local-promoter) _(matched by name only)_
-- [`ops/sovereign/uberbond-local-worker.path`](../../ops/sovereign/uberbond-local-worker.path) _(matched by name only)_
-- [`ops/sovereign/uberbond-local-worker.service`](../../ops/sovereign/uberbond-local-worker.service) _(matched by name only)_
-- [`ops/sovereign/uberbond-money-capability-harvest.service`](../../ops/sovereign/uberbond-money-capability-harvest.service) _(matched by name only)_
-- [`ops/sovereign/uberbond-native-local-worker`](../../ops/sovereign/uberbond-native-local-worker) _(matched by name only)_
-- [`ops/sovereign/uberbond-neural-exocortex-harvest.service`](../../ops/sovereign/uberbond-neural-exocortex-harvest.service) _(matched by name only)_
-- [`ops/sovereign/uberbond-neural-exocortex-harvest.timer`](../../ops/sovereign/uberbond-neural-exocortex-harvest.timer) _(matched by name only)_
-- [`ops/sovereign/uberbond-offline-llama-runtime.service`](../../ops/sovereign/uberbond-offline-llama-runtime.service) _(matched by name only)_
-- [`ops/sovereign/uberbond-offline-signer.path`](../../ops/sovereign/uberbond-offline-signer.path) _(matched by name only)_
-- [`ops/sovereign/uberbond-offline-signer.service`](../../ops/sovereign/uberbond-offline-signer.service) _(matched by name only)_
-- [`ops/sovereign/uberbond-reconcile.service`](../../ops/sovereign/uberbond-reconcile.service) _(matched by name only)_
-- [`ops/sovereign/uberbond-reconcile.timer`](../../ops/sovereign/uberbond-reconcile.timer) _(matched by name only)_
-- [`ops/sovereign/uberbond-release-apply.path`](../../ops/sovereign/uberbond-release-apply.path) _(matched by name only)_
-- [`ops/sovereign/uberbond-release-apply.service`](../../ops/sovereign/uberbond-release-apply.service) _(matched by name only)_
-- [`ops/sovereign/uberbond-release-courier.path`](../../ops/sovereign/uberbond-release-courier.path) _(matched by name only)_
-- [`ops/sovereign/uberbond-release-courier.service`](../../ops/sovereign/uberbond-release-courier.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-authorctl`](../../ops/sovereign/uberbond-authorctl) — Bash control script for the authoring node reading authoring.env with refusals; implements commands such as wake. · **Use:** CLI entry for the resident authoring node.
+- [`ops/sovereign/uberbond-authoring-after-promotion.path`](../../ops/sovereign/uberbond-authoring-after-promotion.path) — systemd path unit that restarts authoring when the promotion receipt changes. · **Use:** Triggers authoring after governed promotion.
+- [`ops/sovereign/uberbond-authoring-continuum`](../../ops/sovereign/uberbond-authoring-continuum) — Bash launcher for the resident authoring continuum, sourcing authoring.env and running the loop. · **Use:** Executable for the authoring continuum service.
+- [`ops/sovereign/uberbond-authoring-continuum.service`](../../ops/sovereign/uberbond-authoring-continuum.service) — systemd service running the resident authoring continuum as a sandboxed user with 60 second interval and no network. · **Use:** Runs the always-on authoring loop with hardening.
+- [`ops/sovereign/uberbond-authoring.service`](../../ops/sovereign/uberbond-authoring.service) — systemd oneshot service running the authoring wake command in a sandbox. · **Use:** Single authoring pulse unit.
+- [`ops/sovereign/uberbond-autonomy-verify.path`](../../ops/sovereign/uberbond-autonomy-verify.path) — systemd path unit triggering the verifier when the worker's result.json changes. · **Use:** Starts independent verification of worker output.
+- [`ops/sovereign/uberbond-autonomy-verify.service`](../../ops/sovereign/uberbond-autonomy-verify.service) — systemd oneshot service for the independent candidate verifier reading worker outbox and writing governance inbox verified.json. · **Use:** Separation of duties: verifies worker candidates before promotion.
+- [`ops/sovereign/uberbond-context-journal-migrate`](../../ops/sovereign/uberbond-context-journal-migrate) — Bash wrapper migrating the context journal using authoring.env config. · **Use:** Runs the context journal migration on the host.
+- [`ops/sovereign/uberbond-context-query`](../../ops/sovereign/uberbond-context-query) — Bash wrapper querying the context journal with authoring config. · **Use:** Host command to query lifetime context.
+- [`ops/sovereign/uberbond-founder-console`](../../ops/sovereign/uberbond-founder-console) — Bash launcher for the sovereign founder console process, sourcing authoring and console env. · **Use:** Executable behind the founder console service.
+- [`ops/sovereign/uberbond-founder-console.service`](../../ops/sovereign/uberbond-founder-console.service) — systemd service for the sovereign founder console with sandbox, read-only source and authoring dependency. · **Use:** Runs the founder console on the host.
+- [`ops/sovereign/uberbond-founder-intent-wake.path`](../../ops/sovereign/uberbond-founder-intent-wake.path) — systemd path unit waking authoring when a founder intent file appears. · **Use:** Turns founder intents into authoring wakeups.
+- [`ops/sovereign/uberbond-founder-outcome-mission.path`](../../ops/sovereign/uberbond-founder-outcome-mission.path) — systemd path unit waking the outcome mission compiler on new founder intents. · **Use:** Triggers outcome mission compile on intent arrival.
+- [`ops/sovereign/uberbond-founder-outcome-mission.service`](../../ops/sovereign/uberbond-founder-outcome-mission.service) — systemd oneshot running compile-founder-outcome-mission and founder-economic-mission-pulse scripts. · **Use:** Compiles founder outcome missions and pulses the economic loop.
+- [`ops/sovereign/uberbond-founder-outcome-mission.timer`](../../ops/sovereign/uberbond-founder-outcome-mission.timer) — systemd timer pulsing the founder outcome mission every 60 seconds. · **Use:** Schedule for the economic mission pulse.
+- [`ops/sovereign/uberbond-founder-private-gateway`](../../ops/sovereign/uberbond-founder-private-gateway) — Bash launcher running the sovereign founder private gateway node script. · **Use:** Executable for the private gateway service.
+- [`ops/sovereign/uberbond-founder-private-gateway.service`](../../ops/sovereign/uberbond-founder-private-gateway.service) — systemd service for the private-network founder gateway after founder console. · **Use:** Runs the private founder gateway.
+- [`ops/sovereign/uberbond-local-model-proxy`](../../ops/sovereign/uberbond-local-model-proxy) — Bash launcher for the host-loopback local model bridge reading model.env. · **Use:** Executable for the local model proxy.
+- [`ops/sovereign/uberbond-local-model-proxy.service`](../../ops/sovereign/uberbond-local-model-proxy.service) — systemd service for the host-loopback local model bridge exposing a unix socket. · **Use:** Lets isolated workers reach the local model without network.
+- [`ops/sovereign/uberbond-local-promote.path`](../../ops/sovereign/uberbond-local-promote.path) — systemd path unit starting promotion when verified.json appears in the governance inbox. · **Use:** Triggers the local promotion governor.
+- [`ops/sovereign/uberbond-local-promote.service`](../../ops/sovereign/uberbond-local-promote.service) — systemd oneshot running the local promotion governor as a no-network promoter identity. · **Use:** Applies verified changes under separated duties.
+- [`ops/sovereign/uberbond-local-promoter`](../../ops/sovereign/uberbond-local-promoter) — Bash launcher for the local promoter reading promotion.env. · **Use:** Executable for the promotion governor.
+- [`ops/sovereign/uberbond-local-worker.path`](../../ops/sovereign/uberbond-local-worker.path) — systemd path unit watching the worker inbox task.json for new tasks. · **Use:** Triggers the isolated local worker.
+- [`ops/sovereign/uberbond-local-worker.service`](../../ops/sovereign/uberbond-local-worker.service) — systemd oneshot running the sovereign local worker runner in a no-network sandbox with model group access. · **Use:** Runs isolated model-backed worker tasks.
+- [`ops/sovereign/uberbond-money-capability-harvest.service`](../../ops/sovereign/uberbond-money-capability-harvest.service) — systemd oneshot running the money capability world harvest script against GitHub with call and window limits. · **Use:** Read-only periodic harvest of money-related capabilities.
+- [`ops/sovereign/uberbond-native-local-worker`](../../ops/sovereign/uberbond-native-local-worker) — Bash launcher for the native local worker resolving a real node executable. · **Use:** Executable wrapper for the native worker.
+- [`ops/sovereign/uberbond-neural-exocortex-harvest.service`](../../ops/sovereign/uberbond-neural-exocortex-harvest.service) — systemd oneshot running neural repository harvest then compaction, with call limits. · **Use:** Runs the Neural Exocortex harvest.
+- [`ops/sovereign/uberbond-neural-exocortex-harvest.timer`](../../ops/sovereign/uberbond-neural-exocortex-harvest.timer) — systemd timer running the neural exocortex harvest every six hours. · **Use:** Schedules the repository harvest.
+- [`ops/sovereign/uberbond-offline-llama-runtime.service`](../../ops/sovereign/uberbond-offline-llama-runtime.service) — systemd service running llama-server on loopback with a pinned GGUF model. · **Use:** Local model runtime service.
+- [`ops/sovereign/uberbond-offline-signer.path`](../../ops/sovereign/uberbond-offline-signer.path) — systemd path unit watching for sovereign release request files. · **Use:** Triggers the offline signer.
+- [`ops/sovereign/uberbond-offline-signer.service`](../../ops/sovereign/uberbond-offline-signer.service) — systemd oneshot offline release signer with docker access and a signing key path. · **Use:** Signs releases on the offline machine.
+- [`ops/sovereign/uberbond-reconcile.service`](../../ops/sovereign/uberbond-reconcile.service) — systemd oneshot running uberbondctl reconcile as root. · **Use:** Minute reconciler of the runtime plane.
+- [`ops/sovereign/uberbond-reconcile.timer`](../../ops/sovereign/uberbond-reconcile.timer) — systemd timer running reconciliation every minute. · **Use:** Schedule for the reconcile unit.
+- [`ops/sovereign/uberbond-release-apply.path`](../../ops/sovereign/uberbond-release-apply.path) — systemd path unit watching the inbox for NEXT_RELEASE. · **Use:** Triggers applying a transferred release.
+- [`ops/sovereign/uberbond-release-apply.service`](../../ops/sovereign/uberbond-release-apply.service) — systemd oneshot applying one signed release from the inbox via uberbondctl apply-inbox. · **Use:** Applies signed releases locally.
+- [`ops/sovereign/uberbond-release-courier.path`](../../ops/sovereign/uberbond-release-courier.path) — systemd path unit watching the signer outbox mount for NEXT_RELEASE. · **Use:** Triggers the courier.
+- [`ops/sovereign/uberbond-release-courier.service`](../../ops/sovereign/uberbond-release-courier.service) — systemd oneshot running the signed release courier with no network family beyond unix sockets. · **Use:** Copies signed releases to runtime inbox.
 
 ## Frontier cognition and model routing
 
-- [`ops/sovereign/complete-live-jev-activation.sh`](../../ops/sovereign/complete-live-jev-activation.sh) _(matched by name only)_
+- [`ops/sovereign/complete-live-jev-activation.sh`](../../ops/sovereign/complete-live-jev-activation.sh) — Bash script completing live Jev activation on the UberLit host, requiring authorize-max-usd 0.001 and writing host admission artifacts. · **Use:** Final step that produces the live Jev shadow receipt under a spend cap.
 
 ## Sovereign infrastructure and runtime
 
-- [`ops/sovereign/README.md`](../../ops/sovereign/README.md) — UberBond Sovereign Host _(matched by name only)_
-- [`ops/sovereign/activate-air-node.sh`](../../ops/sovereign/activate-air-node.sh) _(matched by name only)_
-- [`ops/sovereign/activate-communication-center.sh`](../../ops/sovereign/activate-communication-center.sh) _(matched by name only)_
-- [`ops/sovereign/activate-owned-air-node.sh`](../../ops/sovereign/activate-owned-air-node.sh) _(matched by name only)_
-- [`ops/sovereign/bootstrap-economic-founder-node.sh`](../../ops/sovereign/bootstrap-economic-founder-node.sh) _(matched by name only)_
-- [`ops/sovereign/bootstrap-founder-node.sh`](../../ops/sovereign/bootstrap-founder-node.sh) _(matched by name only)_
-- [`ops/sovereign/bootstrap-oracle-always-free-air-node.sh`](../../ops/sovereign/bootstrap-oracle-always-free-air-node.sh) _(matched by name only)_
-- [`ops/sovereign/bootstrap-uberdoso-mail-cell.sh`](../../ops/sovereign/bootstrap-uberdoso-mail-cell.sh) _(matched by name only)_
-- [`ops/sovereign/configure-founder-console-private.sh`](../../ops/sovereign/configure-founder-console-private.sh) _(matched by name only)_
-- [`ops/sovereign/configure-founder-console-tailnet.sh`](../../ops/sovereign/configure-founder-console-tailnet.sh) _(matched by name only)_
-- [`ops/sovereign/configure-founder-console-ubermesh.sh`](../../ops/sovereign/configure-founder-console-ubermesh.sh) _(matched by name only)_
-- [`ops/sovereign/configure-founder-private-gateway.sh`](../../ops/sovereign/configure-founder-private-gateway.sh) _(matched by name only)_
-- [`ops/sovereign/configure-local-model.sh`](../../ops/sovereign/configure-local-model.sh) _(matched by name only)_
-- [`ops/sovereign/export-sovereign-kit.sh`](../../ops/sovereign/export-sovereign-kit.sh) _(matched by name only)_
-- [`ops/sovereign/import-sovereign-evidence.sh`](../../ops/sovereign/import-sovereign-evidence.sh) _(matched by name only)_
-- [`ops/sovereign/import-sovereign-kit.sh`](../../ops/sovereign/import-sovereign-kit.sh) _(matched by name only)_
-- [`ops/sovereign/init-air-cockpit.sh`](../../ops/sovereign/init-air-cockpit.sh) _(matched by name only)_
-- [`ops/sovereign/init-release-authority.sh`](../../ops/sovereign/init-release-authority.sh) _(matched by name only)_
-- [`ops/sovereign/install-authoring-node.sh`](../../ops/sovereign/install-authoring-node.sh) _(matched by name only)_
-- [`ops/sovereign/install-founder-outcome-mission.sh`](../../ops/sovereign/install-founder-outcome-mission.sh) _(matched by name only)_
-- [`ops/sovereign/install-host.sh`](../../ops/sovereign/install-host.sh) _(matched by name only)_
-- [`ops/sovereign/install-neural-exocortex-harvester.sh`](../../ops/sovereign/install-neural-exocortex-harvester.sh) _(matched by name only)_
-- [`ops/sovereign/install-offline-llama-runtime.sh`](../../ops/sovereign/install-offline-llama-runtime.sh) _(matched by name only)_
-- [`ops/sovereign/install-offline-signer-node.sh`](../../ops/sovereign/install-offline-signer-node.sh) _(matched by name only)_
-- [`ops/sovereign/install-release-courier.sh`](../../ops/sovereign/install-release-courier.sh) _(matched by name only)_
-- [`ops/sovereign/install-uberlit.sh`](../../ops/sovereign/install-uberlit.sh) _(matched by name only)_
-- [`ops/sovereign/pack-release-request.mjs`](../../ops/sovereign/pack-release-request.mjs) _(matched by name only)_
-- [`ops/sovereign/rollback-uberlit.sh`](../../ops/sovereign/rollback-uberlit.sh) _(matched by name only)_
-- [`ops/sovereign/sovereign-offline-signer-worker.mjs`](../../ops/sovereign/sovereign-offline-signer-worker.mjs) — exports runOfflineSignerPipeline _(matched by name only)_
-- [`ops/sovereign/sovereign-release-courier.mjs`](../../ops/sovereign/sovereign-release-courier.mjs) — exports runSovereignReleaseCourier _(matched by name only)_
-- [`ops/sovereign/sovereign-runtime-rehearsal-receipt.mjs`](../../ops/sovereign/sovereign-runtime-rehearsal-receipt.mjs) — exports SOVEREIGN_RUNTIME_REHEARSAL_RECEIPT_VERSION, SOVEREIGN_RUNTIME_REHEARSAL_COMMANDS, sovereignRuntimeRehearsalPreimage, verifySovereignRuntimeR… _(matched by name only)_
-- [`ops/sovereign/sovereign-runtime-rehearsal.sh`](../../ops/sovereign/sovereign-runtime-rehearsal.sh) _(matched by name only)_
-- [`ops/sovereign/store-typesafe-key-interactive.sh`](../../ops/sovereign/store-typesafe-key-interactive.sh) _(matched by name only)_
-- [`ops/sovereign/uberbondctl`](../../ops/sovereign/uberbondctl) _(matched by name only)_
-- [`ops/sovereign/uberlit-tls-edge.service`](../../ops/sovereign/uberlit-tls-edge.service) _(matched by name only)_
-- [`ops/sovereign/uberlit-worker.service`](../../ops/sovereign/uberlit-worker.service) _(matched by name only)_
-- [`ops/sovereign/uberlit.service`](../../ops/sovereign/uberlit.service) _(matched by name only)_
-- [`ops/sovereign/verify-uberdoso-mail-cell.sh`](../../ops/sovereign/verify-uberdoso-mail-cell.sh) _(matched by name only)_
+- [`ops/sovereign/README.md`](../../ops/sovereign/README.md) — README of the sovereign host: Docker Compose runtime, systemd reconcile timer, offline signing key, signed release directories and promotion with backup and rollback. · **Use:** Explains how to run UberBond without Vercel, GitHub or registries.
+- [`ops/sovereign/activate-air-node.sh`](../../ops/sovereign/activate-air-node.sh) — Root bash script activating an air node: checks llama-server, GGUF model, tailscale, runs economic founder bootstrap and tailnet console config. · **Use:** One-shot setup of a founder node with local model over Tailscale.
+- [`ops/sovereign/activate-communication-center.sh`](../../ops/sovereign/activate-communication-center.sh) — Root bash script activating the communication center with llama-server and model, binding loopback or private RFC1918 address via founder-node bootstrap. · **Use:** Setup script for the local founder communication console.
+- [`ops/sovereign/activate-owned-air-node.sh`](../../ops/sovereign/activate-owned-air-node.sh) — Root bash script activating an owned air node over WireGuard using llama-server, model and a public endpoint host and UDP port. · **Use:** Setup of founder node reachable through owned WireGuard mesh.
+- [`ops/sovereign/bootstrap-economic-founder-node.sh`](../../ops/sovereign/bootstrap-economic-founder-node.sh) — Bash wrapper running the founder-node bootstrap then the founder outcome mission installer, then checking the systemd path state. · **Use:** Combined install of the founder node plus economic mission pulse.
+- [`ops/sovereign/bootstrap-founder-node.sh`](../../ops/sovereign/bootstrap-founder-node.sh) — Bash bootstrap of a founder node from a clean Git checkout: installs llama-server and model, refuses symlinks and indirection, optional private host. · **Use:** Foundation installer for the sovereign founder node.
+- [`ops/sovereign/bootstrap-oracle-always-free-air-node.sh`](../../ops/sovereign/bootstrap-oracle-always-free-air-node.sh) — Bash bootstrap for a fresh Oracle Always Free Ubuntu ARM64 VM that installs the UberBond air node from a Git ref, refusing non-ARM hosts. · **Use:** Free-tier host provisioning step for the Oracle/UberLit/Jev activation.
+- [`ops/sovereign/bootstrap-uberdoso-mail-cell.sh`](../../ops/sovereign/bootstrap-uberdoso-mail-cell.sh) — Bash bootstrap for a UberDoso mail cell from a clean checkout, installing Postal-based mail stack with source lock and optional package skip. · **Use:** Provision script for the owned mail cell.
+- [`ops/sovereign/configure-founder-console-private.sh`](../../ops/sovereign/configure-founder-console-private.sh) — Bash script rewriting founder console config to bind a private RFC1918 IPv4 address. · **Use:** Restricts the founder console to a private LAN address.
+- [`ops/sovereign/configure-founder-console-tailnet.sh`](../../ops/sovereign/configure-founder-console-tailnet.sh) — Bash script binding the founder console to a Tailscale IPv4 address after checking the authoring node is installed. · **Use:** Exposes founder console on the owner tailnet only.
+- [`ops/sovereign/configure-founder-console-ubermesh.sh`](../../ops/sovereign/configure-founder-console-ubermesh.sh) — Bash script configuring the founder console on a WireGuard mesh endpoint host and UDP port 1024-65535. · **Use:** Exposes the founder console through owned WireGuard.
+- [`ops/sovereign/configure-founder-private-gateway.sh`](../../ops/sovereign/configure-founder-private-gateway.sh) — Bash script configuring the founder private gateway on a private IP and port 8788, requiring the authoring node and gateway source. · **Use:** Sets up the private founder gateway service.
+- [`ops/sovereign/configure-local-model.sh`](../../ops/sovereign/configure-local-model.sh) — Bash script configuring a local model runtime (vLLM, SGLang, llama.cpp, Ollama, MLX) to a loopback endpoint for the sovereign worker. · **Use:** Binds a local model to the sovereign worker with chat completions.
+- [`ops/sovereign/export-sovereign-kit.sh`](../../ops/sovereign/export-sovereign-kit.sh) — Bash script exporting a signed sovereign kit from a clean checkout: git head, preseeded node_modules, docker images, sha256 sums and signature. · **Use:** Builds the offline release kit for transfer.
+- [`ops/sovereign/import-sovereign-evidence.sh`](../../ops/sovereign/import-sovereign-evidence.sh) — Bash script importing signer, courier or runtime evidence receipts into the authoring node, root-required with ownership checks. · **Use:** Ingests sovereign evidence receipts into the authoring node.
+- [`ops/sovereign/import-sovereign-kit.sh`](../../ops/sovereign/import-sovereign-kit.sh) — Bash script importing a sovereign kit into a new target directory, verifying public key, checksums and git/npm/docker prerequisites. · **Use:** Receiving side of the offline kit transfer.
+- [`ops/sovereign/init-air-cockpit.sh`](../../ops/sovereign/init-air-cockpit.sh) — Bash script initialising an air cockpit WireGuard server at 10.73.0.1/24 with an owner endpoint. · **Use:** Sets up the private cockpit VPN endpoint.
+- [`ops/sovereign/init-release-authority.sh`](../../ops/sovereign/init-release-authority.sh) — Bash script generating a 3072-bit RSA release authority key pair, refusing to overwrite existing keys. · **Use:** Creates the offline release signing key.
+- [`ops/sovereign/install-authoring-node.sh`](../../ops/sovereign/install-authoring-node.sh) — Large bash installer for the sovereign authoring node: users, groups, systemd isolation, trusted git, refusing a signing key on the runtime node. · **Use:** Installs the resident authoring node that proposes governed changes.
+- [`ops/sovereign/install-founder-outcome-mission.sh`](../../ops/sovereign/install-founder-outcome-mission.sh) — Bash installer for the founder outcome mission compiler and economic pulse systemd units, requiring the authoring identity. · **Use:** Installs the founder economic mission service and timer.
+- [`ops/sovereign/install-host.sh`](../../ops/sovereign/install-host.sh) — Bash host installer: docker compose v2, control directory, config and state dirs, optional public key for signed release verification. · **Use:** Base host install for the sovereign runtime plane.
+- [`ops/sovereign/install-neural-exocortex-harvester.sh`](../../ops/sovereign/install-neural-exocortex-harvester.sh) — Bash installer for the Neural Exocortex GitHub harvester service and timer writing to a capability corpus directory. · **Use:** Schedules read-only repository harvesting on the sovereign host.
+- [`ops/sovereign/install-offline-llama-runtime.sh`](../../ops/sovereign/install-offline-llama-runtime.sh) — Bash installer for an offline llama.cpp runtime: hashes binary and model, creates user, writes a systemd service on loopback. · **Use:** Installs a local model runtime with pinned bytes.
+- [`ops/sovereign/install-offline-signer-node.sh`](../../ops/sovereign/install-offline-signer-node.sh) — Bash installer for the offline signer node from exact source and a release private key, with docker and dedicated user. · **Use:** Sets up the machine that signs releases offline.
+- [`ops/sovereign/install-release-courier.sh`](../../ops/sovereign/install-release-courier.sh) — Bash installer for the release courier that moves signed releases from a signer outbox mount into the runtime inbox. · **Use:** Sets up transfer of signed releases between nodes.
+- [`ops/sovereign/install-uberlit.sh`](../../ops/sovereign/install-uberlit.sh) — Bash installer for UberLit from a clean git checkout, optionally starting the services. · **Use:** Installs the UberLit sovereign runtime.
+- [`ops/sovereign/pack-release-request.mjs`](../../ops/sovereign/pack-release-request.mjs) — Node CLI reading a release request and admitting an offline release pack via sovereign-release-handoff. · **Use:** Packs a release request for the offline signer.
+- [`ops/sovereign/rollback-uberlit.sh`](../../ops/sovereign/rollback-uberlit.sh) — Bash script rolling UberLit source back from a failed current directory to the previous one by swapping source directories. · **Use:** Rollback of an UberLit upgrade.
+- [`ops/sovereign/sovereign-offline-signer-worker.mjs`](../../ops/sovereign/sovereign-offline-signer-worker.mjs) — Module exporting the offline signer pipeline that signs release requests using sovereign-release-handoff. · **Use:** Worker logic running inside the offline signer service.
+- [`ops/sovereign/sovereign-release-courier.mjs`](../../ops/sovereign/sovereign-release-courier.mjs) — Module exporting the sovereign release courier runner that carries signed release directories between mounts. · **Use:** Courier logic for signed release transfer.
+- [`ops/sovereign/sovereign-runtime-rehearsal-receipt.mjs`](../../ops/sovereign/sovereign-runtime-rehearsal-receipt.mjs) — Module defining, verifying and compiling a sovereign runtime rehearsal receipt with command list and preimage. · **Use:** Receipt format for proving a runtime rehearsal happened.
+- [`ops/sovereign/sovereign-runtime-rehearsal.sh`](../../ops/sovereign/sovereign-runtime-rehearsal.sh) — Bash rehearsal script exercising a failing release against the control tool, state file and inbox, then writing a rehearsal receipt. · **Use:** Rehearses rollback and recovery on the sovereign host.
+- [`ops/sovereign/store-typesafe-key-interactive.sh`](../../ops/sovereign/store-typesafe-key-interactive.sh) — Bash script prompting for the TypeSafe API key on a hidden TTY and storing it via the canonical UberLit secret script. · **Use:** Safe secret entry for the Jev activation; no key in chat.
+- [`ops/sovereign/uberbondctl`](../../ops/sovereign/uberbondctl) — Main 20 KB bash control tool of the sovereign host: reconcile, apply-inbox, rollback and compose handling with state and config paths. · **Use:** Core operator tool of the sovereign runtime plane.
+- [`ops/sovereign/uberlit-tls-edge.service`](../../ops/sovereign/uberlit-tls-edge.service) — systemd service for the UberLit HTTPS edge on loopback 32443 proxying to web port 32123. · **Use:** TLS ingress for UberLit.
+- [`ops/sovereign/uberlit-worker.service`](../../ops/sovereign/uberlit-worker.service) — systemd notify service for the UberLit worker with outbound and discovery disabled. · **Use:** Runs the UberLit worker safely off.
+- [`ops/sovereign/uberlit.service`](../../ops/sovereign/uberlit.service) — systemd service for the UberLit supervisor runtime with outbound and discovery disabled, ports 32123 and 35432. · **Use:** Runs the UberLit sovereign runtime.
+- [`ops/sovereign/verify-uberdoso-mail-cell.sh`](../../ops/sovereign/verify-uberdoso-mail-cell.sh) — Bash verifier for the UberDoso mail cell checking source lock, Postal receipt, docker, DNS and ports. · **Use:** Post-install check for the mail cell.

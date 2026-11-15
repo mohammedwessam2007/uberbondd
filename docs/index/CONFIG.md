@@ -36,8 +36,8 @@ Checked-in configuration and registries read by src and scripts.
 - [`ubermind-omega49-asymmetric-strategy-index.json`](../../config/ubermind-omega49-asymmetric-strategy-index.json) — Omega49 index of asymmetric strategy thinkers (Luttwak, Boyd, Liddell Hart) and corporate defense topics; research only. · **Use:** source pointers for asymmetric strategy lens
 - [`ubermind-omega50-research-index.json`](../../config/ubermind-omega50-research-index.json) — Omega50 research index of Beer, Taleb, Land and friction domains like statutory time-arbitrage. · **Use:** source pointers for system-friction lens
 - [`ubermind-omega51-technical-dna.json`](../../config/ubermind-omega51-technical-dna.json) — Omega51 technical DNA dimensions and mandatory resilience/security items with corrections; not deployed security. · **Use:** source for adversarial resilience lens
-- [`ubermind-omega52-frontier-atoms.json`](../../config/ubermind-omega52-frontier-atoms.json) — ubermind.omega52.frontier-atoms.v1 _(matched by name only)_
-- [`ubermind-v6-52-operation-registry.json`](../../config/ubermind-v6-52-operation-registry.json) — Niccolò Machiavelli (The Prince, The Discourses on Livy) · ubermind.v5.full-spectrum.52-card-activation-manifest _(matched by name only)_
+- [`ubermind-omega52-frontier-atoms.json`](../../config/ubermind-omega52-frontier-atoms.json) — Registry of Omega52 frontier concept atoms grouped by theme with authorities and hard truths, drawn from a sourcebook. · **Use:** Machine-readable lookup of Omega52 invention and quant research atoms.
+- [`ubermind-v6-52-operation-registry.json`](../../config/ubermind-v6-52-operation-registry.json) — The 52-card executable register of founder concepts, each card naming a thinker and works (Machiavelli, Greene, Sun Tzu, von Neumann, Hart) with operations. · **Use:** Source for the V6 full-spectrum 52-card screening and receipts.
 
 ## Continuity, memory and handoffs
 
@@ -109,7 +109,7 @@ Checked-in configuration and registries read by src and scripts.
 ## Email infrastructure and warmup
 
 - [`uberdoso-source-lock.json`](../../config/uberdoso-source-lock.json) — Source lock for UberDoso dependencies: Postal, install helper, MariaDB versions and policy. · **Use:** pin owned mail stack sources
-- [`winnr-bootstrap-sealed.json`](../../config/winnr-bootstrap-sealed.json) _(matched by name only)_
+- [`winnr-bootstrap-sealed.json`](../../config/winnr-bootstrap-sealed.json) — Encrypted sealed bootstrap payload (wrapped key, IV, tag, ciphertext, digest) for Winnr provisioning; contents are not readable from the file. · **Use:** Carry Winnr bootstrap secrets in repo without plaintext.
 
 ## Commerce, payments and economics
 

@@ -6,16 +6,17 @@ Always-on world sensing for discontinuities: Gamechanger mesh, zero-day frontier
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**71 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
+**72 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
-## Read first (4)
+## Read first (5)
 
 - [`docs/PERPETUAL_FRONTIER_GENESIS_CANON.md`](../PERPETUAL_FRONTIER_GENESIS_CANON.md) — Canon of permanent frontier law: earliest capability signals, opportunity resurrection, N+1 challengers, GENESIS/GENESIS2/Ontogenesis and 275-idea registry. · **Use:** governs frontier sensing and invention goals
-- [`docs/GAMECHANGER_MESH_24X7.md`](../GAMECHANGER_MESH_24X7.md) — UberBond Gamechanger Mesh 24/7 — Status: PUBLIC_READ_RESEARCH_ONLY _(matched by name only)_
+- [`docs/GAMECHANGER_MESH_24X7.md`](../GAMECHANGER_MESH_24X7.md) — Describes the Gamechanger Mesh pipeline from public signals to frontier signals across sixteen domains with coverage audit and blind spots. · **Use:** Reference for the always-on sensing pipeline.
 - [`docs/PHOENIX_CAPABILITIES_WAVE7_EXPLAINED.md`](../PHOENIX_CAPABILITIES_WAVE7_EXPLAINED.md) — Catalog of 120 Wave 7 discovery-engine designs for scientific frontier radar and bibliographic reconciliation. · **Use:** source-linked list of proposed wave 7 capabilities
 - [`docs/UBERBOND_TOTAL_BRAIN_FRONTIER_ADDENDUM.md`](../UBERBOND_TOTAL_BRAIN_FRONTIER_ADDENDUM.md) — Overlay pointing to Perpetual Frontier canon, GENESIS module, tick script, hourly workflow, doctor and tests. · **Use:** preserve frontier/GENESIS in Total Brain
+- [`docs/memory/UBERBOND_AUTONOMOUS_FRONTIER_INTELLIGENCE_LOOP_2026-09-03.md`](../memory/UBERBOND_AUTONOMOUS_FRONTIER_INTELLIGENCE_LOOP_2026-09-03.md) — 2026-09-03 · Doctrine for the Autonomous Frontier Intelligence Loop: automating the founder's role as frontier sensor via notice, atomize, invent, critique, test, absorb loop. · **Use:** Rationale behind autonomous frontier capability expansion.
 
 ## Commands (2)
 
@@ -27,9 +28,9 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 - [`docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md`](../PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md) — Personal Civilization Engine North Star: life knowledge graph, ten life systems, conceptual donors and human sovereignty laws. · **Use:** contained life-system canon beneath terminal North Star _(4 mentions)_
 - [`docs/SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md`](../SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md) — Terminal North Star document defining UberBond as private Sovereign Cognitive Continuum around Mohamed's will, with 40 organs. · **Use:** terminal objective canon _(4 mentions)_
 - [`.claude/skills/uberbond-capability-assimilator/SKILL.md`](../../.claude/skills/uberbond-capability-assimilator/SKILL.md) — Skill with a decision sequence for choosing the smallest approved external skill/plugin/MCP/runtime after dedupe, without widening authority. · **Use:** govern adoption of external capabilities in a task _(3 mentions)_
-- [`docs/memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md`](../memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md) — 2026-09-05 · UberBond Whole-Brain Singularity Checkpoint — 2026-09-05 — Status: DRAFT_BRANCH / IMPLEMENTATION IN PROGRESS _(matched by name only)_ _(3 mentions)_
-- [`docs/prompts/CLAUDE_CODE_SOVEREIGN_CONTINUUM_LIVE_MISSION_2026-09-07.md`](../prompts/CLAUDE_CODE_SOVEREIGN_CONTINUUM_LIVE_MISSION_2026-09-07.md) — 2026-09-07 · CLAUDE CODE MASTER MISSION — SOVEREIGN CONTINUUM LIVE _(matched by name only)_ _(3 mentions)_
-- [`docs/prompts/CLAUDE_CODE_UBERBOND_OMEGA_SINGULARITY_MISSION_2026-09-07.md`](../prompts/CLAUDE_CODE_UBERBOND_OMEGA_SINGULARITY_MISSION_2026-09-07.md) — 2026-09-07 · UBERBOND OMEGA SINGULARITY MISSION — Status: EXECUTE_AGGRESSIVELY / NO-DROP / MULTI-LANE / CONTINUE_TO_REAL_BLOCKERS _(matched by name only)_ _(3 mentions)_
+- [`docs/memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md`](../memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md) — 2026-09-05 · Whole-brain singularity checkpoint 2026-09-05: connect every feature into one brain map and pursue intelligence per dollar without quota evasion. · **Use:** Records owner directive and draft-branch state for the brain map. _(3 mentions)_
+- [`docs/prompts/CLAUDE_CODE_SOVEREIGN_CONTINUUM_LIVE_MISSION_2026-09-07.md`](../prompts/CLAUDE_CODE_SOVEREIGN_CONTINUUM_LIVE_MISSION_2026-09-07.md) — 2026-09-07 · Master mission for Claude Code to execute the Sovereign Continuum live: startup reads, role, branches and continue until blocker. · **Use:** Mission prompt for implementing the terminal North Star work. _(3 mentions)_
+- [`docs/prompts/CLAUDE_CODE_UBERBOND_OMEGA_SINGULARITY_MISSION_2026-09-07.md`](../prompts/CLAUDE_CODE_UBERBOND_OMEGA_SINGULARITY_MISSION_2026-09-07.md) — 2026-09-07 · Omega Singularity mission prompt: no-drop compiler over all North Star artifacts, multi-lane aggressive execution, supersedes issue #436. · **Use:** Mission prompt directing implementation across the full concept inventory. _(3 mentions)_
 - [`docs/UBERBOND_TOTAL_BRAIN.md`](../UBERBOND_TOTAL_BRAIN.md) — Superset anti-amputation memory with truth classes, preserving goals, donors, named initiatives and chat-only specs. · **Use:** reconstruct whole organism before narrowing _(3 mentions)_
 - [`UBERBOND_CANON.md`](../../UBERBOND_CANON.md) — Cross-chat canon: terminal North Star, 890 inheritance, no-drop superset, constitutional/life/economic loops, product dream, named-program lineage, effect and sovereignty charters. · **Use:** durable bootstrap before narrowing to any mission _(3 mentions)_
 
@@ -65,7 +66,7 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 - [`scripts/gamechanger-genesis-plan.mjs`](../../scripts/gamechanger-genesis-plan.mjs) — Compiles Gamechanger outputs into GENESIS inputs and writes plan file. · **Use:** feed world signals into GENESIS
 - [`scripts/gamechanger-mesh-tick.mjs`](../../scripts/gamechanger-mesh-tick.mjs) — Gamechanger mesh tick: builds source fetch plan, GDELT search, tournament, frontier signals, idea atomization and thinker swarm. · **Use:** periodic world discontinuity sensing run _(npm: `gamechanger:tick`, `gamechanger:plan`)_
 - [`scripts/public-signal-harvest.mjs`](../../scripts/public-signal-harvest.mjs) — Compiles X listening plan or dedupes/atomizes public posts into Gamechanger observations from stdin. · **Use:** turn public social posts into frontier signals
-- [`scripts/sensorium-plan.mjs`](../../scripts/sensorium-plan.mjs) _(matched by name only)_
+- [`scripts/sensorium-plan.mjs`](../../scripts/sensorium-plan.mjs) — CLI printing an always-on sensorium plan with per-source lane mode, concurrency and next action from the adaptive source ceiling governor. · **Use:** Shows how world-sensing lanes would be scheduled.
 
 ## Config, data, artifacts and services (13)
 
@@ -78,10 +79,10 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 - [`artifacts/world-signal-taxonomy.json`](../../artifacts/world-signal-taxonomy.json) — Taxonomy of world signal classes (buyer pain, willingness to pay, provider price/policy, legal change, competitor change) with monitoring policy. · **Use:** decide which world facts to monitor for commercial decisions
 - [`config/frontier-learning-autopilot.json`](../../config/frontier-learning-autopilot.json) — Frontier learning autopilot policy: upstream sources, wake policy, high-signal families, pipeline, promotion law. · **Use:** govern automatic learning from frontier observations
 - [`config/life-altering-frontier-gap-registry.json`](../../config/life-altering-frontier-gap-registry.json) — Gap registry audited against main listing new primitives needed for life-altering frontier capabilities. · **Use:** track missing life-level frontier primitives
-- [`data/gamechanger-mesh/always-on-sensorium.json`](../../data/gamechanger-mesh/always-on-sensorium.json) — uberbond.always-on-sensorium.v1 _(matched by name only)_
-- [`data/gamechanger-mesh/sources.json`](../../data/gamechanger-mesh/sources.json) — uberbond.gamechanger-sources.v1 _(matched by name only)_
-- [`data/gamechanger-mesh/structured-sources.json`](../../data/gamechanger-mesh/structured-sources.json) — uberbond.gamechanger-structured-sources.v2 _(matched by name only)_
-- [`data/gamechanger-mesh/x-listening-profile.json`](../../data/gamechanger-mesh/x-listening-profile.json) — uberbond.x-listening-profile.v1 _(matched by name only)_
+- [`data/gamechanger-mesh/always-on-sensorium.json`](../../data/gamechanger-mesh/always-on-sensorium.json) — Lane definitions and global laws for continuous use of permitted sources up to provider ceilings, then back off and resume. · **Use:** Configure the always-on Gamechanger sensing lanes.
+- [`data/gamechanger-mesh/sources.json`](../../data/gamechanger-mesh/sources.json) — Seed registry of public sources and search lanes for the Gamechanger mesh with a coverage objective. · **Use:** Source list for continuous world-change sensing.
+- [`data/gamechanger-mesh/structured-sources.json`](../../data/gamechanger-mesh/structured-sources.json) — Registry of structured public data sources for Gamechanger sensing with a coverage objective. · **Use:** Structured feeds for the sensing mesh.
+- [`data/gamechanger-mesh/x-listening-profile.json`](../../data/gamechanger-mesh/x-listening-profile.json) — Listening profile for X posts: priority accounts, topics, GitHub link inclusion and refresh policy; posts are discovery signals only. · **Use:** Configure social-signal discovery for the mesh.
 
 ## Tests (26)
 

@@ -6,7 +6,7 @@ JSON registries, receipts, research corpora and recovered history.
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**696 files.** [Back to the master index](../../REPOSITORY_INDEX.md)
+**705 files.** [Back to the master index](../../REPOSITORY_INDEX.md)
 
 ## Sections
 
@@ -47,7 +47,7 @@ JSON registries, receipts, research corpora and recovered history.
 - [ragnarok](#ragnarok) — 1
 - [receipts](#receipts) — 4
 - [recovery](#recovery) — 161
-- [repository-index](#repository-index) — 26
+- [repository-index](#repository-index) — 35
 - [research](#research) — 105
 - [revenue-singularity](#revenue-singularity) — 4
 - [sovereign](#sovereign) — 5
@@ -264,8 +264,8 @@ JSON registries, receipts, research corpora and recovered history.
 
 ## nullstar
 
-- [`artifacts/nullstar/directive-reconciliation.json`](../../artifacts/nullstar/directive-reconciliation.json) — THE ACTUAL MISSION · FOUNDER_DIRECTIVE_RECONCILED_AGAINST_REPOSITORY_EVIDENCE _(matched by name only)_
-- [`artifacts/nullstar/terminal-declarations.json`](../../artifacts/nullstar/terminal-declarations.json) — uberbond-nullstar-declarations-1.0.0 _(matched by name only)_
+- [`artifacts/nullstar/directive-reconciliation.json`](../../artifacts/nullstar/directive-reconciliation.json) — Row-by-row reconciliation of the founder NULLSTAR directive sections against repository evidence, with a cut set and row digest. · **Use:** Show which directive sections are covered, partial or missing in the repo.
+- [`artifacts/nullstar/terminal-declarations.json`](../../artifacts/nullstar/terminal-declarations.json) — Reviewed name mappings that alias directive sections to modules, with terminal declarations and milestone receipts. · **Use:** Map directive sections to code without granting authority.
 
 ## nullstar-omega
 
@@ -276,36 +276,36 @@ JSON registries, receipts, research corpora and recovered history.
 - [`G2-discriminating-test.json`](../../artifacts/nullstar-omega/G2-discriminating-test.json) — G2 diagnosis and discriminating test concluding external blocked (network policy plus Genome admission) for model selectability. · **Use:** explain G2 bottleneck
 - [`G2-to-G3.json`](../../artifacts/nullstar-omega/G2-to-G3.json) — G2 to G3 comparison noting instrument changed so deltas are not capability change. · **Use:** measure generation change honestly
 - [`G3-prospective-declaration.json`](../../artifacts/nullstar-omega/G3-prospective-declaration.json) — Prospective meta-improvement declaration committed before G4: bottleneck, resolution criterion, prediction, falsifier. · **Use:** pre-register G4 improvement
-- [`G3-to-G4.json`](../../artifacts/nullstar-omega/G3-to-G4.json) — NULLSTAR_OMEGA_GENERATIONS_COMPARED _(matched by name only)_
-- [`G4-discriminating-test.json`](../../artifacts/nullstar-omega/G4-discriminating-test.json) — SOFTWARE_OUTCOME_SCORED · uberbond-nullstar-omega-discriminating-test-1.1.0 _(matched by name only)_
-- [`G4-prospective-declaration.json`](../../artifacts/nullstar-omega/G4-prospective-declaration.json) — uberbond-nullstar-omega-prospective-declaration-1.0.0 _(matched by name only)_
-- [`G4-to-G5.json`](../../artifacts/nullstar-omega/G4-to-G5.json) — NULLSTAR_OMEGA_GENERATIONS_COMPARED _(matched by name only)_
-- [`G5-discriminating-test.json`](../../artifacts/nullstar-omega/G5-discriminating-test.json) — SOME_DIMENSIONS_REFUSED_AS_EVIDENCE_REUSE · uberbond-nullstar-omega-discriminating-test-1.1.0 _(matched by name only)_
-- [`G5-prospective-declaration.json`](../../artifacts/nullstar-omega/G5-prospective-declaration.json) — uberbond-nullstar-omega-prospective-declaration-1.0.0 _(matched by name only)_
-- [`G5-to-G6.json`](../../artifacts/nullstar-omega/G5-to-G6.json) — NULLSTAR_OMEGA_GENERATIONS_COMPARED _(matched by name only)_
-- [`G6-discriminating-test.json`](../../artifacts/nullstar-omega/G6-discriminating-test.json) — uberbond-nullstar-omega-discriminating-test-1.1.0 _(matched by name only)_
-- [`baselines.json`](../../artifacts/nullstar-omega/baselines.json) — BASELINE_SET_PARTIAL_WITH_NAMED_BLOCKERS · uberbond-nullstar-omega-baselines-1.0.0 _(matched by name only)_
-- [`bottlenecks-G0.json`](../../artifacts/nullstar-omega/bottlenecks-G0.json) — NULLSTAR_OMEGA_BOTTLENECKS_RANKED _(matched by name only)_
-- [`bottlenecks-G1.json`](../../artifacts/nullstar-omega/bottlenecks-G1.json) — NULLSTAR_OMEGA_BOTTLENECKS_RANKED _(matched by name only)_
-- [`bottlenecks-G3.json`](../../artifacts/nullstar-omega/bottlenecks-G3.json) — NULLSTAR_OMEGA_BOTTLENECKS_RANKED _(matched by name only)_
-- [`bottlenecks-G4.json`](../../artifacts/nullstar-omega/bottlenecks-G4.json) — NULLSTAR_OMEGA_BOTTLENECKS_RANKED _(matched by name only)_
-- [`bottlenecks-G5.json`](../../artifacts/nullstar-omega/bottlenecks-G5.json) — NULLSTAR_OMEGA_BOTTLENECKS_RANKED _(matched by name only)_
-- [`bottlenecks-G6.json`](../../artifacts/nullstar-omega/bottlenecks-G6.json) — NULLSTAR_OMEGA_BOTTLENECKS_RANKED _(matched by name only)_
-- [`denominator.json`](../../artifacts/nullstar-omega/denominator.json) — REPOSITORY_SELF_MODEL · NULLSTAR_OMEGA_DENOMINATOR_COMPILED _(matched by name only)_
-- [`generalization.json`](../../artifacts/nullstar-omega/generalization.json) — TRANSFER_PROTOCOL_INVALID · uberbond-nullstar-omega-generalization-1.0.0 _(matched by name only)_
-- [`artifacts/nullstar-omega/generations/G0.json`](../../artifacts/nullstar-omega/generations/G0.json) — NULLSTAR_OMEGA_GENERATION_RECORDED _(matched by name only)_
-- [`artifacts/nullstar-omega/generations/G1.json`](../../artifacts/nullstar-omega/generations/G1.json) — NULLSTAR_OMEGA_GENERATION_RECORDED _(matched by name only)_
-- [`artifacts/nullstar-omega/generations/G2.json`](../../artifacts/nullstar-omega/generations/G2.json) — NULLSTAR_OMEGA_GENERATION_RECORDED _(matched by name only)_
-- [`artifacts/nullstar-omega/generations/G3.json`](../../artifacts/nullstar-omega/generations/G3.json) — NULLSTAR_OMEGA_GENERATION_RECORDED _(matched by name only)_
-- [`artifacts/nullstar-omega/generations/G4.json`](../../artifacts/nullstar-omega/generations/G4.json) — NULLSTAR_OMEGA_GENERATION_RECORDED _(matched by name only)_
-- [`artifacts/nullstar-omega/generations/G5.json`](../../artifacts/nullstar-omega/generations/G5.json) — NULLSTAR_OMEGA_GENERATION_RECORDED _(matched by name only)_
-- [`artifacts/nullstar-omega/generations/G6.json`](../../artifacts/nullstar-omega/generations/G6.json) — NULLSTAR_OMEGA_GENERATION_RECORDED _(matched by name only)_
-- [`holdout-manifest.json`](../../artifacts/nullstar-omega/holdout-manifest.json) _(matched by name only)_
-- [`meta-improvement.json`](../../artifacts/nullstar-omega/meta-improvement.json) — MOVED_ELSEWHERE · uberbond-nullstar-omega-meta-improvement-1.0.0 _(matched by name only)_
-- [`reality-connection.json`](../../artifacts/nullstar-omega/reality-connection.json) — REALITY_CALIBRATED · uberbond-nullstar-omega-reality-connection-1.0.0 _(matched by name only)_
-- [`refutations.json`](../../artifacts/nullstar-omega/refutations.json) — uberbond-nullstar-omega-refutations-1.0.0 _(matched by name only)_
-- [`suite-retirement.json`](../../artifacts/nullstar-omega/suite-retirement.json) — SUITE_RETIRED · uberbond-nullstar-omega-suite-retirement-1.0.0 _(matched by name only)_
-- [`velocity.json`](../../artifacts/nullstar-omega/velocity.json) — uberbond-nullstar-omega-velocity-1.0.0 _(matched by name only)_
+- [`G3-to-G4.json`](../../artifacts/nullstar-omega/G3-to-G4.json) — Per-dimension delta comparison between NULLSTAR Omega generations G3 and G4, listing improved, regressed and incomparable dimensions with a net delta. · **Use:** Evidence of how the measured vector moved between two generations.
+- [`G4-discriminating-test.json`](../../artifacts/nullstar-omega/G4-discriminating-test.json) — Scores the software-outcome dimension from git history as a floor on first-attempt correctness and checks whether the declared coverage criterion was met. · **Use:** Test whether the G4 bottleneck fix worked before accepting G5 work.
+- [`G4-prospective-declaration.json`](../../artifacts/nullstar-omega/G4-prospective-declaration.json) — Pre-committed declaration of the third meta-improvement episode: bottleneck, resolution criterion, prediction and what would falsify it, written before G5 code existed. · **Use:** Prove ordering of prediction before implementation for G5.
+- [`G4-to-G5.json`](../../artifacts/nullstar-omega/G4-to-G5.json) — Delta comparison between generations G4 and G5 across measured dimensions, with regressions and incomparable dimensions named. · **Use:** Record movement of the NULLSTAR vector from G4 to G5.
+- [`G5-discriminating-test.json`](../../artifacts/nullstar-omega/G5-discriminating-test.json) — Checks whether two dimensions read the same observation and refuses some as evidence reuse, then re-tests coverage criteria. · **Use:** Evidence that the evidence-reuse guard changes what counts toward the headline.
+- [`G5-prospective-declaration.json`](../../artifacts/nullstar-omega/G5-prospective-declaration.json) — Pre-committed fourth episode attacking the session's own headline number, with criterion, prediction and falsifier, committed before G6 code. · **Use:** Pre-registration for the G6 correction of the headline mean.
+- [`G5-to-G6.json`](../../artifacts/nullstar-omega/G5-to-G6.json) — Delta comparison between generations G5 and G6 with regressed and incomparable dimensions. · **Use:** Record movement of the vector from G5 to G6.
+- [`G6-discriminating-test.json`](../../artifacts/nullstar-omega/G6-discriminating-test.json) — Compares mean over fresh readings only versus mean including carried readings and the previously reported mean, checking whether the prediction held. · **Use:** Show how much the headline mean depended on carried readings.
+- [`baselines.json`](../../artifacts/nullstar-omega/baselines.json) — Baseline comparison set on one evaluation suite at one commit, with an answer key and suite-validity finding; partial with named blockers. · **Use:** Check margins over trivial baselines before claiming improvement.
+- [`bottlenecks-G0.json`](../../artifacts/nullstar-omega/bottlenecks-G0.json) — Ranked list of diagnosed bottlenecks for generation G0 with competing hypotheses and discriminating tests; selects one to attack. · **Use:** Choose the next improvement target for G1.
+- [`bottlenecks-G1.json`](../../artifacts/nullstar-omega/bottlenecks-G1.json) — Ranked bottleneck diagnoses for generation G1 with competing hypotheses and a selected bottleneck. · **Use:** Choose the next improvement target after G1.
+- [`bottlenecks-G3.json`](../../artifacts/nullstar-omega/bottlenecks-G3.json) — Ranked bottleneck diagnoses for generation G3 with hypotheses and discriminating tests. · **Use:** Choose the next improvement target after G3.
+- [`bottlenecks-G4.json`](../../artifacts/nullstar-omega/bottlenecks-G4.json) — Ranked bottleneck diagnoses for generation G4 with hypotheses and a selected bottleneck. · **Use:** Choose the next improvement target after G4.
+- [`bottlenecks-G5.json`](../../artifacts/nullstar-omega/bottlenecks-G5.json) — Ranked bottleneck diagnoses for generation G5 with hypotheses and a selected bottleneck. · **Use:** Choose the next improvement target after G5.
+- [`bottlenecks-G6.json`](../../artifacts/nullstar-omega/bottlenecks-G6.json) — Ranked bottleneck diagnoses for generation G6 with hypotheses and a selected bottleneck. · **Use:** Choose the next improvement target after G6.
+- [`denominator.json`](../../artifacts/nullstar-omega/denominator.json) — Compiled denominator of seven dimensions (repository self-model, cognitive evaluation, sealed holdouts, bottleneck discovery, candidate invention, falsification, promotion rollback) with digest and immutability law. · **Use:** Fixed list of what NULLSTAR measures against so scores cannot shift silently.
+- [`generalization.json`](../../artifacts/nullstar-omega/generalization.json) — Measures whether one improvement mechanism survived three task families inside the repository; verdict is that the transfer protocol was invalid. · **Use:** Honest record that the generalization test did not hold.
+- [`artifacts/nullstar-omega/generations/G0.json`](../../artifacts/nullstar-omega/generations/G0.json) — Recorded generation G0: dimension vector, coverage, baselines, cost and failures at one commit; model-dependent dimensions left unmeasured. · **Use:** Anchor measurement that later generations are compared against.
+- [`artifacts/nullstar-omega/generations/G1.json`](../../artifacts/nullstar-omega/generations/G1.json) — Recorded generation G1 on a derived-answer evidence corpus after G0's direct-read corpus saturated at 1.0. · **Use:** Second measurement point in the generation series.
+- [`artifacts/nullstar-omega/generations/G2.json`](../../artifacts/nullstar-omega/generations/G2.json) — Recorded generation G2 over nine dimensions after G1's corpus saturated, with baselines and failures. · **Use:** Third measurement point in the generation series.
+- [`artifacts/nullstar-omega/generations/G3.json`](../../artifacts/nullstar-omega/generations/G3.json) — Recorded generation G3 with three dimensions scored from observed outcomes without any model provider. · **Use:** Fourth measurement point in the generation series.
+- [`artifacts/nullstar-omega/generations/G4.json`](../../artifacts/nullstar-omega/generations/G4.json) — Recorded generation G4 where the software dimension is scored from git history; no provider contacted. · **Use:** Fifth measurement point in the generation series.
+- [`artifacts/nullstar-omega/generations/G5.json`](../../artifacts/nullstar-omega/generations/G5.json) — Recorded generation G5 with dimensions gated by the evidence-reuse guard. · **Use:** Sixth measurement point in the generation series.
+- [`artifacts/nullstar-omega/generations/G6.json`](../../artifacts/nullstar-omega/generations/G6.json) — Recorded generation G6 using the same readings as G5 but restricting which enter the headline mean, with an alternate mean including carried readings. · **Use:** Latest recorded generation in the Omega series.
+- [`holdout-manifest.json`](../../artifacts/nullstar-omega/holdout-manifest.json) — Manifest of a sealed holdout corpus storing answers as salted digests, with counts and a corpus digest. · **Use:** Verify holdouts were committed before scoring and not returned for sealed tasks.
+- [`meta-improvement.json`](../../artifacts/nullstar-omega/meta-improvement.json) — Episodes of meta-improvement attempts (saturation, coverage, consistency-not-capability) with statuses such as moved-elsewhere, persisted, resolved. · **Use:** Track whether fixes to the evaluator actually removed the symptom.
+- [`reality-connection.json`](../../artifacts/nullstar-omega/reality-connection.json) — Sealed forecasts, closed and voided reality loops and calibration summaries scored against observer contracts, with a repository-local calibration verdict. · **Use:** Evidence on how well sealed forecasts matched later observation.
+- [`refutations.json`](../../artifacts/nullstar-omega/refutations.json) — Recorded refutations of earlier NULLSTAR claims under a stated law. · **Use:** Keep self-corrections discoverable alongside the claims they overturn.
+- [`suite-retirement.json`](../../artifacts/nullstar-omega/suite-retirement.json) — Retires an evaluation suite, lists contaminated generations and the trivial-baseline score, and states what is preserved and not claimed. · **Use:** Explain why earlier generation scores are not comparable to later ones.
+- [`velocity.json`](../../artifacts/nullstar-omega/velocity.json) — Computed improvement velocity across recorded generations with pairwise deltas, trend, and an acceleration claim governed by a law. · **Use:** Check whether any acceleration claim is supported by the data.
 
 ## nullstar-omega-absolute
 
@@ -316,70 +316,70 @@ JSON registries, receipts, research corpora and recovered history.
 
 **ASI research and evidence programs**
 
-- [`attribution-audit.json`](../../artifacts/nullstar-terminal/attribution-audit.json) — uberbond-nullstar-attribution-audit-1.0.0 _(matched by name only)_
-- [`baselines-v2.json`](../../artifacts/nullstar-terminal/baselines-v2.json) — BASELINE_SET_PARTIAL_WITH_NAMED_BLOCKERS · uberbond-nullstar-baselines-v2-1.0.0 _(matched by name only)_
-- [`branch-debt.json`](../../artifacts/nullstar-terminal/branch-debt.json) — uberbond-nullstar-branch-debt-1.0.0 _(matched by name only)_
-- [`branch-dispositions.json`](../../artifacts/nullstar-terminal/branch-dispositions.json) — UBER/OS Generation-0 sovereign operating-system substrate · NO_LONGER_GATES_A_BRANCH · uberbond-nullstar-branch-dispositions-1.0.0 _(matched by name only)_
-- [`completion-debt.json`](../../artifacts/nullstar-terminal/completion-debt.json) — uberbond-nullstar-completion-debt-1.0.0 _(matched by name only)_
-- [`cross-organ-transfer.json`](../../artifacts/nullstar-terminal/cross-organ-transfer.json) — uberbond-nullstar-cross-organ-transfer-1.0.0 _(matched by name only)_
-- [`failure-debt.json`](../../artifacts/nullstar-terminal/failure-debt.json) — FAILURE_DEBT_COMPILED _(matched by name only)_
-- [`final-report.json`](../../artifacts/nullstar-terminal/final-report.json) — uberbond-nullstar-terminal-final-report-1.0.0 _(matched by name only)_
-- [`ga1-ablation.json`](../../artifacts/nullstar-terminal/ga1-ablation.json) — uberbond-nullstar-generation-ablation-1.0.0 _(matched by name only)_
-- [`ga1-declaration.json`](../../artifacts/nullstar-terminal/ga1-declaration.json) — uberbond-nullstar-capability-generation-declaration-1.0.0 _(matched by name only)_
-- [`ga1-result.json`](../../artifacts/nullstar-terminal/ga1-result.json) — uberbond-nullstar-capability-generation-1.0.0 _(matched by name only)_
-- [`ga2-ablation.json`](../../artifacts/nullstar-terminal/ga2-ablation.json) — uberbond-nullstar-generation-ablation-1.0.0 _(matched by name only)_
-- [`ga2-declaration.json`](../../artifacts/nullstar-terminal/ga2-declaration.json) — uberbond-nullstar-capability-generation-declaration-1.0.0 _(matched by name only)_
-- [`ga2-result.json`](../../artifacts/nullstar-terminal/ga2-result.json) — uberbond-nullstar-capability-generation-1.0.0 _(matched by name only)_
-- [`ga3-ablation.json`](../../artifacts/nullstar-terminal/ga3-ablation.json) — uberbond-nullstar-generation-ablation-1.0.0 _(matched by name only)_
-- [`ga3-declaration.json`](../../artifacts/nullstar-terminal/ga3-declaration.json) — uberbond-nullstar-capability-generation-declaration-1.0.0 _(matched by name only)_
-- [`ga3-result.json`](../../artifacts/nullstar-terminal/ga3-result.json) — uberbond-nullstar-capability-generation-1.0.0 _(matched by name only)_
-- [`ga4-declaration.json`](../../artifacts/nullstar-terminal/ga4-declaration.json) — uberbond-nullstar-capability-generation-declaration-1.0.0 _(matched by name only)_
-- [`ga4-result.json`](../../artifacts/nullstar-terminal/ga4-result.json) — uberbond-nullstar-capability-generation-1.0.0 _(matched by name only)_
-- [`ga5-declaration.json`](../../artifacts/nullstar-terminal/ga5-declaration.json) — uberbond-nullstar-capability-generation-declaration-1.0.0 _(matched by name only)_
-- [`ga5-result.json`](../../artifacts/nullstar-terminal/ga5-result.json) — uberbond-nullstar-capability-generation-1.0.0 _(matched by name only)_
-- [`ga6-declaration.json`](../../artifacts/nullstar-terminal/ga6-declaration.json) — uberbond-nullstar-capability-generation-declaration-1.0.0 _(matched by name only)_
-- [`ga6-result.json`](../../artifacts/nullstar-terminal/ga6-result.json) — uberbond-nullstar-capability-generation-1.0.0 _(matched by name only)_
-- [`ga7-declaration.json`](../../artifacts/nullstar-terminal/ga7-declaration.json) — uberbond-nullstar-capability-generation-declaration-1.0.0 _(matched by name only)_
-- [`ga7-result.json`](../../artifacts/nullstar-terminal/ga7-result.json) — uberbond-nullstar-capability-generation-1.0.0 _(matched by name only)_
-- [`ga8-declaration.json`](../../artifacts/nullstar-terminal/ga8-declaration.json) — uberbond-nullstar-capability-generation-declaration-1.0.0 _(matched by name only)_
-- [`ga8-result.json`](../../artifacts/nullstar-terminal/ga8-result.json) — uberbond-nullstar-capability-generation-1.0.0 _(matched by name only)_
-- [`generalization-v2.json`](../../artifacts/nullstar-terminal/generalization-v2.json) — uberbond-nullstar-generalization-2.0.0 _(matched by name only)_
-- [`meta-improvement-v2.json`](../../artifacts/nullstar-terminal/meta-improvement-v2.json) — uberbond-nullstar-meta-improvement-2.0.0 _(matched by name only)_
-- [`probe-saturation.json`](../../artifacts/nullstar-terminal/probe-saturation.json) — uberbond-nullstar-probe-saturation-1.0.0 _(matched by name only)_
-- [`stranded-absent-determinations.json`](../../artifacts/nullstar-terminal/stranded-absent-determinations.json) — uberbond-nullstar-stranded-absent-determinations-1.0.0 _(matched by name only)_
-- [`stranded-supersession.json`](../../artifacts/nullstar-terminal/stranded-supersession.json) — uberbond-nullstar-stranded-supersession-1.0.0 _(matched by name only)_
+- [`attribution-audit.json`](../../artifacts/nullstar-terminal/attribution-audit.json) — Hand-built probes comparing two implementations to see whether they differ where it matters; explicitly not a capability measurement. · **Use:** Check attribution of a result to a specific solver implementation.
+- [`baselines-v2.json`](../../artifacts/nullstar-terminal/baselines-v2.json) — Second baseline set with seeds, scores, cost, instrument validity and a ceiling warning; partial with named blockers. · **Use:** Baseline margins for the terminal evaluation epoch.
+- [`branch-debt.json`](../../artifacts/nullstar-terminal/branch-debt.json) — Counts remote branches, diverged branches, merged-then-reverted work and stranded files, with disposition. · **Use:** Size the unreconciled branch lineage before closing NULLSTAR.
+- [`branch-dispositions.json`](../../artifacts/nullstar-terminal/branch-dispositions.json) — Per-branch terminal dispositions and open pull requests, including UBER/OS and NULLSTAR reconciliation PRs, with terminal and non-terminal counts. · **Use:** Decide what remains to reconcile and what needs a founder decision.
+- [`completion-debt.json`](../../artifacts/nullstar-terminal/completion-debt.json) — Computed ledger of open software and external work items, failure debt, permanent limitations and a done verdict with reasons it is not done. · **Use:** Single honest list of what remains before NULLSTAR can be called done.
+- [`cross-organ-transfer.json`](../../artifacts/nullstar-terminal/cross-organ-transfer.json) — Tests whether a mechanism transfers to a receiving organ on constructed tasks, with baseline, mechanism and code transfer counts. · **Use:** Evidence on cross-organ transfer and its stated limits.
+- [`failure-debt.json`](../../artifacts/nullstar-terminal/failure-debt.json) — Compiled records of failures from NULLSTAR missions (reality connection, baselines) with open ids and a governing law. · **Use:** Track unresolved failures against the terminal report.
+- [`final-report.json`](../../artifacts/nullstar-terminal/final-report.json) — Terminal report of generations, current capability, out-of-pattern standing, corrections against own results, evidence index and permanent limitations, all figures computed. · **Use:** Final NULLSTAR summary of what was measured and what it is not.
+- [`ga1-ablation.json`](../../artifacts/nullstar-terminal/ga1-ablation.json) — Ablation comparing promoted and ablated solvers on disjoint seeds plus an out-of-range probe to see if the instrument separates them. · **Use:** Check whether the GA1 win reflects a real difference.
+- [`ga1-declaration.json`](../../artifacts/nullstar-terminal/ga1-declaration.json) — Pre-committed GA1 declaration: bottleneck, hypotheses, candidate families and criteria for the first capability-targeting generation. · **Use:** Pre-registration for the GA1 tournament.
+- [`ga1-result.json`](../../artifacts/nullstar-terminal/ga1-result.json) — GA1 tournament result: incumbent, candidates, winner, outcome, discrimination and ties against a precommitted threshold. · **Use:** Record the GA1 outcome and its stated limits.
+- [`ga2-ablation.json`](../../artifacts/nullstar-terminal/ga2-ablation.json) — Ablation of the GA2 promoted solver on disjoint seeds to see what the instrument can separate. · **Use:** Check the GA2 win against an ablated solver.
+- [`ga2-declaration.json`](../../artifacts/nullstar-terminal/ga2-declaration.json) — Pre-committed GA2 declaration recomputing the bottleneck after GA1 promotion, before any candidate existed. · **Use:** Pre-registration for the GA2 tournament.
+- [`ga2-result.json`](../../artifacts/nullstar-terminal/ga2-result.json) — GA2 tournament result with incumbent, candidates, regression disqualifications, winner and tie-break. · **Use:** Record the GA2 outcome.
+- [`ga3-ablation.json`](../../artifacts/nullstar-terminal/ga3-ablation.json) — GA3 ablation including whether a null candidate was in the tournament, and an instrument weakness found. · **Use:** Check the GA3 win and instrument weakness.
+- [`ga3-declaration.json`](../../artifacts/nullstar-terminal/ga3-declaration.json) — Pre-committed GA3 declaration with instrument precondition, hypotheses, criteria and what it cannot establish, carrying a correction from finding F010. · **Use:** Pre-registration for the GA3 tournament.
+- [`ga3-result.json`](../../artifacts/nullstar-terminal/ga3-result.json) — GA3 tournament result with incumbent, candidates, winner, discrimination and ties at top. · **Use:** Record the GA3 outcome, later refuted by generalization V2.
+- [`ga4-declaration.json`](../../artifacts/nullstar-terminal/ga4-declaration.json) — GA4 declaration re-attacking the invention family under the out-of-pattern gate after generalization V2 refuted GA3's promotion. · **Use:** Pre-registration for the GA4 tournament.
+- [`ga4-result.json`](../../artifacts/nullstar-terminal/ga4-result.json) — GA4 tournament result including out-of-pattern gate and candidates disqualified by it. · **Use:** Record the GA4 outcome.
+- [`ga5-declaration.json`](../../artifacts/nullstar-terminal/ga5-declaration.json) — GA5 declaration re-running the invention family with the operator-position defect repaired, on unread held-out seeds. · **Use:** Pre-registration for the GA5 tournament.
+- [`ga5-result.json`](../../artifacts/nullstar-terminal/ga5-result.json) — GA5 tournament result with out-of-pattern gate, ties and winner. · **Use:** Record the GA5 outcome.
+- [`ga6-declaration.json`](../../artifacts/nullstar-terminal/ga6-declaration.json) — GA6 declaration re-running GA5 under a comparison rule that sees both numbers after a gate-failing incumbent held on via a tie. · **Use:** Pre-registration for the GA6 tournament.
+- [`ga6-result.json`](../../artifacts/nullstar-terminal/ga6-result.json) — GA6 tournament result with the new comparison rule, gate disqualifications and winner. · **Use:** Record the GA6 outcome.
+- [`ga7-declaration.json`](../../artifacts/nullstar-terminal/ga7-declaration.json) — GA7 declaration attacking three-quantity composition at difficulty 4 where the promoted solver confabulates on every item. · **Use:** Pre-registration for the GA7 tournament.
+- [`ga7-result.json`](../../artifacts/nullstar-terminal/ga7-result.json) — GA7 tournament result with comparison rule, gate and winner. · **Use:** Record the GA7 outcome.
+- [`ga8-declaration.json`](../../artifacts/nullstar-terminal/ga8-declaration.json) — GA8 declaration attacking right-grouped compositions at difficulty 5 where the promoted solver answers wrongly on every item. · **Use:** Pre-registration for the GA8 tournament.
+- [`ga8-result.json`](../../artifacts/nullstar-terminal/ga8-result.json) — GA8 tournament result including a differential check, gate and winner. · **Use:** Record the GA8 outcome, the last generation of the series.
+- [`generalization-v2.json`](../../artifacts/nullstar-terminal/generalization-v2.json) — Supersedes the first generalization test: three solvers against one instrument plus hand-built items, with a headline finding. · **Use:** Evidence that GA3's promotion did not generalize.
+- [`meta-improvement-v2.json`](../../artifacts/nullstar-terminal/meta-improvement-v2.json) — Changes a selection criterion after finding a defect and backtests it against one generation; names the runner-up counterfactual. · **Use:** Record the corrected meta-improvement selection rule.
+- [`probe-saturation.json`](../../artifacts/nullstar-terminal/probe-saturation.json) — Enumerates a finite prompt grammar against one solver, counting confabulations and refusals to bound its behavior. · **Use:** Bound how a solver behaves over one finite space of prompts.
+- [`stranded-absent-determinations.json`](../../artifacts/nullstar-terminal/stranded-absent-determinations.json) — Determinations about stranded source files found absent from main, with method and reasoning for each. · **Use:** Resolve branch debt items for files that did not carry over.
+- [`stranded-supersession.json`](../../artifacts/nullstar-terminal/stranded-supersession.json) — Large per-module table mapping stranded source modules to evidence of supersession by name match on main, with evidence classes and counts. · **Use:** Show which stranded modules have a successor on main.
 
 ## omega-private-evidence
 
-- [`artifacts/omega-private-evidence/structural-transfer-canary-2026-09-15.json`](../../artifacts/omega-private-evidence/structural-transfer-canary-2026-09-15.json) — 2026-09-15 · LOCAL_ISOLATED_REPRODUCTION_RECEIPT_NOT_FULL_REPO_CI · uberbond.omega-private-evidence-receipt.v1 _(matched by name only)_
+- [`artifacts/omega-private-evidence/structural-transfer-canary-2026-09-15.json`](../../artifacts/omega-private-evidence/structural-transfer-canary-2026-09-15.json) — 2026-09-15 · Local isolated reproduction receipt of a structural-transfer canary between source and target domains, with controls and what it does not establish. · **Use:** Evidence of one transfer canary reproduction, not full CI.
 
 ## omnia-v9
 
-- [`artifacts/omnia-v9/canary-latency.json`](../../artifacts/omnia-v9/canary-latency.json) — omnia.v9.canary-latency.v1 _(matched by name only)_
-- [`artifacts/omnia-v9/closure-report.json`](../../artifacts/omnia-v9/closure-report.json) — omnia_v9_test · P3_POLICY_VERIFIED · omnia.v9.closure-report.v2 _(matched by name only)_
-- [`artifacts/omnia-v9/external-effect-property-run-summary.json`](../../artifacts/omnia-v9/external-effect-property-run-summary.json) _(matched by name only)_
-- [`artifacts/omnia-v9/external-effect-recovery-report.json`](../../artifacts/omnia-v9/external-effect-recovery-report.json) — omnia.v9.external-effect-recovery-report.v1 _(matched by name only)_
-- [`artifacts/omnia-v9/frozen-baseline.json`](../../artifacts/omnia-v9/frozen-baseline.json) — omnia.v9.frozen-baseline.v1 _(matched by name only)_
-- [`artifacts/omnia-v9/gmail-preflight-report.json`](../../artifacts/omnia-v9/gmail-preflight-report.json) — omnia.v9.gmail-preflight-report.v1 _(matched by name only)_
-- [`artifacts/omnia-v9/integration-report.json`](../../artifacts/omnia-v9/integration-report.json) — omnia.v9.integration-report.v1 _(matched by name only)_
-- [`artifacts/omnia-v9/reality-shadow-latency.json`](../../artifacts/omnia-v9/reality-shadow-latency.json) — OBSERVED · omnia.v9.reality-shadow-latency.v1 _(matched by name only)_
-- [`artifacts/omnia-v9/reality-shadow-report.json`](../../artifacts/omnia-v9/reality-shadow-report.json) — omnia.v9.reality-shadow-report.v1 _(matched by name only)_
-- [`artifacts/omnia-v9/replay-report.json`](../../artifacts/omnia-v9/replay-report.json) — omnia.v9.replay-report.v1 _(matched by name only)_
-- [`artifacts/omnia-v9/zero-consequence-canary-report.json`](../../artifacts/omnia-v9/zero-consequence-canary-report.json) — omnia.v9.zero-consequence-canary-report.v1 _(matched by name only)_
+- [`artifacts/omnia-v9/canary-latency.json`](../../artifacts/omnia-v9/canary-latency.json) — Measured latency of the full authoritative canary path: Postgres authority resolution, Cedar evaluation, reservation transaction, null-sink execution and receipt persistence. · **Use:** Latency evidence for the OMNIA V9 canary.
+- [`artifacts/omnia-v9/closure-report.json`](../../artifacts/omnia-v9/closure-report.json) — OMNIA V9 closure report: tested SHA, versions, real-Postgres suites, concurrency race results and gate ordering proof. · **Use:** Evidence that the V9 closure gate passed on a given commit.
+- [`artifacts/omnia-v9/external-effect-property-run-summary.json`](../../artifacts/omnia-v9/external-effect-property-run-summary.json) — Summary of a property-based run over external-effect scenarios with count of semantic classes and violations. · **Use:** Evidence on effect-ledger invariants under generated scenarios.
+- [`artifacts/omnia-v9/external-effect-recovery-report.json`](../../artifacts/omnia-v9/external-effect-recovery-report.json) — Canary-measured recovery performance and founder burden for external effects on synthetic scenarios, not real traffic. · **Use:** Bound the recovery-burden claim for V9.
+- [`artifacts/omnia-v9/frozen-baseline.json`](../../artifacts/omnia-v9/frozen-baseline.json) — Frozen OMNIA V9 baseline: closure SHA, constitution, source-set and policy digests, Cedar and Postgres versions, migrations, test totals and frozen core files. · **Use:** Reference point to detect drift in the V9 kernel.
+- [`artifacts/omnia-v9/gmail-preflight-report.json`](../../artifacts/omnia-v9/gmail-preflight-report.json) — Preflight of a Gmail adapter against a fake transport and real Postgres, with mutation tests; live self-test gated on owner authorization. · **Use:** Show Gmail adapter readiness and what is still owner-gated.
+- [`artifacts/omnia-v9/integration-report.json`](../../artifacts/omnia-v9/integration-report.json) — OMNIA V9 real-integration and value-proof report: integration, tests (267 plus 44 new), closure rerun, replay, founder burden and promotion state. · **Use:** Evidence the integration left the frozen baseline green.
+- [`artifacts/omnia-v9/reality-shadow-latency.json`](../../artifacts/omnia-v9/reality-shadow-latency.json) — Observed latency and database/byte cost per action for the reality-shadow validation, with decision and status counts. · **Use:** Cost evidence for running V9 in shadow mode.
+- [`artifacts/omnia-v9/reality-shadow-report.json`](../../artifacts/omnia-v9/reality-shadow-report.json) — Reality-shadow validation comparing V9 decisions with prior behavior across labeled samples, critical disagreements, founder burden and a full-stack demo. · **Use:** Eligibility evidence for a V9 canary; zero critical disagreements required.
+- [`artifacts/omnia-v9/replay-report.json`](../../artifacts/omnia-v9/replay-report.json) — Replay of historical scenarios through V9 with comparison categories, failure classes and critical disagreements; large result set. · **Use:** Check V9 against replayed approvals and sends.
+- [`artifacts/omnia-v9/zero-consequence-canary-report.json`](../../artifacts/omnia-v9/zero-consequence-canary-report.json) — Zero-consequence canary run over candidate actions with execution summary, comparison by label, latency and per-candidate records. · **Use:** Evidence the V9 canary executes through a null sink only.
 
 ## oracle-free-uberlit
 
-- [`artifacts/oracle-free-uberlit/verification-20260919.json`](../../artifacts/oracle-free-uberlit/verification-20260919.json) — 2026-09-19 · uberbond.oracle-free-uberlit-arm64-jev.verification.v1 _(matched by name only)_
+- [`artifacts/oracle-free-uberlit/verification-20260919.json`](../../artifacts/oracle-free-uberlit/verification-20260919.json) — 2026-09-19 · Verification record for the Oracle free-tier UberLit activation work: source changes, focused local tests (12/12) and remaining owner reality. · **Use:** Evidence of what was verified before owner steps for Oracle activation.
 
 ## orchestration-assimilation
 
-- [`artifacts/orchestration-assimilation/2026-09-04-fable-n-plus-one.json`](../../artifacts/orchestration-assimilation/2026-09-04-fable-n-plus-one.json) — 2026-09-04 · uberbond.orchestration-assimilation-receipt.v1 _(matched by name only)_
+- [`artifacts/orchestration-assimilation/2026-09-04-fable-n-plus-one.json`](../../artifacts/orchestration-assimilation/2026-09-04-fable-n-plus-one.json) — 2026-09-04 · Dated record of an orchestration assimilation: reference pack, what was implemented, focused evidence and continuous discovery plan for Fable N+1. · **Use:** Trace what the Fable N+1 assimilation added and verified.
 
 ## outbound-genome
 
-- [`artifacts/outbound-genome/V1_COMPLETION_RECEIPT.json`](../../artifacts/outbound-genome/V1_COMPLETION_RECEIPT.json) _(matched by name only)_
-- [`artifacts/outbound-genome/completion-2026-09-14.json`](../../artifacts/outbound-genome/completion-2026-09-14.json) — 2026-09-14 · uberbond-outbound-genome-completion-1.1.0 _(matched by name only)_
-- [`artifacts/outbound-genome/research-2026-09-14.json`](../../artifacts/outbound-genome/research-2026-09-14.json) — 2026-09-14 · uberbond-outbound-genome-research-1.0.0 _(matched by name only)_
+- [`artifacts/outbound-genome/V1_COMPLETION_RECEIPT.json`](../../artifacts/outbound-genome/V1_COMPLETION_RECEIPT.json) — Completion receipt for the outbound genome V1: canonical chain, structural coverage, implemented files and a statement that 100000/day is a capacity horizon, not live volume. · **Use:** Scope what outbound genome V1 does and does not claim.
+- [`artifacts/outbound-genome/completion-2026-09-14.json`](../../artifacts/outbound-genome/completion-2026-09-14.json) — 2026-09-14 · Dated outbound genome completion record: declared scope, implemented parts, pending external research assets and causal promotion policy. · **Use:** Record what was complete on 2026-09-14 and what research was missing.
+- [`artifacts/outbound-genome/research-2026-09-14.json`](../../artifacts/outbound-genome/research-2026-09-14.json) — 2026-09-14 · Structured outbound research: strongest findings, atom families, message architecture and CTA priors, sequence policy, sample sizing and legal default posture, from a PDF source. · **Use:** Priors feeding outbound message and CTA design.
 
 ## outreach
 
@@ -410,10 +410,10 @@ JSON registries, receipts, research corpora and recovered history.
 
 **Outreach and distribution**
 
-- [`INTELO_APPROVAL_TO_WMS_RELEASE_GATE_PREWORK_20261003.md`](../../artifacts/outreach/INTELO_APPROVAL_TO_WMS_RELEASE_GATE_PREWORK_20261003.md) — 2026-10-03 · Intelo.ai — approval-to-WMS integration QA note _(matched by name only)_
-- [`INTELO_CORPORATE_ROLE_SCOPE_REVIEW_20261003.json`](../../artifacts/outreach/INTELO_CORPORATE_ROLE_SCOPE_REVIEW_20261003.json) — 2026-10-03 · uberbond.egypt-corporate-role-scope.v1 _(matched by name only)_
-- [`SYLVESTER_EMERGENCY_AVAILABILITY_RECONCILIATION_DRAFT.md`](../../artifacts/outreach/SYLVESTER_EMERGENCY_AVAILABILITY_RECONCILIATION_DRAFT.md) — Sylvester Electric — emergency availability reconciliation (DRAFT) _(matched by name only)_
-- [`clearbounce-powerhouse-20261004.jpg`](../../artifacts/outreach/clearbounce-powerhouse-20261004.jpg) — 2026-10-04 _(matched by name only)_
+- [`INTELO_APPROVAL_TO_WMS_RELEASE_GATE_PREWORK_20261003.md`](../../artifacts/outreach/INTELO_APPROVAL_TO_WMS_RELEASE_GATE_PREWORK_20261003.md) — 2026-10-03 · Public-evidence prework note proposing approval-to-WMS release QA tests for Intelo.ai, explicitly not a claim of observed defects. · **Use:** Artifact to attach to outreach to Intelo.ai.
+- [`INTELO_CORPORATE_ROLE_SCOPE_REVIEW_20261003.json`](../../artifacts/outreach/INTELO_CORPORATE_ROLE_SCOPE_REVIEW_20261003.json) — 2026-10-03 · Review flags showing company-level evidence only for Intelo outreach: no named person, no personal data, no personal mailbox or Egyptian data subject. · **Use:** Eligibility and privacy check before contacting Intelo.
+- [`SYLVESTER_EMERGENCY_AVAILABILITY_RECONCILIATION_DRAFT.md`](../../artifacts/outreach/SYLVESTER_EMERGENCY_AVAILABILITY_RECONCILIATION_DRAFT.md) — Draft evidence note on contradictory 24/7 emergency claims on one public electrician site, a client of Powerhouse; fetches not performed by this session. · **Use:** Proof-before-pitch material for Powerhouse engagement.
+- [`clearbounce-powerhouse-20261004.jpg`](../../artifacts/outreach/clearbounce-powerhouse-20261004.jpg) — 2026-10-04 · Binary JPEG image of unknown content whose name suggests a ClearBounce result related to Powerhouse, dated 2026-10-04. · **Use:** Likely screenshot evidence for Powerhouse email verification.
 - [`clearbounce-powerhouse-20261004.json`](../../artifacts/outreach/clearbounce-powerhouse-20261004.json) — 2026-10-04 · Single email-verification receipt for the Powerhouse prospect address: mailbox existence, MX, disposable flag, score, expiry, zero spend and zero messages. · **Use:** evidence that a prospect address is deliverable before a send decision
 - [`free-first-provider-registry-2026-09-01.json`](../../artifacts/outreach/free-first-provider-registry-2026-09-01.json) — 2026-09-01 · Research snapshot of email/sending provider policies and free quotas; unknown or prohibited purpose rules fail closed and grant no authority. · **Use:** choose free-first sending providers without assuming permission
 - [`artifacts/outreach/global-live-bridge-20261003/aideal-agent-release-prework-20261003.md`](../../artifacts/outreach/global-live-bridge-20261003/aideal-agent-release-prework-20261003.md) — 2026-10-03 · Pre-work acceptance worksheet for A.Ideal Group derived from its public site: calendar timing, source freshness, CRM permission and idempotency test cases, explicitly not defect claims. · **Use:** proof-before-pitch artifact for an AI Agent Release Gate prospect
@@ -657,26 +657,35 @@ JSON registries, receipts, research corpora and recovered history.
 - [`artifacts/repository-index/semantics/batch-01.jsonl`](../../artifacts/repository-index/semantics/batch-01.jsonl) _(matched by name only)_
 - [`artifacts/repository-index/semantics/batch-02.jsonl`](../../artifacts/repository-index/semantics/batch-02.jsonl) _(matched by name only)_
 - [`artifacts/repository-index/semantics/batch-03.jsonl`](../../artifacts/repository-index/semantics/batch-03.jsonl) _(matched by name only)_
+- [`artifacts/repository-index/semantics/batch-04.jsonl`](../../artifacts/repository-index/semantics/batch-04.jsonl) _(matched by name only)_
 - [`artifacts/repository-index/semantics/batch-05.jsonl`](../../artifacts/repository-index/semantics/batch-05.jsonl) _(matched by name only)_
 - [`artifacts/repository-index/semantics/batch-06.jsonl`](../../artifacts/repository-index/semantics/batch-06.jsonl) _(matched by name only)_
 - [`artifacts/repository-index/semantics/batch-07.jsonl`](../../artifacts/repository-index/semantics/batch-07.jsonl) _(matched by name only)_
+- [`artifacts/repository-index/semantics/batch-08.jsonl`](../../artifacts/repository-index/semantics/batch-08.jsonl) _(matched by name only)_
 - [`artifacts/repository-index/semantics/batch-09.jsonl`](../../artifacts/repository-index/semantics/batch-09.jsonl) _(matched by name only)_
 - [`artifacts/repository-index/semantics/batch-10.jsonl`](../../artifacts/repository-index/semantics/batch-10.jsonl) _(matched by name only)_
+- [`artifacts/repository-index/semantics/batch-11.jsonl`](../../artifacts/repository-index/semantics/batch-11.jsonl) _(matched by name only)_
+- [`artifacts/repository-index/semantics/batch-12.jsonl`](../../artifacts/repository-index/semantics/batch-12.jsonl) _(matched by name only)_
 - [`artifacts/repository-index/semantics/batch-13.jsonl`](../../artifacts/repository-index/semantics/batch-13.jsonl) _(matched by name only)_
 - [`artifacts/repository-index/semantics/batch-14.jsonl`](../../artifacts/repository-index/semantics/batch-14.jsonl) _(matched by name only)_
 - [`artifacts/repository-index/semantics/batch-15.jsonl`](../../artifacts/repository-index/semantics/batch-15.jsonl) _(matched by name only)_
+- [`artifacts/repository-index/semantics/batch-16.jsonl`](../../artifacts/repository-index/semantics/batch-16.jsonl) _(matched by name only)_
 - [`artifacts/repository-index/semantics/batch-17.jsonl`](../../artifacts/repository-index/semantics/batch-17.jsonl) _(matched by name only)_
 - [`artifacts/repository-index/semantics/batch-18.jsonl`](../../artifacts/repository-index/semantics/batch-18.jsonl) _(matched by name only)_
 - [`artifacts/repository-index/semantics/batch-19.jsonl`](../../artifacts/repository-index/semantics/batch-19.jsonl) _(matched by name only)_
+- [`artifacts/repository-index/semantics/batch-20.jsonl`](../../artifacts/repository-index/semantics/batch-20.jsonl) _(matched by name only)_
 - [`artifacts/repository-index/semantics/batch-21.jsonl`](../../artifacts/repository-index/semantics/batch-21.jsonl) _(matched by name only)_
 - [`artifacts/repository-index/semantics/batch-22.jsonl`](../../artifacts/repository-index/semantics/batch-22.jsonl) _(matched by name only)_
 - [`artifacts/repository-index/semantics/batch-23.jsonl`](../../artifacts/repository-index/semantics/batch-23.jsonl) _(matched by name only)_
+- [`artifacts/repository-index/semantics/batch-24.jsonl`](../../artifacts/repository-index/semantics/batch-24.jsonl) _(matched by name only)_
 - [`artifacts/repository-index/semantics/batch-25.jsonl`](../../artifacts/repository-index/semantics/batch-25.jsonl) _(matched by name only)_
 - [`artifacts/repository-index/semantics/batch-26.jsonl`](../../artifacts/repository-index/semantics/batch-26.jsonl) _(matched by name only)_
 - [`artifacts/repository-index/semantics/batch-27.jsonl`](../../artifacts/repository-index/semantics/batch-27.jsonl) _(matched by name only)_
+- [`artifacts/repository-index/semantics/batch-28.jsonl`](../../artifacts/repository-index/semantics/batch-28.jsonl) _(matched by name only)_
 - [`artifacts/repository-index/semantics/batch-29.jsonl`](../../artifacts/repository-index/semantics/batch-29.jsonl) _(matched by name only)_
 - [`artifacts/repository-index/semantics/batch-30.jsonl`](../../artifacts/repository-index/semantics/batch-30.jsonl) _(matched by name only)_
 - [`artifacts/repository-index/semantics/batch-31.jsonl`](../../artifacts/repository-index/semantics/batch-31.jsonl) _(matched by name only)_
+- [`artifacts/repository-index/semantics/batch-32.jsonl`](../../artifacts/repository-index/semantics/batch-32.jsonl) _(matched by name only)_
 - [`artifacts/repository-index/semantics/batch-33.jsonl`](../../artifacts/repository-index/semantics/batch-33.jsonl) _(matched by name only)_
 - [`artifacts/repository-index/semantics/batch-34.jsonl`](../../artifacts/repository-index/semantics/batch-34.jsonl) _(matched by name only)_
 - [`artifacts/repository-index/semantics/batch-35.jsonl`](../../artifacts/repository-index/semantics/batch-35.jsonl) _(matched by name only)_
@@ -974,18 +983,18 @@ JSON registries, receipts, research corpora and recovered history.
 - [`c21-seven-critical-result.json`](../../artifacts/c21-seven-critical-result.json) — Result with seven authenticated dimensions covering all critical ones; ASI not established. · **Use:** evidence milestone for critical C21 coverage
 - [`c21-twenty-dimension-result.json`](../../artifacts/c21-twenty-dimension-result.json) — Result stating all twenty canonical dimensions authenticated within defined scope; literal system-level ASI not established. · **Use:** evidence behind private ASI milestone
 - [`literal-asi-claim-status-2026-09-11.json`](../../artifacts/literal-asi-claim-status-2026-09-11.json) — 2026-09-11 · Tribunal output refusing a literal ASI claim despite internal 20/20 C21 evidence, requiring external non-synthetic superhuman comparisons. · **Use:** bound the private ASI claim
-- [`omega-evidence-seal-2026-09-15.json`](../../artifacts/omega-evidence-seal-2026-09-15.json) — 2026-09-15 · uberbond.omega-evidence-seal.v1 _(matched by name only)_
-- [`omega-negative-transfer-receipt-2026-09-15.json`](../../artifacts/omega-negative-transfer-receipt-2026-09-15.json) — 2026-09-15 · NEGATIVE_EVIDENCE · uberbond.omega-negative-transfer-receipt.v1 _(matched by name only)_
-- [`omega-private-evidence-v1-disqualified-2026-09-15.json`](../../artifacts/omega-private-evidence-v1-disqualified-2026-09-15.json) — 2026-09-15 · NUMERICALLY_POSITIVE_BUT_PROMOTION_DISQUALIFIED · uberbond.omega-private-evidence-receipt.v1 _(matched by name only)_
-- [`omega-private-evidence-v2-sealed-2026-09-15.json`](../../artifacts/omega-private-evidence-v2-sealed-2026-09-15.json) — 2026-09-15 · CLEAN_BOUNDED_POSITIVE_EVIDENCE_NOT_E10 · uberbond.omega-private-evidence-receipt.v2 _(matched by name only)_
-- [`omega-private-holdout-commitments-2026-09-15.json`](../../artifacts/omega-private-holdout-commitments-2026-09-15.json) — 2026-09-15 · SEALED_NOT_EVALUATED · uberbond.omega-private-holdout-commitments.v1 _(matched by name only)_
-- [`omega-private-holdout-commitments-v2-2026-09-15.json`](../../artifacts/omega-private-holdout-commitments-v2-2026-09-15.json) — 2026-09-15 · SEALED_NOT_EVALUATED · uberbond.omega-private-holdout-commitments.v2 _(matched by name only)_
-- [`omega-private-holdout-commitments-v3-2026-09-15.json`](../../artifacts/omega-private-holdout-commitments-v3-2026-09-15.json) — 2026-09-15 · SEALED_NOT_EVALUATED · uberbond.omega-private-holdout-commitments.v3 _(matched by name only)_
-- [`omega-private-v2-unseen-algebra-failure-2026-09-15.json`](../../artifacts/omega-private-v2-unseen-algebra-failure-2026-09-15.json) — 2026-09-15 · NEGATIVE_TRANSFER_ON_UNSEEN_ALGEBRA · uberbond.omega-private-negative-evidence.v1 _(matched by name only)_
-- [`omega-private-v3-commitments-void-unopened-2026-09-15.json`](../../artifacts/omega-private-v3-commitments-void-unopened-2026-09-15.json) — 2026-09-15 · VOID_UNOPENED · uberbond.omega-private-holdout-void.v1 _(matched by name only)_
-- [`omega-sealed-transfer-receipt-2026-09-15.json`](../../artifacts/omega-sealed-transfer-receipt-2026-09-15.json) — 2026-09-15 · uberbond.omega-sealed-transfer-receipt.v1 _(matched by name only)_
-- [`omega-v4-evidence.json`](../../artifacts/omega-v4-evidence.json) — uberbond.omega.v4.evidence _(matched by name only)_
-- [`omega-v4-seal.json`](../../artifacts/omega-v4-seal.json) — uberbond.omega.v4.seal _(matched by name only)_
+- [`omega-evidence-seal-2026-09-15.json`](../../artifacts/omega-evidence-seal-2026-09-15.json) — 2026-09-15 · Seal of commitments to private holdouts tied to a frozen harness commit; no bodies or answers included. · **Use:** Prove holdouts were committed before evaluation.
+- [`omega-negative-transfer-receipt-2026-09-15.json`](../../artifacts/omega-negative-transfer-receipt-2026-09-15.json) — 2026-09-15 · Negative evidence receipt recording an observed negative transfer, the lesson and what it supersedes. · **Use:** Keep a failed transfer result discoverable.
+- [`omega-private-evidence-v1-disqualified-2026-09-15.json`](../../artifacts/omega-private-evidence-v1-disqualified-2026-09-15.json) — 2026-09-15 · Records that the V1 private-evidence run was numerically positive but disqualified for promotion, with sealed runs and cost trajectory. · **Use:** Explain why V1 cannot be cited as clean transfer.
+- [`omega-private-evidence-v2-sealed-2026-09-15.json`](../../artifacts/omega-private-evidence-v2-sealed-2026-09-15.json) — 2026-09-15 · V2 sealed-run receipt: training, sealed runs, cost amortization, robustness and promotion boundary; bounded positive evidence below E10. · **Use:** Cite the cleanest bounded transfer result from Omega.
+- [`omega-private-holdout-commitments-2026-09-15.json`](../../artifacts/omega-private-holdout-commitments-2026-09-15.json) — 2026-09-15 · Sealed, not-yet-evaluated V1 holdout commitments per family and run, with generator description and law. · **Use:** Pre-registration order evidence for V1 holdouts.
+- [`omega-private-holdout-commitments-v2-2026-09-15.json`](../../artifacts/omega-private-holdout-commitments-v2-2026-09-15.json) — 2026-09-15 · V2 sealed holdout commitments with evaluation transforms and four runs, not yet evaluated. · **Use:** Pre-registration order evidence for V2 holdouts.
+- [`omega-private-holdout-commitments-v3-2026-09-15.json`](../../artifacts/omega-private-holdout-commitments-v3-2026-09-15.json) — 2026-09-15 · V3 sealed holdout commitments with a reference evaluation done as independent reimplementation because hosted CI failed. · **Use:** Pre-registration for V3 holdouts and note on replication method.
+- [`omega-private-v2-unseen-algebra-failure-2026-09-15.json`](../../artifacts/omega-private-v2-unseen-algebra-failure-2026-09-15.json) — 2026-09-15 · Records negative transfer of a finite-CSP meta-selector on an unseen algebra family, with excess work versus cold start. · **Use:** Evidence of a bounded failure that V3 must address.
+- [`omega-private-v3-commitments-void-unopened-2026-09-15.json`](../../artifacts/omega-private-v3-commitments-void-unopened-2026-09-15.json) — 2026-09-15 · Provenance record that a V3 commitment manifest was voided unopened; no performance evaluation occurred. · **Use:** Explain why a preregistration is not counted as evidence.
+- [`omega-sealed-transfer-receipt-2026-09-15.json`](../../artifacts/omega-sealed-transfer-receipt-2026-09-15.json) — 2026-09-15 · Sealed transfer receipt with harness and seal commits, crystal hash, discovery work, regimes and replications. · **Use:** Evidence for a sealed transfer result.
+- [`omega-v4-evidence.json`](../../artifacts/omega-v4-evidence.json) — V4 evidence summary: freeze and seal commits, discovery work, crystal hash, unseen equality, grade ceiling and what blocks next. · **Use:** Cite V4 evidence and its ceiling.
+- [`omega-v4-seal.json`](../../artifacts/omega-v4-seal.json) — V4 seal listing source freeze commit and runs committed before evaluation. · **Use:** Pre-registration for V4 evidence.
 
 **Frontier cognition and model routing**
 
@@ -1006,11 +1015,11 @@ JSON registries, receipts, research corpora and recovered history.
 **Outreach and distribution**
 
 - [`distribution-channel-portfolio.json`](../../artifacts/distribution-channel-portfolio.json) — Channel portfolio for the active offer with per-channel preparation/blocked/deferred statuses, allocation law and attribution envelope. · **Use:** decide which distribution channels to prepare
-- [`outreach-capacity-economics.json`](../../artifacts/outreach-capacity-economics.json) — Preparation only · CURRENT · uberbond-outreach-capacity-economics-1.0.0 _(matched by name only)_
+- [`outreach-capacity-economics.json`](../../artifacts/outreach-capacity-economics.json) — Outreach capacity scenarios and economics: provider price anchors, contradictions, two-mailbox canary blocked on quote, DNS and policy, with safety and kill policy. · **Use:** Cost and gating basis for the first outreach canary.
 
 **Commerce, payments and economics**
 
-- [`offer-factory-research-packet.json`](../../artifacts/offer-factory-research-packet.json) — White-label Lead-Path Revenue Leak Evidence Sprint · uberbond-offer-factory-research-packet-1.0.0 _(matched by name only)_
+- [`offer-factory-research-packet.json`](../../artifacts/offer-factory-research-packet.json) — Research packet on candidate offers (white-label lead-path evidence sprint, AI agent acceptance sprint) with truth classification, activation gates and zero-effect ledger. · **Use:** Evidence for choosing the active commercial experiment.
 - [`partner-canary-public-corroboration-20260829.json`](../../artifacts/partner-canary-public-corroboration-20260829.json) — 2026-08-29 · Third-party corroboration of top three public-only partner candidates; outcome survives with uncertainty, outreach blocked. · **Use:** challenge partner-canary choices before any outreach
 - [`partner-canary-public-evidence-20260829.json`](../../artifacts/partner-canary-public-evidence-20260829.json) — 2026-08-29 · Ranked public evidence on agency partner candidates with qualification gate and ranking method; demand unproven, outreach blocked. · **Use:** select white-label partner canary candidates
 - [`partner-canary-seed-universe-20260829.json`](../../artifacts/partner-canary-seed-universe-20260829.json) — 2026-08-29 · Seed list of public home-service marketing agencies (BXB Media, Lemon Seed, etc.) classified as ecosystem seeds, not a contact list. · **Use:** starting universe for partner distribution research
@@ -1020,7 +1029,7 @@ JSON registries, receipts, research corpora and recovered history.
 **Opportunity and world intelligence**
 
 - [`cost-stage-fulfill-learn-frontier.json`](../../artifacts/cost-stage-fulfill-learn-frontier.json) — Frontier record of internal capabilities (cost policy, Postgres cache, plan/receipt contracts, weight persistence) with no external proof. · **Use:** status of cost/stage/fulfil/learn capability work
-- [`opportunity-tournament-latest.json`](../../artifacts/opportunity-tournament-latest.json) — White-label Lead-Path Revenue Leak Evidence Sprint · RECOMMENDED_CANARY_PREPARATION · uberbond-opportunity-tournament-research-1.0.0 _(matched by name only)_
+- [`opportunity-tournament-latest.json`](../../artifacts/opportunity-tournament-latest.json) — Scored tournament of candidate offers with weights and portfolio law; recommends the white-label lead-path sprint for canary preparation and rejects generic managed cold outreach. · **Use:** Evidence for the current commercial experiment selection.
 - [`research-source-registry.json`](../../artifacts/research-source-registry.json) — Registry of research sources (internal state docs and external reports like home-service trends) with truth law and contradictions. · **Use:** provenance index for commercial research claims
 - [`world-signal-taxonomy.json`](../../artifacts/world-signal-taxonomy.json) — Taxonomy of world signal classes (buyer pain, willingness to pay, provider price/policy, legal change, competitor change) with monitoring policy. · **Use:** decide which world facts to monitor for commercial decisions
 

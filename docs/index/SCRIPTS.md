@@ -34,9 +34,9 @@ Command-line entry points; most are wired to an `npm run` name shown beside them
 - [`institutional-financial-sovereignty-doctor.mjs`](../../scripts/institutional-financial-sovereignty-doctor.mjs) — Doctor compiling institutional financial ledger of entity obligations, admitting effects and reconciling evidence on synthetic data. · **Use:** check legal/financial obligation ledger logic
 - [`personal-civilization-doctor.mjs`](../../scripts/personal-civilization-doctor.mjs) — Runs life loop end to end (possibility, compression, gamechanger for life, genesis for life, freedom gradient, antifragility) on synthetic or supplied situation. · **Use:** exercise Personal Civilization organs as one pass _(npm: `life:doctor`)_
 - [`personal-civilization-private.mjs`](../../scripts/personal-civilization-private.mjs) — Private reality cycle runtime: founder presence check, compile/close private reality cycles, decision loop and N-of-1 experiments, interactive session. · **Use:** founder-run private life decision cycles
-- [`sovereign-initiative-host.mjs`](../../scripts/sovereign-initiative-host.mjs) — exports SOVEREIGN_INITIATIVE_HOST_VERSION, pumpInitiativeAgentMesh, runSovereignInitiativeHost _(matched by name only)_
-- [`sovereign-initiative-runtime.mjs`](../../scripts/sovereign-initiative-runtime.mjs) _(matched by name only)_
-- [`sovereign-initiative-selection-runtime.mjs`](../../scripts/sovereign-initiative-selection-runtime.mjs) — exports SOVEREIGN_INITIATIVE_RUNTIME_VERSION, runSovereignInitiativeRuntime _(matched by name only)_
+- [`sovereign-initiative-host.mjs`](../../scripts/sovereign-initiative-host.mjs) — Host pumping the initiative agent mesh and running the sovereign initiative runtime. · **Use:** Runs initiative dispatch loop.
+- [`sovereign-initiative-runtime.mjs`](../../scripts/sovereign-initiative-runtime.mjs) — Thin CLI entry re-exporting the initiative selection runtime and running the host. · **Use:** Launcher for initiative runtime.
+- [`sovereign-initiative-selection-runtime.mjs`](../../scripts/sovereign-initiative-selection-runtime.mjs) — Runtime selecting north-star initiatives with context mount and finite-completion seed. · **Use:** Chooses which initiative to dispatch.
 - [`value-of-information-doctor.mjs`](../../scripts/value-of-information-doctor.mjs) — Doctor wrapping the value-of-information governor · **Use:** check VOI governor that decides whether more research is worth it
 - [`volitional-integrity-review.mjs`](../../scripts/volitional-integrity-review.mjs) — CLI assessing volitional integrity, preference feedback loops and will boundary using living self model preference provenance · **Use:** review how a founder preference or choice was formed
 
@@ -64,20 +64,20 @@ Command-line entry points; most are wired to an `npm run` name shown beside them
 - [`phoenix-ten-wave-reconcile.py`](../../scripts/phoenix-ten-wave-reconcile.py) — Validates and reconciles PHOENIX ten-wave research catalogs against expected URL hash, writing receipts only. · **Use:** reconcile PHOENIX research catalogs
 - [`pr-reconcile.mjs`](../../scripts/pr-reconcile.mjs) — Trial-merges every open PR against main and classifies conflicts as MECHANICAL or SEMANTIC; read-only. · **Use:** triage open PR merge conflicts
 - [`repository-index.mjs`](../../scripts/repository-index.mjs) — Deterministic card catalog of every tracked file classified into domains, areas and keyword projects; writes docs/index and index JSON. · **Use:** npm run repo:index navigation catalog _(npm: `repo:index`, `repo:index:check`)_
-- [`uberbond-brain-bootstrap.mjs`](../../scripts/uberbond-brain-bootstrap.mjs) — exports UBERBOND_BRAIN_BOOTSTRAP_CLI_VERSION, MEMORY_RECONCILIATION_PATH, MASTER_MEMORY_RECONCILIATION_PATH, EXTERNAL_CAPABILITY_REGISTRY_PATH, CAPAB… _(matched by name only)_
-- [`uberbond-brain-safe.mjs`](../../scripts/uberbond-brain-safe.mjs) _(matched by name only; npm: `brain`)_
-- [`uberbond-cognitive-cycle-synaptic.mjs`](../../scripts/uberbond-cognitive-cycle-synaptic.mjs) _(matched by name only)_
-- [`uberbond-cognitive-cycle.mjs`](../../scripts/uberbond-cognitive-cycle.mjs) _(matched by name only)_
-- [`uberbond-command-center-control.mjs`](../../scripts/uberbond-command-center-control.mjs) _(matched by name only)_
-- [`uberbond-feature-atom-atlas.mjs`](../../scripts/uberbond-feature-atom-atlas.mjs) _(matched by name only; npm: `brain:feature-atlas`)_
-- [`uberbond-feature-genome.mjs`](../../scripts/uberbond-feature-genome.mjs) _(matched by name only; npm: `brain:features`)_
-- [`uberbond-finite-completion-seed.mjs`](../../scripts/uberbond-finite-completion-seed.mjs) — exports UBERBOND_FINITE_COMPLETION_SEED_VERSION, compileFiniteCompletionDirective, compileFiniteCompletionTask, runFiniteCompletionSeed
-- [`uberbond-genesis-reactivation.mjs`](../../scripts/uberbond-genesis-reactivation.mjs) _(matched by name only)_
-- [`uberbond-mcp.mjs`](../../scripts/uberbond-mcp.mjs) _(matched by name only)_
-- [`uberbond-metacognitive-synthesis.mjs`](../../scripts/uberbond-metacognitive-synthesis.mjs) _(matched by name only; npm: `brain:metacognitive`)_
-- [`uberbond-repository-deep-atlas.mjs`](../../scripts/uberbond-repository-deep-atlas.mjs) _(matched by name only)_
-- [`uberbond-synaptic-map.mjs`](../../scripts/uberbond-synaptic-map.mjs) _(matched by name only)_
-- [`uberbond-ultimate-graph.mjs`](../../scripts/uberbond-ultimate-graph.mjs) _(matched by name only)_
+- [`uberbond-brain-bootstrap.mjs`](../../scripts/uberbond-brain-bootstrap.mjs) — Brain bootstrap loading repository brain packet: memory, capability, event-horizon and world-brain state with a byte budget. · **Use:** Backs npm run brain at session start.
+- [`uberbond-brain-safe.mjs`](../../scripts/uberbond-brain-safe.mjs) — Safe brain CLI resolving source identity and capability total state before printing brain packet. · **Use:** Safer wrapper of the brain command. _(npm: `brain`)_
+- [`uberbond-cognitive-cycle-synaptic.mjs`](../../scripts/uberbond-cognitive-cycle-synaptic.mjs) — Cognitive cycle augmenter binding synaptic map and ultimate graph into a cognitive cycle. · **Use:** Adds graph bindings to cycle.
+- [`uberbond-cognitive-cycle.mjs`](../../scripts/uberbond-cognitive-cycle.mjs) — Compiles cognitive graph, bus activation and events from many adapters (Event Horizon, GENESIS, Wallbreaker). · **Use:** Runs the repository cognitive cycle.
+- [`uberbond-command-center-control.mjs`](../../scripts/uberbond-command-center-control.mjs) — CLI controlling autonomy command-center via autonomy control and status modules, writing GitHub outputs. · **Use:** Command center control from workflows.
+- [`uberbond-feature-atom-atlas.mjs`](../../scripts/uberbond-feature-atom-atlas.mjs) — Builds Feature Atom Atlas from the Feature Genome artifact. · **Use:** Generates atom atlas. _(npm: `brain:feature-atlas`)_
+- [`uberbond-feature-genome.mjs`](../../scripts/uberbond-feature-genome.mjs) — Builds Feature Genome artifact from repository. · **Use:** Generates feature genome. _(npm: `brain:features`)_
+- [`uberbond-finite-completion-seed.mjs`](../../scripts/uberbond-finite-completion-seed.mjs) — Finite completion seed compiling directives and tasks relayed via agent and GitHub relay. · **Use:** Seeds finite-goal missions.
+- [`uberbond-genesis-reactivation.mjs`](../../scripts/uberbond-genesis-reactivation.mjs) — CLI ranking GENESIS ideas for gaps and compiling reactivation events. · **Use:** Reactivates GENESIS ideas.
+- [`uberbond-mcp.mjs`](../../scripts/uberbond-mcp.mjs) — MCP stdio server exposing UberBond tools (state, relay) to Claude via the project directory. · **Use:** Claude Code integration of UberBond tools.
+- [`uberbond-metacognitive-synthesis.mjs`](../../scripts/uberbond-metacognitive-synthesis.mjs) — CLI synthesizing metacognition across artifacts. · **Use:** Metacognitive synthesis step. _(npm: `brain:metacognitive`)_
+- [`uberbond-repository-deep-atlas.mjs`](../../scripts/uberbond-repository-deep-atlas.mjs) — Writes the repository deep atlas using stream writer with redaction and atomic replace. · **Use:** Large atlas generation.
+- [`uberbond-synaptic-map.mjs`](../../scripts/uberbond-synaptic-map.mjs) — CLI compiling the Uberbond synaptic map from genome and atlas. · **Use:** Generates synaptic map.
+- [`uberbond-ultimate-graph.mjs`](../../scripts/uberbond-ultimate-graph.mjs) — CLI building the ultimate graph artifact with streamed compact JSON. · **Use:** Generates ultimate graph.
 
 ## GENESIS, moonshots and Perpetual Frontier
 
@@ -220,17 +220,17 @@ Command-line entry points; most are wired to an `npm run` name shown beside them
 - [`sandwich-autocatalytic-seed.mjs`](../../scripts/sandwich-autocatalytic-seed.mjs) — Seeds the Sandwich autocatalytic governor with finite completion seed via GitHub relay. · **Use:** start autocatalytic Sandwich loop
 - [`sandwich-method-doctor.mjs`](../../scripts/sandwich-method-doctor.mjs) — Doctor building Sandwich fold mission, evidence binding, agent task and blueprint revision proposals. · **Use:** check Sandwich method pipeline
 - [`sandwich-method-plan.mjs`](../../scripts/sandwich-method-plan.mjs) — Compiles Sandwich method plan, evidence-bound sandwich, agent task and canonical leaf handoff, writing output. · **Use:** produce Sandwich agent task plans
-- [`semantic-requirement-tribunal.mjs`](../../scripts/semantic-requirement-tribunal.mjs) _(matched by name only)_
-- [`terminal-convergence.mjs`](../../scripts/terminal-convergence.mjs) _(matched by name only)_
-- [`terminal-realization.mjs`](../../scripts/terminal-realization.mjs) — exports truthFailureSummary, executeTerminalRealization
-- [`ubermind-33k-reality-doctor.mjs`](../../scripts/ubermind-33k-reality-doctor.mjs) — exports runUberMind33kRealityDoctor _(matched by name only)_
-- [`ubermind-55-agent-mesh-doctor.mjs`](../../scripts/ubermind-55-agent-mesh-doctor.mjs) — exports W37_MESH_DOCTOR_SCHEMA, W37_EXAMPLE_AUX_CALLS, getW37AllInMeshIllustrations _(matched by name only)_
-- [`ubermind-55-family-price-doctor.mjs`](../../scripts/ubermind-55-family-price-doctor.mjs) — exports UBERMIND_55_DOCTOR_SCHEMA, inspectUberMind55TariffScenarios _(matched by name only)_
-- [`ubermind-890-evidence-cycle.mjs`](../../scripts/ubermind-890-evidence-cycle.mjs) — exports UBERMIND_890_DOCTOR_SCHEMA, runUberMind890ProofCycle _(matched by name only)_
-- [`ubermind-cheapest-reference-doctor.mjs`](../../scripts/ubermind-cheapest-reference-doctor.mjs) — exports runUberMindCheapestReferenceDoctor _(matched by name only)_
-- [`ubermind-claude-ai-skill-pack.mjs`](../../scripts/ubermind-claude-ai-skill-pack.mjs) — Validates and packages the claude.ai-uploadable ubermind-lean skill. _(matched by name only)_
-- [`ubermind-cloud-market-doctor.mjs`](../../scripts/ubermind-cloud-market-doctor.mjs) _(matched by name only; npm: `ubermind:cloud:doctor`, `ubermind:cloud:catalog`)_
-- [`ubermind-conditional-agent-doctor.mjs`](../../scripts/ubermind-conditional-agent-doctor.mjs) — exports UBERMIND_OMEGA16_DOCTOR, uberMindOmega16ConditionalDoctor _(matched by name only)_
+- [`semantic-requirement-tribunal.mjs`](../../scripts/semantic-requirement-tribunal.mjs) — Script compiling the semantic requirement tribunal from source, recovery and test-title evidence, where verified declarations override filename discovery. · **Use:** Produces behavioral proof verdicts for requirements.
+- [`terminal-convergence.mjs`](../../scripts/terminal-convergence.mjs) — CLI compiling a terminal convergence plan and adjudicating frozen gates or surviving candidates. · **Use:** Runs terminal convergence.
+- [`terminal-realization.mjs`](../../scripts/terminal-realization.mjs) — Executes terminal realization combining truth regeneration, execution-leaf continuation, finite closure and cut evidence overlays. · **Use:** Final closure driver.
+- [`ubermind-33k-reality-doctor.mjs`](../../scripts/ubermind-33k-reality-doctor.mjs) — Doctor for UberMind 33k reality gate. · **Use:** Checks the 33k reality gate.
+- [`ubermind-55-agent-mesh-doctor.mjs`](../../scripts/ubermind-55-agent-mesh-doctor.mjs) — Doctor with 55-agent mesh total cost illustrations. · **Use:** Cost illustration of agent mesh.
+- [`ubermind-55-family-price-doctor.mjs`](../../scripts/ubermind-55-family-price-doctor.mjs) — Doctor inspecting 55 family tariff scenarios and subscription price proxy. · **Use:** Price scenarios.
+- [`ubermind-890-evidence-cycle.mjs`](../../scripts/ubermind-890-evidence-cycle.mjs) — Cycle running 890 evidence flywheel and sealed reference bridge; 231/231 is an island not independent comparisons. · **Use:** Runs evidence proof cycle.
+- [`ubermind-cheapest-reference-doctor.mjs`](../../scripts/ubermind-cheapest-reference-doctor.mjs) — Doctor for cheapest eligible reference. · **Use:** Reference selection doctor.
+- [`ubermind-claude-ai-skill-pack.mjs`](../../scripts/ubermind-claude-ai-skill-pack.mjs) — Validates and zips the ubermind-lean skill for claude.ai upload. · **Use:** Packages the skill.
+- [`ubermind-cloud-market-doctor.mjs`](../../scripts/ubermind-cloud-market-doctor.mjs) — Doctor checking cloud market and OpenRouter catalog with provider readiness, optional live catalog. · **Use:** Checks cloud cognition resources. _(npm: `ubermind:cloud:doctor`, `ubermind:cloud:catalog`)_
+- [`ubermind-conditional-agent-doctor.mjs`](../../scripts/ubermind-conditional-agent-doctor.mjs) — Doctor for conditional agent optimizer (Omega16). · **Use:** Checks Omega16 optimizer.
 - [`ubermind-five-percent-preflight.mjs`](../../scripts/ubermind-five-percent-preflight.mjs) — Offline preflight that runs source-bound E1 proof execution and measures source bytes of startup context against a five-percent compression gate, no model calls · **Use:** check whether UberMind startup context compression target is met without claiming token savings
 - [`ubermind-public-issue-intake.mjs`](../../scripts/ubermind-public-issue-intake.mjs) — Read-only fetcher of 12 explicitly approved public GitHub issues as a workload, using the existing relay credential, with secret scrubbing and bounded concurrency · **Use:** capture public-issue tasks as untrusted UberMind/Jev evaluation workload
 - [`ubermind-startup-context-audit.mjs`](../../scripts/ubermind-startup-context-audit.mjs) — Parses top-level @path imports in CLAUDE.md and reports their source byte sizes, explicitly not the tokenizer bill · **Use:** audit how much material Claude startup imports load
@@ -274,11 +274,11 @@ Command-line entry points; most are wired to an `npm run` name shown beside them
 - [`overnight-upgrade-plan.mjs`](../../scripts/overnight-upgrade-plan.mjs) — Consumes a capability/economics packet and prints a tournament plus GPT->Claude->test->review task graph; no network or writes. · **Use:** plan governed overnight capability upgrades _(npm: `overnight:plan`)_
 - [`queue-smoke.mjs`](../../scripts/queue-smoke.mjs) — Smoke test of DurableQueue on embedded Postgres: abandoned job reclaim and cross-process heartbeat visibility. · **Use:** verify durable queue recovery _(npm: `smoke:queue`)_
 - [`relay-status.mjs`](../../scripts/relay-status.mjs) — Read-only GitHub relay status computing IDLE, ACTIVE, STRANDED or STALLED from issues and comments. · **Use:** see whether relay queue needs a human
-- [`uber-orchestration-doctor.mjs`](../../scripts/uber-orchestration-doctor.mjs) _(matched by name only)_
-- [`uber-socket-activation-doctor.mjs`](../../scripts/uber-socket-activation-doctor.mjs) _(matched by name only)_
-- [`uberagent-autonomy-v2.ps1`](../../scripts/uberagent-autonomy-v2.ps1) _(matched by name only)_
-- [`uberagent-legacy.ps1`](../../scripts/uberagent-legacy.ps1) _(matched by name only)_
-- [`uberagent-lite.ps1`](../../scripts/uberagent-lite.ps1) _(matched by name only)_
+- [`uber-orchestration-doctor.mjs`](../../scripts/uber-orchestration-doctor.mjs) — Doctor compiling Uber orchestration plan and integrity checks across sovereign layers. · **Use:** Checks orchestration plane.
+- [`uber-socket-activation-doctor.mjs`](../../scripts/uber-socket-activation-doctor.mjs) — Doctor resetting and checking Uber Socket runtime peers, documents and connectome isolation. · **Use:** Activation check for the socket.
+- [`uberagent-autonomy-v2.ps1`](../../scripts/uberagent-autonomy-v2.ps1) — PowerShell UberAgent autonomy v2 node agent installing under LocalAppData with token and disable file. · **Use:** Windows agent for UberBond node.
+- [`uberagent-legacy.ps1`](../../scripts/uberagent-legacy.ps1) — Legacy PowerShell UberAgent node script with token and disable file. · **Use:** Older Windows agent.
+- [`uberagent-lite.ps1`](../../scripts/uberagent-lite.ps1) — PowerShell UberAgent Lite with DPAPI-protected UberWorm token and log cache. · **Use:** Lightweight Windows agent for UberWorm.
 
 ## Self-maintenance and verification
 
@@ -295,18 +295,18 @@ Command-line entry points; most are wired to an `npm run` name shown beside them
 - [`organism-foundations-doctor.mjs`](../../scripts/organism-foundations-doctor.mjs) — Zero-effect doctor importing overnight organism foundation modules and exposing their version identities to make them reachable. · **Use:** reachability for overnight foundation organs _(npm: `organism:doctor`)_
 - [`reachability-report.mjs`](../../scripts/reachability-report.mjs) — Emits reachability report receipt: src modules reachable from production, operator scripts only, or no entry point. · **Use:** measure dead versus wired modules
 - [`run-tests.mjs`](../../scripts/run-tests.mjs) — Discovers and runs test files, excluding browser/DB suites, deduping imported test files. · **Use:** npm test runner _(npm: `test:deterministic`)_
-- [`self-maintainer-continuation-receipt.mjs`](../../scripts/self-maintainer-continuation-receipt.mjs) _(matched by name only)_
-- [`self-maintainer-pulse-preflight.mjs`](../../scripts/self-maintainer-pulse-preflight.mjs) _(matched by name only)_
-- [`separate-services-smoke.mjs`](../../scripts/separate-services-smoke.mjs) _(matched by name only; npm: `smoke:services`)_
-- [`supporting-civilization-organs-doctor.mjs`](../../scripts/supporting-civilization-organs-doctor.mjs) _(matched by name only)_
-- [`uberbond-self-maintainer-tick.mjs`](../../scripts/uberbond-self-maintainer-tick.mjs) — exports UBERBOND_SELF_MAINTAINER_TICK_POLICY_VERSION, loadCognitiveMaintenanceContext, selfMaintenanceTaskId, compileSelfMaintenanceRelayTask, valida… _(matched by name only)_
+- [`self-maintainer-continuation-receipt.mjs`](../../scripts/self-maintainer-continuation-receipt.mjs) — CLI that reads a self-maintainer result and base revision and writes a continuation receipt using the continuation policy. · **Use:** Decides whether the self-maintainer may continue after a pulse.
+- [`self-maintainer-pulse-preflight.mjs`](../../scripts/self-maintainer-pulse-preflight.mjs) — CLI gating a self-maintainer pulse by comparing a prior receipt with the current GITHUB_SHA via the continuation policy. · **Use:** Preflight check preventing repeated pulses on the same base.
+- [`separate-services-smoke.mjs`](../../scripts/separate-services-smoke.mjs) — Smoke script launching embedded Postgres, a web service and a worker as separate processes to check an artifact created by the worker is served by web. · **Use:** Verifies separate web/worker services work together. _(npm: `smoke:services`)_
+- [`supporting-civilization-organs-doctor.mjs`](../../scripts/supporting-civilization-organs-doctor.mjs) — Doctor compiling supporting civilization organs: UberGraph, exchange, UberDNA, compute cells, metabolism, UberCloud, UberCel. · **Use:** Checks supporting organs.
+- [`uberbond-self-maintainer-tick.mjs`](../../scripts/uberbond-self-maintainer-tick.mjs) — Self-maintainer tick compiling relay tasks, validating candidates, sandboxing and trusted promotion. · **Use:** Core tick of the self-maintainer.
 
 ## Governance, authority and proof
 
 - [`consent-bridge-attribute.mjs`](../../scripts/consent-bridge-attribute.mjs) — Read-only CLI matching website lead exports to printed consent-bridge invitation codes and printing per-channel counts. · **Use:** attribute inbound requests to printed letters _(npm: `outreach:bridge-attribute`)_
 - [`consent-bridge-letters.mjs`](../../scripts/consent-bridge-letters.mjs) — Founder-run CLI crawling prospects' public pages, keeping verifiable findings, issuing invitation codes and writing printable letter HTML; sends nothing. · **Use:** produce printed consent-bridge letters for postal first touch _(npm: `outreach:bridge-letters`)_
 - [`consent-bridge-plan.mjs`](../../scripts/consent-bridge-plan.mjs) — Plans a first-touch cohort: recipient eligibility, lawful channel routing, and invitation codes to an external ledger. · **Use:** plan lawful first-touch cohort before letters or email _(npm: `outreach:bridge-plan`)_
-- [`supplier-exit-drill.mjs`](../../scripts/supplier-exit-drill.mjs) — Runs the exit drill for real, against real bytes. _(matched by name only)_
+- [`supplier-exit-drill.mjs`](../../scripts/supplier-exit-drill.mjs) — Runs a supplier exit drill: exports canon and memory to a disposable directory and restores and verifies bytes. · **Use:** Local state portability proof.
 - [`v7-artifact-index.mjs`](../../scripts/v7-artifact-index.mjs) — Maps each of 31 artifacts named by the V7 contract to generated, covered-by-existing or absent, keeping absences counted · **Use:** show which V7 contract artifacts really exist
 - [`v7-claim-evidence-registry.mjs`](../../scripts/v7-claim-evidence-registry.mjs) — Lists claims repository artifacts make about itself and checks whether backing evidence was produced at the current head · **Use:** detect stale self-claims such as mutation counts or readiness
 - [`v7-frontier-artifacts.mjs`](../../scripts/v7-frontier-artifacts.mjs) — Generates six V7 frontier artifacts (baselines, evaluation epoch, mission DAG, resource allocation, checkpoint, final state) from one computation · **Use:** produce V7 frontier state artifacts for the current head
@@ -317,10 +317,10 @@ Command-line entry points; most are wired to an `npm run` name shown beside them
 ## Email infrastructure and warmup
 
 - [`domain-purpose-plan.mjs`](../../scripts/domain-purpose-plan.mjs) — Reports intended purpose of every host under UberBond's two domains and, with --live, read-only DNS observations; planned records never self-verify. · **Use:** compare domain plan with observed DNS _(npm: `domain:plan`)_
-- [`uberdoso-dns-publish.mjs`](../../scripts/uberdoso-dns-publish.mjs) — Publish the mail cell's DNS in one step after bring-up. _(matched by name only; npm: `uberdoso:dns-publish`)_
-- [`uberdoso-postal-provision.rb`](../../scripts/uberdoso-postal-provision.rb) _(matched by name only)_
-- [`uberdoso-status.mjs`](../../scripts/uberdoso-status.mjs) _(matched by name only)_
-- [`uberinboxes-apply.mjs`](../../scripts/uberinboxes-apply.mjs) _(matched by name only)_
+- [`uberdoso-dns-publish.mjs`](../../scripts/uberdoso-dns-publish.mjs) — CLI to print or apply UberDoso DNS records through GoDaddy adapter with owner authorization and observation. · **Use:** Publishes mail cell DNS. _(npm: `uberdoso:dns-publish`)_
+- [`uberdoso-postal-provision.rb`](../../scripts/uberdoso-postal-provision.rb) — Ruby script provisioning Postal mail server for UberDoso. · **Use:** Postal bootstrap in mail cell.
+- [`uberdoso-status.mjs`](../../scripts/uberdoso-status.mjs) — CLI compiling UberDoso activation status and verifier contracts. · **Use:** Status of the mail cell activation.
+- [`uberinboxes-apply.mjs`](../../scripts/uberinboxes-apply.mjs) — Applies UberInboxes mailbox plan using the verified domain fleet selection. · **Use:** Mailbox creation plan aligned with Postal domains.
 - [`uberwarm-ingress-live-doctor.mjs`](../../scripts/uberwarm-ingress-live-doctor.mjs) — Read-only check of a Winnr webhook registration and the canonical Neon ingress health, evaluated by the ingress fence · **Use:** confirm UberWarm webhook ingress is registered and healthy
 - [`uberwarm2-enroll-winnr-receiver.mjs`](../../scripts/uberwarm2-enroll-winnr-receiver.mjs) — Explicit one-mailbox enrollment of a Winnr mailbox as an UberWarm2 receiver, storing encrypted credentials in Railway Postgres · **Use:** bind a single receiver mailbox for warmup observation
 - [`uberwarm2-live-read-doctor.mjs`](../../scripts/uberwarm2-live-read-doctor.mjs) — Read-only Winnr probe printing aggregates: token permissions, paid-warming census, organic fleet admission, DNS spot-check, event-log telemetry · **Use:** observe live warmup and provider state without any writes
@@ -363,7 +363,7 @@ Command-line entry points; most are wired to an `npm run` name shown beside them
 - [`revenue-method-exchange.mjs`](../../scripts/revenue-method-exchange.mjs) — Compiles revenue method exchange from config file and optional output. · **Use:** rank revenue methods
 - [`revenue-terminal-webkit-proof.mjs`](../../scripts/revenue-terminal-webkit-proof.mjs) — Local WebKit acceptance test of revenue terminal UI touch pinch handlers across Money, Demand, Proof, Outreach lenses. · **Use:** iPad interaction proof for Revenue Constellation
 - [`review-probes.mjs`](../../scripts/review-probes.mjs) — Independent review probes attacking discovery claims: Overpass QL injection, dry runs, website gating, dedup, attribution, auth errors. · **Use:** adversarial review of prospect discovery _(npm: `probes`)_
-- [`single-audit-radar.mjs`](../../scripts/single-audit-radar.mjs) — Single Audit Obligation Radar: read-only public data -> dated forecasts. _(matched by name only)_
+- [`single-audit-radar.mjs`](../../scripts/single-audit-radar.mjs) — Read-only CLI fetching USAspending awards and Federal Audit Clearinghouse filings to forecast Single Audit obligations by state and year. · **Use:** Generates dated forecasts of audit obligation for an opportunity.
 - [`verified-defects-rehearsal.mjs`](../../scripts/verified-defects-rehearsal.mjs) — Runs the Verified Inquiry-Path Defects sale protocol against real public websites with a recording ledger, re-verifying a first-seen finding registry for decay · **Use:** rehearse defect-audit sale without charging or sending
 - [`visual-qa.mjs`](../../scripts/visual-qa.mjs) — Playwright Chromium script rendering storefront pages at several viewport sizes into previews directory · **Use:** visual QA screenshots of public UI _(npm: `visual`)_
 
@@ -400,60 +400,60 @@ Command-line entry points; most are wired to an `npm run` name shown beside them
 - [`run-real-postgres-tests.mjs`](../../scripts/run-real-postgres-tests.mjs) — Runs ~42 real-Postgres-requiring suites serially each in its own database. · **Use:** execute crash recovery and race tests _(npm: `test:postgres-real`)_
 - [`runtime-transition-assertion.mjs`](../../scripts/runtime-transition-assertion.mjs) — Compiles durable workload, cutover rollback or provider loss assertions from input files. · **Use:** receipts for runtime migration transitions
 - [`seed.mjs`](../../scripts/seed.mjs) — Seeds local JSON database with demo Global Digital Opportunity Scan campaign for audit offer with daily caps. · **Use:** initialize demo data for local app _(npm: `seed`)_
-- [`source-repository-host-drill.mjs`](../../scripts/source-repository-host-drill.mjs) _(matched by name only)_
-- [`sovereign-24x7-acceptance.mjs`](../../scripts/sovereign-24x7-acceptance.mjs) _(matched by name only)_
-- [`sovereign-autonomy-pulse.mjs`](../../scripts/sovereign-autonomy-pulse.mjs) — exports SOVEREIGN_AUTONOMY_PULSE_VERSION, compileLocalAutonomyState, runSovereignAutonomyPulse _(matched by name only)_
-- [`sovereign-autonomy-verify.mjs`](../../scripts/sovereign-autonomy-verify.mjs) — exports SOVEREIGN_AUTONOMY_VERIFY_VERSION, runSovereignAutonomyVerification _(matched by name only)_
-- [`sovereign-bootstrap-doctor.mjs`](../../scripts/sovereign-bootstrap-doctor.mjs) — exports collectSovereignBootstrapReadiness _(matched by name only)_
-- [`sovereign-context-authorize-suppression.mjs`](../../scripts/sovereign-context-authorize-suppression.mjs) — exports SOVEREIGN_CONTEXT_AUTH_VERSION, authorizeContextSuppression _(matched by name only)_
-- [`sovereign-context-checkpoint.mjs`](../../scripts/sovereign-context-checkpoint.mjs) — exports SOVEREIGN_CONTEXT_CHECKPOINT_VERSION, checkpointSovereignContext _(matched by name only)_
-- [`sovereign-context-doctor.mjs`](../../scripts/sovereign-context-doctor.mjs) — exports SOVEREIGN_CONTEXT_DOCTOR_VERSION, TERMINAL_NORTH_STAR_PATH, CURRENT_HANDOFF_PATH, overlayExactCurrentContext, runSovereignContextDoctor _(matched by name only)_
-- [`sovereign-context-journal-compact.mjs`](../../scripts/sovereign-context-journal-compact.mjs) — exports SOVEREIGN_CONTEXT_JOURNAL_COMPACTION_VERSION, compactContextJournalLayeredStore _(matched by name only)_
-- [`sovereign-context-journal-migrate.mjs`](../../scripts/sovereign-context-journal-migrate.mjs) — exports SOVEREIGN_CONTEXT_JOURNAL_MIGRATION_VERSION, migrateContextJournalToLayeredStore _(matched by name only)_
-- [`sovereign-context-local-recovery-drill.mjs`](../../scripts/sovereign-context-local-recovery-drill.mjs) — exports SOVEREIGN_CONTEXT_LOCAL_RECOVERY_VERSION, runLocalContextRecoveryDrill _(matched by name only)_
-- [`sovereign-context-mount.mjs`](../../scripts/sovereign-context-mount.mjs) — exports SOVEREIGN_CONTEXT_MOUNT_VERSION, mountSovereignContext _(matched by name only)_
-- [`sovereign-context-project-worker.mjs`](../../scripts/sovereign-context-project-worker.mjs) — exports SOVEREIGN_CONTEXT_PROJECT_WORKER_VERSION, projectWorkerContext _(matched by name only)_
-- [`sovereign-context-query.mjs`](../../scripts/sovereign-context-query.mjs) — exports SOVEREIGN_CONTEXT_QUERY_VERSION, querySovereignContext _(matched by name only)_
-- [`sovereign-context-replication-admission.mjs`](../../scripts/sovereign-context-replication-admission.mjs) — exports SOVEREIGN_CONTEXT_REPLICATION_ADMISSION_VERSION, admitContextReplicationDirectory _(matched by name only)_
-- [`sovereign-context-replication-bundle.mjs`](../../scripts/sovereign-context-replication-bundle.mjs) — exports SOVEREIGN_CONTEXT_REPLICATION_BUNDLE_VERSION, verifyContextReplicationDirectory, exportContextReplicationDirectory _(matched by name only)_
-- [`sovereign-context-segment-journal.mjs`](../../scripts/sovereign-context-segment-journal.mjs) — exports SOVEREIGN_CONTEXT_SEGMENT_JOURNAL_VERSION, verifyCognitiveJournalSegmentSnapshot, exportCognitiveJournalSegments _(matched by name only)_
-- [`sovereign-context-source-ancestry.mjs`](../../scripts/sovereign-context-source-ancestry.mjs) — exports SOVEREIGN_CONTEXT_SOURCE_ANCESTRY_VERSION, probeContextSourceAncestry _(matched by name only)_
-- [`sovereign-context-suppress.mjs`](../../scripts/sovereign-context-suppress.mjs) — exports SOVEREIGN_CONTEXT_SUPPRESS_VERSION, suppressContextEvent _(matched by name only)_
-- [`sovereign-context-sync.mjs`](../../scripts/sovereign-context-sync.mjs) — exports SOVEREIGN_CONTEXT_SYNC_VERSION, syncSovereignContext _(matched by name only)_
-- [`sovereign-coverage-matrix.mjs`](../../scripts/sovereign-coverage-matrix.mjs) — Extracts every concept from every canonical source and compiles the matrix. _(matched by name only; npm: `sovereign:coverage`)_
-- [`sovereign-coverage-terminal-closure.mjs`](../../scripts/sovereign-coverage-terminal-closure.mjs) — exports normalizeShortReferenceSurfaces, compileTerminalCoverage, writeTerminalCoverage _(matched by name only)_
-- [`sovereign-cut-set-audit.mjs`](../../scripts/sovereign-cut-set-audit.mjs) _(matched by name only)_
-- [`sovereign-forever-mission-renewer.mjs`](../../scripts/sovereign-forever-mission-renewer.mjs) — exports SOVEREIGN_FOREVER_MISSION_VERSION, SOVEREIGN_FOREVER_INTENT, renewSovereignForeverMission _(matched by name only)_
-- [`sovereign-founder-console-server.mjs`](../../scripts/sovereign-founder-console-server.mjs) _(matched by name only)_
-- [`sovereign-founder-dialogue-context.mjs`](../../scripts/sovereign-founder-dialogue-context.mjs) — exports SOVEREIGN_FOUNDER_DIALOGUE_CONTEXT_VERSION, mountFounderDialogueContext _(matched by name only)_
-- [`sovereign-founder-private-gateway.mjs`](../../scripts/sovereign-founder-private-gateway.mjs) _(matched by name only)_
-- [`sovereign-local-model-proxy.mjs`](../../scripts/sovereign-local-model-proxy.mjs) _(matched by name only)_
-- [`sovereign-local-promote.mjs`](../../scripts/sovereign-local-promote.mjs) — exports runSovereignLocalPromotion _(matched by name only)_
-- [`sovereign-local-worker-runner.mjs`](../../scripts/sovereign-local-worker-runner.mjs) — exports SOVEREIGN_LOCAL_WORKER_VERSION, runSovereignLocalWorker _(matched by name only)_
-- [`sovereign-native-local-model-worker.mjs`](../../scripts/sovereign-native-local-model-worker.mjs) _(matched by name only)_
-- [`sovereign-organs-doctor.mjs`](../../scripts/sovereign-organs-doctor.mjs) — Does each sovereign organ still refuse what it exists to refuse? _(matched by name only)_
-- [`sovereign-relation-doctor.mjs`](../../scripts/sovereign-relation-doctor.mjs) — The sovereign relation, checked over time rather than at a moment. _(matched by name only; npm: `sovereignty:doctor`)_
-- [`sovereign-release-request.mjs`](../../scripts/sovereign-release-request.mjs) _(matched by name only)_
-- [`sovereign-revenue-runtime-pulse.mjs`](../../scripts/sovereign-revenue-runtime-pulse.mjs) — exports runSovereignRevenueRuntimePulse _(matched by name only)_
-- [`sovereign-root-recovery-doctor.mjs`](../../scripts/sovereign-root-recovery-doctor.mjs) _(matched by name only)_
-- [`sovereign-self-host-doctor.mjs`](../../scripts/sovereign-self-host-doctor.mjs) — exports SOVEREIGN_SELF_HOST_DOCTOR_VERSION, inspectSovereignSelfHost _(matched by name only)_
-- [`uber-sovereign-expansion-doctor.mjs`](../../scripts/uber-sovereign-expansion-doctor.mjs) — exports UBER_SOVEREIGN_EXPANSION_DOCTOR_VERSION, runUberSovereignExpansionDoctor _(matched by name only)_
-- [`ubercel-deploy.mjs`](../../scripts/ubercel-deploy.mjs) — exports runUbercelOperator _(matched by name only)_
-- [`ubercel-doctor.mjs`](../../scripts/ubercel-doctor.mjs) — Reports UberBond's deployment state through Ubercel. _(matched by name only; npm: `ubercel:doctor`)_
-- [`ubercel-economic-deploy.mjs`](../../scripts/ubercel-economic-deploy.mjs) — exports runUbercelEconomicDeployment _(matched by name only)_
-- [`ubercel-record-health.mjs`](../../scripts/ubercel-record-health.mjs) — Records an observed health probe into the Ubercel signal file. _(matched by name only)_
-- [`uberlaunch-closure-doctor.mjs`](../../scripts/uberlaunch-closure-doctor.mjs) _(matched by name only)_
-- [`uberlit-24x7-smoke.mjs`](../../scripts/uberlit-24x7-smoke.mjs) _(matched by name only)_
-- [`uberlit-build-uberbond.mjs`](../../scripts/uberlit-build-uberbond.mjs) _(matched by name only)_
-- [`uberlit-jev-shadow-canary.mjs`](../../scripts/uberlit-jev-shadow-canary.mjs) _(matched by name only; npm: `jev:uberlit:canary`)_
-- [`uberlit-run-uberbond.mjs`](../../scripts/uberlit-run-uberbond.mjs) _(matched by name only)_
-- [`uberlit-runtime-doctor.mjs`](../../scripts/uberlit-runtime-doctor.mjs) _(matched by name only)_
-- [`uberlit-runtime-evidence.mjs`](../../scripts/uberlit-runtime-evidence.mjs) _(matched by name only)_
-- [`uberlit-supervisor.mjs`](../../scripts/uberlit-supervisor.mjs) _(matched by name only)_
-- [`uberlit-tls-edge.mjs`](../../scripts/uberlit-tls-edge.mjs) _(matched by name only)_
-- [`uberlit-typesafe-secret.mjs`](../../scripts/uberlit-typesafe-secret.mjs) _(matched by name only; npm: `jev:uberlit:secret`)_
-- [`uberlit-worker-supervisor.mjs`](../../scripts/uberlit-worker-supervisor.mjs) _(matched by name only)_
-- [`uberlit.mjs`](../../scripts/uberlit.mjs) _(matched by name only)_
+- [`source-repository-host-drill.mjs`](../../scripts/source-repository-host-drill.mjs) — Drill creating a source-repository host receipt by exercising a real git repository and compiling the receipt. · **Use:** Evidence that source hosting can be exited or reproduced.
+- [`sovereign-24x7-acceptance.mjs`](../../scripts/sovereign-24x7-acceptance.mjs) — Acceptance script observing the three UberLit systemd services over a time window and checking they stay running. · **Use:** 24/7 acceptance probe for the UberLit host.
+- [`sovereign-autonomy-pulse.mjs`](../../scripts/sovereign-autonomy-pulse.mjs) — Local autonomy pulse compiling state and running a finite-completion seed with sandwich governor and continuation policy under zero-effect ledgers. · **Use:** Heartbeat of the sovereign local autonomy loop.
+- [`sovereign-autonomy-verify.mjs`](../../scripts/sovereign-autonomy-verify.mjs) — Verification step running the self-maintainer in a Linux sandbox to independently verify a candidate under continuation policy. · **Use:** Independent verifier in the autonomy pipeline.
+- [`sovereign-bootstrap-doctor.mjs`](../../scripts/sovereign-bootstrap-doctor.mjs) — Doctor collecting sovereign bootstrap readiness measurements for the host. · **Use:** Checks if a host is ready to bootstrap the sovereign stack.
+- [`sovereign-context-authorize-suppression.mjs`](../../scripts/sovereign-context-authorize-suppression.mjs) — Module authorizing suppression of a context event with privacy checks and effect ledgers. · **Use:** Owner-authorized step before suppressing remembered context.
+- [`sovereign-context-checkpoint.mjs`](../../scripts/sovereign-context-checkpoint.mjs) — Module checkpointing the sovereign context fabric using journal runtime and doctor. · **Use:** Writes a durable context checkpoint.
+- [`sovereign-context-doctor.mjs`](../../scripts/sovereign-context-doctor.mjs) — Doctor verifying the sovereign context against the terminal North Star and current handoff paths. · **Use:** Health check of mounted lifetime context.
+- [`sovereign-context-journal-compact.mjs`](../../scripts/sovereign-context-journal-compact.mjs) — Module compacting the layered cognitive context journal into segments. · **Use:** Keeps the context journal compact.
+- [`sovereign-context-journal-migrate.mjs`](../../scripts/sovereign-context-journal-migrate.mjs) — Module migrating a cognitive event journal to the layered segment store. · **Use:** One-time journal format migration.
+- [`sovereign-context-local-recovery-drill.mjs`](../../scripts/sovereign-context-local-recovery-drill.mjs) — Drill that exports, replicates and restores sovereign context locally to prove recovery. · **Use:** Local recovery proof for lifetime context.
+- [`sovereign-context-mount.mjs`](../../scripts/sovereign-context-mount.mjs) — Module mounting sovereign context from the journal and retrieving history for a session. · **Use:** Loads context at session start.
+- [`sovereign-context-project-worker.mjs`](../../scripts/sovereign-context-project-worker.mjs) — Module projecting mounted context for a worker task. · **Use:** Gives workers a bounded context projection.
+- [`sovereign-context-query.mjs`](../../scripts/sovereign-context-query.mjs) — Module querying the mounted sovereign context via projection. · **Use:** Search over lifetime context.
+- [`sovereign-context-replication-admission.mjs`](../../scripts/sovereign-context-replication-admission.mjs) — Module admitting a replication directory after verifying bundle and source ancestry. · **Use:** Gate before importing context replica.
+- [`sovereign-context-replication-bundle.mjs`](../../scripts/sovereign-context-replication-bundle.mjs) — Module exporting and verifying context replication bundles. · **Use:** Portable context replica format.
+- [`sovereign-context-segment-journal.mjs`](../../scripts/sovereign-context-segment-journal.mjs) — Module exporting and verifying cognitive journal segment snapshots. · **Use:** Segment-level journal export.
+- [`sovereign-context-source-ancestry.mjs`](../../scripts/sovereign-context-source-ancestry.mjs) — Module probing context source ancestry to confirm lineage of source. · **Use:** Proves where context came from.
+- [`sovereign-context-suppress.mjs`](../../scripts/sovereign-context-suppress.mjs) — Module suppressing a context event in the journal with privacy rules. · **Use:** Implements right-to-forget in context.
+- [`sovereign-context-sync.mjs`](../../scripts/sovereign-context-sync.mjs) — Module syncing sovereign context: checkpoint, mount, migrate and compact in order. · **Use:** One-call context maintenance.
+- [`sovereign-coverage-matrix.mjs`](../../scripts/sovereign-coverage-matrix.mjs) — Script extracting every concept from declared canonical North Star sources into a coverage matrix; verify fails if a source is missing. · **Use:** Denominator for the no-drop coverage of terminal concepts. _(npm: `sovereign:coverage`)_
+- [`sovereign-coverage-terminal-closure.mjs`](../../scripts/sovereign-coverage-terminal-closure.mjs) — Module normalizing short reference surfaces and compiling terminal coverage from the sovereign matrix. · **Use:** Finalizes coverage states for reference-only canon.
+- [`sovereign-cut-set-audit.mjs`](../../scripts/sovereign-cut-set-audit.mjs) — Audit script collecting source and test files to compile a sovereign cut-set audit of supplier exits and recovery. · **Use:** Identifies single points of failure.
+- [`sovereign-forever-mission-renewer.mjs`](../../scripts/sovereign-forever-mission-renewer.mjs) — Module renewing a sovereign forever mission intent. · **Use:** Keeps a long mission alive across expiry.
+- [`sovereign-founder-console-server.mjs`](../../scripts/sovereign-founder-console-server.mjs) — Founder console HTTP server: unauthenticated shell only, all data and control APIs need Bearer auth, uses model executor for dialogue. · **Use:** Server behind the founder console UI.
+- [`sovereign-founder-dialogue-context.mjs`](../../scripts/sovereign-founder-dialogue-context.mjs) — Module mounting founder dialogue context without persisting the raw private turn. · **Use:** Provides context to founder chat.
+- [`sovereign-founder-private-gateway.mjs`](../../scripts/sovereign-founder-private-gateway.mjs) — HTTP gateway for founder private network with token auth, allowlisted paths, upstream 127.0.0.1:8787 and body cap. · **Use:** Authenticated private proxy to the console.
+- [`sovereign-local-model-proxy.mjs`](../../scripts/sovereign-local-model-proxy.mjs) — Unix-socket HTTP proxy forwarding bounded requests to an open-model endpoint if enabled. · **Use:** Bridge allowing isolated workers to reach local model.
+- [`sovereign-local-promote.mjs`](../../scripts/sovereign-local-promote.mjs) — Script running sovereign local promotion applying verified code changes via release handoff. · **Use:** Promotion governor logic.
+- [`sovereign-local-worker-runner.mjs`](../../scripts/sovereign-local-worker-runner.mjs) — Runner for isolated local worker tasks. · **Use:** Executes task.json in the sandbox worker.
+- [`sovereign-native-local-model-worker.mjs`](../../scripts/sovereign-native-local-model-worker.mjs) — Native local model worker compiling prompts and proposals using sandwich admission, cognitive graph and connectome. · **Use:** Local model worker producing governed proposals.
+- [`sovereign-organs-doctor.mjs`](../../scripts/sovereign-organs-doctor.mjs) — Doctor exercising refusal boundaries of nine sovereign organs including forecast and GENESIS compilers. · **Use:** Fast check that refusals still exist.
+- [`sovereign-relation-doctor.mjs`](../../scripts/sovereign-relation-doctor.mjs) — Doctor running authority drift, free-will amplification and temporal civilization organs on a synthetic fixture. · **Use:** Checks the sovereign relation over time. _(npm: `sovereignty:doctor`)_
+- [`sovereign-release-request.mjs`](../../scripts/sovereign-release-request.mjs) — CLI compiling a sovereign release request from a merge receipt, with zero authorities. · **Use:** First step of the release handoff.
+- [`sovereign-revenue-runtime-pulse.mjs`](../../scripts/sovereign-revenue-runtime-pulse.mjs) — Module running a sovereign revenue runtime pulse with the founder economic mission pulse. · **Use:** Periodic revenue runtime check.
+- [`sovereign-root-recovery-doctor.mjs`](../../scripts/sovereign-root-recovery-doctor.mjs) — Doctor compiling a sovereign recovery charter and admitting recovery on synthetic multi-factor data. · **Use:** Demonstrates root recovery logic.
+- [`sovereign-self-host-doctor.mjs`](../../scripts/sovereign-self-host-doctor.mjs) — Doctor inspecting whether a host satisfies sovereign self-host requirements. · **Use:** Self-host health report.
+- [`uber-sovereign-expansion-doctor.mjs`](../../scripts/uber-sovereign-expansion-doctor.mjs) — Doctor for Uber sovereign expansion running genesis orchestrator and evidence law checks. · **Use:** Checks expansion modules.
+- [`ubercel-deploy.mjs`](../../scripts/ubercel-deploy.mjs) — Operator running Ubercel deployment via actuator and Linux adapter. · **Use:** Deploy entry for Ubercel.
+- [`ubercel-doctor.mjs`](../../scripts/ubercel-doctor.mjs) — Doctor reporting deployment state from supplied signal files, UNKNOWN when none. · **Use:** Honest deployment health. _(npm: `ubercel:doctor`)_
+- [`ubercel-economic-deploy.mjs`](../../scripts/ubercel-economic-deploy.mjs) — Economic deployment runner for Ubercel under effect ledger. · **Use:** Deploys with economics tracking.
+- [`ubercel-record-health.mjs`](../../scripts/ubercel-record-health.mjs) — Records an observed health probe into the Ubercel signal file without making network calls. · **Use:** Evidence capture for deployment health.
+- [`uberlaunch-closure-doctor.mjs`](../../scripts/uberlaunch-closure-doctor.mjs) — Doctor compiling UberLaunch closure across DNS, postal identity and prospect forge. · **Use:** Launch closure checks.
+- [`uberlit-24x7-smoke.mjs`](../../scripts/uberlit-24x7-smoke.mjs) — 24x7 smoke of UberLit runtime using doctor and pointer. · **Use:** Smoke test.
+- [`uberlit-build-uberbond.mjs`](../../scripts/uberlit-build-uberbond.mjs) — Builds UberBond for UberLit with embedded Postgres fixture and symlink flattening. · **Use:** Build step for UberLit release.
+- [`uberlit-jev-shadow-canary.mjs`](../../scripts/uberlit-jev-shadow-canary.mjs) — Runs a Jev shadow canary using TypeSafe key, system-one adapter and noetic autocompiler. · **Use:** Shadow call to prove Jev live. _(npm: `jev:uberlit:canary`)_
+- [`uberlit-run-uberbond.mjs`](../../scripts/uberlit-run-uberbond.mjs) — CLI running UberBond in UberLit: build, stage, compile, promote. · **Use:** Release driver.
+- [`uberlit-runtime-doctor.mjs`](../../scripts/uberlit-runtime-doctor.mjs) — Runtime doctor for UberLit combining pointer, secret inspection and system-one readiness. · **Use:** UberLit health check.
+- [`uberlit-runtime-evidence.mjs`](../../scripts/uberlit-runtime-evidence.mjs) — Collects runtime evidence via source, restart and web host receipts. · **Use:** Evidence for host independence.
+- [`uberlit-supervisor.mjs`](../../scripts/uberlit-supervisor.mjs) — UberLit supervisor spawning embedded Postgres and runtime. · **Use:** Process supervisor for UberLit.
+- [`uberlit-tls-edge.mjs`](../../scripts/uberlit-tls-edge.mjs) — HTTPS ingress edge with TLS proxying to upstream web port. · **Use:** TLS ingress for UberLit.
+- [`uberlit-typesafe-secret.mjs`](../../scripts/uberlit-typesafe-secret.mjs) — CLI to store, inspect or clear the UberLit TypeSafe key. · **Use:** Secret management for Jev activation. _(npm: `jev:uberlit:secret`)_
+- [`uberlit-worker-supervisor.mjs`](../../scripts/uberlit-worker-supervisor.mjs) — Supervisor for UberLit worker with liveness assessment. · **Use:** Worker supervision.
+- [`uberlit.mjs`](../../scripts/uberlit.mjs) — Main UberLit CLI: build, stage, promote, rollback, start, stop, logs and health wait. · **Use:** Operator tool for UberLit.
 - [`uberocean-admit-oracle-host.mjs`](../../scripts/uberocean-admit-oracle-host.mjs) — Compiles an admission decision for an Oracle free-tier host from owner evidence under the UberLit runtime root, probing via https and child processes · **Use:** admit Oracle Always Free host into UberOcean/UberLit runtime _(npm: `uberocean:admit:oracle`)_
 - [`uberos-doctor.mjs`](../../scripts/uberos-doctor.mjs) — Loads the UberOS generation-0 machine manifest and runs the system compiler on it, printing a JSON status · **Use:** validate UBER/OS generation 0 manifest
 - [`uberstatic.mjs`](../../scripts/uberstatic.mjs) — CLI to compile, write, activate, verify, list, roll back, delete and serve UberStatic static deployments with a pointer file · **Use:** operate the owned static-site deployment runtime
@@ -473,11 +473,11 @@ Command-line entry points; most are wired to an `npm run` name shown beside them
 - [`founder-economic-mission-pulse.mjs`](../../scripts/founder-economic-mission-pulse.mjs) — Runs founder outcome mission with economic reliability control loop, input builder and autoprep against store and queue. · **Use:** periodic economic reliability pulse for founder mission
 - [`founder-ops-runtime-probe.mjs`](../../scripts/founder-ops-runtime-probe.mjs) — Probes the founder ops endpoint with admin token and compiles a runtime probe receipt with verifier and evidence refs. · **Use:** evidence that founder ops page is live
 - [`kilimanjaro-manifest.mjs`](../../scripts/kilimanjaro-manifest.mjs) — Emits Kilimanjaro completion manifest counted from repository plus parsed TAP suite totals; effect axes asserted zero. · **Use:** measured Kilimanjaro completion manifest _(npm: `manifest:kilimanjaro`)_
-- [`system-readiness.mjs`](../../scripts/system-readiness.mjs) — Produce artifacts/system-readiness.json from measured facts, not from claims. _(matched by name only; npm: `readiness`)_
+- [`system-readiness.mjs`](../../scripts/system-readiness.mjs) — Script producing artifacts/system-readiness.json from measured facts with proof levels 0-7. · **Use:** Generates readiness truth. _(npm: `readiness`)_
 
 ## Core and uncategorised
 
 - [`compile-founder-outcome-mission.mjs`](../../scripts/compile-founder-outcome-mission.mjs) — CLI compiling the latest founder outcome mission. · **Use:** produce current founder outcome mission packet
 - [`materialize-inevitability-v9.py`](../../scripts/materialize-inevitability-v9.py) — Python materializer reconstructing the Inevitability Engine V9 source from base64 carrier, verifying manifest hashes. · **Use:** rebuild hash-locked V9 source from carrier
 - [`record-oracle-free-owner-evidence.mjs`](../../scripts/record-oracle-free-owner-evidence.mjs) — Records owner evidence for Oracle Always Free setup with source ref and incremental cost into UberLit runtime artifacts. · **Use:** evidence of zero-spend Oracle host activation _(npm: `oracle:record-free-evidence`)_
-- [`sensorium-plan.mjs`](../../scripts/sensorium-plan.mjs) _(matched by name only)_
+- [`sensorium-plan.mjs`](../../scripts/sensorium-plan.mjs) — CLI printing an always-on sensorium plan with per-source lane mode, concurrency and next action from the adaptive source ceiling governor. · **Use:** Shows how world-sensing lanes would be scheduled.

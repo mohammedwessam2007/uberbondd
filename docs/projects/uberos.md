@@ -17,12 +17,12 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Source modules (6)
 
-- [`src/uberos/authority.mjs`](../../src/uberos/authority.mjs) — exports UBEROS_AUTHORITY_VERSION, createAuthorityRoot, delegateAuthority, revokeAuthority, authorityIsUsable _(matched by name only; imported by 1)_
-- [`src/uberos/kernel-adapter.mjs`](../../src/uberos/kernel-adapter.mjs) — exports UBEROS_KERNEL_ADAPTER_VERSION, KERNEL_CLASSES, normalizeKernelAdapter, selectKernelAdapter _(matched by name only; imported by 1)_
-- [`src/uberos/package-provenance.mjs`](../../src/uberos/package-provenance.mjs) — exports UBEROS_PACKAGE_PROVENANCE_VERSION, normalizePackageProvenance, comparePackageProvenance _(matched by name only; imported by 1)_
-- [`src/uberos/state-engine.mjs`](../../src/uberos/state-engine.mjs) — exports UBEROS_STATE_ENGINE_VERSION, compileStateTransition, compileRollbackReceipt _(matched by name only; no static importers)_
-- [`src/uberos/system-compiler.mjs`](../../src/uberos/system-compiler.mjs) — exports UBEROS_SYSTEM_COMPILER_VERSION, compileUberOsManifest _(matched by name only; imported by 1)_
-- [`src/uberos/unknown-unknown-lab.mjs`](../../src/uberos/unknown-unknown-lab.mjs) — exports UBEROS_UNKNOWN_UNKNOWN_LAB_VERSION, PERTURBATION_FAMILIES, compileAssumptionExperiment, analyzeExperimentOutcomes, defaultOsAssumptionPortfol… _(matched by name only; imported by 1)_
+- [`src/uberos/authority.mjs`](../../src/uberos/authority.mjs) — Creates authority roots, delegates and revokes authority and checks usability for UBER/OS. · **Use:** Authority model in the OS manifest _(imported by 1)_
+- [`src/uberos/kernel-adapter.mjs`](../../src/uberos/kernel-adapter.mjs) — Normalizes kernel adapters by class and selects one for the OS. · **Use:** Kernel choice for UBER/OS _(imported by 1)_
+- [`src/uberos/package-provenance.mjs`](../../src/uberos/package-provenance.mjs) — Normalizes package provenance with UNKNOWN or proprietary license handling and compares provenance records. · **Use:** Package provenance gate for OS builds _(imported by 1)_
+- [`src/uberos/state-engine.mjs`](../../src/uberos/state-engine.mjs) — Compiles state transitions and rollback receipts for the OS. · **Use:** Reversible OS state changes _(no static importers)_
+- [`src/uberos/system-compiler.mjs`](../../src/uberos/system-compiler.mjs) — Compiles an UBER/OS manifest from authority, package provenance, kernel adapter and unknown-unknown lab pieces. · **Use:** Machine manifest for UBER/OS _(imported by 1)_
+- [`src/uberos/unknown-unknown-lab.mjs`](../../src/uberos/unknown-unknown-lab.mjs) — Compiles assumption experiments over perturbation families and analyzes outcomes, with default OS assumptions such as boot needing no model. · **Use:** Test OS design assumptions _(imported by 1)_
 
 ## Scripts (1)
 

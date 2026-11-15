@@ -6,21 +6,28 @@ Neural exocortex genome and store, repository atlas (50K/million-repo), GitHub h
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**38 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
+**46 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
-## Read first (4)
+## Read first (7)
 
-- [`docs/CONNECTOME_AUTOPOIESIS_CANON.md`](../CONNECTOME_AUTOPOIESIS_CANON.md) — UberBond Connectome Autopoiesis — Status: VERIFIED SOURCE MECHANISM / ZERO-EFFECT / PHYSICAL RUNTIME EVIDENCE SEPARATE _(matched by name only)_
+- [`docs/CONNECTOME_AUTOPOIESIS_CANON.md`](../CONNECTOME_AUTOPOIESIS_CANON.md) — Canon for the Connectome: typed bounded edges joining organs, with laws that new features must join it and no busywork bridges. · **Use:** Rule for integrating new capabilities into the organ graph.
 - [`docs/NEURAL_EXOCORTEX_GENOME_CANON.md`](../NEURAL_EXOCORTEX_GENOME_CANON.md) — Canon for exocortex retaining 1,000,000 deduplicated neural capability records with bounded 64-capability mission cortex and compaction-manifest completion rule. · **Use:** governs neural capability harvest scale claims
+- [`docs/FRONTIER_INTELLIGENCE_FOUNDRY.md`](../FRONTIER_INTELLIGENCE_FOUNDRY.md) — Design of a foundry normalizing frontier-produced mechanisms, targeting one million retained capability records with a 64-capability active cortex. · **Use:** Design basis for the neural exocortex corpus.
 - [`docs/MILLION_REPO_NEURAL_CONTINUUM.md`](../MILLION_REPO_NEURAL_CONTINUUM.md) — North star funnel from 1M public repos to ~50K suppliers to elite capabilities, listing brain dimensions to cover. · **Use:** scope of repository-scale capability discovery
 - [`docs/NEURAL_REPOSITORY_ATLAS_50K.md`](../NEURAL_REPOSITORY_ATLAS_50K.md) — Mission doc to index at least 50,000 public repositories across AI families through a discovery-to-activation pipeline; stars are only a discovery prior. · **Use:** scope the 50K repository atlas harvest
+- [`docs/memory/UBERBOND_ULTIMATE_GRAPH_2026-09-06.md`](../memory/UBERBOND_ULTIMATE_GRAPH_2026-09-06.md) — 2026-09-06 · Checkpoint documenting the Ultimate Graph: repository deep atlas modules extending Feature Genome and Synaptic Map to cover every file. · **Use:** Records the self-map implementation on PR #400 and prior counts.
+- [`docs/memory/UBERBOND_VISUAL_CORTEX_2026-09-06.md`](../memory/UBERBOND_VISUAL_CORTEX_2026-09-06.md) — 2026-09-06 · Visual cortex checkpoint: protected /api/ultimate-graph projection, lenses, iPad pan/zoom and rule that hidden in projection never means deleted. · **Use:** Records graph visualization surface and its deletion-authority law.
+
+## Commands (1)
+
+`npm run brain:feature-atlas`
 
 ## Documents that discuss this project without naming it in the filename (3)
 
 - [`docs/MULTIDIMENSIONAL_VELOCITY_SINGULARITY_AUDIT_2026-09-15.md`](../MULTIDIMENSIONAL_VELOCITY_SINGULARITY_AUDIT_2026-09-15.md) — 2026-09-15 · Research audit defining velocity objective V and missing mechanisms so each mission shortens future work, listing existing acceleration machinery. · **Use:** plan compounding execution-speed improvements _(3 mentions)_
-- [`docs/prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-11.md`](../prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-11.md) — 2026-09-11 · UberBond 8-Hour Revenue Singularity _(matched by name only)_ _(3 mentions)_
+- [`docs/prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-11.md`](../prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-11.md) — 2026-09-11 · Eight-hour revenue singularity mission 2026-09-11: maximize provider-origin cleared contribution profit while founder sleeps, with metric ladder. · **Use:** Mission prompt for overnight revenue execution. _(3 mentions)_
 - [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.md`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.md) — 2026-09-11 · Full mission spec for the 2026-09-11 overnight revenue run: cleared-profit metric, PayPal destination truth boundary, no account changes · **Use:** defines rules and boundaries for the overnight revenue mission _(3 mentions)_
 
 ## Source modules (12)
@@ -38,19 +45,24 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 - [`src/uberbond-repository-deep-atlas.mjs`](../../src/uberbond-repository-deep-atlas.mjs) — Builds a chunk-indexed deep atlas of the repository with bounded structural expansion and streamed SHA-256 digest · **Use:** queryable complete index of repository contents _(tested; imported by 2)_
 - [`src/uberbond-ultimate-graph.mjs`](../../src/uberbond-ultimate-graph.mjs) — Compiles and queries the ultimate graph derived from the deep atlas · **Use:** whole-repository graph queries _(tested; imported by 1)_
 
-## Scripts (4)
+## Scripts (9)
 
 - [`scripts/neural-exocortex-brain-pulse.mjs`](../../scripts/neural-exocortex-brain-pulse.mjs) — Compiles the neural exocortex cognitive graph from an external capability corpus directory final manifest; refuses without corpus dir. · **Use:** refresh exocortex cognitive graph from harvested corpus
 - [`scripts/neural-exocortex-compact.mjs`](../../scripts/neural-exocortex-compact.mjs) — Compacts the external neural exocortex corpus toward the final capability target; requires external corpus dir. · **Use:** compact large harvested capability corpus
 - [`scripts/neural-repository-atlas.mjs`](../../scripts/neural-repository-atlas.mjs) — Compiles a neural repository atlas harvest plan for a target repository count and pushed-after date. · **Use:** plan large-scale GitHub repository atlas harvest
 - [`scripts/neural-repository-harvest.mjs`](../../scripts/neural-repository-harvest.mjs) — Executes partitioned GitHub harvest, normalizes capability observations and writes batches and state to external exocortex store. · **Use:** run repository atlas harvest batches
+- [`scripts/uberbond-cognitive-cycle-synaptic.mjs`](../../scripts/uberbond-cognitive-cycle-synaptic.mjs) — Cognitive cycle augmenter binding synaptic map and ultimate graph into a cognitive cycle. · **Use:** Adds graph bindings to cycle.
+- [`scripts/uberbond-feature-atom-atlas.mjs`](../../scripts/uberbond-feature-atom-atlas.mjs) — Builds Feature Atom Atlas from the Feature Genome artifact. · **Use:** Generates atom atlas. _(npm: `brain:feature-atlas`)_
+- [`scripts/uberbond-repository-deep-atlas.mjs`](../../scripts/uberbond-repository-deep-atlas.mjs) — Writes the repository deep atlas using stream writer with redaction and atomic replace. · **Use:** Large atlas generation.
+- [`scripts/uberbond-synaptic-map.mjs`](../../scripts/uberbond-synaptic-map.mjs) — CLI compiling the Uberbond synaptic map from genome and atlas. · **Use:** Generates synaptic map.
+- [`scripts/uberbond-ultimate-graph.mjs`](../../scripts/uberbond-ultimate-graph.mjs) — CLI building the ultimate graph artifact with streamed compact JSON. · **Use:** Generates ultimate graph.
 
 ## Config, data, artifacts and services (4)
 
 - [`artifacts/connectome-autopoiesis.json`](../../artifacts/connectome-autopoiesis.json) — Artifact describing a typed connectome graph, bus, resident worker, Sandwich governor, organs and event kinds; source-level only. · **Use:** connectome self-audit contract and status
-- [`ops/sovereign/install-neural-exocortex-harvester.sh`](../../ops/sovereign/install-neural-exocortex-harvester.sh) _(matched by name only)_
-- [`ops/sovereign/uberbond-neural-exocortex-harvest.service`](../../ops/sovereign/uberbond-neural-exocortex-harvest.service) _(matched by name only)_
-- [`ops/sovereign/uberbond-neural-exocortex-harvest.timer`](../../ops/sovereign/uberbond-neural-exocortex-harvest.timer) _(matched by name only)_
+- [`ops/sovereign/install-neural-exocortex-harvester.sh`](../../ops/sovereign/install-neural-exocortex-harvester.sh) — Bash installer for the Neural Exocortex GitHub harvester service and timer writing to a capability corpus directory. · **Use:** Schedules read-only repository harvesting on the sovereign host.
+- [`ops/sovereign/uberbond-neural-exocortex-harvest.service`](../../ops/sovereign/uberbond-neural-exocortex-harvest.service) — systemd oneshot running neural repository harvest then compaction, with call limits. · **Use:** Runs the Neural Exocortex harvest.
+- [`ops/sovereign/uberbond-neural-exocortex-harvest.timer`](../../ops/sovereign/uberbond-neural-exocortex-harvest.timer) — systemd timer running the neural exocortex harvest every six hours. · **Use:** Schedules the repository harvest.
 
 ## Tests (14)
 

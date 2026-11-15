@@ -63,24 +63,24 @@ Small standalone packages and data: actors, apps, data, deploy, integrations, mi
 
 ## data
 
-- [`db.sample.json`](../../data/db.sample.json) _(matched by name only)_
-- [`frontier-capability-donors.json`](../../data/frontier-capability-donors.json) — uberbond.frontier-capability-donors.v1 _(matched by name only)_
-- [`data/gamechanger-mesh/always-on-sensorium.json`](../../data/gamechanger-mesh/always-on-sensorium.json) — uberbond.always-on-sensorium.v1 _(matched by name only)_
-- [`data/gamechanger-mesh/sources.json`](../../data/gamechanger-mesh/sources.json) — uberbond.gamechanger-sources.v1 _(matched by name only)_
-- [`data/gamechanger-mesh/structured-sources.json`](../../data/gamechanger-mesh/structured-sources.json) — uberbond.gamechanger-structured-sources.v2 _(matched by name only)_
-- [`data/gamechanger-mesh/x-listening-profile.json`](../../data/gamechanger-mesh/x-listening-profile.json) — uberbond.x-listening-profile.v1 _(matched by name only)_
-- [`data/genesis/architecture-assumptions.json`](../../data/genesis/architecture-assumptions.json) — uberbond.genesis-architecture-assumptions.v1 _(matched by name only)_
-- [`data/genesis/impossible-tasks.json`](../../data/genesis/impossible-tasks.json) — uberbond.genesis-impossible-tasks.v1 _(matched by name only)_
-- [`data/opportunity-factory/seed-register.json`](../../data/opportunity-factory/seed-register.json) — Freelance Web Developer · EVIDENCED · uberbond.opportunity-seed-register.v1 _(matched by name only)_
+- [`db.sample.json`](../../data/db.sample.json) — Empty sample of the JSON store shape listing collections for prospects, campaigns, jobs, messages, replies, suppressions, orders, subscriptions and more. · **Use:** Template for the original file-based store layout.
+- [`frontier-capability-donors.json`](../../data/frontier-capability-donors.json) — List of public vendor mechanisms treated as capability donors and discovery signals, with an explicit not-proof-of-callability boundary. · **Use:** Seed frontier mechanisms for absorption review.
+- [`data/gamechanger-mesh/always-on-sensorium.json`](../../data/gamechanger-mesh/always-on-sensorium.json) — Lane definitions and global laws for continuous use of permitted sources up to provider ceilings, then back off and resume. · **Use:** Configure the always-on Gamechanger sensing lanes.
+- [`data/gamechanger-mesh/sources.json`](../../data/gamechanger-mesh/sources.json) — Seed registry of public sources and search lanes for the Gamechanger mesh with a coverage objective. · **Use:** Source list for continuous world-change sensing.
+- [`data/gamechanger-mesh/structured-sources.json`](../../data/gamechanger-mesh/structured-sources.json) — Registry of structured public data sources for Gamechanger sensing with a coverage objective. · **Use:** Structured feeds for the sensing mesh.
+- [`data/gamechanger-mesh/x-listening-profile.json`](../../data/gamechanger-mesh/x-listening-profile.json) — Listening profile for X posts: priority accounts, topics, GitHub link inclusion and refresh policy; posts are discovery signals only. · **Use:** Configure social-signal discovery for the mesh.
+- [`data/genesis/architecture-assumptions.json`](../../data/genesis/architecture-assumptions.json) — Architecture assumptions registered so they can be falsified, explicitly not constitutional truth. · **Use:** Input list for GENESIS assumption-attack work.
+- [`data/genesis/impossible-tasks.json`](../../data/genesis/impossible-tasks.json) — Dormant hypotheses of tasks currently impossible, such as long browser workflows, open-model routing, discovery-to-proposal and agent-to-agent service sale. · **Use:** Seed frontier probes that revalidate when capability changes.
+- [`data/opportunity-factory/seed-register.json`](../../data/opportunity-factory/seed-register.json) — Seed register of opportunities, assets and tombstones with statuses like evidenced, prohibited and verified-present, as of a date. · **Use:** Seed data for the opportunity registry and its prohibited list.
 
 ## deploy
 
-- [`deploy/cloudflare-free-runtime/README.md`](../../deploy/cloudflare-free-runtime/README.md) — UberBond Free Runtime Mission Clock _(matched by name only)_
-- [`deploy/cloudflare-free-runtime/package.json`](../../deploy/cloudflare-free-runtime/package.json) — uberbond-free-runtime _(matched by name only)_
-- [`deploy/cloudflare-free-runtime/src/index.js`](../../deploy/cloudflare-free-runtime/src/index.js) — exports RuntimeClock _(matched by name only)_
-- [`deploy/cloudflare-free-runtime/src/policy.js`](../../deploy/cloudflare-free-runtime/src/policy.js) — exports FREE_MISSION_CLOCK_VERSION, MIN_INTERVAL_MS, MAX_ACTIVE_WINDOW_MS, MAX_TICKS_PER_WINDOW, compileFreeMissionClock _(matched by name only)_
-- [`deploy/cloudflare-free-runtime/test/policy.test.mjs`](../../deploy/cloudflare-free-runtime/test/policy.test.mjs) — 4 tests — e.g. "one-second eight-hour mission is accepted and bounded" _(matched by name only)_
-- [`deploy/cloudflare-free-runtime/wrangler.jsonc`](../../deploy/cloudflare-free-runtime/wrangler.jsonc) _(matched by name only)_
+- [`deploy/cloudflare-free-runtime/README.md`](../../deploy/cloudflare-free-runtime/README.md) — README for a standalone Cloudflare Worker with a Durable Object mission clock that ticks up to 8 hours with no external-effect authority. · **Use:** Instructions to deploy and verify the free mission-clock runtime.
+- [`deploy/cloudflare-free-runtime/package.json`](../../deploy/cloudflare-free-runtime/package.json) — Package manifest for the uberbond-free-runtime Worker with scripts and dev dependencies. · **Use:** Install and run the Cloudflare free runtime.
+- [`deploy/cloudflare-free-runtime/src/index.js`](../../deploy/cloudflare-free-runtime/src/index.js) — Worker entry exporting the RuntimeClock Durable Object that persists tick state and schedules alarms using the policy module. · **Use:** Runtime of the free mission clock.
+- [`deploy/cloudflare-free-runtime/src/policy.js`](../../deploy/cloudflare-free-runtime/src/policy.js) — Compiles mission clock requests, enforcing minimum interval, 8-hour maximum window and tick cap, failing closed on bad input. · **Use:** Bound the free mission clock cadence and duration.
+- [`deploy/cloudflare-free-runtime/test/policy.test.mjs`](../../deploy/cloudflare-free-runtime/test/policy.test.mjs) — Tests that a one-second eight-hour clock is accepted, sub-second and over-eight-hour requests are refused, and malformed inputs fail closed. · **Use:** Regression guard for mission clock policy.
+- [`deploy/cloudflare-free-runtime/wrangler.jsonc`](../../deploy/cloudflare-free-runtime/wrangler.jsonc) — Wrangler config naming the Worker, binding the RUNTIME_CLOCK Durable Object, migrations and observability. · **Use:** Deploy configuration for the Cloudflare free runtime.
 
 ## historical-archive
 
@@ -107,18 +107,18 @@ Small standalone packages and data: actors, apps, data, deploy, integrations, mi
 
 ## operator-tools
 
-- [`uberwarm2-execute-approved-once.mjs`](../../operator-tools/uberwarm2-execute-approved-once.mjs) — Dedicated, manually invoked, SINGLE probe execution, NEVER a cron hook. No external effect without authenticated provider transport, six separately s… _(matched by name only)_
+- [`uberwarm2-execute-approved-once.mjs`](../../operator-tools/uberwarm2-execute-approved-once.mjs) — Manual single-run CLI executing one approved UberWarm2 seed probe, requiring signed evidence readers, recipient consent, owner-HMAC batch and atomic Postgres claim. · **Use:** Only sanctioned path to send one placement probe; denies by default.
 
 ## plugins
 
-- [`plugins/phoenix-capability-bridge/plugin.json`](../../plugins/phoenix-capability-bridge/plugin.json) — phoenix-capability-bridge _(matched by name only)_
-- [`plugins/phoenix-capability-bridge/skills/phoenix-operator/SKILL.md`](../../plugins/phoenix-capability-bridge/skills/phoenix-operator/SKILL.md) — PHOENIX Capability Bridge _(matched by name only)_
+- [`plugins/phoenix-capability-bridge/plugin.json`](../../plugins/phoenix-capability-bridge/plugin.json) — Plugin manifest for phoenix-capability-bridge describing 1,560 source-backed PHOENIX designs reached through Chat On Steroids Core. · **Use:** Registers the PHOENIX capability bridge plugin.
+- [`plugins/phoenix-capability-bridge/skills/phoenix-operator/SKILL.md`](../../plugins/phoenix-capability-bridge/skills/phoenix-operator/SKILL.md) — Skill document for the PHOENIX operator: verify repo and main, check the cos operator status, page waves, zero-effect search and mission contracts. · **Use:** Guides an agent on operating PHOENIX capabilities.
 
 ## policy
 
-- [`policy/omnia-v9/authorization.cedar`](../../policy/omnia-v9/authorization.cedar) _(matched by name only)_
-- [`policy/omnia-v9/schema.json`](../../policy/omnia-v9/schema.json) _(matched by name only)_
-- [`policy/outreach/global-policy-evidence.json`](../../policy/outreach/global-policy-evidence.json) — ACTIVE · uberbond.global-policy-evidence-bundle.v1 _(matched by name only)_
+- [`policy/omnia-v9/authorization.cedar`](../../policy/omnia-v9/authorization.cedar) — Cedar authorization policy forbidding execution unless authority, identity, evidence, policy and constitution are resolved, and learning-origin sovereignty changes. · **Use:** Executable projection of OMNIA V9 constitutional gate rules.
+- [`policy/omnia-v9/schema.json`](../../policy/omnia-v9/schema.json) — JSON schema describing the UberBondV9 Cedar entities and actions. · **Use:** Schema for the OMNIA V9 Cedar policy.
+- [`policy/outreach/global-policy-evidence.json`](../../policy/outreach/global-policy-evidence.json) — JSON table of global outreach policy evidence rows by jurisdiction. · **Use:** Evidence source for outreach legal eligibility checks.
 
 ## relay
 

@@ -18,13 +18,13 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Documents that discuss this project without naming it in the filename (3)
 
-- [`docs/CONNECTOME_AUTOPOIESIS_CANON.md`](../CONNECTOME_AUTOPOIESIS_CANON.md) — UberBond Connectome Autopoiesis — Status: VERIFIED SOURCE MECHANISM / ZERO-EFFECT / PHYSICAL RUNTIME EVIDENCE SEPARATE _(matched by name only)_ _(7 mentions)_
-- [`docs/prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-11.md`](../prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-11.md) — 2026-09-11 · UberBond 8-Hour Revenue Singularity _(matched by name only)_ _(5 mentions)_
+- [`docs/CONNECTOME_AUTOPOIESIS_CANON.md`](../CONNECTOME_AUTOPOIESIS_CANON.md) — Canon for the Connectome: typed bounded edges joining organs, with laws that new features must join it and no busywork bridges. · **Use:** Rule for integrating new capabilities into the organ graph. _(7 mentions)_
+- [`docs/prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-11.md`](../prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-11.md) — 2026-09-11 · Eight-hour revenue singularity mission 2026-09-11: maximize provider-origin cleared contribution profit while founder sleeps, with metric ladder. · **Use:** Mission prompt for overnight revenue execution. _(5 mentions)_
 - [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.md`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.md) — 2026-09-11 · Full mission spec for the 2026-09-11 overnight revenue run: cleared-profit metric, PayPal destination truth boundary, no account changes · **Use:** defines rules and boundaries for the overnight revenue mission _(3 mentions)_
 
 ## Source modules (4)
 
-- [`src/epoch-branching-evaluator.mjs`](../../src/epoch-branching-evaluator.mjs) — exports EPOCH_BRANCHING_EVALUATOR_VERSION, evaluateEpochBranchingCandidate, compareEpochBranchingCandidates, evaluateAncestorAblation _(matched by name only; tested; no static importers)_
+- [`src/epoch-branching-evaluator.mjs`](../../src/epoch-branching-evaluator.mjs) — Evaluates and compares epoch-branching candidates and runs ancestor ablation, using the moonshot technology tree compiler. · **Use:** Score timeline branch candidates _(tested; no static importers)_
 - [`src/temporal-foundry.mjs`](../../src/temporal-foundry.mjs) — Analyzes future capability states and compiles temporal foundry raids · **Use:** bring future capabilities forward _(tested; imported by 1)_
 - [`src/timeline-topology-challenge.mjs`](../../src/timeline-topology-challenge.mjs) — Compiles a timeline topology challenge from the topology engine · **Use:** challenge timeline assumptions _(tested; imported by 1)_
 - [`src/timeline-topology-engine.mjs`](../../src/timeline-topology-engine.mjs) — Analyzes timeline boundaries and necessity states, evaluates wormhole candidates and builds timeline cannibalism packets · **Use:** find shortcuts across planned timelines _(tested; imported by 1)_

@@ -14,13 +14,13 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 - [`docs/MACHIAVELLI_WEALTH_ENGINE.md`](../MACHIAVELLI_WEALTH_ENGINE.md) — Status of MACHIAVELLI program: wealth mechanism atlas over 890 ideas, profit tournament, quant research lab files; cleared profit $0. · **Use:** index of wealth-invention deliverables and their state
 - [`.claude/skills/ubermind-math-invention/SKILL.md`](../../.claude/skills/ubermind-math-invention/SKILL.md) — Omega52 skill for classified invention (fiction/math/science) and research-only quant analysis via omega52 atoms config and strategy-brief script. · **Use:** mathematical invention and survival-quant research tasks
-- [`docs/architecture/UBERMIND_OMEGA52_HYPERDIMENSIONAL_INVENTION_AND_QUANT_RESEARCH_2026-10-24.md`](../architecture/UBERMIND_OMEGA52_HYPERDIMENSIONAL_INVENTION_AND_QUANT_RESEARCH_2026-10-24.md) — 2026-10-24 · UBERMIND Ω52 / Hyperdimensional Invention, Mathematical Reality and Quantitative Survival _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA52_HYPERDIMENSIONAL_INVENTION_AND_QUANT_RESEARCH_2026-10-24.md`](../architecture/UBERMIND_OMEGA52_HYPERDIMENSIONAL_INVENTION_AND_QUANT_RESEARCH_2026-10-24.md) — 2026-10-24 · Full Omega52 corpus on pataphysics, geometry, biomimicry, topology, formal proof and research-only quant survival; not book ingestion. · **Use:** On-demand source for Omega52 invention and quant reading.
 
 ## Documents that discuss this project without naming it in the filename (4)
 
-- [`docs/constitution/knowledge-graph-v1.md`](../constitution/knowledge-graph-v1.md) — UBERBOND Knowledge Graph _(matched by name only)_ _(15 mentions)_
+- [`docs/constitution/knowledge-graph-v1.md`](../constitution/knowledge-graph-v1.md) — Very large UBERBOND knowledge graph intelligence-layer specification v1.0.0 dated 2026-07-14, domain calibration pending. · **Use:** Early formal knowledge graph specification. _(15 mentions)_
 - [`artifacts/research/founder-moonshot-literal-corpus/RAW_SOURCE_Branch_Branch_New_chat.txt`](../../artifacts/research/founder-moonshot-literal-corpus/RAW_SOURCE_Branch_Branch_New_chat.txt) — Immutable raw founder transcript containing the 890 moonshot ideas (Causal Compiler, New Constant Hunter, etc.) with fictional IQ markers. · **Use:** literal source of truth for the 890 founder ideas _(7 mentions)_
-- [`docs/constitution/core-data-model-v1.md`](../constitution/core-data-model-v1.md) — UBERBOND Core Data Model _(matched by name only)_ _(3 mentions)_
+- [`docs/constitution/core-data-model-v1.md`](../constitution/core-data-model-v1.md) — Very large UBERBOND core data model specification v1.0.0 dated 2026-07-14, a canonical information architecture pending approval. · **Use:** Early formal data model for the company intelligence layer. _(3 mentions)_
 - [`docs/OUTREACH_PROVIDER_REALITY_2026-09-27.md`](../OUTREACH_PROVIDER_REALITY_2026-09-27.md) — 2026-09-27 · Review of sender providers' terms (OutInfra, Google Workspace, Mailpool, Maildoso) concluding none is purchase-ready for the prospecting route. · **Use:** decide which mail provider can lawfully be bought _(3 mentions)_
 
 ## Source modules (7)

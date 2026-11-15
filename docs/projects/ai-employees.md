@@ -6,32 +6,37 @@ AI employee charter, relay and role contracts; Avengers arsenal, squad planner a
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**57 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
+**59 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
-## Read first (1)
+## Read first (4)
 
-- [`docs/AI_EMPLOYEE_COMPANY_CHARTER.md`](../AI_EMPLOYEE_COMPANY_CHARTER.md) — UberBond AI Employee Company Charter _(matched by name only)_
+- [`docs/AI_EMPLOYEE_COMPANY_CHARTER.md`](../AI_EMPLOYEE_COMPANY_CHARTER.md) — Charter defining AI workers as bounded employees: Sol company brain, Claude Code software factory and ChatGPT mission control roles. · **Use:** Role definitions for AI employees.
+- [`docs/memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1810.md`](../memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1810.md) — 2026-09-04 · Sept 4 18:10 closure checkpoint tracking Avengers PR #364 tip, vercel.json gate restore and main merge state. · **Use:** Historical recovery state between 17:53 and 18:55.
+- [`docs/memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1855.md`](../memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1855.md) — 2026-09-04 · Sept 4 18:55 closure checkpoint: PR #379 merges Avengers and GENESIS, hosted deterministic test counts, Monster Lane B issue #346 remaining. · **Use:** Latest of the Sept 4 closure checkpoints.
+- [`docs/memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04.md`](../memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04.md) — 2026-09-04 · Sept 4 closure checkpoint with main SHA, open PRs Avengers #364 and GENESIS #342 and finish order. · **Use:** Same-day historical recovery state.
 
 ## Commands (5)
 
 `npm run avengers:doctor` · `npm run avengers:doctor:probe` · `npm run avengers:plan` · `npm run avengers:tick` · `npm run avengers:tick:dry`
 
-## Documents that discuss this project without naming it in the filename (10)
+## Other documents (3)
 
-- [`docs/memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1810.md`](../memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1810.md) — 2026-09-04 · UberBond Crash-Safe Closure Checkpoint — 2026-09-04 18:10 Africa/Cairo _(matched by name only)_ _(11 mentions)_
-- [`docs/memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04.md`](../memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04.md) — 2026-09-04 · UberBond Crash-Safe Closure Checkpoint — 2026-09-04 _(matched by name only)_ _(10 mentions)_
-- [`docs/memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1753.md`](../memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1753.md) — 2026-09-04 · UberBond Crash-Safe Closure Checkpoint — 2026-09-04 17:53 Africa/Cairo _(matched by name only)_ _(7 mentions)_
-- [`docs/CONNECTOME_AUTOPOIESIS_CANON.md`](../CONNECTOME_AUTOPOIESIS_CANON.md) — UberBond Connectome Autopoiesis — Status: VERIFIED SOURCE MECHANISM / ZERO-EFFECT / PHYSICAL RUNTIME EVIDENCE SEPARATE _(matched by name only)_ _(6 mentions)_
-- [`docs/memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1855.md`](../memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1855.md) — 2026-09-04 · UberBond Closure Checkpoint — 2026-09-04 18:55 Cairo _(matched by name only)_ _(6 mentions)_
-- [`docs/memory/UBERBOND_TODAY_CLOSURE_ORDER.md`](../memory/UBERBOND_TODAY_CLOSURE_ORDER.md) — UberBond Today Closure Order — 2026-09-04 _(matched by name only)_ _(5 mentions)_
-- [`docs/memory/UBERBOND_CHECKPOINT_2026-08-30.md`](../memory/UBERBOND_CHECKPOINT_2026-08-30.md) — 2026-08-30 · UberBond Crash-Safe Checkpoint — 2026-08-30 _(matched by name only)_ _(3 mentions)_
-- [`docs/memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md`](../memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md) — 2026-09-05 · UberBond Whole-Brain Singularity Checkpoint — 2026-09-05 — Status: DRAFT_BRANCH / IMPLEMENTATION IN PROGRESS _(matched by name only)_ _(3 mentions)_
-- [`docs/prompts/CLAUDE_OPUS_MAX_SOFTWARE_FACTORY.md`](../prompts/CLAUDE_OPUS_MAX_SOFTWARE_FACTORY.md) — Claude Code / Opus Max — UberBond Software Factory _(matched by name only)_ _(3 mentions)_
+- [`docs/memory/STOP_RESTARTING_ARCHITECTURE.txt`](../memory/STOP_RESTARTING_ARCHITECTURE.txt) — One-line instruction not to restart architecture while Avengers #364 and GENESIS #342 remain unfinished. · **Use:** Stops agents from reopening architecture mid-closure.
+- [`docs/memory/UBERBOND_TODAY_CLOSURE_ORDER.md`](../memory/UBERBOND_TODAY_CLOSURE_ORDER.md) — Today closure order for 2026-09-04: finish Avengers, then GENESIS, then exact-main canon, then reality activation, with a live refresh. · **Use:** Ordered closure plan for that day.
+- [`docs/prompts/README.md`](../prompts/README.md) — Index of executive lane prompts pointing to Sol brain, Claude factory, company charter and Trinity night shift. · **Use:** Directory page for which prompt activates which lane.
+
+## Documents that discuss this project without naming it in the filename (6)
+
+- [`docs/memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1753.md`](../memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1753.md) — 2026-09-04 · Sept 4 17:53 closure checkpoint: main after PR #372, measured gate baselines and finish order. · **Use:** Historical recovery state superseded by 18:10 and 18:55. _(7 mentions)_
+- [`docs/CONNECTOME_AUTOPOIESIS_CANON.md`](../CONNECTOME_AUTOPOIESIS_CANON.md) — Canon for the Connectome: typed bounded edges joining organs, with laws that new features must join it and no busywork bridges. · **Use:** Rule for integrating new capabilities into the organ graph. _(6 mentions)_
+- [`docs/memory/UBERBOND_CHECKPOINT_2026-08-30.md`](../memory/UBERBOND_CHECKPOINT_2026-08-30.md) — 2026-08-30 · Crash-safe 2026-08-30 checkpoint: final goal, company architecture (Sol brain, Claude factory), operating loop and status for resuming work. · **Use:** Historical checkpoint older than the Sept 4 closure ones. _(3 mentions)_
+- [`docs/memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md`](../memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md) — 2026-09-05 · Whole-brain singularity checkpoint 2026-09-05: connect every feature into one brain map and pursue intelligence per dollar without quota evasion. · **Use:** Records owner directive and draft-branch state for the brain map. _(3 mentions)_
+- [`docs/prompts/CLAUDE_OPUS_MAX_SOFTWARE_FACTORY.md`](../prompts/CLAUDE_OPUS_MAX_SOFTWARE_FACTORY.md) — Claude Code Opus Max software factory prompt: implementation, verification, merge, deployment lane rules and start-of-session law. · **Use:** Required reading for any software development mission per CLAUDE.md. _(3 mentions)_
 - [`docs/UBERBOND_COGNITIVE_MAP.md`](../UBERBOND_COGNITIVE_MAP.md) — Draft map linking cognitive-graph, cognitive-bus, adapters and lineage config into one organ diagram from world sensing to opportunities. · **Use:** see how organs connect in the brain _(3 mentions)_
 
-## Source modules (15)
+## Source modules (14)
 
 - [`src/agent-autonomy-pump.mjs`](../../src/agent-autonomy-pump.mjs) — Creates and advances autonomy runs, registering tasks safely, recording id joins mesh to relay to employee, and verifying DONE claims with evidence · **Use:** move autonomous tasks through relay and AI employees _(imported by 2)_
 - [`src/agent-autonomy-relay-adapter.mjs`](../../src/agent-autonomy-relay-adapter.mjs) — Converts autonomy TaskIntent into canonical role-bound AgentTask for AI employee relay without sending · **Use:** bridge autonomy loop to AI employee relay _(imported by 1)_
@@ -47,16 +52,12 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 - [`src/avengers-local-discovery.mjs`](../../src/avengers-local-discovery.mjs) — Discovers locally available runtime models as Avengers candidates · **Use:** find local models for the arsenal _(tested; imported by 1)_
 - [`src/avengers-squad-planner.mjs`](../../src/avengers-squad-planner.mjs) — Compiles evidence-routed Avengers squads using model router and orchestration frontier · **Use:** pick squad composition by evidence _(imported by 2)_
 - [`src/ghost-agent.mjs`](../../src/ghost-agent.mjs) — Compiles ghost agents from decision franchises and executes and verifies batches via semantic closure kernel. · **Use:** Run franchised decisions as lightweight agents _(tested; imported by 1)_
-- [`src/uberswarm-edge-fabric.mjs`](../../src/uberswarm-edge-fabric.mjs) — exports UBERSWARM_WORKER_STATES, admitUberSwarmWorker, compileUberSwarmPlan _(matched by name only; imported by 1)_
 
-## Scripts (6)
+## Scripts (3)
 
 - [`scripts/avengers-arsenal-doctor.mjs`](../../scripts/avengers-arsenal-doctor.mjs) — Doctor for the Avengers arsenal using local discovery and arsenal config. · **Use:** report health of the Avengers agent arsenal _(npm: `avengers:doctor`, `avengers:doctor:probe`)_
 - [`scripts/avengers-arsenal-plan.mjs`](../../scripts/avengers-arsenal-plan.mjs) — Planner CLI that runs the Avengers squad planner on artifact input. · **Use:** plan which Avengers agents handle a task _(npm: `avengers:plan`)_
 - [`scripts/avengers-arsenal-tick.mjs`](../../scripts/avengers-arsenal-tick.mjs) — Tick CLI running Avengers execution guard over artifact input. · **Use:** execute one guarded Avengers squad step _(npm: `avengers:tick`, `avengers:tick:dry`)_
-- [`scripts/uberagent-autonomy-v2.ps1`](../../scripts/uberagent-autonomy-v2.ps1) _(matched by name only)_
-- [`scripts/uberagent-legacy.ps1`](../../scripts/uberagent-legacy.ps1) _(matched by name only)_
-- [`scripts/uberagent-lite.ps1`](../../scripts/uberagent-lite.ps1) _(matched by name only)_
 
 ## Config, data, artifacts and services (7)
 

@@ -6,7 +6,7 @@ Sandwich method canon: agent task shaping, blueprint evolution, autocatalytic go
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**28 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
+**31 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
@@ -17,7 +17,7 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Documents that discuss this project without naming it in the filename (2)
 
-- [`docs/CONNECTOME_AUTOPOIESIS_CANON.md`](../CONNECTOME_AUTOPOIESIS_CANON.md) — UberBond Connectome Autopoiesis — Status: VERIFIED SOURCE MECHANISM / ZERO-EFFECT / PHYSICAL RUNTIME EVIDENCE SEPARATE _(matched by name only)_ _(10 mentions)_
+- [`docs/CONNECTOME_AUTOPOIESIS_CANON.md`](../CONNECTOME_AUTOPOIESIS_CANON.md) — Canon for the Connectome: typed bounded edges joining organs, with laws that new features must join it and no busywork bridges. · **Use:** Rule for integrating new capabilities into the organ graph. _(10 mentions)_
 - [`docs/TIMELINE_TOPOLOGY_ENGINE_CANON.md`](../TIMELINE_TOPOLOGY_ENGINE_CANON.md) — Canon for measuring dependency routes, critical path and causal floors, and testing alternate topologies that shorten paths. · **Use:** shorten roadmaps by deleting dependencies _(3 mentions)_
 
 ## Source modules (6)
@@ -29,11 +29,13 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 - [`src/sandwich-evidence-binding.mjs`](../../src/sandwich-evidence-binding.mjs) — Binds evidence kinds to Sandwich Method compilations · **Use:** evidence-bound Sandwich plans _(tested; imported by 2)_
 - [`src/sandwich-method.mjs`](../../src/sandwich-method.mjs) — Core Sandwich Method compiler with node states, fold classes, fold missions, canonical leaf handoff and fold result admission · **Use:** decompose work into folds and canonical leaves _(tested; imported by 4)_
 
-## Scripts (3)
+## Scripts (5)
 
 - [`scripts/sandwich-autocatalytic-seed.mjs`](../../scripts/sandwich-autocatalytic-seed.mjs) — Seeds the Sandwich autocatalytic governor with finite completion seed via GitHub relay. · **Use:** start autocatalytic Sandwich loop
 - [`scripts/sandwich-method-doctor.mjs`](../../scripts/sandwich-method-doctor.mjs) — Doctor building Sandwich fold mission, evidence binding, agent task and blueprint revision proposals. · **Use:** check Sandwich method pipeline
 - [`scripts/sandwich-method-plan.mjs`](../../scripts/sandwich-method-plan.mjs) — Compiles Sandwich method plan, evidence-bound sandwich, agent task and canonical leaf handoff, writing output. · **Use:** produce Sandwich agent task plans
+- [`scripts/sovereign-autonomy-pulse.mjs`](../../scripts/sovereign-autonomy-pulse.mjs) — Local autonomy pulse compiling state and running a finite-completion seed with sandwich governor and continuation policy under zero-effect ledgers. · **Use:** Heartbeat of the sovereign local autonomy loop.
+- [`scripts/sovereign-native-local-model-worker.mjs`](../../scripts/sovereign-native-local-model-worker.mjs) — Native local model worker compiling prompts and proposals using sandwich admission, cognitive graph and connectome. · **Use:** Local model worker producing governed proposals.
 
 ## Config, data, artifacts and services (5)
 
@@ -43,7 +45,7 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 - [`artifacts/temporal-foundry.json`](../../artifacts/temporal-foundry.json) — Machine canon for Temporal Foundry: engine, function states, laws, metrics, integration and tests; source-level future-function decomposition only. · **Use:** registry of Temporal Foundry implementation
 - [`artifacts/timeline-topology-engine.json`](../../artifacts/timeline-topology-engine.json) — Machine canon for the Timeline Topology Engine with challenge compiler, sandwich governor, sovereign worker compiler/runtime, boundary and necessity classes. · **Use:** registry of timeline topology analysis components
 
-## Tests (12)
+## Tests (13)
 
-[`connectome-resident-binding`](../../tests/connectome-resident-binding.test.mjs) · [`sandwich-agent-task`](../../tests/sandwich-agent-task.test.mjs) · [`sandwich-autocatalytic-governor`](../../tests/sandwich-autocatalytic-governor.test.mjs) · [`sandwich-autocatalytic-seed`](../../tests/sandwich-autocatalytic-seed.test.mjs) · [`sandwich-blueprint-evolution`](../../tests/sandwich-blueprint-evolution.test.mjs) · [`sandwich-descendant-admission`](../../tests/sandwich-descendant-admission.test.mjs) · [`sandwich-descendant-canon-append-only`](../../tests/sandwich-descendant-canon-append-only.test.mjs) · [`sandwich-evidence-binding`](../../tests/sandwich-evidence-binding.test.mjs) · [`sandwich-method-doctor`](../../tests/sandwich-method-doctor.test.mjs) · [`sandwich-method-plan`](../../tests/sandwich-method-plan.test.mjs) · [`sandwich-method`](../../tests/sandwich-method.test.mjs) · [`sovereign-local-sandwich-continuum`](../../tests/sovereign-local-sandwich-continuum.test.mjs)
+[`connectome-resident-binding`](../../tests/connectome-resident-binding.test.mjs) · [`sandwich-agent-task`](../../tests/sandwich-agent-task.test.mjs) · [`sandwich-autocatalytic-governor`](../../tests/sandwich-autocatalytic-governor.test.mjs) · [`sandwich-autocatalytic-seed`](../../tests/sandwich-autocatalytic-seed.test.mjs) · [`sandwich-blueprint-evolution`](../../tests/sandwich-blueprint-evolution.test.mjs) · [`sandwich-descendant-admission`](../../tests/sandwich-descendant-admission.test.mjs) · [`sandwich-descendant-canon-append-only`](../../tests/sandwich-descendant-canon-append-only.test.mjs) · [`sandwich-evidence-binding`](../../tests/sandwich-evidence-binding.test.mjs) · [`sandwich-method-doctor`](../../tests/sandwich-method-doctor.test.mjs) · [`sandwich-method-plan`](../../tests/sandwich-method-plan.test.mjs) · [`sandwich-method`](../../tests/sandwich-method.test.mjs) · [`sovereign-autonomy-authoring`](../../tests/sovereign-autonomy-authoring.test.mjs) · [`sovereign-local-sandwich-continuum`](../../tests/sovereign-local-sandwich-continuum.test.mjs)
 

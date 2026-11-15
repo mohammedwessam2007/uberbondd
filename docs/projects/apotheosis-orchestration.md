@@ -10,38 +10,38 @@ Founder orchestration packets P00-P49, Apotheosis runtime and final orchestrator
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
-## Read first (8)
+## Read first (9)
 
 - [`docs/ORCHESTRATION_CAPABILITY_CANON.md`](../ORCHESTRATION_CAPABILITY_CANON.md) — Canon treating orchestration as capability with pinned Fable Orchestrator, Metaswarm, Superpowers as MIT donors; planner/adjudicator split. · **Use:** rules for multi-agent orchestration mechanisms
-- [`docs/APOTHEOSIS_IMPLEMENTATION_STATE.md`](../APOTHEOSIS_IMPLEMENTATION_STATE.md) — APOTHEOSIS implementation state _(matched by name only)_
-- [`docs/APOTHEOSIS_ORCHESTRATION_CONTINUATION.md`](../APOTHEOSIS_ORCHESTRATION_CONTINUATION.md) — APOTHEOSIS orchestration continuation _(matched by name only)_
+- [`docs/APOTHEOSIS_IMPLEMENTATION_STATE.md`](../APOTHEOSIS_IMPLEMENTATION_STATE.md) — States P43-P49 are implemented in source via three layers (runtime, mesh bridge, final orchestrator); runtime evidence separate. · **Use:** Current implementation status of APOTHEOSIS.
+- [`docs/APOTHEOSIS_ORCHESTRATION_CONTINUATION.md`](../APOTHEOSIS_ORCHESTRATION_CONTINUATION.md) — Checkpoint of the APOTHEOSIS orchestration specification extending 43 packets with seven continuation contracts; provenance of partial recovery. · **Use:** Specification source for packets P43-P49.
 - [`docs/UBERBOND_TOTAL_BRAIN_ORCHESTRATION_ADDENDUM.md`](../UBERBOND_TOTAL_BRAIN_ORCHESTRATION_ADDENDUM.md) — 2026-09-04 overlay preserving Fable-derived provider-neutral orchestration pattern from packet to DAG to verification. · **Use:** keep orchestration doctrine across sessions
 - [`docs/UBERBOND_TRINITY_NIGHT_SHIFT.md`](../UBERBOND_TRINITY_NIGHT_SHIFT.md) — Coordination law for three parallel build lanes: refresh main, run brain, dedupe, declare lane before writes. · **Use:** coordinate parallel night lanes
 - [`UBERBOND_ORCHESTRATION_CHECKPOINTS.md`](../../UBERBOND_ORCHESTRATION_CHECKPOINTS.md) — Orchestration-only handoff dated 2026-09-12 preserving founder packets P00-P42, dependency corrections, evidence gates and continuation rules; unverified implementation. · **Use:** plan source for packetized implementation after canon startup
 - [`.claude/skills/uberbond-orchestrator/SKILL.md`](../../.claude/skills/uberbond-orchestrator/SKILL.md) — Skill selecting DIRECT, FABLE_GRAPH, SWARM or RECURSIVE_SWARM mode with a node contract (ownership, deps, verification, stop condition). · **Use:** structure complex multi-agent engineering work
-- [`docs/prompts/GPT_WORK_ASTRA_10_MINUTE_UBERBOND_ORCHESTRATOR_2026-09-08.md`](../prompts/GPT_WORK_ASTRA_10_MINUTE_UBERBOND_ORCHESTRATOR_2026-09-08.md) — 2026-09-08 · UberBond final realization entrypoint _(matched by name only)_
+- [`docs/prompts/GPT_WORK_ASTRA_10_MINUTE_UBERBOND_ORCHESTRATOR_2026-09-08.md`](../prompts/GPT_WORK_ASTRA_10_MINUTE_UBERBOND_ORCHESTRATOR_2026-09-08.md) — 2026-09-08 · Orchestrator entrypoint for ChatGPT Work: C11-C20 routing from exact truth to scoped verdicts, orchestration-only and no launch. · **Use:** Start page for the final-realization orchestration checkpoints.
+- [`docs/prompts/CLAUDE_CODE_UBERBOND_OMEGA_SINGULARITY_MISSION_2026-09-07.md`](../prompts/CLAUDE_CODE_UBERBOND_OMEGA_SINGULARITY_MISSION_2026-09-07.md) — 2026-09-07 · Omega Singularity mission prompt: no-drop compiler over all North Star artifacts, multi-lane aggressive execution, supersedes issue #436. · **Use:** Mission prompt directing implementation across the full concept inventory.
 
 ## Documents that discuss this project without naming it in the filename (1)
 
 - [`docs/UBERBOND_MASTER_MEMORY.md`](../UBERBOND_MASTER_MEMORY.md) — Human-readable long-horizon memory: final goal, product families, recurring ladder, named-program lineage, later Open Router and Infinite Opus addenda. · **Use:** anti-forgetting memory for new sessions _(3 mentions)_
 
-## Source modules (6)
+## Source modules (5)
 
 - [`src/apotheosis-agent-mesh-runtime.mjs`](../../src/apotheosis-agent-mesh-runtime.mjs) — Compiles APOTHEOSIS native dispatch and continuation, runs worker missions and reconciles worker resumes via orchestration runtime · **Use:** run APOTHEOSIS packets on the agent mesh _(tested; imported by 2)_
 - [`src/apotheosis-final-orchestrator.mjs`](../../src/apotheosis-final-orchestrator.mjs) — Final APOTHEOSIS orchestrator: population sealing, context arm selection, downroute and arm comparison, continuity classification, gate-4 relay receipt verification, status · **Use:** assured evaluation and dispatch of orchestration policies _(tested; no static importers)_
 - [`src/apotheosis-orchestration-runtime.mjs`](../../src/apotheosis-orchestration-runtime.mjs) — Worker packets, context policy selection, scarce reasoning allocation, downrouting promotion, continuity handoff and orchestration arm comparison · **Use:** runtime for APOTHEOSIS packets P43-P49 _(tested; imported by 5)_
-- [`src/enterprise-journey-orchestrator.mjs`](../../src/enterprise-journey-orchestrator.mjs) — exports ENTERPRISE_JOURNEY_POLICY_VERSION, JOURNEY_NODE_TYPES, JOURNEY_CHANNELS, compileEnterpriseJourney _(matched by name only; no static importers)_
-- [`src/orchestration-frontier.mjs`](../../src/orchestration-frontier.mjs) — exports ORCHESTRATION_FRONTIER_VERSION, ORCHESTRATION_REFERENCE_PACK, validateOrchestrationGraph, readyOrchestrationNodes, scoreOrchestrationCandidat… _(matched by name only; tested; imported by 5)_
+- [`src/orchestration-frontier.mjs`](../../src/orchestration-frontier.mjs) — Validates orchestration graphs, finds ready nodes, scores and tournaments orchestration candidates with a reference pack of TDD and multi-agent skills. · **Use:** Pick orchestration approaches for complex work _(tested; imported by 5)_
 - [`src/uber-orchestration-control-plane.mjs`](../../src/uber-orchestration-control-plane.mjs) — Dependency and phase plan across Uber sovereign stack organs with integrity inspection · **Use:** order bring-up of owned organ stack _(tested; imported by 1)_
 
 ## Scripts (2)
 
 - [`scripts/orchestration-frontier-tick.mjs`](../../scripts/orchestration-frontier-tick.mjs) — Builds orchestrator discovery plan from inputs and writes output. · **Use:** discover external orchestration frameworks to evaluate
-- [`scripts/uber-orchestration-doctor.mjs`](../../scripts/uber-orchestration-doctor.mjs) _(matched by name only)_
+- [`scripts/uber-orchestration-doctor.mjs`](../../scripts/uber-orchestration-doctor.mjs) — Doctor compiling Uber orchestration plan and integrity checks across sovereign layers. · **Use:** Checks orchestration plane.
 
 ## Config, data, artifacts and services (8)
 
-- [`artifacts/orchestration-assimilation/2026-09-04-fable-n-plus-one.json`](../../artifacts/orchestration-assimilation/2026-09-04-fable-n-plus-one.json) — 2026-09-04 · uberbond.orchestration-assimilation-receipt.v1 _(matched by name only)_
+- [`artifacts/orchestration-assimilation/2026-09-04-fable-n-plus-one.json`](../../artifacts/orchestration-assimilation/2026-09-04-fable-n-plus-one.json) — 2026-09-04 · Dated record of an orchestration assimilation: reference pack, what was implemented, focused evidence and continuous discovery plan for Fable N+1. · **Use:** Trace what the Fable N+1 assimilation added and verified.
 - [`artifacts/uberbond-omega-parallel-execution-graph.json`](../../artifacts/uberbond-omega-parallel-execution-graph.json) — Active execution graph of parallel lanes (Truth Tribunal, Personal Civilization Core, Forecast, Sovereignty, Compute Sovereignty) with merge waves and progress footer. · **Use:** coordinate the Omega parallel build across agents
 - [`artifacts/work/apotheosis-continuation-2026-09-15.json`](../../artifacts/work/apotheosis-continuation-2026-09-15.json) — 2026-09-15 · Orchestration spec adding APOTHEOSIS packets P43-P49 (scarce-model allocation, worker packet quality, context selection) with activation contract and gates. · **Use:** continue APOTHEOSIS orchestration in native format
 - [`artifacts/work/apotheosis-gate4-handoff-2026-09-15.json`](../../artifacts/work/apotheosis-gate4-handoff-2026-09-15.json) — 2026-09-15 · Handoff after APOTHEOSIS gate 3: completed gates, remaining real closed-loop evidence gate blocked externally, next action. · **Use:** resume APOTHEOSIS at gate 4

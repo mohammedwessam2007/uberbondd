@@ -6,25 +6,34 @@ Reasoning architecture lab, compound intelligence evaluation, cross-domain trans
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**49 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
+**55 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
-## Read first (7)
+## Read first (11)
 
 - [`docs/PHOENIX_CAPABILITIES_WAVE8_EXPLAINED.md`](../PHOENIX_CAPABILITIES_WAVE8_EXPLAINED.md) — Catalog of 160 Wave 8 unknown-world transfer designs like sealed prospective evaluation and solver-independent custodians. · **Use:** source-linked list of proposed wave 8 capabilities
+- [`docs/constitution/core-data-model-v1.md`](../constitution/core-data-model-v1.md) — Very large UBERBOND core data model specification v1.0.0 dated 2026-07-14, a canonical information architecture pending approval. · **Use:** Early formal data model for the company intelligence layer.
+- [`docs/constitution/decision-engine-v1.md`](../constitution/decision-engine-v1.md) — Very large UBERBOND decision framework v1.0.0 dated 2026-07-14, structurally validated with empirical calibration pending. · **Use:** Early formal decision framework for the company.
+- [`docs/constitution/learning-engine-v1.md`](../constitution/learning-engine-v1.md) — Very large UBERBOND learning architecture v1.0.0 with normative MUST/SHOULD terms on how evidence becomes governed change; not code. · **Use:** Early formal learning policy for outcome learning.
 - [`open router/15_NOVELTY_BOUNDARY_AND_UPGRADE_CEILING.md`](../../open%20router/15_NOVELTY_BOUNDARY_AND_UPGRADE_CEILING.md) — Novelty boundary note forbidding world-first claims, listing neighbor systems and the unifying research question · **Use:** keep claims honest about prior art
-- [`docs/APEX_JEV_REASONING_HYPERCOMPILER_2026-09-29.md`](../APEX_JEV_REASONING_HYPERCOMPILER_2026-09-29.md) — 2026-09-29 · UberBond APEX + Jev Reasoning Hypercompiler — Status: SOURCE INTEGRATION CANDIDATE / PUBLIC-FRONTIER COVERAGE TARGET / NOT A GLOBAL-#1 CLAIM _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V10_SCREENSHOT_COMPARISON_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V10_SCREENSHOT_COMPARISON_2026-10-09.md) — 2026-10-09 · Compares screenshot agent trees from founder images with the repository's real brain, plus a read-only matched-quality meter comparator. · **Use:** Judge outside agent designs against UberMind.
+- [`docs/APEX_PUBLIC_FRONTIER_SCORECARD_2026-09-29.md`](../APEX_PUBLIC_FRONTIER_SCORECARD_2026-09-29.md) — 2026-09-29 · Dated comparison of documented mechanisms across 12 public agent systems and UberBond; undocumented is scored not observed, not a performance ranking. · **Use:** Mechanism-coverage comparison against public systems.
+- [`docs/COGNITIVE_MATTER_CRYSTALLIZATION_2026-09-15.md`](../COGNITIVE_MATTER_CRYSTALLIZATION_2026-09-15.md) — 2026-09-15 · Speculative thesis that recurring verified reasoning compiles from frontier cognition down to deterministic and physical forms; not hardware or ASI proof. · **Use:** Research basis for the crystallization ladder.
 - [`docs/INTERSTELLAR_WORMHOLE_MECHANISMS_2026-09-15.md`](../INTERSTELLAR_WORMHOLE_MECHANISMS_2026-09-15.md) — 2026-09-15 · Speculative research program for proof-carrying topology rewrites that shorten verified cognitive distance for future problem classes, with e-graph and other donors. · **Use:** research direction for reusable cognitive shortcuts
 - [`docs/LAWSPACE_COMPUTING_BREAKTHROUGH_2026-09-15.md`](../LAWSPACE_COMPUTING_BREAKTHROUGH_2026-09-15.md) — 2026-09-15 · Speculative hypothesis: compile problems into temporary dynamical laws whose evolution performs search, mappable to analog/optical substrates. · **Use:** research program for radically cheaper cognition
 - [`docs/MULTIDIMENSIONAL_VELOCITY_SINGULARITY_AUDIT_2026-09-15.md`](../MULTIDIMENSIONAL_VELOCITY_SINGULARITY_AUDIT_2026-09-15.md) — 2026-09-15 · Research audit defining velocity objective V and missing mechanisms so each mission shortens future work, listing existing acceleration machinery. · **Use:** plan compounding execution-speed improvements
+
+## Commands (5)
+
+`npm run brain:metacognitive` · `npm run nullstar:generalization` · `npm run nullstar:transfer` · `npm run omega:generalization` · `npm run reasoning:doctor`
+
+## Dated documents, newest first (2)
+
 - [`docs/OMEGA_COGNITIVE_TRANSCOMPILER_2026-09-15.md`](../OMEGA_COGNITIVE_TRANSCOMPILER_2026-09-15.md) — 2026-09-15 · Research architecture for a self-hosting transcompiler mapping problems through constraint IR, equivalence search and substrate tournament to verified execution. · **Use:** research target for cheaper verified cognition
+- [`docs/memory/ASTRA_HARNESS_DONOR_2026-09-14.md`](../memory/ASTRA_HARNESS_DONOR_2026-09-14.md) — 2026-09-14 · Memory note on the Astra structured-harness article as a research donor: specification-to-ship workflow, runtime layers and engineering roles absorbed into the institutional harness. · **Use:** Explains the origin of the sovereign institutional harness roles.
 
-## Commands (4)
-
-`npm run nullstar:generalization` · `npm run nullstar:transfer` · `npm run omega:generalization` · `npm run reasoning:doctor`
-
-## Source modules (15)
+## Source modules (14)
 
 - [`src/apex-reasoning-hypercompiler.mjs`](../../src/apex-reasoning-hypercompiler.mjs) — Compiles APEX reasoning architectures and identity-blind packets, mutation families and evolution experiments evaluated in an arena · **Use:** evolve reasoning architectures for frontier quality at lower cost _(tested; imported by 2)_
 - [`src/c21-dimension-evidence-producer.mjs`](../../src/c21-dimension-evidence-producer.mjs) — Compiles per-dimension C21 evidence from compound intelligence evaluation · **Use:** produce dimension receipts for C21 _(tested; no static importers)_
@@ -33,7 +42,6 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 - [`src/causal-semantic-crystallizer-v1.mjs`](../../src/causal-semantic-crystallizer-v1.mjs) — Crystallizes reusable semantic causal operators from motifs that may replace only isolated upstream cones, falling back to exact compiler · **Use:** reuse learned causal motifs safely _(tested; no static importers)_
 - [`src/compound-intelligence-evaluation.mjs`](../../src/compound-intelligence-evaluation.mjs) — C13-B parent tribunal binding evaluator, transfer and retention organs with anti-gaming laws for one compound intelligence candidate · **Use:** evaluate compound intelligence without promoting _(tested; imported by 2)_
 - [`src/cross-domain-transfer-evaluator.mjs`](../../src/cross-domain-transfer-evaluator.mjs) — Evaluates cross-domain transfer of a capability · **Use:** measure transfer for compound intelligence _(imported by 2)_
-- [`src/elite-capability-reserve.mjs`](../../src/elite-capability-reserve.mjs) — exports ELITE_CAPABILITY_RESERVE_VERSION, ELITE_CAPABILITY_RESERVE_TARGET, eliteEligibility, buildEliteReserve _(matched by name only; imported by 2)_
 - [`src/frontier-council-runtime.mjs`](../../src/frontier-council-runtime.mjs) — Runs a three-phase council: independent answers, identity-blind cross-critique, then blind adjudication; degraded councils are refused. · **Use:** Execute multi-model frontier councils with bias-reduced critique _(imported by 1)_
 - [`src/invariant-cognition-compiler.mjs`](../../src/invariant-cognition-compiler.mjs) — Compiles million-wormhole global prior top-K, build-distance batches and capability topology over opportunity registry and capability graph. · **Use:** Deterministic cognition invariants over the wormhole universe _(imported by 1)_
 - [`src/model-adaptation-admission.mjs`](../../src/model-adaptation-admission.mjs) — Admits model adaptations (prompt, retrieval, tools, decomposition, composition) under evidence gates. · **Use:** Gate model adaptation changes _(tested; imported by 1)_
@@ -42,7 +50,7 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 - [`src/transfer-evaluation-governor.mjs`](../../src/transfer-evaluation-governor.mjs) — Freezes independent holdout protocols and judges fresh-context retention of learned mechanisms · **Use:** independent evaluation and retention evidence _(tested; imported by 1)_
 - [`src/world-intelligence.mjs`](../../src/world-intelligence.mjs) — Composes cognitive substrates into institutions, proposes new concepts (Ontogenesis), runs ontological crisis invalidation, scale bridging, boundary classification and self-alienating challengers. · **Use:** Sovereign Continuum cognition organs for choosing reasoning substrates _(tested; imported by 1)_
 
-## Scripts (7)
+## Scripts (8)
 
 - [`scripts/c21-breadth-workload-core.mjs`](../../scripts/c21-breadth-workload-core.mjs) — Seeded deterministic DAG generator and hash pick helpers using capability topology from invariant cognition compiler. · **Use:** reproducible task graphs for C21 breadth benchmarks
 - [`scripts/c21-d1-benchmark.mjs`](../../scripts/c21-d1-benchmark.mjs) — C21 D1 benchmark comparing million-wormhole shard compile, build distance and capability topology versus invariant compiler batch versions. · **Use:** measure whole-system self-improvement on dimension D1
@@ -51,6 +59,7 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 - [`scripts/nullstar-generalization-v2.mjs`](../../scripts/nullstar-generalization-v2.mjs) — Tests whether three promoted solvers generalize via fresh seeds, hand-built out-of-pattern items and stronger probes. · **Use:** distinguish learned mechanism from generator shape _(npm: `nullstar:generalization`)_
 - [`scripts/nullstar-omega-generalization.mjs`](../../scripts/nullstar-omega-generalization.mjs) — Measures whether reality-connection discipline generalized to two new families using cross-domain transfer evaluator. · **Use:** evidence of method generalization _(npm: `omega:generalization`)_
 - [`scripts/reasoning-quality-doctor.mjs`](../../scripts/reasoning-quality-doctor.mjs) — Runs unknown-unknown mining, assumption escape and N-of-1 personal science together on a synthetic situation. · **Use:** check epistemic organs compose _(npm: `reasoning:doctor`)_
+- [`scripts/uberbond-metacognitive-synthesis.mjs`](../../scripts/uberbond-metacognitive-synthesis.mjs) — CLI synthesizing metacognition across artifacts. · **Use:** Metacognitive synthesis step. _(npm: `brain:metacognitive`)_
 
 ## Config, data, artifacts and services (5)
 

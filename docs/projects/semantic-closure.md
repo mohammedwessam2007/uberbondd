@@ -6,20 +6,22 @@ Semantic closure kernel, requirement tribunal, terminal convergence, canonical e
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**122 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
+**128 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
-## Read first (2)
+## Read first (4)
 
+- [`docs/GENESIS_REALIZATION_BLACKOUT_FIRST_COMPUTE_PLANNER.md`](../GENESIS_REALIZATION_BLACKOUT_FIRST_COMPUTE_PLANNER.md) — Records a blackout-first wrapper over the execution-leaf continuation owner with fault-injection replay; hardware unvalidated. · **Use:** Understand the blackout-first planner realization.
 - [`open router/22_BY_CONSTRUCTION_OPUS_EQUIVALENCE_FABRIC.md`](../../open%20router/22_BY_CONSTRUCTION_OPUS_EQUIVALENCE_FABRIC.md) — By-construction equivalence fabric: bounded task classes executed by proof-carrying paths, novel semantics go to Crown · **Use:** formal route to Opus-equivalent results without paid retests
 - [`open router/24_INFINITE_OPUS_IMPLEMENTATION_AND_ACTIVATION.md`](../../open%20router/24_INFINITE_OPUS_IMPLEMENTATION_AND_ACTIVATION.md) — Implementation note for Infinite Opus: semantic closure kernel, native runtime on Json/Postgres stores, event handlers, limits · **Use:** explains what executable Infinite Opus code exists
+- [`docs/handoffs/UBERMIND_W13_EXACT_SOURCE_WORK_2026-10-08.md`](../handoffs/UBERMIND_W13_EXACT_SOURCE_WORK_2026-10-08.md) — 2026-10-08 · Wave 13 executes bounded E1 exact source extraction as real verified work after native E3 counter stayed zero. · **Use:** Record of W13 source work.
 
 ## Commands (4)
 
 `npm run genesis:blackout:doctor` · `npm run test:infinite-opus:equivalence` · `npm run test:infinite-opus:ghost-runtime` · `npm run test:infinite-opus:semantic-host`
 
-## Source modules (41)
+## Source modules (44)
 
 - [`src/achieved-opus-equivalence-island.mjs`](../../src/achieved-opus-equivalence-island.mjs) — Flattens exact JSON leaves and builds source-grounded obligations to evaluate whether an output is equivalent to an Opus reference · **Use:** measure claimed Opus-equivalence on source-grounded tasks _(tested; imported by 2)_
 - [`src/blackout-first-compute-planner.mjs`](../../src/blackout-first-compute-planner.mjs) — Compiles compute plans assuming blackout first, applies blackout events and evaluates recovery replay using execution leaf continuation · **Use:** plan compute that survives outages _(tested; imported by 1)_
@@ -30,10 +32,13 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 - [`src/coverage-state-evidence-integrity.mjs`](../../src/coverage-state-evidence-integrity.mjs) — Rechecks evidence shape behind coverage states so compiled coverage artifacts cannot overclaim implementation · **Use:** refuse coverage overclaims _(tested; imported by 3)_
 - [`src/crown-closure.mjs`](../../src/crown-closure.mjs) — Bounded proof interpreter executing circuits and verifying certificates bound to exact leaves, exact JSON rendering only · **Use:** check Crown outputs close obligations exactly _(imported by 4)_
 - [`src/current-truth-regeneration.mjs`](../../src/current-truth-regeneration.mjs) — Lists truth inputs and expected outputs, detects dirty truth inputs and verifies regeneration of coverage, leaf graph and reachability artifacts · **Use:** prove current-truth artifacts regenerate at head _(tested; imported by 3)_
-- [`src/execution-leaf-continuation.mjs`](../../src/execution-leaf-continuation.mjs) — exports EXECUTION_LEAF_CONTINUATION_VERSION, EXECUTION_LEAF_RESULT_ATTESTATION_VERSION, compileExecutionLeafContinuation, recordExecutionLeafResult,… _(matched by name only; tested; imported by 3)_
-- [`src/execution-leaf-graph-receipt-digest.mjs`](../../src/execution-leaf-graph-receipt-digest.mjs) — exports EXECUTION_LEAF_GRAPH_RECEIPT_DIGEST_VERSION, recomputeExecutionLeafGraphDigest, recomputeCanonicalExecutionBindingDigest _(matched by name only; imported by 4)_
-- [`src/execution-leaf-graph.mjs`](../../src/execution-leaf-graph.mjs) — exports EXECUTION_LEAF_GRAPH_VERSION, REQUIREMENT_DISPOSITIONS, EXECUTION_LEAF_KINDS, compileExecutionLeafGraph, requirementsFromCoverageRows _(matched by name only; tested; imported by 1)_
-- [`src/finite-closure-tribunal.mjs`](../../src/finite-closure-tribunal.mjs) — exports FINITE_CLOSURE_TRIBUNAL_VERSION, compileFiniteClosureTribunal _(matched by name only; tested; imported by 2)_
+- [`src/decision-franchise-batch.mjs`](../../src/decision-franchise-batch.mjs) — Runs sequential fanout of certified decision-franchise tasks and models the reference economics of a model fanout, built on the semantic closure kernel. · **Use:** Batch executor and cost model for decision franchise work _(tested; imported by 1)_
+- [`src/decision-franchise-certifier.mjs`](../../src/decision-franchise-certifier.mjs) — Certifies that a Crown decision franchise is exhaustive over its state space using semantic closure kernel checks. · **Use:** Gate before a policy may be executed as a certified franchise _(tested; imported by 1)_
+- [`src/decision-franchise.mjs`](../../src/decision-franchise.mjs) — Executes bounded, already-certified side-effect-free policy tasks, compiling the policy once and shadow-checking against an independent interpreter; models compression, claims no dollar multiplier. · **Use:** Cheap deterministic execution of certified decisions instead of model calls _(tested; imported by 2)_
+- [`src/execution-leaf-continuation.mjs`](../../src/execution-leaf-continuation.mjs) — Compiles, records results for, retries and resumes execution-leaf continuations with attested results and checkpoints. · **Use:** Resume bounded execution leaves across sessions _(tested; imported by 3)_
+- [`src/execution-leaf-graph-receipt-digest.mjs`](../../src/execution-leaf-graph-receipt-digest.mjs) — Recomputes digests for execution-leaf graph receipts, binding the concurrency proof for new graphs while keeping old fixtures readable. · **Use:** Tamper-evident digests for leaf graphs _(imported by 4)_
+- [`src/execution-leaf-graph.mjs`](../../src/execution-leaf-graph.mjs) — Compiles a graph of execution leaves from coverage rows, bounding independent-set size via matching on conflict edges; never overclaims safety. · **Use:** Plan parallel-safe execution of remaining requirements _(tested; imported by 1)_
+- [`src/finite-closure-tribunal.mjs`](../../src/finite-closure-tribunal.mjs) — Compiles a tribunal deciding finite closure over execution-leaf graph digests with effect ledger. · **Use:** Decide whether remaining work is finitely closed _(tested; imported by 2)_
 - [`src/frontier-residual-cut.mjs`](../../src/frontier-residual-cut.mjs) — Research prototype factoring unresolved leaf debt across programs and attaching dependent-root cuts so one adjudication settles many blocked artifacts. · **Use:** Batch Crown adjudication of residual obligations _(imported by 1)_
 - [`src/frontier-thought-bond.mjs`](../../src/frontier-thought-bond.mjs) — Mints and verifies Frontier Thought Bonds: authority-id and slot-hash bound reusable Crown thoughts with distinct-consumer checks and fanout model. · **Use:** Reuse one frontier thought across multiple consumers safely _(tested; imported by 1)_
 - [`src/ghost-agent.mjs`](../../src/ghost-agent.mjs) — Compiles ghost agents from decision franchises and executes and verifies batches via semantic closure kernel. · **Use:** Run franchised decisions as lightweight agents _(tested; imported by 1)_
@@ -63,7 +68,7 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 - [`src/terminal-convergence-engine.mjs`](../../src/terminal-convergence-engine.mjs) — Compiles terminal convergence plan across Uber organs · **Use:** plan convergence of organ stack _(imported by 1)_
 - [`src/terminal-semantic-refusal-handoff.mjs`](../../src/terminal-semantic-refusal-handoff.mjs) — Compiles a handoff when semantic closure refuses at the terminal · **Use:** escalate unclosable semantics _(tested; imported by 1)_
 
-## Scripts (9)
+## Scripts (10)
 
 - [`scripts/canonical-execution-leaf-materializer.mjs`](../../scripts/canonical-execution-leaf-materializer.mjs) — CLI wrapper generating the canonical execution-leaf graph via the materializer module. · **Use:** regenerate canonical execution-leaf graph artifact
 - [`scripts/decision-franchise-million-benchmark.mjs`](../../scripts/decision-franchise-million-benchmark.mjs) — Benchmark fanning out 2,352,942 recurring source decisions through decision franchise batch and modelling reference economics. · **Use:** measure decision franchise fanout economics
@@ -72,8 +77,9 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 - [`scripts/genesis-blackout-first-doctor.mjs`](../../scripts/genesis-blackout-first-doctor.mjs) — Doctor verifying execution-leaf graph digest and blackout recovery replay with ed25519-signed synthetic data. · **Use:** check blackout-first compute planner _(npm: `genesis:blackout:doctor`)_
 - [`scripts/infinite-opus-doctor.mjs`](../../scripts/infinite-opus-doctor.mjs) — Doctor creating Infinite Opus runtime on temp JSON store, selecting price and factoring frontier residual cut. · **Use:** health check of Infinite Opus runtime
 - [`scripts/sandwich-method-plan.mjs`](../../scripts/sandwich-method-plan.mjs) — Compiles Sandwich method plan, evidence-bound sandwich, agent task and canonical leaf handoff, writing output. · **Use:** produce Sandwich agent task plans
-- [`scripts/semantic-requirement-tribunal.mjs`](../../scripts/semantic-requirement-tribunal.mjs) _(matched by name only)_
-- [`scripts/terminal-convergence.mjs`](../../scripts/terminal-convergence.mjs) _(matched by name only)_
+- [`scripts/semantic-requirement-tribunal.mjs`](../../scripts/semantic-requirement-tribunal.mjs) — Script compiling the semantic requirement tribunal from source, recovery and test-title evidence, where verified declarations override filename discovery. · **Use:** Produces behavioral proof verdicts for requirements.
+- [`scripts/terminal-convergence.mjs`](../../scripts/terminal-convergence.mjs) — CLI compiling a terminal convergence plan and adjudicating frozen gates or surviving candidates. · **Use:** Runs terminal convergence.
+- [`scripts/terminal-realization.mjs`](../../scripts/terminal-realization.mjs) — Executes terminal realization combining truth regeneration, execution-leaf continuation, finite closure and cut evidence overlays. · **Use:** Final closure driver.
 
 ## Config, data, artifacts and services (6)
 

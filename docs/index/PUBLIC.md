@@ -34,20 +34,20 @@ Browser assets: command center, admin and constellation UI.
 
 ## Founder operations and command center
 
-- [`admin.html`](../../public/admin.html) — UberBond Revenue Engine · Command Center _(matched by name only)_
-- [`admin.js`](../../public/admin.js) _(matched by name only)_
-- [`command-center-autonomy.js`](../../public/command-center-autonomy.js) _(matched by name only)_
-- [`command-center-sw.js`](../../public/command-center-sw.js) _(matched by name only)_
-- [`command-center.css`](../../public/command-center.css) _(matched by name only)_
-- [`command-center.html`](../../public/command-center.html) — UberBond Command Center _(matched by name only)_
-- [`command-center.js`](../../public/command-center.js) _(matched by name only)_
-- [`command-center.webmanifest`](../../public/command-center.webmanifest) _(matched by name only)_
-- [`constellation-gspot.js`](../../public/constellation-gspot.js) — One-button G-SPOT ignition for Revenue Constellation. _(matched by name only)_
-- [`constellation.css`](../../public/constellation.css) _(matched by name only)_
-- [`constellation.html`](../../public/constellation.html) — UberBond Revenue Constellation _(matched by name only)_
-- [`constellation.js`](../../public/constellation.js) _(matched by name only)_
-- [`icon.svg`](../../public/icon.svg) _(matched by name only)_
-- [`index.html`](../../public/index.html) — UberBond Command Center _(matched by name only)_
+- [`admin.html`](../../public/admin.html) — Revenue Engine admin command center page with navigation, leads and outreach controls. · **Use:** Admin web UI for the owner.
+- [`admin.js`](../../public/admin.js) — Browser script for the admin page: retry identities, offer segment strings and prospect preflight UI import. · **Use:** Logic of the owner admin and lead console.
+- [`command-center-autonomy.js`](../../public/command-center-autonomy.js) — Browser script showing autonomy status, cached last-good state and links to the autonomy wake workflow and self-maintain PRs. · **Use:** Autonomy panel for the command center.
+- [`command-center-sw.js`](../../public/command-center-sw.js) — Service worker caching the command center shell for offline use. · **Use:** Lets the iPad command center load offline.
+- [`command-center.css`](../../public/command-center.css) — Dark-themed stylesheet for the command center. · **Use:** Styling of the command center UI.
+- [`command-center.html`](../../public/command-center.html) — HTML shell of the UberBond Command Center, iPad-oriented with manifest and apple touch icon. · **Use:** Entry page of the command center.
+- [`command-center.js`](../../public/command-center.js) — Browser script fetching protected command-center status, sanitizing secrets, caching last-good state and filtering topology graph. · **Use:** Renders live command center state without leaking secrets.
+- [`command-center.webmanifest`](../../public/command-center.webmanifest) — Web app manifest for the standalone UberBond Wessam Command Center. · **Use:** Makes the command center installable.
+- [`constellation-gspot.js`](../../public/constellation-gspot.js) — Browser controller for one-button G-SPOT ignition that stops at AWAITING_OWNER_AUTHORIZATION and cannot authorize or dispatch. · **Use:** Safe front-end for G-SPOT in Revenue Constellation.
+- [`constellation.css`](../../public/constellation.css) — Dark spatial stylesheet for Revenue Constellation. · **Use:** Styling of the constellation view.
+- [`constellation.html`](../../public/constellation.html) — HTML page for the Revenue Constellation with navigation to admin, ops and command center. · **Use:** Entry page of the constellation spatial UI.
+- [`constellation.js`](../../public/constellation.js) — Browser script for Revenue Constellation: deterministic layout, lens semantics with grey for missing data, semantic zoom, event particles from real replays. · **Use:** Renders runtime data as a spatial model.
+- [`icon.svg`](../../public/icon.svg) — SVG app icon with gold gradient used by pages and manifests. · **Use:** Icon asset.
+- [`index.html`](../../public/index.html) — Public index HTML page of the revenue engine site. · **Use:** Landing page.
 - [`manifest.webmanifest`](../../public/manifest.webmanifest) — Web app manifest for the public UberBond site enabling install-to-home-screen as a progressive web app. · **Use:** lets founder add the web console to iPad home screen
 - [`ops.css`](../../public/ops.css) — Dark-theme stylesheet for the Founder Ops page with status tone colors (cyan, green, amber, red). · **Use:** styles the founder ops readiness dashboard
 - [`ops.html`](../../public/ops.html) — Founder Ops HTML page (mobile web-app capable) showing UberBond operational readiness panels, loads ops.css and ops.js. · **Use:** founder view of system readiness on phone or iPad

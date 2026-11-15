@@ -6,7 +6,7 @@ Governed adaptive problem-solving kernel, cognitive reflex and Million-Wall solv
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**22 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
+**27 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
@@ -21,25 +21,28 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Documents that discuss this project without naming it in the filename (6)
 
-- [`docs/prompts/CLAUDE_OPUS_MAX_SOFTWARE_FACTORY.md`](../prompts/CLAUDE_OPUS_MAX_SOFTWARE_FACTORY.md) — Claude Code / Opus Max — UberBond Software Factory _(matched by name only)_ _(8 mentions)_
-- [`docs/prompts/GPT_5_6_SOL_COMPANY_BRAIN.md`](../prompts/GPT_5_6_SOL_COMPANY_BRAIN.md) — GPT-5.6 Sol — UberBond Company Brain _(matched by name only)_ _(7 mentions)_
+- [`docs/prompts/CLAUDE_OPUS_MAX_SOFTWARE_FACTORY.md`](../prompts/CLAUDE_OPUS_MAX_SOFTWARE_FACTORY.md) — Claude Code Opus Max software factory prompt: implementation, verification, merge, deployment lane rules and start-of-session law. · **Use:** Required reading for any software development mission per CLAUDE.md. _(8 mentions)_
+- [`docs/prompts/GPT_5_6_SOL_COMPANY_BRAIN.md`](../prompts/GPT_5_6_SOL_COMPANY_BRAIN.md) — GPT-5.6 Sol Company Brain prompt: research, distribution strategy, economic reasoning and packets for the software lane. · **Use:** Prompt that activates the Sol research lane. _(7 mentions)_
 - [`CLAUDE.md`](../../CLAUDE.md) — Claude Code project memory with V5-V10 UberMind directives, imports of North Star canon, startup steps, capability, Wallbreaker and routing laws. · **Use:** auto-loaded Claude session instructions _(6 mentions)_
 - [`UBERBOND_NIGHT_WAR_FINAL.md`](../../UBERBOND_NIGHT_WAR_FINAL.md) — Night War final report dated 2026-09-25: zero effects, $0 revenue, closed software gaps for lawful first batch, print-card $0 path, founder-only remaining actions. · **Use:** evidence of first-cash readiness state and remaining founder actions _(5 mentions)_
-- [`docs/memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md`](../memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md) — 2026-09-05 · UberBond Whole-Brain Singularity Checkpoint — 2026-09-05 — Status: DRAFT_BRANCH / IMPLEMENTATION IN PROGRESS _(matched by name only)_ _(4 mentions)_
+- [`docs/memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md`](../memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md) — 2026-09-05 · Whole-brain singularity checkpoint 2026-09-05: connect every feature into one brain map and pursue intelligence per dollar without quota evasion. · **Use:** Records owner directive and draft-branch state for the brain map. _(4 mentions)_
 - [`docs/UBERBOND_TOTAL_BRAIN.md`](../UBERBOND_TOTAL_BRAIN.md) — Superset anti-amputation memory with truth classes, preserving goals, donors, named initiatives and chat-only specs. · **Use:** reconstruct whole organism before narrowing _(3 mentions)_
 
-## Source modules (4)
+## Source modules (6)
 
 - [`src/constraint-mutation-engine.mjs`](../../src/constraint-mutation-engine.mjs) — Compiles constraint mutation plans using Wallbreaker · **Use:** explore relaxing or reframing constraints on stuck problems _(tested; imported by 4)_
+- [`src/failure-to-patch-reflex.mjs`](../../src/failure-to-patch-reflex.mjs) — Compiles a failure into a candidate patch through the constraint mutation engine and evaluates reflex replay, targeting worker output contracts. · **Use:** Turn repeated failures into bounded patch proposals _(tested; imported by 2)_
 - [`src/missing-capability-build-path.mjs`](../../src/missing-capability-build-path.mjs) — Resolves the build path for a missing capability. · **Use:** Decide how to obtain a missing capability _(tested; imported by 1)_
+- [`src/organism-metabolism.mjs`](../../src/organism-metabolism.mjs) — Compiles objective metabolism, plans metabolism cycles and learning receipts using Wallbreaker and perpetual frontier genesis. · **Use:** Plan resource cycles of the organism _(tested; imported by 2)_
 - [`src/wallbreaker-cognitive-reflex.mjs`](../../src/wallbreaker-cognitive-reflex.mjs) — Compiles Wallbreaker reflexes: quick prepackaged wall-problem plans built on the Wallbreaker kernel. · **Use:** Fast Wallbreaker invocation for recurring wall types _(tested; imported by 1)_
 - [`src/wallbreaker.mjs`](../../src/wallbreaker.mjs) — Wallbreaker kernel: compiles wall problems, scores candidate strategies, classifies failures, derives countermoves, resolves Capability Genome atoms and plans cycles with compute tiers. · **Use:** Governed problem solving when a mission is stuck or repeatedly failing _(tested; imported by 7)_
 
-## Scripts (4)
+## Scripts (5)
 
 - [`scripts/constraint-mutation-doctor.mjs`](../../scripts/constraint-mutation-doctor.mjs) — Doctor compiling constraint mutation plans for repeated provider failure and capability gap scenarios. · **Use:** verify mechanism mutation instead of blind retry
 - [`scripts/genesis-outreach-burst.mjs`](../../scripts/genesis-outreach-burst.mjs) — GENESIS idea burst plus Wallbreaker tournament for outreach first-cash wall; candidates bound to 890 ancestors, economics UNKNOWN. · **Use:** generate and rank lawful first-cash outreach alternatives
 - [`scripts/night-verification-mutation-extension.mjs`](../../scripts/night-verification-mutation-extension.mjs) — Extra mutation set for Wallbreaker guards: uncertain provider outcomes never regain identical retry, authority blocks forbid circumvention. · **Use:** prove Wallbreaker retry guards are tested
+- [`scripts/uberbond-cognitive-cycle.mjs`](../../scripts/uberbond-cognitive-cycle.mjs) — Compiles cognitive graph, bus activation and events from many adapters (Event Horizon, GENESIS, Wallbreaker). · **Use:** Runs the repository cognitive cycle.
 - [`scripts/wallbreaker-plan.mjs`](../../scripts/wallbreaker-plan.mjs) — Reads a problem JSON from file or stdin and runs planWallbreakerCycle · **Use:** npm run wallbreaker entry for stuck missions _(npm: `wallbreaker`)_
 
 ## Config, data, artifacts and services (3)
@@ -48,7 +51,7 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 - [`artifacts/revenue-singularity/20261005/purchase-gate-wallbreaker.json`](../../artifacts/revenue-singularity/20261005/purchase-gate-wallbreaker.json) — Wallbreaker run planning a Winnr $69 purchase gate without spend or new outreach; candidate selected, genome query not scoped. · **Use:** strategy record for the Winnr purchase decision
 - [`artifacts/v9/canonical-v9-materialization-blocker.json`](../../artifacts/v9/canonical-v9-materialization-blocker.json) — Blocker record: canonical V9 cannot be materialized because carrier parts are missing; repairs tried, Wallbreaker run, what would close it. · **Use:** explain the external blocker on the V9 carrier
 
-## Tests (9)
+## Tests (11)
 
-[`constitution-unguarded-external-effect`](../../tests/constitution-unguarded-external-effect.test.mjs) · [`constraint-mutation-engine`](../../tests/constraint-mutation-engine.test.mjs) · [`genesis-outreach-burst`](../../tests/genesis-outreach-burst.test.mjs) · [`missing-capability-build-path`](../../tests/missing-capability-build-path.test.mjs) · [`self-improvement-causal-admission-repeat-proof`](../../tests/self-improvement-causal-admission-repeat-proof.test.mjs) · [`self-improvement-causal-admission`](../../tests/self-improvement-causal-admission.test.mjs) · [`wallbreaker-cognitive-reflex`](../../tests/wallbreaker-cognitive-reflex.test.mjs) · [`wallbreaker-retry-safety`](../../tests/wallbreaker-retry-safety.test.mjs) · [`wallbreaker`](../../tests/wallbreaker.test.mjs)
+[`constitution-unguarded-external-effect`](../../tests/constitution-unguarded-external-effect.test.mjs) · [`constraint-mutation-engine`](../../tests/constraint-mutation-engine.test.mjs) · [`failure-to-patch-reflex`](../../tests/failure-to-patch-reflex.test.mjs) · [`genesis-outreach-burst`](../../tests/genesis-outreach-burst.test.mjs) · [`missing-capability-build-path`](../../tests/missing-capability-build-path.test.mjs) · [`organism-metabolism`](../../tests/organism-metabolism.test.mjs) · [`self-improvement-causal-admission-repeat-proof`](../../tests/self-improvement-causal-admission-repeat-proof.test.mjs) · [`self-improvement-causal-admission`](../../tests/self-improvement-causal-admission.test.mjs) · [`wallbreaker-cognitive-reflex`](../../tests/wallbreaker-cognitive-reflex.test.mjs) · [`wallbreaker-retry-safety`](../../tests/wallbreaker-retry-safety.test.mjs) · [`wallbreaker`](../../tests/wallbreaker.test.mjs)
 

@@ -24,12 +24,12 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Other documents (1)
 
-- [`docs/handoffs/UBERBOND_WORMHOLE_CURRENT.md`](../handoffs/UBERBOND_WORMHOLE_CURRENT.md) — UberBond Wormhole Context — Current _(matched by name only)_
+- [`docs/handoffs/UBERBOND_WORMHOLE_CURRENT.md`](../handoffs/UBERBOND_WORMHOLE_CURRENT.md) — Fast-moving shared execution context for every repo-aware chat (Wormhole), observed 2026-09-12, with execution law. · **Use:** Continue the organism in a fresh chat.
 
 ## Documents that discuss this project without naming it in the filename (3)
 
 - [`docs/POSSIBILITY_CIVILIZATION_REALIZATION_CANON.md`](../POSSIBILITY_CIVILIZATION_REALIZATION_CANON.md) — Execution canon for a universal moonshot realization machine: classify, constrain, decompose, cheapest decisive experiment, record reality. · **Use:** process for turning moonshots into tested states _(3 mentions)_
-- [`docs/prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-11.md`](../prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-11.md) — 2026-09-11 · UberBond 8-Hour Revenue Singularity _(matched by name only)_ _(3 mentions)_
+- [`docs/prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-11.md`](../prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-11.md) — 2026-09-11 · Eight-hour revenue singularity mission 2026-09-11: maximize provider-origin cleared contribution profit while founder sleeps, with metric ladder. · **Use:** Mission prompt for overnight revenue execution. _(3 mentions)_
 - [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.md`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.md) — 2026-09-11 · Full mission spec for the 2026-09-11 overnight revenue run: cleared-profit metric, PayPal destination truth boundary, no account changes · **Use:** defines rules and boundaries for the overnight revenue mission _(3 mentions)_
 
 ## Source modules (14)

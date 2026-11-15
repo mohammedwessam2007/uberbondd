@@ -6,7 +6,7 @@ UberWatt energy program and the moonshot energy/compute substrate mesh.
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**11 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
+**13 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
@@ -20,10 +20,11 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 `npm run moonshots:substrate-mesh`
 
-## Source modules (2)
+## Source modules (3)
 
 - [`src/moonshot-substrate-mesh.mjs`](../../src/moonshot-substrate-mesh.mjs) — Compiles moonshot substrate mesh and execution waves. · **Use:** Route 890 ideas to execution substrates _(tested; imported by 2)_
-- [`src/uberwatt.mjs`](../../src/uberwatt.mjs) — exports UBERWATT_SCHEMA, DEFAULT_JOULES_PER_OUTPUT_TOKEN, compileEnergyInterval, compileVerifiedSavings, compileEnergyEquivalentCompute (+6) _(matched by name only; tested; no static importers)_
+- [`src/operational-world-resource-admission.mjs`](../../src/operational-world-resource-admission.mjs) — Admits hardware, sensor, institution, lab or facility resources, failing closed when permission collections are missing rather than treating absence as authorization. · **Use:** Gate on real-world resource use _(tested; imported by 2)_
+- [`src/uberwatt.mjs`](../../src/uberwatt.mjs) — Energy accounting for compute: intervals, verified savings, energy-equivalent compute, measured local inference, power budgets, baselines, offers and max-safe token plans. · **Use:** Energy-backed local compute accounting _(tested; no static importers)_
 
 ## Scripts (3)
 
@@ -35,7 +36,7 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 - [`artifacts/genesis/realizations/genesis-candidate-20260922-self-0009.json`](../../artifacts/genesis/realizations/genesis-candidate-20260922-self-0009.json) — 2026-09-22 · Realization record for 'Blackout-First Compute Planner' with simulated fault replay. · **Use:** track one GENESIS candidate realization
 
-## Tests (2)
+## Tests (3)
 
-[`moonshot-substrate-mesh`](../../tests/moonshot-substrate-mesh.test.mjs) · [`uberwatt`](../../tests/uberwatt.test.mjs)
+[`moonshot-substrate-mesh`](../../tests/moonshot-substrate-mesh.test.mjs) · [`operational-world-resource-admission`](../../tests/operational-world-resource-admission.test.mjs) · [`uberwatt`](../../tests/uberwatt.test.mjs)
 

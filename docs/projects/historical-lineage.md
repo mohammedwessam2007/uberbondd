@@ -6,13 +6,13 @@ Named historical milestone programs and their closure audits: Everest, SUMMIT 10
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**23 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
+**29 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
-## Read first (12)
+## Read first (14)
 
-- [`docs/HISTORICAL_PROJECT_LINEAGE.md`](../HISTORICAL_PROJECT_LINEAGE.md) — UberBond Historical Project Lineage _(matched by name only)_
+- [`docs/HISTORICAL_PROJECT_LINEAGE.md`](../HISTORICAL_PROJECT_LINEAGE.md) — Preserved lineage from retained project artifacts: the historical Brain role and its decision laws, product families and distribution ambitions. · **Use:** Prevent historical amnesia about early program identity.
 - [`docs/INSTANTLY_RECONCILIATION.md`](../INSTANTLY_RECONCILIATION.md) — Reconciliation answering whether historical Instantly-like outreach code existed: found in uploaded 2026-08-13 lead-intelligence zip, with sha256 and its passing test suite. · **Use:** provenance for lead/outreach code lineage and dedupe decisions
 - [`docs/OUTREACH_OS_TRUTH_RECONSTRUCTION.md`](../OUTREACH_OS_TRUTH_RECONSTRUCTION.md) — Wave 0 bounded search of founder's four repos and 22 branches to reconstruct outreach OS truth at a given HEAD. · **Use:** provenance of where outreach code exists
 - [`docs/PROMETHEUS_BRANCH_RECONCILIATION.md`](../PROMETHEUS_BRANCH_RECONCILIATION.md) — Bounded reconciliation of 26 open draft PRs, re-running tests on OMNIA V9 and Canon/V3 tip branches to detect duplication. · **Use:** evidence for merging stranded lineages
@@ -20,29 +20,40 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 - [`docs/PROMETHEUS_PR_HOUSEKEEPING.md`](../PROMETHEUS_PR_HOUSEKEEPING.md) — Git-ancestry proof that OMNIA V9 stack PRs #8-#23 are ancestors of PR #24, so closing them loses no code. · **Use:** justify closing superseded PRs
 - [`docs/REALITY_ACTIVATION_REGISTER.md`](../REALITY_ACTIVATION_REGISTER.md) — Register of every external gate (domains/mailboxes, etc.) with status, missing evidence, owner action and automatic follow-up once opened. · **Use:** owner action list to reach real business
 - [`docs/SUMMIT_100_POST_CLOSURE_INTEGRATION_AUDIT.md`](../SUMMIT_100_POST_CLOSURE_INTEGRATION_AUDIT.md) — 2026-08-23 audit finding payment witness binding and stale reservation recovery defects, both later fixed plus a receipt-field gap. · **Use:** record SUMMIT 100 closure defects
-- [`docs/handoffs/CLAUDE_RAGNAROK_NIGHTFALL_2026-09-02.md`](../handoffs/CLAUDE_RAGNAROK_NIGHTFALL_2026-09-02.md) — 2026-09-02 · Claude Ragnarok Nightfall — Dawn Handoff _(matched by name only)_
+- [`docs/memory/UBERBOND_NIGHT10_FINAL_TRIBUNAL_2026-09-06.md`](../memory/UBERBOND_NIGHT10_FINAL_TRIBUNAL_2026-09-06.md) — 2026-09-06 · NIGHT-10 final tribunal of 2026-09-06: 9 of 11 closure obligations met; admin bearer token transport P1 and exact-head certification remain. · **Use:** Honest closure verdict for the overnight mission.
+- [`docs/memory/UBERBOND_TERMINAL_CLOSURE_2026-09-06.md`](../memory/UBERBOND_TERMINAL_CLOSURE_2026-09-06.md) — 2026-09-06 · Terminal closure checkpoint 2026-09-06 for PR #400: fixed closure denominator, owner directive and UberBond-native certification path. · **Use:** Records the terminal closure bar and process.
+- [`docs/handoffs/CLAUDE_OMEGA_CLOSURE_2026-09-03.md`](../handoffs/CLAUDE_OMEGA_CLOSURE_2026-09-03.md) — 2026-09-03 · Handoff of the Claude Omega closure session on the Ragnarok closure branch, with main SHA at reconciliation. · **Use:** Resume or audit the Omega closure work.
+- [`docs/handoffs/CLAUDE_RAGNAROK_NIGHTFALL_2026-09-02.md`](../handoffs/CLAUDE_RAGNAROK_NIGHTFALL_2026-09-02.md) — 2026-09-02 · Dawn handoff of the Claude Ragnarok Nightfall session on 2026-09-02 with base commit and branch. · **Use:** Resume or audit Ragnarok Nightfall work.
 - [`docs/UBERBOND_MASTER_MEMORY_RECONCILIATION_2026-08-29.md`](../UBERBOND_MASTER_MEMORY_RECONCILIATION_2026-08-29.md) — 2026-08-29 · Correction that Everest is a receipted program, mapping Everest->SUMMIT 100->BLACK SKY->Reality Activation verdicts. · **Use:** fix stale memory on historical lineage
 - [`docs/UBERBOND_FINAL_BOSS_KILIMANJARO_REPORT_2026-08-22.md`](../UBERBOND_FINAL_BOSS_KILIMANJARO_REPORT_2026-08-22.md) — 2026-08-22 · Kilimanjaro closure verdict INTERNAL_ARCHITECTURE_COMPLETE_EXTERNAL_PROOF_DOMINATES; zero customers/revenue; no human paging gap. · **Use:** record of Kilimanjaro architecture closure
-- [`docs/PR_QUEUE_RECONCILIATION_2026-08-20.md`](../PR_QUEUE_RECONCILIATION_2026-08-20.md) — 2026-08-20 · Audit of nine open PRs with merge/close dispositions backed by ancestry checks and trial merges; PR #33 relay hardening merged. · **Use:** record of PR queue cleanup decisions
 
-## Standing documents (5)
+## Standing documents (6)
 
 - [`docs/UBERBOND_BLACK_SKY_FINAL_RECEIPT.md`](../UBERBOND_BLACK_SKY_FINAL_RECEIPT.md) — BLACK SKY final receipt: start/final SHAs, closed privacy issues #121/#122/#125, merged payload-minimization PRs, defect list after SUMMIT 100. · **Use:** evidence of BLACK SKY post-closure campaign
 - [`docs/UBERBOND_EVEREST_ZERO_COMPLETION_RECEIPT.md`](../UBERBOND_EVEREST_ZERO_COMPLETION_RECEIPT.md) — Everest receipt reconciled at 3a7ef18: branch dispositions, closed waves with proof (reachability, payment truth, outreach authority...). · **Use:** evidence of Everest program closure state
 - [`docs/UBERBOND_SUMMIT_100_FINAL_RECEIPT.md`](../UBERBOND_SUMMIT_100_FINAL_RECEIPT.md) — SUMMIT 100 final receipt: start/final SHA, PRs #112-#120 merged, 8 P1 findings reproduced and mutation-pinned. · **Use:** evidence of SUMMIT 100 closure
 - [`UBERBOND_NIGHT_WAR_FINAL.md`](../../UBERBOND_NIGHT_WAR_FINAL.md) — Night War final report dated 2026-09-25: zero effects, $0 revenue, closed software gaps for lawful first batch, print-card $0 path, founder-only remaining actions. · **Use:** evidence of first-cash readiness state and remaining founder actions
+- [`docs/distribution/UBERBOND_DISTRIBUTION_SINGULARITY.md`](../distribution/UBERBOND_DISTRIBUTION_SINGULARITY.md) — Distribution Singularity research and local preparation document for GitHub issue 176 dated 2026-08-28. · **Use:** Strategic distribution research basis.
 - [`winnr/EXECUTION_LINEAGE.md`](../../winnr/EXECUTION_LINEAGE.md) — Chronological history of Winnr procurement after Cold Mail Server and netcup failures, support confirmations, purchase choices, provisioning and superseded states. · **Use:** Avoid repeating failed Winnr steps
+
+## Dated documents, newest first (1)
+
+- [`docs/PR_QUEUE_RECONCILIATION_2026-08-20.md`](../PR_QUEUE_RECONCILIATION_2026-08-20.md) — 2026-08-20 · Audit of nine open PRs with merge/close dispositions backed by ancestry checks and trial merges; PR #33 relay hardening merged. · **Use:** record of PR queue cleanup decisions
 
 ## Other documents (1)
 
-- [`docs/prompts/UBERBOND_RAGNAROK_EXECUTION_PACKET.md`](../prompts/UBERBOND_RAGNAROK_EXECUTION_PACKET.md) — UberBond Ragnarok Closure — Execution Packet — Status: ORCHESTRATED, PARTIALLY EXECUTED _(matched by name only)_
+- [`docs/prompts/UBERBOND_RAGNAROK_EXECUTION_PACKET.md`](../prompts/UBERBOND_RAGNAROK_EXECUTION_PACKET.md) — Ragnarok closure execution packet: dependency-ordered self-contained instructions with defects, tests and verification commands, partially executed. · **Use:** Resume packet for a cheaper model to finish Ragnarok closure work.
 
 ## Documents that discuss this project without naming it in the filename (4)
 
 - [`docs/UBERBOND_TOTAL_BRAIN.md`](../UBERBOND_TOTAL_BRAIN.md) — Superset anti-amputation memory with truth classes, preserving goals, donors, named initiatives and chat-only specs. · **Use:** reconstruct whole organism before narrowing _(9 mentions)_
-- [`docs/memory/UBERBOND_CHECKPOINT_2026-08-30.md`](../memory/UBERBOND_CHECKPOINT_2026-08-30.md) — 2026-08-30 · UberBond Crash-Safe Checkpoint — 2026-08-30 _(matched by name only)_ _(5 mentions)_
+- [`docs/memory/UBERBOND_CHECKPOINT_2026-08-30.md`](../memory/UBERBOND_CHECKPOINT_2026-08-30.md) — 2026-08-30 · Crash-safe 2026-08-30 checkpoint: final goal, company architecture (Sol brain, Claude factory), operating loop and status for resuming work. · **Use:** Historical checkpoint older than the Sept 4 closure ones. _(5 mentions)_
 - [`UBERBOND_CANON.md`](../../UBERBOND_CANON.md) — Cross-chat canon: terminal North Star, 890 inheritance, no-drop superset, constitutional/life/economic loops, product dream, named-program lineage, effect and sovereignty charters. · **Use:** durable bootstrap before narrowing to any mission _(4 mentions)_
 - [`docs/UBERBOND_COGNITIVE_MAP.md`](../UBERBOND_COGNITIVE_MAP.md) — Draft map linking cognitive-graph, cognitive-bus, adapters and lineage config into one organ diagram from world sensing to opportunities. · **Use:** see how organs connect in the brain _(3 mentions)_
+
+## Source modules (1)
+
+- [`src/founder-absence-blocker-doctor.mjs`](../../src/founder-absence-blocker-doctor.mjs) — Classifies each blocker to founder absence into one class, derives whether it is removable by code, and holds the Ragnarok blocker ledger and elapsed-evidence check. · **Use:** Say what stands between UberBond and unattended operation _(tested; imported by 2)_
 
 ## Config, data, artifacts and services (3)
 
@@ -50,7 +61,7 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 - [`artifacts/uberbond-memory-reconciliation.json`](../../artifacts/uberbond-memory-reconciliation.json) — Memory reconciliation overlay: lineage entries like SUMMIT 100 and BLACK SKY, replaced/appended initiatives, owner-recalled unresolved program names. · **Use:** reconcile historical program names into Master Memory
 - [`config/uberbond-cognitive-lineage.json`](../../config/uberbond-cognitive-lineage.json) — Mapping of historical program names to living cognitive organs as donors and aliases, not runtime proof. · **Use:** trace cognitive lineage of named programs
 
-## Tests (2)
+## Tests (3)
 
-[`memory-truth-doctor`](../../tests/memory-truth-doctor.test.mjs) · [`postal-ragnarok-mutation-source-guard`](../../tests/postal-ragnarok-mutation-source-guard.test.mjs)
+[`founder-absence-blocker-doctor`](../../tests/founder-absence-blocker-doctor.test.mjs) · [`memory-truth-doctor`](../../tests/memory-truth-doctor.test.mjs) · [`postal-ragnarok-mutation-source-guard`](../../tests/postal-ragnarok-mutation-source-guard.test.mjs)
 

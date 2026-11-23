@@ -1,0 +1,303 @@
+[
+  {
+    "name": "a7a6",
+    "fen": "5r1k/6pp/p5BN/8/2Q5/8/8/K7 w - - 0 2",
+    "proposal": "c4g8",
+    "quiet": false,
+    "plan": {
+      "goal": "mate by the second attacking move",
+      "required": "After the proposal, every legal defense must permit immediate mate and no draw claim.",
+      "verified": true,
+      "on_failure": "discard the unproved mate claim and rerank surviving legal moves",
+      "bridge_selected": "c4g8",
+      "bridge_nodes": 46,
+      "policy_candidates": [
+        "h6f7",
+        "c4g8",
+        "g6h7",
+        "c4c5",
+        "g6c2",
+        "g6f7",
+        "g6d3",
+        "g6b1",
+        "g6e4",
+        "c4d4",
+        "c4a6",
+        "h6f5",
+        "h6g4",
+        "c4b4",
+        "c4f7",
+        "h6g8",
+        "c4c3",
+        "c4h4",
+        "c4e6",
+        "g6f5",
+        "c4e4",
+        "c4d5",
+        "g6h5",
+        "c4f4",
+        "c4d3",
+        "g6e8",
+        "a1b2",
+        "a1a2",
+        "c4c7",
+        "c4c2",
+        "c4c8",
+        "c4g4",
+        "c4f1",
+        "c4c6",
+        "c4c1",
+        "a1b1",
+        "c4e2",
+        "c4b3",
+        "c4a2",
+        "c4a4",
+        "c4b5"
+      ]
+    },
+    "policy": "h6f7",
+    "rank": 2,
+    "selected": "c4g8",
+    "nodes": 87,
+    "witness": {
+      "f8g8": "h6f7"
+    },
+    "defense_breaking_mate_in_two": null,
+    "oracle": {
+      "best": {
+        "white_score": "#+2",
+        "nodes": 823,
+        "pv": "2. Qg8+ Rxg8 3. Nf7#"
+      },
+      "proposal": {
+        "white_score": "#+2",
+        "nodes": 40,
+        "pv": "2. Qg8+ Rxg8 3. Nf7#"
+      },
+      "policy": {
+        "white_score": "+909",
+        "nodes": 4689,
+        "pv": "2. Nf7+ Kg8 3. Ng5+ Kh8 4. Nxh7 Rd8 5. Ng5 Rb8 6. Qh4+ Kg8 7. Bf7+ Kf8"
+      }
+    },
+    "trace": [
+      "objective mate in two witness c4g8 defenses f8g8/h6f7 policy h6f7",
+      "proved mating objective c4g8 policy h6f7"
+    ]
+  },
+  {
+    "name": "h7g6",
+    "fen": "5r1k/p5p1/6pN/8/2Q5/8/8/K7 w - - 0 2",
+    "proposal": "c4g8",
+    "quiet": false,
+    "plan": {
+      "goal": "mate by the second attacking move",
+      "required": "After the proposal, every legal defense must permit immediate mate and no draw claim.",
+      "verified": false,
+      "on_failure": "discard the unproved mate claim and rerank surviving legal moves",
+      "bridge_selected": "h6f7",
+      "bridge_nodes": 604,
+      "policy_candidates": [
+        "h6f7",
+        "h6g4",
+        "c4h4",
+        "c4c5",
+        "c4g8",
+        "h6g8",
+        "c4b4",
+        "c4f7",
+        "c4d4",
+        "c4g4",
+        "c4e6",
+        "h6f5",
+        "c4c3",
+        "c4a6",
+        "a1b2",
+        "c4e4",
+        "c4f4",
+        "c4c7",
+        "c4c1",
+        "c4d5",
+        "c4c6",
+        "a1a2",
+        "c4d3",
+        "c4c2",
+        "c4c8",
+        "c4e2",
+        "a1b1",
+        "c4f1",
+        "c4a4",
+        "c4a2",
+        "c4b3",
+        "c4b5"
+      ]
+    },
+    "policy": "h6f7",
+    "rank": 5,
+    "selected": "h6f7",
+    "nodes": 1035,
+    "witness": null,
+    "defense_breaking_mate_in_two": "f8g8",
+    "oracle": {
+      "best": {
+        "white_score": "+645",
+        "nodes": 224581,
+        "pv": "2. Nf7+ Rxf7 3. Qxf7 Kh7 4. Qxa7 g5 5. Qf7 g4 6. Qh5+ Kg8 7. Qxg4 g5 8. Qxg5+ Kf7 9. Kb2 Ke6 10. Kb3 Kf7 11. Qh5+ Kf6"
+      },
+      "proposal": {
+        "white_score": "-616",
+        "nodes": 32768,
+        "pv": "2. Qg8+ Rxg8 3. Nf7+ Kh7 4. Kb2 Rf8 5. Ng5+ Kg8 6. Kb1 Rb8+ 7. Ka2 Rb5 8. Ne6"
+      },
+      "policy": {
+        "white_score": "+650",
+        "nodes": 175121,
+        "pv": "2. Nf7+ Rxf7 3. Qxf7 Kh7 4. Qxa7 g5 5. Qe7 Kg6 6. Qe4+ Kh5 7. Kb2 g4 8. Kc3 Kg5 9. Kd2 g3 10. Ke3 g2 11. Qxg2+ Kf6"
+      }
+    },
+    "trace": []
+  },
+  {
+    "name": "quiet unique mate key",
+    "fen": "1Q6/8/8/8/2K5/8/8/2k5 w - - 0 1",
+    "proposal": "c4d3",
+    "quiet": true,
+    "plan": {
+      "goal": "mate by the second attacking move",
+      "required": "After the proposal, every legal defense must permit immediate mate and no draw claim.",
+      "verified": true,
+      "on_failure": "discard the unproved mate claim and rerank surviving legal moves",
+      "bridge_selected": "c4d3",
+      "bridge_nodes": 84,
+      "policy_candidates": [
+        "b8h2",
+        "c4c3",
+        "c4d3",
+        "b8b3",
+        "c4b3",
+        "b8b4",
+        "b8d8",
+        "b8c8",
+        "b8a8",
+        "b8c7",
+        "b8b7",
+        "b8f4",
+        "b8g3",
+        "b8a7",
+        "b8d6",
+        "b8b5",
+        "b8h8",
+        "c4d4",
+        "c4b4",
+        "b8e8",
+        "b8b6",
+        "b8e5",
+        "b8f8",
+        "b8g8",
+        "c4b5",
+        "b8b2",
+        "c4d5",
+        "c4c5",
+        "b8b1"
+      ]
+    },
+    "policy": "b8h2",
+    "rank": 3,
+    "selected": "c4d3",
+    "nodes": 173,
+    "witness": {
+      "c1d1": "b8b1"
+    },
+    "defense_breaking_mate_in_two": null,
+    "oracle": {
+      "best": {
+        "white_score": "#+2",
+        "nodes": 831,
+        "pv": "1. Kd3 Kd1 2. Qb1#"
+      },
+      "proposal": {
+        "white_score": "#+2",
+        "nodes": 30,
+        "pv": "1. Kd3 Kd1 2. Qb1#"
+      },
+      "policy": {
+        "white_score": "#+4",
+        "nodes": 1451,
+        "pv": "1. Qh2 Kd1 2. Qf2 Kc1 3. Kc3 Kb1 4. Qb2#"
+      }
+    },
+    "trace": [
+      "objective mate in two witness c4d3 defenses c1d1/b8b1 policy b8h2",
+      "proved mating objective c4d3 policy b8h2"
+    ]
+  },
+  {
+    "name": "shifted defending king",
+    "fen": "1Q6/8/8/8/2K5/8/8/3k4 w - - 0 1",
+    "proposal": "c4d3",
+    "quiet": true,
+    "plan": {
+      "goal": "mate by the second attacking move",
+      "required": "After the proposal, every legal defense must permit immediate mate and no draw claim.",
+      "verified": false,
+      "on_failure": "discard the unproved mate claim and rerank surviving legal moves",
+      "bridge_selected": "b8h2",
+      "bridge_nodes": 604,
+      "policy_candidates": [
+        "b8h2",
+        "b8b2",
+        "c4d3",
+        "c4c3",
+        "b8b1",
+        "b8e8",
+        "b8b3",
+        "b8d8",
+        "b8d6",
+        "b8c8",
+        "b8e5",
+        "b8g3",
+        "b8b4",
+        "c4b3",
+        "b8f4",
+        "b8a8",
+        "c4d4",
+        "b8c7",
+        "b8h8",
+        "b8b7",
+        "b8f8",
+        "b8b5",
+        "b8a7",
+        "b8g8",
+        "b8b6",
+        "c4d5",
+        "c4b4",
+        "c4c5",
+        "c4b5"
+      ]
+    },
+    "policy": "b8h2",
+    "rank": 3,
+    "selected": "b8h2",
+    "nodes": 888,
+    "witness": null,
+    "defense_breaking_mate_in_two": "d1e1",
+    "oracle": {
+      "best": {
+        "white_score": "#+3",
+        "nodes": 11202,
+        "pv": "1. Kd3 Ke1 2. Qf8 Kd1 3. Qf1#"
+      },
+      "proposal": {
+        "white_score": "#+3",
+        "nodes": 2424,
+        "pv": "1. Kd3 Ke1 2. Qf4 Kd1 3. Qf1#"
+      },
+      "policy": {
+        "white_score": "#+4",
+        "nodes": 1353,
+        "pv": "1. Qh2 Kc1 2. Qg2 Kb1 3. Kc3 Ka1 4. Qb2#"
+      }
+    },
+    "trace": []
+  }
+]

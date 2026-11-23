@@ -1,0 +1,104 @@
+[Event "CHIMERA phase 1"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "CHIMERA"]
+[Black "greedy"]
+[Result "1/2-1/2"]
+[TimeControl "-"]
+[Budget "160 nodes per move; greedy opponent depth 1"]
+[Termination "THREEFOLD_REPETITION"]
+
+1. e4 e5 2. Nf3 Ne7 3. Nxe5 Nbc6 4. Nxc6 bxc6 5. Bc4 h5 6. Qxh5 Rxh5 7. Nc3 Rxh2 8. Rxh2 g5 9. Bxf7+ Kxf7 10. g4 d5 11. Rh7+ Kg8 12. Rh5 Bxg4 13. Rxg5+ Kh8 14. Rxg4 dxe4 15. Nxe4 Qxd2+ 16. Bxd2 a5 17. Bxa5 Rxa5 18. Rh4+ Kg8 19. Rg4+ Kh8 20. Rh4+ Kg8 21. Rg4+ 1/2-1/2
+
+[Event "CHIMERA phase 1"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "greedy"]
+[Black "CHIMERA"]
+[Result "1/2-1/2"]
+[TimeControl "-"]
+[Budget "160 nodes per move; greedy opponent depth 1"]
+[Termination "THREEFOLD_REPETITION"]
+
+1. e4 e5 2. Nf3 Ne7 3. Nxe5 Nbc6 4. Nxc6 bxc6 5. Bc4 f6 6. Nc3 h5 7. Qxh5+ Rxh5 8. h4 Rxh4 9. Rxh4 g5 10. g4 gxh4 11. f4 d5 12. Nxd5 cxd5 13. Bxd5 Nxd5 14. exd5 Bxg4 15. d4 Qxd5 16. Be3 Qxd4 17. Bxd4 Bb4+ 18. c3 Bd6 19. Bxf6 Bxf4 20. Bxh4 c5 21. b4 cxb4 22. cxb4 a5 23. bxa5 Rxa5 24. a4 Re5+ 25. Kf2 Re2+ 26. Kg1 Be6 27. Be7 Kxe7 28. a5 Bd5 29. a6 Be5 30. a7 Bd4+ 31. Kf1 Rf2+ 32. Kg1 Bxa1 33. a8=Q Bxa8 34. Kxf2 Bd5 35. Kg3 Be5+ 36. Kh4 Kf8 37. Kh5 Kg8 38. Kh6 Kh8 39. Kg6 Kg8 40. Kh6 Kh8 41. Kg6 Kg8 1/2-1/2
+
+[Event "CHIMERA phase 1"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "CHIMERA"]
+[Black "greedy"]
+[Result "1-0"]
+[TimeControl "-"]
+[Budget "160 nodes per move; greedy opponent depth 1"]
+[Termination "CHECKMATE"]
+
+1. d4 d5 2. Nf3 Nf6 3. Bf4 Be6 4. Bxc7 Qxc7 5. Nc3 Qxc3+ 6. bxc3 Nbd7 7. h4 h5 8. g4 hxg4 9. Ng5 Rxh4 10. Rxh4 b5 11. Nxe6 fxe6 12. Rxg4 Nxg4 13. f4 g5 14. fxg5 a5 15. e4 dxe4 16. Qxg4 Ne5 17. dxe5 b4 18. Bb5+ Kd8 19. Qxe4 bxc3 20. Qxa8+ Kc7 21. Qxf8 a4 22. Bxa4 Kb7 23. Qxe7+ Kc8 24. Qxe6+ Kd8 25. Qd7# 1-0
+
+[Event "CHIMERA phase 1"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "greedy"]
+[Black "CHIMERA"]
+[Result "0-1"]
+[TimeControl "-"]
+[Budget "160 nodes per move; greedy opponent depth 1"]
+[Termination "CHECKMATE"]
+
+1. d4 d5 2. Nf3 Nf6 3. Bf4 Be6 4. Bxc7 Qxc7 5. Nc3 Qxc3+ 6. bxc3 Nbd7 7. h4 h5 8. g4 hxg4 9. e4 gxf3 10. Qxf3 Ng8 11. exd5 Bxd5 12. Qxd5 Rxh4 13. Rxh4 Ngf6 14. Qxd7+ Kxd7 15. Bc4 g5 16. Bxf7 gxh4 17. Bd5 Nxd5 18. f4 Nxf4 19. a4 e5 20. dxe5 Bc5 21. c4 b5 22. axb5 Bb4+ 23. c3 Bxc3+ 24. Kf2 Bxa1 25. c5 Bxe5 26. c6+ Ke8 27. c7 Bxc7 28. b6 axb6 29. Kf3 Be5 30. Kg4 h3 31. Kg5 b5 32. Kh6 Nd5 33. Kh7 b4 34. Kg8 b3 35. Kh7 h2 36. Kg8 h1=B 37. Kh7 Be4+ 38. Kg8 Ke7# 0-1
+
+[Event "CHIMERA phase 1"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "CHIMERA"]
+[Black "Stockfish 15.1"]
+[Result "0-1"]
+[TimeControl "-"]
+[Budget "160 nodes per move; greedy opponent depth 1"]
+[Termination "CHECKMATE"]
+
+1. e4 e5 2. Nf3 Nc6 3. Nxe5 Nxe5 4. Bc4 Nxc4 5. Nc3 Nb6 6. h4 h5 7. Qxh5 Rxh5 8. g4 Ra5 9. f4 d5 10. exd5 Bxg4 11. d4 Bb4 12. Be3 Qxd5 13. a4 Qxh1+ 14. Bg1 Qxg1+ 15. Kd2 Nc4+ 16. Kd3 Nxb2+ 17. Kd2 Nc4+ 18. Kd3 Qe3+ 19. Kxc4 Qxc3# 0-1
+
+[Event "CHIMERA phase 1"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Stockfish 15.1"]
+[Black "CHIMERA"]
+[Result "1-0"]
+[TimeControl "-"]
+[Budget "160 nodes per move; greedy opponent depth 1"]
+[Termination "CHECKMATE"]
+
+1. e4 e5 2. Nf3 Ne7 3. Bc4 Nbc6 4. Nc3 h5 5. Ng5 f5 6. Bf7# 1-0
+
+[Event "CHIMERA phase 1"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "CHIMERA"]
+[Black "Stockfish 15.1"]
+[Result "0-1"]
+[TimeControl "-"]
+[Budget "160 nodes per move; greedy opponent depth 1"]
+[Termination "CHECKMATE"]
+
+1. d4 d5 2. Nf3 Nf6 3. Bf4 Nh5 4. Bxc7 Qxc7 5. Nc3 Nf6 6. Nxd5 Nxd5 7. h4 e6 8. g4 Bb4+ 9. c3 Bd6 10. Qa4+ Kf8 11. Qxa7 Rxa7 12. e4 Nxc3 13. bxc3 Qxc3+ 14. Ke2 Bd7 15. a4 Qb2+ 16. Ke3 Qxa1 17. h5 Rxa4 18. Bc4 Ra3+ 19. Ke2 Qxh1 20. Bxe6 Bb5+ 21. Bc4 Bxc4+ 22. Kd2 Bf4+ 23. Kc2 Qc1# 0-1
+
+[Event "CHIMERA phase 1"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Stockfish 15.1"]
+[Black "CHIMERA"]
+[Result "1-0"]
+[TimeControl "-"]
+[Budget "160 nodes per move; greedy opponent depth 1"]
+[Termination "CHECKMATE"]
+
+1. d4 d5 2. Nf3 Nf6 3. Bf4 Be6 4. Qc1 Nbd7 5. Ng5 h5 6. Nxe6 fxe6 7. Nd2 g5 8. Bxg5 c5 9. e3 cxd4 10. exd4 b5 11. Bd3 a5 12. Bg6# 1-0
+

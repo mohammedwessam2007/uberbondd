@@ -1,0 +1,17 @@
+{
+  "train": {
+    "positions": 160,
+    "policy_top1": 43,
+    "first_legal_top1": 10
+  },
+  "val": {
+    "positions": 40,
+    "policy_top1": 6,
+    "first_legal_top1": 1
+  },
+  "test": {
+    "positions": 40,
+    "policy_top1": 9,
+    "first_legal_top1": 1
+  }
+}

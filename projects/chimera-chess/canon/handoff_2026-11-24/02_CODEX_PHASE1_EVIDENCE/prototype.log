@@ -1,0 +1,15 @@
+/workspace/chimera/.venv/lib/python3.12/site-packages/torch/_subclasses/functional_tensor.py:295: UserWarning: Failed to initialize NumPy: No module named 'numpy' (Triggered internally at ../torch/csrc/utils/tensor_numpy.cpp:84.)
+  cpu = _conversion_method_template(device=torch.device("cpu"))
+test_guard_rejects_bad_probabilities (test_chimera.ChimeraTests.test_guard_rejects_bad_probabilities) ... ok
+test_guard_with_wdl (test_chimera.ChimeraTests.test_guard_with_wdl) ... ok
+test_illegal_rows_rejected (test_chimera.ChimeraTests.test_illegal_rows_rejected) ... ok
+test_no_wdl_is_unverified (test_chimera.ChimeraTests.test_no_wdl_is_unverified) ... ok
+test_padded_experts_are_masked (test_chimera.ChimeraTests.test_padded_experts_are_masked) ... ok
+test_shapes_and_masks (test_chimera.ChimeraTests.test_shapes_and_masks) ... ok
+test_style_bias_changes_mixture_without_enabling_sixth (test_chimera.ChimeraTests.test_style_bias_changes_mixture_without_enabling_sixth) ... ok
+test_training_gradients_and_plan (test_chimera.ChimeraTests.test_training_gradients_and_plan) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.059s
+
+OK

@@ -1,0 +1,57 @@
+{
+  "project": "CHIMERA Ω∞",
+  "date": "2026-11-24",
+  "source_of_truth": "01_CANON/CHIMERA_OMEGA_V4_MASTER_167_ID_REGISTER_2026-11-23.txt",
+  "registered_ids": 167,
+  "phase1_ledger_status": {
+    "bounded_experiment": 3,
+    "planned": 5,
+    "redesign": 5,
+    "deferred": 137,
+    "incomplete": 8,
+    "archive_only": 9,
+    "fully_demonstrated": 0
+  },
+  "reported_v6": {
+    "gates": {
+      "A": "PASS per Codex",
+      "B": "PASS per Codex",
+      "C": "PASS per Codex",
+      "D": "PASS per Codex",
+      "M": "PARTIAL per Codex"
+    },
+    "new_games": 128,
+    "new_plies": 9882,
+    "reported_positions_independently_checked": 7132,
+    "heldout_vs_bare_maia": [
+      8,
+      0,
+      0
+    ],
+    "heldout_vs_conventional": [
+      8,
+      0,
+      0
+    ],
+    "heldout_vs_sf15_1": [
+      0,
+      0,
+      8
+    ],
+    "average_requested_ms": 80,
+    "bridge_observed_mean_ms": 103,
+    "deadline_bridge_observed_mean_ms": 62,
+    "reported_v6_bounded_experiments": 7,
+    "elo": "UNKNOWN/UNRATED",
+    "android_real_phone": "NOT TESTED"
+  },
+  "missing_high_priority": [
+    "original Codex V6 full checkpoint ZIP with code and pretrained weights",
+    "original Codex V6 Android ARM64 ZIP",
+    "V6 raw tournament PGNs and all new logs",
+    "V6 updated 167-row coverage ledger"
+  ],
+  "provenance": "Available source artifacts and user-supplied quotes, no V6 runnable source in this handoff",
+  "outbound_spend_usd": 0,
+  "implementation_in_this_handoff": false
+}

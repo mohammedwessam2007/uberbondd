@@ -1,0 +1,145 @@
+[
+  {
+    "case": "wrong bishop fortress",
+    "fen": "k7/P7/1K6/8/8/8/8/2B5 w - - 0 1",
+    "wdl": 0,
+    "all_moves": {
+      "b6c7": 0,
+      "b6c6": 0,
+      "b6a6": 0,
+      "b6c5": 0,
+      "b6b5": 0,
+      "b6a5": 0,
+      "c1h6": 0,
+      "c1g5": 0,
+      "c1f4": 0,
+      "c1e3": 0,
+      "c1a3": 0,
+      "c1d2": 0,
+      "c1b2": 0
+    },
+    "decisions": {
+      "Policy": {
+        "move": "b6a6",
+        "wdl": 0
+      },
+      "Hybrid": {
+        "move": "b6a6",
+        "wdl": 0
+      },
+      "Bridge": {
+        "move": "b6a6",
+        "wdl": 0
+      }
+    }
+  },
+  {
+    "case": "correct bishop, only winning move",
+    "fen": "k7/P7/1K6/8/8/8/8/3B4 w - - 0 1",
+    "wdl": 2,
+    "all_moves": {
+      "b6c7": 0,
+      "b6c6": 0,
+      "b6a6": 0,
+      "b6c5": 0,
+      "b6b5": 0,
+      "b6a5": 0,
+      "d1h5": 0,
+      "d1g4": 0,
+      "d1a4": 0,
+      "d1f3": 2,
+      "d1b3": 0,
+      "d1e2": 0,
+      "d1c2": 0
+    },
+    "decisions": {
+      "Policy": {
+        "move": "d1f3",
+        "wdl": 2
+      },
+      "Hybrid": {
+        "move": "d1f3",
+        "wdl": 2
+      },
+      "Bridge": {
+        "move": "d1f3",
+        "wdl": 2
+      }
+    }
+  },
+  {
+    "case": "opposition white to move",
+    "fen": "8/4k3/8/4K3/4P3/8/8/8 w - - 0 1",
+    "wdl": 0,
+    "all_moves": {
+      "e5f5": 0,
+      "e5d5": 0,
+      "e5f4": 0,
+      "e5d4": 0
+    },
+    "decisions": {
+      "Policy": {
+        "move": "e5f5",
+        "wdl": 0
+      },
+      "Hybrid": {
+        "move": "e5f5",
+        "wdl": 0
+      },
+      "Bridge": {
+        "move": "e5f5",
+        "wdl": 0
+      }
+    }
+  },
+  {
+    "case": "opposition black to move",
+    "fen": "8/4k3/8/4K3/4P3/8/8/8 b - - 0 1",
+    "wdl": -2,
+    "all_moves": {
+      "e7f8": -2,
+      "e7e8": -2,
+      "e7d8": -2,
+      "e7f7": -2,
+      "e7d7": -2
+    },
+    "decisions": {
+      "Policy": {
+        "move": "e7e8",
+        "wdl": -2
+      },
+      "Hybrid": {
+        "move": "e7e8",
+        "wdl": -2
+      },
+      "Bridge": {
+        "move": "e7e8",
+        "wdl": -2
+      }
+    }
+  },
+  {
+    "case": "only drawing defense",
+    "fen": "8/8/8/8/2k5/2p5/2K5/8 w - - 0 1",
+    "wdl": 0,
+    "all_moves": {
+      "c2d1": -2,
+      "c2c1": 0,
+      "c2b1": -2
+    },
+    "decisions": {
+      "Policy": {
+        "move": "c2c1",
+        "wdl": 0
+      },
+      "Hybrid": {
+        "move": "c2c1",
+        "wdl": 0
+      },
+      "Bridge": {
+        "move": "c2c1",
+        "wdl": 0
+      }
+    }
+  }
+]

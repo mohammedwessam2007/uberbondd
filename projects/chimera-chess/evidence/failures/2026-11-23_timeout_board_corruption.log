@@ -1,0 +1,69 @@
+<UciProtocol (pid=1353)>: stderr >> Exception in thread Thread-1 (run):
+<UciProtocol (pid=1353)>: stderr >> Traceback (most recent call last):
+<UciProtocol (pid=1353)>: stderr >>   File "/usr/local/lib/python3.13/threading.py", line 1044, in _bootstrap_inner
+<UciProtocol (pid=1353)>: stderr >>     self.run()
+<UciProtocol (pid=1353)>: stderr >>     ~~~~~~~~^^
+<UciProtocol (pid=1353)>: stderr >>   File "/usr/local/lib/python3.13/threading.py", line 995, in run
+<UciProtocol (pid=1353)>: stderr >>     self._target(*self._args, **self._kwargs)
+<UciProtocol (pid=1353)>: stderr >>     ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<UciProtocol (pid=1353)>: stderr >>   File "/home/user/uberbondd/projects/chimera-chess/chimera/uci.py", line 56, in run
+<UciProtocol (pid=1353)>: stderr >>     mv = self.engine.choose(self.board, budget, stop_flag=self.stop.is_set,
+<UciProtocol (pid=1353)>: stderr >>                             info=self.send)
+<UciProtocol (pid=1353)>: stderr >>   File "/home/user/uberbondd/projects/chimera-chess/chimera/creative.py", line 263, in choose
+<UciProtocol (pid=1353)>: stderr >>     r = self.searcher.search(board, movetime, stop_flag=stop_flag, info=info)
+<UciProtocol (pid=1353)>: stderr >>   File "/home/user/uberbondd/projects/chimera-chess/chimera/search.py", line 403, in search
+<UciProtocol (pid=1353)>: stderr >>     self.pv_line(board, best_move), last_scores, hit)
+<UciProtocol (pid=1353)>: stderr >>     ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+<UciProtocol (pid=1353)>: stderr >>   File "/home/user/uberbondd/projects/chimera-chess/chimera/search.py", line 334, in pv_line
+<UciProtocol (pid=1353)>: stderr >>     b.push(first)
+<UciProtocol (pid=1353)>: stderr >>     ~~~~~~^^^^^^^
+<UciProtocol (pid=1353)>: stderr >>   File "/usr/local/lib/python3.13/site-packages/chess/__init__.py", line 2369, in push
+<UciProtocol (pid=1353)>: stderr >>     assert piece_type is not None, f"push() expects move to be pseudo-legal, but got {move} in {self.board_fen()}"
+<UciProtocol (pid=1353)>: stderr >>            ^^^^^^^^^^^^^^^^^^^^^^
+<UciProtocol (pid=1353)>: stderr >> AssertionError: push() expects move to be pseudo-legal, but got g8f6 in r1bqk2r/2ppbppp/ppn4n/3Np3/4P3/5N2/PPPP1PPP/R1BQKB1R
+<UciProtocol (pid=1338)>: stderr >> Exception in thread Thread-6 (run):
+<UciProtocol (pid=1338)>: stderr >> Traceback (most recent call last):
+<UciProtocol (pid=1338)>: stderr >>   File "/usr/local/lib/python3.13/threading.py", line 1044, in _bootstrap_inner
+<UciProtocol (pid=1338)>: stderr >>     self.run()
+<UciProtocol (pid=1338)>: stderr >>     ~~~~~~~~^^
+<UciProtocol (pid=1338)>: stderr >>   File "/usr/local/lib/python3.13/threading.py", line 995, in run
+<UciProtocol (pid=1338)>: stderr >>     self._target(*self._args, **self._kwargs)
+<UciProtocol (pid=1338)>: stderr >>     ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<UciProtocol (pid=1338)>: stderr >>   File "/home/user/uberbondd/projects/chimera-chess/chimera/uci.py", line 56, in run
+<UciProtocol (pid=1338)>: stderr >>     mv = self.engine.choose(self.board, budget, stop_flag=self.stop.is_set,
+<UciProtocol (pid=1338)>: stderr >>                             info=self.send)
+<UciProtocol (pid=1338)>: stderr >>   File "/home/user/uberbondd/projects/chimera-chess/chimera/creative.py", line 263, in choose
+<UciProtocol (pid=1338)>: stderr >>     r = self.searcher.search(board, movetime, stop_flag=stop_flag, info=info)
+<UciProtocol (pid=1338)>: stderr >>   File "/home/user/uberbondd/projects/chimera-chess/chimera/search.py", line 403, in search
+<UciProtocol (pid=1338)>: stderr >>     self.pv_line(board, best_move), last_scores, hit)
+<UciProtocol (pid=1338)>: stderr >>     ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+<UciProtocol (pid=1338)>: stderr >>   File "/home/user/uberbondd/projects/chimera-chess/chimera/search.py", line 334, in pv_line
+<UciProtocol (pid=1338)>: stderr >>     b.push(first)
+<UciProtocol (pid=1338)>: stderr >>     ~~~~~~^^^^^^^
+<UciProtocol (pid=1338)>: stderr >>   File "/usr/local/lib/python3.13/site-packages/chess/__init__.py", line 2369, in push
+<UciProtocol (pid=1338)>: stderr >>     assert piece_type is not None, f"push() expects move to be pseudo-legal, but got {move} in {self.board_fen()}"
+<UciProtocol (pid=1338)>: stderr >>            ^^^^^^^^^^^^^^^^^^^^^^
+<UciProtocol (pid=1338)>: stderr >> AssertionError: push() expects move to be pseudo-legal, but got f3e5 in r3kb1r/3n1ppp/p4n2/1p2p1N1/1P2b3/P1N5/2P1K1PP/R1B2B1R
+<UciProtocol (pid=1336)>: stderr >> Exception in thread Thread-5 (run):
+<UciProtocol (pid=1336)>: stderr >> Traceback (most recent call last):
+<UciProtocol (pid=1336)>: stderr >>   File "/usr/local/lib/python3.13/threading.py", line 1044, in _bootstrap_inner
+<UciProtocol (pid=1336)>: stderr >>     self.run()
+<UciProtocol (pid=1336)>: stderr >>     ~~~~~~~~^^
+<UciProtocol (pid=1336)>: stderr >>   File "/usr/local/lib/python3.13/threading.py", line 995, in run
+<UciProtocol (pid=1336)>: stderr >>     self._target(*self._args, **self._kwargs)
+<UciProtocol (pid=1336)>: stderr >>     ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<UciProtocol (pid=1336)>: stderr >>   File "/home/user/uberbondd/projects/chimera-chess/chimera/uci.py", line 56, in run
+<UciProtocol (pid=1336)>: stderr >>     mv = self.engine.choose(self.board, budget, stop_flag=self.stop.is_set,
+<UciProtocol (pid=1336)>: stderr >>                             info=self.send)
+<UciProtocol (pid=1336)>: stderr >>   File "/home/user/uberbondd/projects/chimera-chess/chimera/creative.py", line 263, in choose
+<UciProtocol (pid=1336)>: stderr >>     r = self.searcher.search(board, movetime, stop_flag=stop_flag, info=info)
+<UciProtocol (pid=1336)>: stderr >>   File "/home/user/uberbondd/projects/chimera-chess/chimera/search.py", line 403, in search
+<UciProtocol (pid=1336)>: stderr >>     self.pv_line(board, best_move), last_scores, hit)
+<UciProtocol (pid=1336)>: stderr >>     ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+<UciProtocol (pid=1336)>: stderr >>   File "/home/user/uberbondd/projects/chimera-chess/chimera/search.py", line 334, in pv_line
+<UciProtocol (pid=1336)>: stderr >>     b.push(first)
+<UciProtocol (pid=1336)>: stderr >>     ~~~~~~^^^^^^^
+<UciProtocol (pid=1336)>: stderr >>   File "/usr/local/lib/python3.13/site-packages/chess/__init__.py", line 2369, in push
+<UciProtocol (pid=1336)>: stderr >>     assert piece_type is not None, f"push() expects move to be pseudo-legal, but got {move} in {self.board_fen()}"
+<UciProtocol (pid=1336)>: stderr >>            ^^^^^^^^^^^^^^^^^^^^^^
+<UciProtocol (pid=1336)>: stderr >> AssertionError: push() expects move to be pseudo-legal, but got d4e5 in r1b1kb1r/2p3pp/p1p5/3qp3/8/4BNP1/PPP2P1P/R2Q1RK1

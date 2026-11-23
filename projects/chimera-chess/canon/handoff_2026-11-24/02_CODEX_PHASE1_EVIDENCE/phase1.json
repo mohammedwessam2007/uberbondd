@@ -1,0 +1,101 @@
+{
+  "timestamp": "2026-11-23T21:20:04.129157+00:00",
+  "python": "3.12.14",
+  "gates": {
+    "G0": "PASS",
+    "G1": "PASS",
+    "G2": "bounded baseline only",
+    "G3-G8": "open; partial experiments only"
+  },
+  "code_manifest_sha256": "4f7afeeb348f31ee0f2acfe3beeaaba24456bb1adc6d487f3df693f64c8b9cbc",
+  "input_zip_sha256": "98fd0b9dabdb501a46db227abfe0736d2d56784ba693c95c0422490cba09c6a6",
+  "runtime_sha256": "64a24f40233db8210a6498d37b1cb4abf92d1e39eda5d861e38ae1abb267bdd4",
+  "weights_sha256": "097177782a7d1cff7b91e2f7c5a956400ba7284327129f7979b47ae82f613bf9",
+  "labels_sha256": "51cef37b320f39e01db446ffeafd24a2d059f77c841a39c0857fb0b0988eaef2",
+  "tests": {
+    "prototype_pass": 8,
+    "collector_script": "PASS",
+    "engine_experiment_pass": 15,
+    "final_failures": 0,
+    "initial_prototype_import": "FAILED: torch missing; installed torch 2.5.1+cpu and reran"
+  },
+  "matches": {
+    "id": "v5-two-opening-pairs-160",
+    "base_vs_greedy_WDL": [
+      2,
+      2,
+      0
+    ],
+    "base_vs_stockfish15_1_WDL": [
+      0,
+      0,
+      4
+    ],
+    "student_vs_default_WDL": [
+      0,
+      3,
+      1
+    ],
+    "raw": [
+      "games.pgn",
+      "games.csv",
+      "ordering.pgn",
+      "ordering.csv"
+    ],
+    "interval": "General-strength interval unidentified: purposive paired openings, deterministic games.",
+    "elo": "UNKNOWN/UNRATED"
+  },
+  "student": {
+    "train": {
+      "positions": 160,
+      "policy_top1": 43,
+      "first_legal_top1": 10
+    },
+    "val": {
+      "positions": 40,
+      "policy_top1": 6,
+      "first_legal_top1": 1
+    },
+    "test": {
+      "positions": 40,
+      "policy_top1": 9,
+      "first_legal_top1": 1
+    }
+  },
+  "motif": "evidence/motif.json",
+  "replay": {
+    "games.pgn": {
+      "games": 8,
+      "plies": 366
+    },
+    "ordering.pgn": {
+      "games": 4,
+      "plies": 234
+    }
+  },
+  "device": "NOT TESTED ON ONEPLUS 15",
+  "budget_USD": 0,
+  "coverage": {
+    "D": 137,
+    "T": 3,
+    "P": 5,
+    "X": 9,
+    "U": 8,
+    "R": 5
+  },
+  "next_reproduce": "python -m unittest discover -s tests -v (installed chess==1.11.2)",
+  "principles": {
+    "R01": "private founder scope",
+    "R02": "byte-preserved originals",
+    "R03": "raw logs and PGNs",
+    "R04": "independent legal sets",
+    "R05": "strength and art scored separately",
+    "R06": "student disabled by default",
+    "R07": "paired counterexample",
+    "R08": "non-neural offline fallback",
+    "R09": "no remote writes or spend",
+    "R10": "reran original and new tests",
+    "R11": "portable archive and manifest",
+    "R12": "phase0 and phase1 JSON receipts"
+  }
+}

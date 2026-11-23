@@ -1,0 +1,1015 @@
+{
+ "source": "https://database.lichess.org/lichess_db_puzzle.csv.zst",
+ "license": "CC0 (Lichess puzzle database)",
+ "byte_range": "0-4000000",
+ "byte_range_sha256": "859a76f7ad9829c8c2d63fb4073bccb4afb588ccf75e709b7584702e351c0513",
+ "validator": "Stockfish 16 (Ubuntu 16-1build1), depth 18, Threads 1",
+ "items": [
+  {
+   "id": "001Oo",
+   "theme": "quietMove",
+   "rating": 2078,
+   "fen": "6k1/4p1bp/6p1/1p1pP3/qPpPp3/2P1P3/Q2B1KPP/8 w - - 3 24",
+   "solution": "a2a4",
+   "line": [
+    "a2a4",
+    "b5a4",
+    "b4b5",
+    "g8f7",
+    "b5b6"
+   ],
+   "sf_best": "a2a4",
+   "sf_score": 154,
+   "kind": "positive",
+   "url": "https://lichess.org/game/8IKs77O9/black#46"
+  },
+  {
+   "id": "001XA",
+   "theme": "sacrifice",
+   "rating": 1722,
+   "fen": "2r2rk1/pbq1bppp/8/8/2p1N3/P1Bn2P1/2Q2PBP/1R3RK1 w - - 4 24",
+   "solution": "b1b7",
+   "line": [
+    "b1b7",
+    "c7b7",
+    "e4f6",
+    "e7f6",
+    "g2b7"
+   ],
+   "sf_best": "b1b7",
+   "sf_score": 482,
+   "kind": "positive",
+   "url": "https://lichess.org/game/KZRiN695/black#46"
+  },
+  {
+   "id": "001aK",
+   "theme": "quietMove",
+   "rating": 2052,
+   "fen": "6k1/5p2/4p3/P1B5/2P4P/4Pnp1/Rb2r3/5K2 w - - 0 34",
+   "solution": "f1e2",
+   "line": [
+    "f1e2",
+    "g3g2",
+    "e3e4",
+    "f3d4",
+    "e2f2"
+   ],
+   "sf_best": "f1e2",
+   "sf_score": 533,
+   "kind": "positive",
+   "url": "https://lichess.org/game/Epr0AiEh/black#66"
+  },
+  {
+   "id": "001h8",
+   "theme": "sacrifice",
+   "rating": 1715,
+   "fen": "2r3k1/2r4p/4p1p1/1p1q1pP1/p2P1P1Q/P6R/4bB2/2R3K1 w - - 6 35",
+   "solution": "h4h7",
+   "line": [
+    "h4h7",
+    "c7h7",
+    "c1c8",
+    "g8g7",
+    "c8c7"
+   ],
+   "sf_best": "h4h7",
+   "sf_score": 336,
+   "kind": "positive",
+   "url": "https://lichess.org/game/IxCahP6X/black#68"
+  },
+  {
+   "id": "001h8-neg",
+   "theme": "sacrifice-counterexample",
+   "rating": 1715,
+   "fen": "2r3k1/2r4p/4p1p1/1p1q1pP1/p2P1P1Q/P7/4bB2/2R3K1 w - - 6 35",
+   "removed": "h3",
+   "forbidden": "h4h7",
+   "sf_best": "c1c7",
+   "sf_score": -641,
+   "sf_score_of_forbidden": -99991,
+   "kind": "negative",
+   "url": "https://lichess.org/game/IxCahP6X/black#68"
+  },
+  {
+   "id": "001xO",
+   "theme": "sacrifice",
+   "rating": 1790,
+   "fen": "k1r1b3/p1r1nppp/Bp1qpn2/2Np4/1P1P4/PQR1PN2/5PPP/2R3K1 b - - 1 19",
+   "solution": "b6c5",
+   "line": [
+    "b6c5",
+    "a6c8",
+    "c5c4"
+   ],
+   "sf_best": "b6c5",
+   "sf_score": 318,
+   "kind": "positive",
+   "url": "https://lichess.org/game/fNCePFgY#37"
+  },
+  {
+   "id": "001xO-neg",
+   "theme": "sacrifice-counterexample",
+   "rating": 1790,
+   "fen": "k1r1b3/p3nppp/Bp1qpn2/2Np4/1P1P4/PQR1PN2/5PPP/2R3K1 b - - 1 19",
+   "removed": "c7",
+   "forbidden": "b6c5",
+   "sf_best": "c8b8",
+   "sf_score": -546,
+   "sf_score_of_forbidden": -771,
+   "kind": "negative",
+   "url": "https://lichess.org/game/fNCePFgY#37"
+  },
+  {
+   "id": "002mG",
+   "theme": "quietMove",
+   "rating": 2377,
+   "fen": "5r1k/B1p3pp/2Qb1p2/3Pq3/P6P/8/2P2K2/3R1R2 b - - 2 36",
+   "solution": "f8e8",
+   "line": [
+    "f8e8",
+    "c6e8",
+    "e5e8"
+   ],
+   "sf_best": "f8e8",
+   "sf_score": 287,
+   "kind": "positive",
+   "url": "https://lichess.org/game/age2hanq#71"
+  },
+  {
+   "id": "00347",
+   "theme": "quietMove",
+   "rating": 2264,
+   "fen": "8/2p5/8/2pPk2p/8/3K3P/6P1/8 b - - 2 42",
+   "solution": "h5h4",
+   "line": [
+    "h5h4",
+    "d3c4",
+    "e5d6"
+   ],
+   "sf_best": "h5h4",
+   "sf_score": 643,
+   "kind": "positive",
+   "url": "https://lichess.org/game/xFM0YP9S#83"
+  },
+  {
+   "id": "003cs",
+   "theme": "sacrifice",
+   "rating": 2106,
+   "fen": "2r1kbnr/pp4pp/4p3/3pq1N1/8/1P2B3/P3Q1PP/nN3RK1 w k - 0 17",
+   "solution": "f1f8",
+   "line": [
+    "f1f8",
+    "e8f8",
+    "e3c5",
+    "c8c5",
+    "e2e5",
+    "c5c1",
+    "g1f2"
+   ],
+   "sf_best": "f1f8",
+   "sf_score": 442,
+   "kind": "positive",
+   "url": "https://lichess.org/game/PmRTKflq/black#32"
+  },
+  {
+   "id": "003cs-neg",
+   "theme": "sacrifice-counterexample",
+   "rating": 2106,
+   "fen": "2r1kbnr/pp4pp/4p3/3pq1N1/8/1P2B3/P5PP/nN3RK1 w k - 0 17",
+   "removed": "e2",
+   "forbidden": "f1f8",
+   "sf_best": "e3d2",
+   "sf_score": -1110,
+   "sf_score_of_forbidden": -1317,
+   "kind": "negative",
+   "url": "https://lichess.org/game/PmRTKflq/black#32"
+  },
+  {
+   "id": "004Op",
+   "theme": "sacrifice",
+   "rating": 2204,
+   "fen": "2kr2r1/1bp4n/1pq1p2p/p1P5/1P3B2/P6P/5RP1/RB3QK1 b - - 4 26",
+   "solution": "d8d1",
+   "line": [
+    "d8d1",
+    "f1d1",
+    "g8g2",
+    "g1f1",
+    "g2g1",
+    "f1e2",
+    "g1d1"
+   ],
+   "sf_best": "d8d1",
+   "sf_score": 473,
+   "kind": "positive",
+   "url": "https://lichess.org/game/tneg9Bzk#51"
+  },
+  {
+   "id": "004Op-neg",
+   "theme": "sacrifice-counterexample",
+   "rating": 2204,
+   "fen": "2kr2r1/1bp4n/1p2p2p/p1P5/1P3B2/P6P/5RP1/RB3QK1 b - - 4 26",
+   "removed": "c6",
+   "forbidden": "d8d1",
+   "sf_best": "h7g5",
+   "sf_score": -838,
+   "sf_score_of_forbidden": -1048,
+   "kind": "negative",
+   "url": "https://lichess.org/game/tneg9Bzk#51"
+  },
+  {
+   "id": "004RF",
+   "theme": "sacrifice",
+   "rating": 1709,
+   "fen": "5rk1/5ppp/1p6/1q3P1Q/2pp3P/6R1/6PK/8 w - - 0 31",
+   "solution": "g3g7",
+   "line": [
+    "g3g7",
+    "g8g7",
+    "f5f6",
+    "g7f6",
+    "h5b5"
+   ],
+   "sf_best": "g3g7",
+   "sf_score": 316,
+   "kind": "positive",
+   "url": "https://lichess.org/game/2UeWcE4h/black#60"
+  },
+  {
+   "id": "004RF-neg",
+   "theme": "sacrifice-counterexample",
+   "rating": 1709,
+   "fen": "5rk1/5ppp/1p6/1q3P2/2pp3P/6R1/6PK/8 w - - 0 31",
+   "removed": "h5",
+   "forbidden": "g3g7",
+   "sf_best": "g3g6",
+   "sf_score": -1362,
+   "sf_score_of_forbidden": -99986,
+   "kind": "negative",
+   "url": "https://lichess.org/game/2UeWcE4h/black#60"
+  },
+  {
+   "id": "004b0",
+   "theme": "quietMove",
+   "rating": 2368,
+   "fen": "5k2/4bB2/4P3/2p2P2/2b5/8/p7/B6K b - - 5 48",
+   "solution": "e7g5",
+   "line": [
+    "e7g5",
+    "f5f6",
+    "g5e3",
+    "a1e5",
+    "e3f4",
+    "e5f4",
+    "a2a1q"
+   ],
+   "sf_best": "e7g5",
+   "sf_score": 327,
+   "kind": "positive",
+   "url": "https://lichess.org/game/CJKIi1QJ#95"
+  },
+  {
+   "id": "004sg",
+   "theme": "quietMove",
+   "rating": 2440,
+   "fen": "6k1/p3b2p/1p1pP3/2P3P1/2np3B/P6P/3Q3K/8 b - - 0 38",
+   "solution": "c4d2",
+   "line": [
+    "c4d2",
+    "c5c6",
+    "d6d5",
+    "g5g6",
+    "e7d6"
+   ],
+   "sf_best": "c4d2",
+   "sf_score": 253,
+   "kind": "positive",
+   "url": "https://lichess.org/game/pSRIvt7K#75"
+  },
+  {
+   "id": "005do",
+   "theme": "sacrifice",
+   "rating": 1433,
+   "fen": "5r2/pp1k4/4p1b1/3pP1Np/3P1P1K/8/P7/2R5 w - - 8 43",
+   "solution": "c1c7",
+   "line": [
+    "c1c7",
+    "d7c7",
+    "g5e6",
+    "c7b6",
+    "e6f8"
+   ],
+   "sf_best": "c1c7",
+   "sf_score": 385,
+   "kind": "positive",
+   "url": "https://lichess.org/game/Q1hPi58C/black#84"
+  },
+  {
+   "id": "005do-neg",
+   "theme": "sacrifice-counterexample",
+   "rating": 1433,
+   "fen": "5r2/pp1k4/4p1b1/3pP2p/3P1P1K/8/P7/2R5 w - - 8 43",
+   "removed": "g5",
+   "forbidden": "c1c7",
+   "sf_best": "h4g5",
+   "sf_score": -543,
+   "sf_score_of_forbidden": -1215,
+   "kind": "negative",
+   "url": "https://lichess.org/game/Q1hPi58C/black#84"
+  },
+  {
+   "id": "005f3",
+   "theme": "sacrifice",
+   "rating": 2080,
+   "fen": "r5k1/2p1pp2/pp4p1/1q5r/5P2/2QP2R1/PP6/1K4R1 w - - 1 33",
+   "solution": "g3g6",
+   "line": [
+    "g3g6",
+    "f7g6",
+    "g1g6",
+    "g8f7",
+    "c3g7",
+    "f7e8",
+    "g7g8",
+    "e8d7",
+    "g8e6",
+    "d7d8",
+    "g6g8"
+   ],
+   "sf_best": "g3g6",
+   "sf_score": 469,
+   "kind": "positive",
+   "url": "https://lichess.org/game/Prb24UzR/black#64"
+  },
+  {
+   "id": "005f3-neg",
+   "theme": "sacrifice-counterexample",
+   "rating": 2080,
+   "fen": "r5k1/2p1pp2/pp4p1/1q5r/5P2/3P2R1/PP6/1K4R1 w - - 1 33",
+   "removed": "c3",
+   "forbidden": "g3g6",
+   "sf_best": "b1a1",
+   "sf_score": -724,
+   "sf_score_of_forbidden": -99990,
+   "kind": "negative",
+   "url": "https://lichess.org/game/Prb24UzR/black#64"
+  },
+  {
+   "id": "005ws",
+   "theme": "quietMove",
+   "rating": 2487,
+   "fen": "8/8/4Kpp1/7p/3N2kP/8/8/8 b - - 3 62",
+   "solution": "g6g5",
+   "line": [
+    "g6g5",
+    "h4g5",
+    "f6g5",
+    "e6d5",
+    "h5h4",
+    "d5e4",
+    "h4h3",
+    "d4f3",
+    "g4g3"
+   ],
+   "sf_best": "g6g5",
+   "sf_score": 426,
+   "kind": "positive",
+   "url": "https://lichess.org/game/LOwACSXb#123"
+  },
+  {
+   "id": "005wy",
+   "theme": "sacrifice",
+   "rating": 1918,
+   "fen": "1r6/pp2kppQ/2n1p1n1/3p2P1/5P2/2PqP3/PP1N4/2KR3R b - - 4 27",
+   "solution": "c6b4",
+   "line": [
+    "c6b4",
+    "c3b4",
+    "b8c8",
+    "d2c4",
+    "c8c4"
+   ],
+   "sf_best": "c6b4",
+   "sf_score": 99997,
+   "kind": "positive",
+   "url": "https://lichess.org/game/mBQMheB4#53"
+  },
+  {
+   "id": "005wy-neg",
+   "theme": "sacrifice-counterexample",
+   "rating": 1918,
+   "fen": "1r6/pp2kppQ/2n1p1n1/3p2P1/5P2/2P1P3/PP1N4/2KR3R b - - 4 27",
+   "removed": "d3",
+   "forbidden": "c6b4",
+   "sf_best": "e7f8",
+   "sf_score": -820,
+   "sf_score_of_forbidden": -1015,
+   "kind": "negative",
+   "url": "https://lichess.org/game/mBQMheB4#53"
+  },
+  {
+   "id": "006wz",
+   "theme": "sacrifice",
+   "rating": 1426,
+   "fen": "2r5/4ppkp/6p1/1p6/1P6/P3B3/1br2PPP/1R1R2K1 w - - 3 23",
+   "solution": "b1b2",
+   "line": [
+    "b1b2",
+    "c2b2",
+    "e3d4",
+    "f7f6",
+    "d4b2"
+   ],
+   "sf_best": "b1b2",
+   "sf_score": 458,
+   "kind": "positive",
+   "url": "https://lichess.org/game/qT0W6o27/black#44"
+  },
+  {
+   "id": "006wz-neg",
+   "theme": "sacrifice-counterexample",
+   "rating": 1426,
+   "fen": "2r5/4ppkp/6p1/1p6/1P6/P3B3/1br2PPP/1R4K1 w - - 3 23",
+   "removed": "d1",
+   "forbidden": "b1b2",
+   "sf_best": "h2h4",
+   "sf_score": -573,
+   "sf_score_of_forbidden": -99998,
+   "kind": "negative",
+   "url": "https://lichess.org/game/qT0W6o27/black#44"
+  },
+  {
+   "id": "0078T",
+   "theme": "sacrifice",
+   "rating": 2248,
+   "fen": "rk5r/1b3R2/pp2p2q/4P2p/B6B/4p2P/PP4P1/5Q1K w - - 0 28",
+   "solution": "f7b7",
+   "line": [
+    "f7b7",
+    "b8b7",
+    "f1f7",
+    "b7b8",
+    "h4e7"
+   ],
+   "sf_best": "f7b7",
+   "sf_score": 485,
+   "kind": "positive",
+   "url": "https://lichess.org/game/mXf4gFYU/black#54"
+  },
+  {
+   "id": "007en",
+   "theme": "sacrifice",
+   "rating": 1766,
+   "fen": "rn3rk1/4pp1p/3p2pB/2q4P/3QP1b1/Pp6/1P2B3/1K1R2NR b - - 0 20",
+   "solution": "c5c2",
+   "line": [
+    "c5c2",
+    "b1a1",
+    "a8a3",
+    "b2a3",
+    "c2a2"
+   ],
+   "sf_best": "c5c2",
+   "sf_score": 99997,
+   "kind": "positive",
+   "url": "https://lichess.org/game/jzE2yKAk#39"
+  },
+  {
+   "id": "007en-neg",
+   "theme": "sacrifice-counterexample",
+   "rating": 1766,
+   "fen": "1n3rk1/4pp1p/3p2pB/2q4P/3QP1b1/Pp6/1P2B3/1K1R2NR b - - 0 20",
+   "removed": "a8",
+   "forbidden": "c5c2",
+   "sf_best": "c5d4",
+   "sf_score": -683,
+   "sf_score_of_forbidden": -1139,
+   "kind": "negative",
+   "url": "https://lichess.org/game/jzE2yKAk#39"
+  },
+  {
+   "id": "008LT",
+   "theme": "sacrifice",
+   "rating": 2240,
+   "fen": "r4r1k/6p1/b3p1nN/p1pp4/1p3P1q/3P1Q1B/PPP2PK1/R6R w - - 1 27",
+   "solution": "h6f7",
+   "line": [
+    "h6f7",
+    "f8f7",
+    "h3e6"
+   ],
+   "sf_best": "h6f7",
+   "sf_score": 492,
+   "kind": "positive",
+   "url": "https://lichess.org/game/vnxisKeU/black#52"
+  },
+  {
+   "id": "008LT-neg",
+   "theme": "sacrifice-counterexample",
+   "rating": 2240,
+   "fen": "r4r1k/6p1/b3p1nN/p1pp4/1p3P1q/3P1Q1B/PPP2PK1/R7 w - - 1 27",
+   "removed": "h1",
+   "forbidden": "h6f7",
+   "sf_best": "h6g4",
+   "sf_score": -674,
+   "sf_score_of_forbidden": -871,
+   "kind": "negative",
+   "url": "https://lichess.org/game/vnxisKeU/black#52"
+  },
+  {
+   "id": "00A5m",
+   "theme": "quietMove",
+   "rating": 1980,
+   "fen": "8/1p6/p1p2p2/P3b3/1PK3P1/2PB4/3k4/8 w - - 4 61",
+   "solution": "d3f5",
+   "line": [
+    "d3f5",
+    "e5c7",
+    "f5c8",
+    "b7b6",
+    "a5b6",
+    "c7b6",
+    "c8a6"
+   ],
+   "sf_best": "d3f5",
+   "sf_score": 230,
+   "kind": "positive",
+   "url": "https://lichess.org/game/Y4Ftfosz/black#120"
+  },
+  {
+   "id": "00Bg0",
+   "theme": "quietMove",
+   "rating": 1653,
+   "fen": "8/3k4/3P1K2/p4R2/5r2/5P2/8/8 b - - 2 57",
+   "solution": "f4f5",
+   "line": [
+    "f4f5",
+    "f6f5",
+    "a5a4",
+    "f5e4",
+    "a4a3",
+    "e4d3",
+    "a3a2"
+   ],
+   "sf_best": "f4f5",
+   "sf_score": 3579,
+   "kind": "positive",
+   "url": "https://lichess.org/game/Kh8jUvEa#113"
+  },
+  {
+   "id": "00CXr",
+   "theme": "sacrifice",
+   "rating": 1960,
+   "fen": "r2k2nr/p3qBb1/1p1p3p/Q5p1/3n1B2/2N2R2/PPP3P1/R5K1 w - - 0 19",
+   "solution": "a5d5",
+   "line": [
+    "a5d5",
+    "d4f3",
+    "g2f3",
+    "a8c8",
+    "f4d6"
+   ],
+   "sf_best": "a5d5",
+   "sf_score": 232,
+   "kind": "positive",
+   "url": "https://lichess.org/game/sr8OoFsx/black#36"
+  },
+  {
+   "id": "00Cwz",
+   "theme": "sacrifice",
+   "rating": 1461,
+   "fen": "1r5r/5pk1/4p3/3p2PP/N1nP4/n1P5/P3B3/K1R4R b - - 0 34",
+   "solution": "b8b1",
+   "line": [
+    "b8b1",
+    "c1b1",
+    "a3c2"
+   ],
+   "sf_best": "b8b1",
+   "sf_score": 99998,
+   "kind": "positive",
+   "url": "https://lichess.org/game/o6LOeNAf#67"
+  },
+  {
+   "id": "00Cwz-neg",
+   "theme": "sacrifice-counterexample",
+   "rating": 1461,
+   "fen": "1r5r/5pk1/4p3/3p2PP/N1nP4/2P5/P3B3/K1R4R b - - 0 34",
+   "removed": "a3",
+   "forbidden": "b8b1",
+   "sf_best": "e6e5",
+   "sf_score": -594,
+   "sf_score_of_forbidden": -988,
+   "kind": "negative",
+   "url": "https://lichess.org/game/o6LOeNAf#67"
+  },
+  {
+   "id": "00E4Z",
+   "theme": "quietMove",
+   "rating": 2290,
+   "fen": "1r4k1/p4p1p/6p1/3rb3/K7/2PpB3/1P1R1PPP/3R4 b - - 2 25",
+   "solution": "d5d6",
+   "line": [
+    "d5d6",
+    "b2b4",
+    "e5c3",
+    "e3c5",
+    "d6a6"
+   ],
+   "sf_best": "d5d6",
+   "sf_score": 390,
+   "kind": "positive",
+   "url": "https://lichess.org/game/YRE2uOtG#49"
+  },
+  {
+   "id": "00FGc",
+   "theme": "sacrifice",
+   "rating": 2438,
+   "fen": "1r4k1/5p2/2q3bp/4R3/p1r5/P1N5/KPP1Q2P/2R5 b - - 3 33",
+   "solution": "c4c3",
+   "line": [
+    "c4c3",
+    "b2c3",
+    "f7f6"
+   ],
+   "sf_best": "c4c3",
+   "sf_score": 339,
+   "kind": "positive",
+   "url": "https://lichess.org/game/N39SSpf9#65"
+  },
+  {
+   "id": "00GVf",
+   "theme": "sacrifice",
+   "rating": 1497,
+   "fen": "5k2/3b2q1/pn4p1/1rp2p2/8/8/1P2Q1P1/1K2R2R w - - 4 33",
+   "solution": "h1h8",
+   "line": [
+    "h1h8",
+    "g7h8",
+    "e2e7",
+    "f8g8",
+    "e7d8"
+   ],
+   "sf_best": "h1h8",
+   "sf_score": 496,
+   "kind": "positive",
+   "url": "https://lichess.org/game/sTFSNjA5/black#64"
+  },
+  {
+   "id": "00GVf-neg",
+   "theme": "sacrifice-counterexample",
+   "rating": 1497,
+   "fen": "5k2/3b2q1/pn4p1/1rp2p2/8/8/1P2Q1P1/1K5R w - - 4 33",
+   "removed": "e1",
+   "forbidden": "h1h8",
+   "sf_best": "b1c1",
+   "sf_score": -811,
+   "sf_score_of_forbidden": -3894,
+   "kind": "negative",
+   "url": "https://lichess.org/game/sTFSNjA5/black#64"
+  },
+  {
+   "id": "00H2L",
+   "theme": "quietMove",
+   "rating": 2280,
+   "fen": "8/8/2p2p2/p4P1p/Pk5P/3K2P1/8/8 b - - 2 39",
+   "solution": "c6c5",
+   "line": [
+    "c6c5",
+    "d3e2",
+    "c5c4",
+    "g3g4",
+    "h5g4"
+   ],
+   "sf_best": "c6c5",
+   "sf_score": 369,
+   "kind": "positive",
+   "url": "https://lichess.org/game/UMoEkwn0#77"
+  },
+  {
+   "id": "00H5n",
+   "theme": "quietMove",
+   "rating": 2348,
+   "fen": "8/5Rpk/3p3p/p1qPp3/P7/5N1P/1Q3nPK/2r5 w - - 0 36",
+   "solution": "b2b7",
+   "line": [
+    "b2b7",
+    "c1h1",
+    "h2g3",
+    "f2e4",
+    "g3g4",
+    "e4f6",
+    "f7f6",
+    "c5b4",
+    "b7b4"
+   ],
+   "sf_best": "b2b7",
+   "sf_score": 300,
+   "kind": "positive",
+   "url": "https://lichess.org/game/84oSZ8O3/black#70"
+  },
+  {
+   "id": "00H87",
+   "theme": "sacrifice",
+   "rating": 1887,
+   "fen": "6k1/4pp2/p5pB/2p4n/3pP1Q1/P2P2qP/1r4P1/5RK1 w - - 2 31",
+   "solution": "g4c8",
+   "line": [
+    "g4c8",
+    "g8h7",
+    "f1f7",
+    "h5g7",
+    "f7g7",
+    "h7h6",
+    "c8h8",
+    "h6g5",
+    "g7g6",
+    "g5g6",
+    "h8g8",
+    "g6f6",
+    "g8g3"
+   ],
+   "sf_best": "g4c8",
+   "sf_score": 516,
+   "kind": "positive",
+   "url": "https://lichess.org/game/hQEAqclb/black#60"
+  },
+  {
+   "id": "00H87-neg",
+   "theme": "sacrifice-counterexample",
+   "rating": 1887,
+   "fen": "6k1/4pp2/p5p1/2p4n/3pP1Q1/P2P2qP/1r4P1/5RK1 w - - 2 31",
+   "removed": "h6",
+   "forbidden": "g4c8",
+   "sf_best": "g4f3",
+   "sf_score": -572,
+   "sf_score_of_forbidden": -99996,
+   "kind": "negative",
+   "url": "https://lichess.org/game/hQEAqclb/black#60"
+  },
+  {
+   "id": "00HqY",
+   "theme": "zugzwang",
+   "rating": 1775,
+   "fen": "8/6p1/8/8/4P2k/5KpP/8/8 w - - 4 47",
+   "solution": "f3g2",
+   "line": [
+    "f3g2",
+    "h4g5",
+    "g2g3"
+   ],
+   "sf_best": "f3g2",
+   "sf_score": 631,
+   "kind": "positive",
+   "url": "https://lichess.org/game/eG289RUU/black#92"
+  },
+  {
+   "id": "00IKw",
+   "theme": "sacrifice",
+   "rating": 2491,
+   "fen": "3r2k1/pp1P1p1p/6p1/2R1P2r/5P2/6Pq/3Q3P/3R2K1 b - - 2 33",
+   "solution": "d8d7",
+   "line": [
+    "d8d7",
+    "d2d7",
+    "h3h2",
+    "g1f1",
+    "h2g3",
+    "d7d8",
+    "g8g7",
+    "d8f6",
+    "g7h6",
+    "f6g5",
+    "h5g5"
+   ],
+   "sf_best": "d8d7",
+   "sf_score": 406,
+   "kind": "positive",
+   "url": "https://lichess.org/game/R6IG9d87#65"
+  },
+  {
+   "id": "00IKw-neg",
+   "theme": "sacrifice-counterexample",
+   "rating": 2491,
+   "fen": "3r2k1/pp1P1p1p/6p1/2R1P2r/5P2/6P1/3Q3P/3R2K1 b - - 2 33",
+   "removed": "h3",
+   "forbidden": "d8d7",
+   "sf_best": "g8g7",
+   "sf_score": -2375,
+   "sf_score_of_forbidden": -99986,
+   "kind": "negative",
+   "url": "https://lichess.org/game/R6IG9d87#65"
+  },
+  {
+   "id": "00IUW",
+   "theme": "sacrifice",
+   "rating": 1684,
+   "fen": "8/2p1r1kp/5pp1/3P3r/4P3/2N1QbPq/PPP2R1P/5RK1 b - - 4 23",
+   "solution": "h3g3",
+   "line": [
+    "h3g3",
+    "h2g3",
+    "h5h1"
+   ],
+   "sf_best": "h3g3",
+   "sf_score": 99998,
+   "kind": "positive",
+   "url": "https://lichess.org/game/83tyhOfz#45"
+  },
+  {
+   "id": "00IUW-neg",
+   "theme": "sacrifice-counterexample",
+   "rating": 1684,
+   "fen": "8/2p1r1kp/5pp1/3P3r/4P3/2N1Q1Pq/PPP2R1P/5RK1 b - - 4 23",
+   "removed": "f3",
+   "forbidden": "h3g3",
+   "sf_best": "e7f7",
+   "sf_score": -676,
+   "sf_score_of_forbidden": -1057,
+   "kind": "negative",
+   "url": "https://lichess.org/game/83tyhOfz#45"
+  },
+  {
+   "id": "00IqI",
+   "theme": "sacrifice",
+   "rating": 1409,
+   "fen": "r5k1/pp3ppp/2p5/4pb2/2n2q2/P1P2P2/1P1Q3P/3R1R1K w - - 0 23",
+   "solution": "d2d8",
+   "line": [
+    "d2d8",
+    "a8d8",
+    "d1d8"
+   ],
+   "sf_best": "d2d8",
+   "sf_score": 99998,
+   "kind": "positive",
+   "url": "https://lichess.org/game/I0tBjrDC/black#44"
+  },
+  {
+   "id": "00IqI-neg",
+   "theme": "sacrifice-counterexample",
+   "rating": 1409,
+   "fen": "r5k1/pp3ppp/2p5/4pb2/2n2q2/P1P2P2/1P1Q3P/5R1K w - - 0 23",
+   "removed": "d1",
+   "forbidden": "d2d8",
+   "sf_best": "d2f4",
+   "sf_score": -806,
+   "sf_score_of_forbidden": -99995,
+   "kind": "negative",
+   "url": "https://lichess.org/game/I0tBjrDC/black#44"
+  },
+  {
+   "id": "00Kq4",
+   "theme": "sacrifice",
+   "rating": 1417,
+   "fen": "r2qk3/5p1r/p1p1p3/1p1pP1N1/P1nP2Pn/2P3B1/2P2P2/R1QR2K1 b q - 0 21",
+   "solution": "d8g5",
+   "line": [
+    "d8g5",
+    "c1g5",
+    "h4f3",
+    "g1g2",
+    "f3g5"
+   ],
+   "sf_best": "d8g5",
+   "sf_score": 274,
+   "kind": "positive",
+   "url": "https://lichess.org/game/o4K7aQsT#41"
+  },
+  {
+   "id": "00Kq4-neg",
+   "theme": "sacrifice-counterexample",
+   "rating": 1417,
+   "fen": "r2qk3/5p1r/p1p1p3/1p1pP1N1/P1nP2P1/2P3B1/2P2P2/R1QR2K1 b q - 0 21",
+   "removed": "h4",
+   "forbidden": "d8g5",
+   "sf_best": "h7g7",
+   "sf_score": -367,
+   "sf_score_of_forbidden": -794,
+   "kind": "negative",
+   "url": "https://lichess.org/game/o4K7aQsT#41"
+  },
+  {
+   "id": "00LMb",
+   "theme": "sacrifice",
+   "rating": 1725,
+   "fen": "8/8/1n4kP/1P2Kp2/3P4/2p1N3/8/8 b - - 5 49",
+   "solution": "b6c4",
+   "line": [
+    "b6c4",
+    "e3c4",
+    "c3c2"
+   ],
+   "sf_best": "b6c4",
+   "sf_score": 318,
+   "kind": "positive",
+   "url": "https://lichess.org/game/8fplizkC#97"
+  },
+  {
+   "id": "00LRq",
+   "theme": "sacrifice",
+   "rating": 2219,
+   "fen": "1k6/1p1q2r1/P2p3p/1NpPpn1Q/5b2/2P5/1P2B1P1/R6K w - - 4 29",
+   "solution": "a6a7",
+   "line": [
+    "a6a7",
+    "b8a8",
+    "b5c7",
+    "d7c7",
+    "h5e8",
+    "c7b8",
+    "a7b8q"
+   ],
+   "sf_best": "a6a7",
+   "sf_score": 99996,
+   "kind": "positive",
+   "url": "https://lichess.org/game/i9yxFCW9/black#56"
+  },
+  {
+   "id": "00MHi",
+   "theme": "zugzwang",
+   "rating": 2221,
+   "fen": "8/8/5pp1/5k1p/5P1P/6P1/2r1R3/5K2 b - - 1 43",
+   "solution": "c2e2",
+   "line": [
+    "c2e2",
+    "f1e2",
+    "f5g4",
+    "e2f2",
+    "g4h3"
+   ],
+   "sf_best": "c2e2",
+   "sf_score": 505,
+   "kind": "positive",
+   "url": "https://lichess.org/game/im48PGD7#85"
+  },
+  {
+   "id": "00QyM",
+   "theme": "zugzwang",
+   "rating": 2112,
+   "fen": "8/8/1pp1k1p1/4Pp1p/2PK1P1P/pP6/P7/8 w - - 2 36",
+   "solution": "b3b4",
+   "line": [
+    "b3b4",
+    "e6e7",
+    "b4b5",
+    "c6b5",
+    "c4b5"
+   ],
+   "sf_best": "b3b4",
+   "sf_score": 348,
+   "kind": "positive",
+   "url": "https://lichess.org/game/DcRRuwOx/black#70"
+  },
+  {
+   "id": "00SiY",
+   "theme": "zugzwang",
+   "rating": 2111,
+   "fen": "8/8/3p4/3Pp1n1/4Pp1N/3k1P1P/6K1/8 b - - 0 57",
+   "solution": "d3e2",
+   "line": [
+    "d3e2",
+    "h4f5",
+    "g5f3"
+   ],
+   "sf_best": "d3e2",
+   "sf_score": 476,
+   "kind": "positive",
+   "url": "https://lichess.org/game/nqOd6mWK#113"
+  },
+  {
+   "id": "00YbG",
+   "theme": "zugzwang",
+   "rating": 1849,
+   "fen": "8/7p/2k3p1/p5P1/P2K4/8/8/8 w - - 5 48",
+   "solution": "d4c4",
+   "line": [
+    "d4c4",
+    "c6d6",
+    "c4b5"
+   ],
+   "sf_best": "d4c4",
+   "sf_score": 314,
+   "kind": "positive",
+   "url": "https://lichess.org/game/onsKQucl/black#94"
+  },
+  {
+   "id": "00gy1",
+   "theme": "zugzwang",
+   "rating": 1993,
+   "fen": "8/1p6/8/3kp2p/4p1pP/4K1P1/PP4P1/8 b - h3 0 36",
+   "solution": "b7b5",
+   "line": [
+    "b7b5",
+    "a2a3",
+    "d5c4",
+    "e3e4",
+    "c4b3"
+   ],
+   "sf_best": "b7b5",
+   "sf_score": 358,
+   "kind": "positive",
+   "url": "https://lichess.org/game/E5BBvr3Q#71"
+  }
+ ]
+}

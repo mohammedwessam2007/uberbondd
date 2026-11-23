@@ -1,0 +1,11 @@
+{
+ "method": "1-parameter logistic MLE over 48 games vs two Stockfish 16 UCI_LimitStrength anchors (1600, 2000); 95% profile-likelihood interval; draws as 0.5",
+ "scale": "Stockfish 16 UCI_Elo scale at 40s+0.4s, Threads 1, this host. NOT FIDE, NOT human-equivalent, NOT CCRL.",
+ "games": 48,
+ "estimate": 1879.5,
+ "ci95": [
+  1764.5,
+  1996.0
+ ],
+ "caveat": "Anchor results are non-monotone (60.4% vs 1600, 56.3% vs 2000); SF limited-strength calibration at this TC is untested here. Treat as UNRATED with a weak indicative range."
+}

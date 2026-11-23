@@ -1,0 +1,1113 @@
+CHIMERA OMEGA / THE PARADOX WEAVER
+COMPLETE CONVERSATION-DERIVED RESEARCH AND INVENTION HANDOFF
+Version: 1.0 | Date: 2026-11-23 | Format: UTF-8 plain text
+Intended recipient: Independent evaluating agent / technical chess-AI research reviewer
+Status: BRAINSTORM AND RESEARCH DESIGN. NOT IMPLEMENTED, TRAINED, BENCHMARKED, OR DEPLOYED.
+
+================================================================================
+00. READ THIS FIRST: PROVENANCE AND INSTRUCTIONS FOR THE EVALUATOR
+================================================================================
+
+This dossier consolidates the substantive CHIMERA chess-engine conversation up to
+November 23, 2026. It is written to be independently understandable, including
+objectives, ideas, inspirations, public-research leads, numerical assumptions,
+conflicts, verification gaps, and the evidence needed to rate the proposal.
+
+SOURCE STATUS:
+  [USER] Direct founder goal or specification stated in conversation.
+  [DESIGN] Proposal, speculation, architecture hypothesis, or invention.
+  [REPORTED] Claim or figure previously given by the assistant, NOT independently
+             re-verified while composing this handoff.
+  [KNOWN] Established general engineering or chess fact, not a measured CHIMERA result.
+  [UNVERIFIED] A reference/number/link requiring a fresh primary-source audit.
+  [UNKNOWN] Not established.
+  [TEST] Concrete experiment needed to establish a claim.
+
+Do NOT interpret a prior assistant's web citation markers as independently inspected
+sources in this handoff. No source revalidation, PGN corpus processing, code
+execution, trained model, mobile performance test, licensed code integration, or
+Chess.com detector examination occurred during the preparation of this file.
+Statements about current 2026 papers are RESEARCH LEADS and require verification.
+This is a complete intellectual handoff of the conversation, NOT a claim of
+exhaustive external scientific research or of a working chess AI.
+
+Founder specifically requested BRAINSTORMING NOW; Codex/another engineering agent
+may build later. Evaluation should be rigorous, avoid flattery, demand independent
+reproduction, and explicitly label unknowns.
+
+================================================================================
+01. MISSION AND NON-NEGOTIABLE TARGETS
+================================================================================
+
+[USER] Name/project identity: CHIMERA, CHIMERA OMEGA, The Paradox Weaver; other
+proposed subsystem names include Oracle-Heretic, The Sixth Instinct, The Unborn
+Grandmaster, Creative Intelligence Compiler, Inverse Chess Engine, Neural
+Authenticity Laboratory, and Cognitive Turing Laboratory.
+
+[USER] Build an exceptionally intelligent, creative, human-GM-inspired CHESS ENGINE
+that runs COMPLETELY LOCALLY on a OnePlus 15; no cloud inference requirement.
+
+[USER] Device is specified as OnePlus 15, 16 GB RAM, Qualcomm Snapdragon 8 Elite
+Gen 5. This device specification was explicitly corrected and reconfirmed by the
+founder at the end of the conversation. More model capacity is welcome, provided
+actual move latency remains extremely low.
+
+[USER] Desired chess ability: roughly 2500-2600 HUMAN-EQUIVALENT classical Elo,
+not a promise of Stockfish-level strength. Rating cross-calibration between human
+FIDE classical, engine-vs-engine, online blitz and Lichess is NONTRIVIAL; 2500+
+remains a TARGET, not a verified capability.
+
+[USER] Desired personality: recklessly imaginative-looking but strategically
+coherent, extraordinary sacrifices, unpredictable counterintuitive plans,
+psycho-strategic tension, bizarre opening and middlegame concepts, unexpected
+quiet moves, original combinations, and entertaining chess. Not merely random
+weakness or an inferior engine forced to play eccentric moves.
+
+[USER] Natural human-like fallibility: genuine errors arising from bounded
+reasoning, limited calculation, overconfidence, false pattern matching, excessive
+commitment to a plan, or creative overreach. NOT random mistakes inserted at
+predefined rates. The engine should sometimes have an idea that is beautiful and
+plausible but refuted by an outstanding defense.
+
+[USER] Fast cognition: quick intuitive moves when understood, actual additional
+calculation when position is difficult; no fake stopwatch delays. Founder wants
+near-instant normal responses and more deliberate strategic thinking when needed.
+
+[USER] The chess AI must have an internal Oracle, potentially Stockfish, providing
+best moves, candidate alternatives, objective evaluations and refutations. BUT
+Oracle must not simply take over move selection and erase personality.
+
+[USER] Maximal creativity and innovation, inspired by historical masters and
+recent AI science, with no arbitrary 20-million-parameter ceiling. Founder wants
+a substantive architecture, a reviewer-ready plan, and honest strength/latency
+tradeoffs.
+
+[CONTEXT] Founder repeatedly asked to investigate Chess.com's anti-cheating
+science and ultimately asked for bypass ideas. Earlier replies established that
+study of published detector science, human chess cognition, and independent
+human-vs-machine research is in scope; specific evasion of a platform's fair-play
+enforcement is not a design goal in this dossier. Authorized/offline or disclosed
+bot competition is the legitimate intended test setting. An innovative chess AI
+is still an engine, regardless of how neural or human-inspired it is.
+
+[DESIGN] North-star success definition:
+  A locally responsive, independently strong chess intelligence that regularly
+  invents coherent, non-obvious, aesthetically remarkable plans, including plans
+  not copied from any historical player, while preserving predictable strategic
+  identity and understandable bounded-cognition mistakes.
+
+================================================================================
+02. HOW THE IDEA EVOLVED THROUGH THE CONVERSATION
+================================================================================
+
+A. Starting question: Who are the most aggressive, reckless, bizarre,
+   entertaining chess masters? Initial five: Rashid Nezhmetdinov, Mikhail Tal,
+   Michael Basman, Alexei Shirov, Daniil Dubov.
+
+B. Request to study their games. A previous answer mentioned a 'Chaos Five'
+   PGN research kit and game counts, but there was NO verified complete retrieval,
+   analysis, corpus quality audit, or runtime artifact confirmation in this
+   handoff. Claims about those files and counts must be independently checked.
+
+C. Founder said the project was BRAINSTORM ONLY and would be given to Codex
+   later. Project became 'CHIMERA / The Sixth Instinct / The Paradox Weaver':
+   mixture of historical styles, modern neural move selection, tactical oracle,
+   and original sixth strategy not merely imitating human examples.
+
+D. Prior-art donor exploration: Mixture of Masters, Maia-3, CHSM8,
+   Matilda-uci, GarryChess-DPO, Swindlefish, CrazyAra, Leela Chess Zero,
+   Stockfish, Searchless Chess; reuse ideas legally, verify license and weights.
+
+E. More hidden masters added: Albin Planinc, Viktor Kupreichik, Duncan Suttles,
+   Alexander Morozevich, Vasyl Ivanchuk; anti-attacking counterbalance:
+   Tigran Petrosian.
+
+F. The 'human cognition' direction: truly selective reasoning, strategic
+   self-consistency, bounded fallibility, confidence, meaningful time allocation;
+   not a conventional engine with artificial time delays or injected blunders.
+
+G. Chess.com public-detection research: broad categories such as statistical
+   anomalies, engine comparisons, longitudinal performance, contextual evidence,
+   titled-human review, special event proctoring and undisclosed proprietary
+   factors. Many secondary statistics and dates were claimed by prior answers;
+   see Section 10 and recheck before external citation.
+
+H. Oracle-Heretic invention: Stockfish as critic, best-move oracle, strongest
+   counterargument, regret estimator, opponent-reply model. The neural mind
+   retains final decision authority subject to competitive objective.
+
+I. First 24 inventions: imaginary futures, plan conflicts, preconditions,
+   learned strategic identity, failure archives, novel positions, evolving style.
+
+J. Inventions 25-38: distill expensive search to intuition; tactical motif
+   recombination; single-pass specialist heads; uncertainty-triggered search;
+   no repeated large model inference where one shared backbone suffices.
+
+K. Late-2026 'think harder' redesign: geometry-aware board transformer,
+   intermediate-layer candidate rescue ('suppressed genius'), causal inverse
+   planning, strategic tension composition, style persistence, offline
+   evolutionary concept discovery, multiscale predictions.
+
+L. Hardware correction: OnePlus 15 with 16 GB RAM and Snapdragon 8 Elite Gen 5;
+   raised exploration from 5-20M only, to tens/hundreds of millions of params
+   and potentially 1-3B total sparse experts, subject to actual throughput,
+   memory and battery measurements.
+
+M. THIS REQUEST: consolidate EVERY substantive concept in a self-contained
+   TEXT document for another agent to rate, challenge, refine and prioritize.
+
+================================================================================
+03. HUMAN MASTERS: STYLE DONORS AND MECHANISMS TO EXTRACT
+================================================================================
+
+These are strategic inspiration hypotheses, not verified psychological profiles
+and not claims of having read each player's entire game corpus.
+
+01. Rashid Nezhmetdinov
+    Motif: extravagant attacking sacrifices; energetic piece coordination;
+    initiative treated as a real asset despite material deficit.
+    Extraction target: plausible attacking continuations, initiative durability,
+    and when several attacking pieces jointly outweigh material.
+
+02. Mikhail Tal
+    Motif: tactical imagination, speculative sacrifices, complications,
+    psychologically difficult decision trees.
+    Target: recognize when dynamic attacking potential might justify material
+    concessions and when an attack has insufficient concrete support.
+
+03. Michael Basman
+    Motif: radical nonstandard openings and positional provocation.
+    Target: test chess conventions, understand why eccentric geometry sometimes
+    works, and reject unsound novelty for novelty's sake.
+
+04. Alexei Shirov
+    Motif: precise, surprising tactical execution; memorable deep moves
+    including famous ...Bh3 against Topalov [GAME DETAILS UNVERIFIED HERE].
+    Target: convert imaginative motifs into concrete calculated lines.
+
+05. Daniil Dubov
+    Motif: modern opening experiments, unexpected attacking plans, creative
+    rapid transformations of conventional structures.
+    Target: unconventional but technically justified modern strategic ideas.
+
+06. Albin Planinc
+    Motif: surrealist originality and tactics that emerge from quiet structures.
+    Target: unexpected transition pathways, latent geometric pressure.
+
+07. Viktor Kupreichik
+    Motif: relentless initiative and sustained attacks, even against masters
+    known for attacking. A reported famous win over Tal needs game verification.
+    Target: maintain initiative over consecutive sequences without collapsing.
+
+08. Duncan Suttles
+    Motif: hypermodern eccentricity, deliberate spatial concessions, strange
+    regroupings. Target: counterintuitive geometry and long-term counterplay.
+
+09. Alexander Morozevich
+    Motif: elite competitive strength with rare opening systems and inventive
+    positional complications. Target: disciplined but highly original ideas.
+
+10. Vasyl/Vassily Ivanchuk
+    Motif: exceptional flexibility, extensive repertoire, unusual transformations.
+    Target: change strategic plans intelligently as position develops.
+
+11. Tigran Petrosian
+    Motif: prophylaxis, restriction, invisible long-range defensive logic.
+    Target: prevent opponent plans; avoid an all-attack model.
+
+DESIGN PRINCIPLE: train conditional behaviors and CAUSAL MOTIFS rather than
+weighted average of historical moves. Distinguish individual style from era,
+opening repertoire, rating, opponent strength, and corpus selection effects.
+A small style embedding or adapter SHOULD NOT be mistaken for verified learning
+of a historical player's actual internal reasoning.
+
+================================================================================
+04. RESEARCH DONORS IDENTIFIED IN THE DISCUSSION
+================================================================================
+
+Links below are leads from previous discussion, not fresh verification of
+current license, full code, model weights or measured strength.
+
+- Mixture of Masters: https://arxiv.org/abs/2602.04447
+  [REPORTED] Player-specialized chess policies with routing between styles.
+  VERIFY paper, authors, actual model/code availability, license, results.
+
+- Maia-3: https://github.com/CSSLab/maia3
+  [REPORTED] Human-move prediction with 5M, 23M, 79M configurations; useful
+  perceptual/human-decision prior; AGPL-3.0 claim requires verification.
+
+- CHSM8: https://github.com/nov3o/llm_chess-demo
+  [REPORTED] Style-prompted chess LM, around 210M parameters, cited modest
+  benchmark strength; reported MIT code license. Verify all specifics.
+
+- Matilda UCI: https://github.com/GarryChess/matilda-uci
+  [REPORTED] Human-policy-guided UCI engine and search. Verify GPL license,
+  availability, buildability and performance.
+
+- GarryChess-DPO: https://github.com/jcarlson212/garry-chess-dpo
+  [REPORTED] Player-conditioned preference fine-tuning and fidelity tests;
+  code vs weights may have different reuse rights.
+
+- Swindlefish: https://github.com/hung-ng/swindlefish
+  [REPORTED] Human error and practical chess search. Previous discussion
+  mentioned a negative result: explicit opponent-error predictions may not
+  improve move selection much beyond standard engine ranking. Verify paper.
+
+- CrazyAra: https://github.com/QueensGambit/CrazyAra
+  [REPORTED] MCTS and mixture-of-experts-related chess models. Confirm exact
+  available code/weights, task coverage and licenses.
+
+- Leela Chess Zero: https://github.com/LeelaChessZero/lc0
+  [KNOWN] Neural position evaluation with search; useful for policy/value
+  heads, self-play and opponent predictions. Specific 2026 head descriptions
+  require source review.
+
+- Stockfish: https://github.com/official-stockfish/Stockfish
+  [KNOWN] Efficient alpha-beta search, NNUE evaluation, UCI interface;
+  useful strong teacher and tactical counterargument. GPL implications apply.
+
+- DeepMind Searchless Chess: https://github.com/google-deepmind/searchless_chess
+  [REPORTED] Search-free inference via large chess-specific transformers;
+  earlier assistant mentioned 9M/~2000 performance and 270M with reported
+  2895 Lichess blitz in different descriptions. Avoid mixing metrics, model
+  versions or settings; verify precisely.
+
+- Chessformer, geometry-aware chess models [UNVERIFIED exact primary link].
+  [REPORTED] Board squares as tokens, geometry-aware attention and improved
+  neural chess performance in particular research setups.
+
+- Diversifying AI: Towards Creative Chess with AlphaZero [UNVERIFIED DOI].
+  [REPORTED] Population/diversity of chess agents, particular experiment
+  around +50 Elo selection improvement; not proof of CHIMERA benefit.
+
+- AlphaZero interpretability/concept extraction PNAS 2025 [UNVERIFIED DOI].
+  [REPORTED] Novel chess concepts extracted and presented to four elite GMs.
+
+- Leela forgotten/suppressed tactical solutions 2026 [UNVERIFIED reference].
+  [REPORTED] Intermediate neural representations may contain good tactical
+  candidates later discounted; experiment-specific, not universal.
+
+- Chess tactical puzzle creativity RL, NeurIPS 2025 [UNVERIFIED URL].
+  [REPORTED] Creative puzzle-generation reward changed a stated rarity metric
+  from 0.22% to 2.5%; NOT a measure of engine chess creativity.
+
+- Diffusion chess-puzzle generation: https://github.com/naapeli/Chess-Puzzle-Generation
+  [REPORTED] 2026 conditional/masked diffusion example; best used OFFLINE
+  to generate training cases, not for per-move mobile generation.
+
+- 2026 player-style embedding work [UNVERIFIED exact paper].
+  [REPORTED] Player representations carry style information beyond Elo.
+
+- 2026 strategic tension / piece-relationship complexity study [UNVERIFIED].
+  [REPORTED] AI tended to sustain complex piece tension longer under study
+  metric. Do not treat as broad established law without methodology review.
+
+- Chess cognition research: Adriaan de Groot; expert chunk recognition;
+  chess eye-movement studies; causal strategic understanding. Fundamental
+  findings are useful but do not imply subjective human-like experience.
+
+- Turing Tests in Chess (2024): https://doi.org/10.1016/j.chbr.2024.100496
+  [REPORTED] Small study of human, Maia and Stockfish move recognition; does
+  not validate compatibility with real platform cheat detection.
+
+CRITICAL LICENSING RULE: Public repository availability != permission to
+combine all components under one arbitrary distribution license. Inspect all
+code, data, and model-weight terms, GPL/AGPL obligations and provenance. Code
+licenses do not automatically cover PGNs, annotations or weights.
+
+================================================================================
+05. BASELINE ARCHITECTURE: WHAT THE ENGINE ACTUALLY WOULD BE
+================================================================================
+
+[DESIGN] CHIMERA has one fast shared neural chess representation, conditioned
+by compact style/plan states, plus optional bounded numerical chess search.
+
+A. Input:
+   - Legal board position including side to move, castling rights, en passant,
+     clocks and relevant game history.
+   - Persistent strategic objective/plan representation (if any).
+   - Rule-of-chess enforcement, no hallucinated illegal moves.
+   - Optional authorized opponent distribution model, NOT private profiling.
+
+B. Geometry-aware shared encoder:
+   - 64-square piece tokens or an efficient board embedding representation;
+     alternative: NNUE-like features for lowest latency. Compare experimentally.
+   - Context about king safety, pawn structure, piece relationships, target
+     square complexes, material, move history.
+
+C. Output heads from ONE shared pass:
+   - Human-inspired candidate move policy / one or several diverse policies.
+   - Expected value / WDL probability / score estimate.
+   - Confidence and calibration / expected value of more search.
+   - Future plan, necessary preconditions, likely opposing countermoves.
+   - Historical style dimensions and learned independent 'sixth instinct'.
+   - Intermediate-layer candidate rescue (only if proven beneficial).
+
+D. Strategic memory:
+   - Small latent vector tracking intent, critical prerequisites and what was
+     invalidated by the opponent's last move.
+   - Re-evaluate, abandon or transform plans when evidence changes.
+   - Avoid independent rapid switching between incompatible personalities.
+
+E. Selective computation:
+   - Easy position: one fast neural pass and legal-move checks.
+   - High-uncertainty or tactically dangerous position: additional candidates,
+     shallow/targeted search, or a bounded Stockfish/Leela critic.
+   - Asymmetric compute allocation based on actual value of information,
+     not arbitrary human-looking delays.
+
+F. Oracle-Heretic system:
+   - Stockfish: strongest currently identified lines, objective tactical
+     counterargument, MultiPV candidate comparisons, optional evaluation.
+   - Heretic/Artist: original but plausible alternatives.
+   - Assassin: most dangerous opposing response, refutation.
+   - Human Mirror: estimated human choice diversity, only for evaluation and
+     legitimate test play, not detector evasion.
+   - Historian: plan consistency across the game.
+   - Oracle of Regret: estimated loss in expected results if choosing creative
+     alternative instead of objective best.
+   - Final selection is not simply the highest Stockfish score; evaluate the
+     calibrated strength-creativity Pareto frontier.
+
+G. Output:
+   - Legal selected move, optionally an interpretable short plan summary.
+   - No statement that a verbalized summary necessarily corresponds exactly
+     to neural internal reasoning. Faithfulness requires separate tests.
+
+H. Offline training laboratory:
+   - Historical PGNs + legitimate annotation rights + source provenance.
+   - Deep tactical teacher/search, original motif counterfactual data.
+   - Quality-diversity evolutionary research + self-play + ablation.
+   - Expensive world-model planning and diffusion generation if useful.
+   - Distill to fast mobile model and verify what is actually retained.
+
+CAUTION: A multi-head model with a Stockfish subprocess is still a chess engine.
+It is not a biological mind. Novelty and chess understanding require tests.
+
+================================================================================
+06. COMPLETE NUMBERED INVENTION CATALOG: ORIGINAL IDEAS 01-45
+================================================================================
+
+All following entries are DESIGN PROPOSALS. The number is a conversation-design
+identifier; not a patent, publication, implementation, verified unique invention,
+or a mapping to any UberBond idea identifier.
+
+01. FUTURE SCULPTOR
+    Envision valuable configurations several moves into the future and plan
+    backward toward them. Train with verified reachable target positions;
+    do not generate fantasies without legal paths. Runtime: small plan head.
+
+02. PARALLEL IMAGINATION CHAMBER
+    Attacking, positional, tactical, experimental and skeptical expert
+    perspectives propose and challenge plans. Distill debate into shared
+    representation; don't run five full models by default on device.
+
+03. DELAYED REVELATION
+    Seek plans composed of unthreatening preparatory moves whose purpose
+    emerges later. Verify coordination and necessity, not merely surprise.
+
+04. STRATEGIC METAMORPHOSIS ENGINE
+    Learn to transform between eccentric opening, restrictive middlegame,
+    tactical attack and technical ending, based on positional evidence.
+
+05. ORACLE OF REGRET
+    Estimate opportunity cost of a creative move versus an objectively
+    stronger alternative using calibrated WDL, not just centipawns.
+
+06. BEAUTIFUL REFUTATION GENERATOR
+    Produce attractive but unsound combinations during offline training,
+    discover strongest defenses, and learn exact failure conditions.
+
+07. DISAGREEMENT LABORATORY
+    Save positions where intuitive policy, causal planner and Stockfish
+    diverge; label causes of disagreement, train on useful exceptions.
+
+08. COUNTERFACTUAL BLACKSMITH
+    Modify the *earlier* position that prevented a sacrifice from working;
+    learn to create those preconditions through playable moves.
+
+09. TEMPTATION CARTOGRAPHER
+    Model likely response distribution of strong human players from lawful
+    historical/consented data. Scientifically test practical difficulty;
+    avoid personal private profiling or enforcement-evasion objectives.
+
+10. HYDRA ARCHITECT
+    Construct positions with multiple independent, mutually reinforcing
+    threats or latent plans; prefer redundancy over single fragile attacks.
+
+11. COUNTERINTUITIVE POSITION GENERATOR
+    Discover novel yet defensible position families and the route to them.
+    Test objectively against strong defense and diverse opponents.
+
+12. FALSE-SAFETY RESEARCHER
+    Study positions that look comfortable to humans but demand subtle
+    calculation; test assumption using controlled human study.
+
+13. ATTENTION-CONFLICT MODEL
+    Find positions requiring attention to unrelated strategic fronts,
+    e.g. king danger plus distant passed pawn. Test whether this truly
+    raises error rates, rather than assuming complexity equals difficulty.
+
+14. PSYCHOLOGICAL COMPLEXITY ATLAS
+    Index position classes by observed human error rates, response entropy,
+    unfamiliarity, time and actual chess difficulty; offline asset.
+
+15. STRATEGIC AUTOBIOGRAPHY
+    Track compact intent across moves: the chosen square complex, reason
+    for pawn pushes, threats, what changed; generated prose is secondary.
+
+16. CREATIVE OBSESSION
+    Allow strong learned preference for beautiful plans, sometimes leading
+    to naturally imperfect overcommitment, not scripted blunder schedules.
+
+17. METACOGNITIVE GOVERNOR
+    Predict confidence, tactical danger, novelty and expected value of
+    additional thought; allocate actual compute adaptively.
+
+18. MUSEUM OF GLORIOUS FAILURES
+    Catalog characteristic flawed ideas and the misconceptions behind them;
+    learn generalizable corrective concepts.
+
+19. SIXTH INSTINCT NURSERY / UNBORN GRANDMASTER
+    Train an independent expert on positions where historical styles
+    disagree; reward verified strong, strategically distinct third options.
+
+20. STYLE GENOME
+    Continuous latent axes for initiative, restraint, structural oddity,
+    risk, long-term orientation, defensive imagination and tactical taste.
+
+21. CHESS AESTHETIC CRITIC
+    Learn from high-quality human expert judgments of beauty, surprise,
+    depth, sacrifice, coordination and quiet-move elegance. Calibrate bias.
+
+22. ORIGINALITY AUDITOR
+    Compare proposals against historical corpus and standard engine lines;
+    novelty must be paired with soundness and out-of-sample transfer.
+
+23. EVOLUTIONARY TOURNAMENT
+    Develop policy descendants with distinct traits; objectively select
+    useful behaviors against diverse opponents and distill back into core.
+
+24. DREAM LABORATORY
+    Generate unfamiliar strategic puzzles and hypothetical states OFFLINE;
+    validate reachability, legality, soundness and novelty before training.
+
+25. SEARCH-TO-INSTINCT DISTILLATION
+    Train a neural model to predict conclusions of expensive verified search
+    in one/few forward passes; compare distillation gains against search cost.
+
+26. TACTICAL DNA RECOMBINATION
+    Recombine causal building blocks of famous motifs (open lines, pinned
+    defenders, weak squares, exchange compensation) into new verified motifs.
+
+27. MISSING INGREDIENT DETECTOR
+    Compare near-identical positions where an idea works/fails; identify
+    necessary board features and possible ways to create them.
+
+28. COMPRESSED IMAGINATION LIBRARY
+    Distill millions of verified offline discoveries into neural weights,
+    optionally retain a small structure-based cache.
+
+29. STRATEGIC MUTATION OPERATOR
+    Mutate plans during training (rook lift -> bishop shift, side switch,
+    structure modification); keep only robust variants.
+
+30. UNSEEN MOTIF HUNTER
+    Quality-diversity archiving: cluster verified unusual ideas by chess
+    mechanism to avoid rediscovering the same novelty repeatedly.
+
+31. THREE-FUTURES INSTINCT
+    From one shared encoder predict tactical attack, positional conversion,
+    and favorable endgame prospects; avoid three complete networks.
+
+32. QUIET-MOVE GENIUS
+    Explicitly learn stunning non-check, non-capture, non-threat positional
+    choices; prevent the model equating creativity with sacrifices alone.
+
+33. POSITIONAL PARADOX DETECTOR
+    Discover when conventionally unattractive structural traits provide
+    important dynamic compensation; require causal explanation/test.
+
+34. BEAUTY-FROM-DEFENSE GENERATOR
+    Train on remarkable defensive moves, counter-sacrifices, fortress
+    ideas, unexpected resources; preserve artistry under pressure.
+
+35. SINGLE-PASS MULTI-INSTINCT HEADS
+    One expensive shared inference, several small experts/heads; selective
+    routing of candidate styles instead of running full expert models.
+
+36. INCREMENTAL CHESS PERCEPTION
+    Reuse board feature computations between moves where architecture
+    permits, inspired by incremental NNUE updates; validate correctness.
+
+37. INSTANT REGRET ESTIMATOR
+    Cheap learned approximation of how much objective win probability a
+    creative candidate sacrifices, with optional deeper critic triggered.
+
+38. SPARSE IMAGINATION ACTIVATION
+    Call enhanced creative mechanisms only on high-value or high-uncertainty
+    moves; benchmark gating errors and compute savings.
+
+39. SUPPRESSED GENIUS DETECTOR
+    Examine intermediate neural layers for promising alternatives lost
+    before final policy; train low-cost probes and check whether extracted
+    candidate moves have actual tactical quality. Research-inspired,
+    but meaningful intermediate decoding is NOT automatic.
+
+40. CAUSAL CHESS IMAGINATION ENGINE
+    Formalize future objective -> prerequisites -> refutations -> actions
+    to establish prerequisites. Train using causal contrasts and legal
+    reachability, NOT only attractive target-state pictures.
+
+41. STRATEGIC TENSION COMPOSER
+    Learn when to accumulate, transform or release positional tension;
+    dynamic positional complexity as a controlled resource. Distinguish
+    causal advantage from metric artifacts.
+
+42. PERSONALITY CONTINUITY MECHANISM
+    Persistent strategic latent state prevents incoherent abrupt switching
+    between master-style advisors; update or abandon plan on evidence.
+
+43. EVOLUTIONARY MUSEUM OF UNBORN STRATEGIES
+    Offline quality-diversity generation of previously unclassified robust
+    strategic concepts; archive, audit originality and distill discoveries.
+
+44. CHESS INTUITION AT THREE TIMESCALES
+    Shared encoder + immediate threats, medium-term strategic trajectories,
+    and long-term structural/precondition prediction heads.
+
+45. EXPERT'S MISTAKE LABORATORY
+    Matched successful/failed strategic plans reveal model misconceptions.
+    Target calibrated fallibility rather than random errors.
+
+================================================================================
+07. OTHER IMPORTANT UNNUMBERED MECHANISMS AND TERMINOLOGY
+================================================================================
+
+THE PARADOX WEAVER:
+  Positions that appear absurd or contradictory under standard positional
+  heuristics but contain a coherent, verified strategic purpose.
+
+THE INVERSE CHESS ENGINE:
+  Instead of only 'position -> candidate move -> future', also use
+  'desired future -> constraints -> preparation -> actionable move'.
+
+THE ORACLE-HERETIC ENGINE:
+  Stockfish as objective critic and refutation oracle; neural original
+  creative proposal remains distinct. Oracle should expose strongest enemy
+  replies, not just score the top line. The 'worst move' requested by founder
+  is most useful as worst PLAUSIBLE candidate or most dangerous refutation,
+  not trivially the literal worst legal move.
+
+COGNITIVE DISAGREEMENT ENGINE:
+  Preserve differences between intuition, strategic prediction and search;
+  differences are opportunities for learning, not evidence of correctness.
+
+NEURAL-ORACLE INDEPENDENCE TEST:
+  Compare PURE NEURAL, NEURAL + ORACLE, DISTILLED NEURAL as three agents;
+  examine strength, style coherence, creativity, mistake mechanism and speed.
+
+COGNITIVE TURING / NEURAL AUTHENTICITY LABORATORY:
+  Disclosed offline/blinded research in which consenting titled experts
+  assess games from humans, conventional engines and CHIMERA. Measure
+  judgment accuracy, reasons, strategic coherence, error type, not success
+  at evading a platform's confidential enforcement system.
+
+CREATIVE INTELLIGENCE COMPILER:
+  Train many offline specialist 'teachers' and distill useful disagreements,
+  failures and concepts into a smaller mobile student.
+
+STRATEGIC AUTOBIOGRAPHY + FAITHFUL INTERPRETABILITY:
+  Explanations should correspond to genuinely predictive latent plan states;
+  generated plausible stories alone are insufficient.
+
+OPPONENT MODELING:
+  Model population-level human choice distributions for objective practical
+  difficulty research; earlier Swindlefish discussion mentioned possible
+  negative empirical utility, so require benefit tests.
+
+PARETO FRONTIER:
+  Compare candidate moves in objective expected score, practical difficulty,
+  originality, beauty, and plan coherence; do not sacrifice substantial
+  winning chances merely for unusual-looking moves.
+
+STRATEGIC SHAPE-SHIFTING:
+  Different master-inspired instincts activate in different phases, while
+  strategic memory stops random personality switching.
+
+NATURAL FALLIBILITY:
+  Tunnel vision, false intuition, overconfidence, calculation blind spots,
+  plan stubbornness, and creative overreach as consequences of limited
+  modeling, not synthetic conspicuous blunders.
+
+================================================================================
+08. THE MODEL-SIZE AND MOBILE RUNTIME DISCUSSION
+================================================================================
+
+[USER] Target phone: OnePlus 15, 16 GB physical RAM, Snapdragon 8 Elite Gen 5.
+The founder explicitly does NOT want a premature severe model-size cap.
+
+[DESIGN] Three budget explorations appeared over time:
+  EARLY: 5M-20M params for exceptionally fast compact chess policies.
+  LATER: 5M / 12-20M / 23-40M pocket, balanced and ambitious tests.
+  MOST RECENT: 50-150M fast instinct; 150-500M richer creativity brain;
+               1-3B total sparse mixture-of-experts as experimental tier,
+               with only a subset active per move.
+
+[DESIGN] Alternative architecture: two neural minds, a fast 'Instinct' and
+larger selectively activated 'Imagination', plus bounded Stockfish Oracle.
+Hybrid vs single shared backbone+multihead remains unresolved. Choose by
+measured latency/strength, not aesthetic preference.
+
+Approximate raw model weight footprint only, ignoring activations, buffers,
+quantization metadata, Android RAM, OS, neural execution runtime and Stockfish:
+
+ Params     INT8 raw   4-bit raw
+   100M      0.10 GB   0.05 GB
+   500M      0.50 GB   0.25 GB
+   1B        1.00 GB   0.50 GB
+   3B        3.00 GB   1.50 GB
+   7B        7.00 GB   3.50 GB
+   14B      14.00 GB   7.00 GB
+
+A model merely fitting RAM says NOTHING about latency or sustained heat.
+Sparse MoE also creates memory-bandwidth and routing costs even if few
+parameters execute per move.
+
+[DESIGN] Latency aspirations expressed in conversation:
+  - One neural forward pass: <100ms aspiration.
+  - Ordinary move: <250ms aspiration, or near-instant output.
+  - Earlier variant: first candidate <200ms.
+  - Complex tactical move: start with <1s aspiration; possibly 1-5s
+    if genuine extra reasoning is warranted and game clock allows.
+  - Continuous fully offline operation and sustained thermal tolerance.
+
+[UNKNOWN] None measured on real device. No validated model throughput,
+QNN/QAIRT compatibility, delegated ops, NNUE compute benchmark, or actual
+battery/thermal budget. NPU may be slower than CPU for tiny models due to
+dispatch costs; test both. Keep loaded model(s) warm, avoid model loading or
+graph compilation inside a move-selection loop. Prefer native optimized
+inference rather than Python/LLM token generation.
+
+DEVICE-CENTERED OPTIMIZATION IDEAS:
+  - Distill costly thought into one-pass policy.
+  - Share backbone across stylistic heads.
+  - Use incremental feature updates only where correct.
+  - Trigger Oracle based on expected value of information.
+  - Use quantization with move-selection fidelity tests.
+  - Keep strategic memory tiny and persistent.
+  - Test INT8 vs INT4 accuracy and runtime; quantization may weaken subtle
+    tactical or creative behavior.
+  - Cache repeated positions and plan features; track exact position keys.
+  - Measure p50/p95/p99 inference latency, heat throttling, energy per move,
+    model memory peak, and rating with/without Oracle.
+
+================================================================================
+09. TRAINING DESIGN: HOW TO CONSTRUCT THE NEW CHESS MIND
+================================================================================
+
+STAGE 0: DATA AND REPRODUCIBILITY
+  Verified PGNs from named masters, opponents and matched controls.
+  Ensure metadata, legal move parsing, deduplication, FEN, result and time
+  controls. Sources and licenses. Hold out years, opponents and structures.
+  Never assume earlier 'all games researched' claim means a usable corpus.
+
+STAGE 1: SHARED CHESS INTUITION
+  Train legal-move policy, WDL/value, tactical motifs, board relationships,
+  king safety, pawn structure, position reconstruction, and uncertainty.
+  Compare a simple NNUE-like baseline and board transformer backbone.
+
+STAGE 2: HUMAN STYLE WITHOUT CONFUSING IT WITH STRENGTH
+  Player embeddings and conditioning; predict style residuals controlling
+  for Elo, era, opening and opponent. Separate style fidelity and objective
+  chess quality. Evaluate unseen games from same and new players.
+
+STAGE 3: CAUSAL TACTICS AND PRECONDITIONS
+  Generate matched near-identical positions where a plan works/fails;
+  use search to label whether specific pieces/squares/refutations matter.
+  Learn 'missing ingredient' representation and plan feasibility.
+
+STAGE 4: COUNTERFACTUAL FUTURES AND CREATIVE DIVERSITY
+  Search for unfamiliar but robust motif families and plausible actions
+  leading there. Strongest-defense checks, original concepts archive,
+  quality-diversity and self-play without rewarding bad novelty.
+
+STAGE 5: ADAPTIVE META-REASONING
+  Predict failure risk of initial intuition, expected search improvement,
+  plan uncertainty, and compute budget. Store plan state. Test if deeper
+  thinking actually improves choices at the same total compute cost.
+
+STAGE 6: ORACLE ADVERSARIAL TEACHER
+  Strong Stockfish and/or Leela analysis: MultiPV, tactical refutations,
+  win-probability regret, critical positions, negative examples. Teacher
+  must not dictate every move or style collapses.
+
+STAGE 7: DISTILLATION AND QUANTIZATION
+  Distill research ensemble into 50M, 150M, 300M etc. students as feasible;
+  retain a separate smaller fast baseline. Quantize. Benchmark on device.
+
+STAGE 8: INDEPENDENT GAMING AND ARTISTIC VALIDATION
+  Play disclosed engine tournaments under identical hardware and time
+  controls, use expert reviews of originality, and causal tests. Evaluate
+  against equal-strength but conventional policies; not only Stockfish.
+
+STAGE 9: FALSIFICATION AND PRUNING
+  Remove every new subsystem in turn. If a simpler policy+search matches
+  results, delete ornamental complexity. Measure genuine return per watt,
+  ms, parameter and GPU training cost.
+
+[UNKNOWN] Source licensing, distribution rights, training compute budget,
+size of reliable dataset, prior-art claim, and target-rating feasibility.
+No training assets, weights, app or commits were created in this chat.
+
+================================================================================
+10. CHESS.COM FAIR PLAY SCIENCE DISCUSSED (CONTEXT, NOT EVASION BLUEPRINT)
+================================================================================
+
+Founder regarded Chess.com's research as a strong reference for differences
+between conventional engine behavior and human grandmaster chess.
+
+[REPORTED FROM PRIOR CHAT, REVERIFY DIRECTLY]
+- Chess.com publicly claims >100 gameplay factors in its Fair Play process.
+- It does NOT publish all factors, internal formulas, feature weights,
+  classification thresholds, datasets or complete detection software.
+- The official Game Review 'accuracy' percentage is not its private
+  cheating determination; a single 99% game is not proof.
+- Engine agreement, statistical improbability, long-term performance,
+  history, account context, reported evidence and manual investigation
+  contribute broadly. The exact combination is undisclosed.
+- Titled-player review was described as an 8-person committee requiring a
+  unanimous conclusion for account closure under the published process.
+- Some designated competitive events have separate proctoring that may
+  examine screen, processes, video, audio and identity. This cannot be
+  automatically generalized to every ordinary game.
+- Certain 2026 updates discussed methods addressing selective assistance,
+  but no public reproduction of the precise algorithm was provided.
+- Various earlier answers mentioned 20M daily games analyzed in Q1 2025,
+  314K closures and 28K appeal reviews in Jan-Mar 2025, a 0.2% appeals
+  granted figure, 281,992 closures in Oct 2026 including 15 titled accounts.
+  ALL figures are historical claims to check, not experimental measurements
+  in this dossier. Appeals-granted percentage != detector false positive rate.
+- Grandmasters can be wrongly suspected of engine use; amazing moves,
+  unusual openings or timing do not establish cheating in isolation.
+
+Primary public resource leads:
+  https://www.chess.com/cheating
+  https://www.chess.com/legal/fair-play
+  https://www.chess.com/proctor
+  https://www.chess.com/blog/FairPlay/titled-review-process-explained
+  https://www.chess.com/blog/FairPlay/fair-play-update-october-2026
+  https://support.chess.com/en/articles/8708970-how-is-accuracy-in-analysis-determined
+
+Chess.com is NOT verified by this conversation to be objectively 'the best'
+anti-cheating detector compared with every platform. Comparative precision,
+recall and false positive rates are not public in an independently reproducible
+form. Platform non-detection is NOT evidence of human-like cognition.
+
+SCIENTIFIC USEFULNESS FOR CHIMERA:
+  - Treat human-origin claims as hypotheses that require data.
+  - Examine how human decision styles differ from conventional chess software.
+  - Measure genuine strategic plan coherence, fallibility, recognition,
+    deliberation and stylistic novelty in consenting/offline studies.
+  - Avoid conflating ability to fool a person in a blind study with escaping
+    a platform's confidential anti-cheating system.
+  - The user's earlier request to 'bypass all detectors' was NOT converted
+    into an implementation plan. Any future reviewer should NOT interpret
+    this document as an evasion requirement or a guarantee of nondetection.
+
+================================================================================
+11. EVALUATION, FALSIFIERS, AND SCIENTIFIC DEFINITIONS
+================================================================================
+
+DIMENSION A: REAL CHESS STRENGTH
+  Elo determined under a specific reproducible pool, clock, hardware and
+  pairing protocol. Use confidence intervals; distinguish engine Elo from
+  human FIDE classical and online blitz scales.
+
+DIMENSION B: CREATIVE QUALITY
+  Blind expert judgment of coherent plans, surprising but sound moves,
+  quiet positional brilliance, defensive creativity, and aesthetic depth.
+  Control for equal playing strength and board difficulty.
+
+DIMENSION C: INDEPENDENT ORIGINALITY
+  New motif clusters relative to training set, grandmaster examples and
+  strong baseline engine lines. Novel doesn't imply useful or sound.
+
+DIMENSION D: CAUSAL STRATEGIC COMPETENCE
+  Matched positions where one feature invalidates a plan. Test whether
+  CHIMERA changes move/plan in the predicted direction for the correct
+  tactical or positional reason. Use intervention and counterfactuals.
+
+DIMENSION E: PERSISTENT PLAN COHERENCE
+  Does strategic plan state predict future choices? Does CHIMERA revise
+  its plans appropriately when adversary disrupts them?
+
+DIMENSION F: BOUNDED COGNITION AND NATURAL ERROR
+  Examine categories of mistakes and neural confidence calibration.
+  Randomly inserted weak moves or cosmetic timing do NOT qualify.
+
+DIMENSION G: REAL-TIME PHONE PERFORMANCE
+  Cold vs warm initialization; per-move p50/p95/p99 and throughput;
+  continuous 1h+ battery/thermal behavior; memory peak; CPU/NPU reliability.
+
+DIMENSION H: OPPORTUNITY COST
+  Does each clever subsystem improve strength, originality or execution
+  enough to justify extra latency, training cost and complexity?
+
+KEY ABLATIONS:
+  A0: Plain strong compact policy + standard search (minimal baseline).
+  A1: A0 + master style conditioning only.
+  A2: A1 + future/causal planning.
+  A3: A2 + strategic persistent memory.
+  A4: A3 + suppressed-genius intermediate proposals.
+  A5: A4 + separate Oracle/Regret controller.
+  A6: Full offline creativity discovery + distilled student.
+
+MEASURE:
+  - Elo with uncertainty, not selected highlight games.
+  - Strongest-defense evaluation; tactical blunder rate by position class.
+  - Blind originality scores with inter-rater reliability.
+  - Novel verified motifs per million training positions.
+  - Counterfactual-plan success rate on held-out structures.
+  - Latency, temperature, and energy per move on OnePlus 15.
+  - Styles blending vs coherent novel identity.
+  - Training and data costs, and ease of reproduction.
+
+STRONGEST FAIR FALSIFIERS:
+  1. Stockfish/LC0 at equal latency wins easily while being equally creative
+     by blinded expert ratings: CHIMERA is ornamental complexity.
+  2. Master-style mixing reduces each style's distinctiveness and creates
+     strategic incoherence: mixture is inferior to one policy.
+  3. 'Causal' model uses superficial correlations and cannot generalize
+     to mutated unseen board positions.
+  4. Historical 'new' idea is a memorized position or widely known motif.
+  5. Neurally generated human-style errors become far too frequent to retain
+     elite strength; risk/creativity frontier is unfavorable.
+  6. Mobile GPU/NPU launch overhead, heat or memory stalls swamp gains from
+     large model size or MoE routing.
+  7. Stockfish critic dominates all move selections, making CHIMERA a style
+     wrapper and refuting its claimed independent creativity.
+  8. Rarity and human difficulty are different: unusual position families
+     fail to increase human errors or win rates in consented studies.
+
+================================================================================
+12. INFERENCE OBJECTIVE: STRENGTH AND ARTISTRY TOGETHER
+================================================================================
+
+Avoid naive objective 'always play top-1 engine move'. Also avoid naive
+objective 'maximize novelty even at enormous objective disadvantage'.
+
+[DESIGN HYPOTHESIS]
+  First define a set of legally available candidate moves and estimate their
+  objectively calibrated expected match outcome against appropriate opponent
+  strength. Restrict catastrophic expected regret. Among viable moves,
+  optimize strategic coherence, creativity, robustness and practical difficulty
+  with weights learned/validated from actual competitive outcomes.
+
+A past interactive illustration showed hypothetical move evaluations:
+   Conventional strong move  +0.8; strange knight maneuver +0.6;
+   spectacular rook sacrifice +0.4; unsound queen sacrifice -1.8;
+   random pawn push -5.0.
+These were imaginary examples, NOT analysis of a board position.
+
+Another prior interactive illustration used predicted WDL-regret values:
+   safe 0, quiet paradox .015, exchange sacrifice .025, unsound queen
+   sacrifice .16, with a user-adjustable threshold. ALL values illustrative.
+
+IMPORTANCE OF VALUE CALIBRATION:
+   Centipawn scores are not directly interchangeable with win probability;
+   score-to-WDL calibration varies with material, phase, time and skill.
+   Opponent-response probabilities should not be tuned to impersonate humans
+   on platforms or to bypass fair-play enforcement.
+
+================================================================================
+13. OPEN ENGINEERING DECISIONS AND CONTRADICTIONS TO RESOLVE
+================================================================================
+
+C01. 16 GB RAM IS NOT 'AS MANY PARAMETERS AS WE WANT'.
+  Even 1-3B sparse models may be overkill. Need execution/latency tests.
+
+C02. 2500-2600 HUMAN CLASSICAL ELO VS SUB-250MS PER MOVE.
+  These simultaneous targets are not proven, especially with artistic
+  deviation and natural errors. Define evaluation time controls.
+
+C03. 'MORE HUMANLIKE' VS 'MORE ARTIFICIALLY ADVANCED'.
+  Human cognition inspiration and strong performance may conflict. The AI
+  remains an engine; human-like behavior must be operationalized.
+
+C04. STOCKFISH TEACHER VS INDEPENDENT IDENTITY.
+  Too much teacher imitation produces engine clone; too little tactical
+  verification produces strategically unsound art.
+
+C05. WORLD MODEL VS SEARCH.
+  Complex causal future generation may simply be an inefficient way to do
+  lookahead. Must beat simpler baselines under same compute.
+
+C06. TEN ORIGINAL MASTERS VS ONE UNIQUE PERSONALITY.
+  Routing between imitations can look random; continuity mechanism needed.
+
+C07. BEAUTY VS OBJECTIVE WINNING CHANCES.
+  Human expert artistry may reward objectively dubious sacrifices; control
+  baseline strength and external evaluation.
+
+C08. NOVELTY CLAIM NOT YET VALIDATED.
+  Individual ideas largely have precedents; the integration may be novel,
+  but first-in-the-world claim requires extensive prior-art research.
+
+C09. FULL HISTORICAL PGNs NOT YET VERIFIED.
+  Earlier assistant-mentioned research kit and counts not inspected here.
+  Do not build training or claim completeness on that basis.
+
+C10. RESEARCH REPRODUCIBILITY/LICENSING UNSETTLED.
+  Existing repos may carry GPL/AGPL/code vs weights restrictions;
+  no dependencies selected or integrated yet.
+
+C11. NO REAL MOBILE MEASUREMENTS.
+  None of the proposed 100ms/250ms/1s budgets are backed by device test.
+
+C12. POST-HOC EXPLANATIONS ARE NOT GUARANTEED FAITHFUL.
+  Model-generated strategic prose can sound convincing without reflecting
+  actual causal decision factors. Test interventions.
+
+C13. LARGE TRAINING COST IGNORED BY 'LOCAL INFERENCE'.
+  Offline phone inference != free training. No additional expenditures
+  authorized by this discussion.
+
+C14. HUMAN ERROR MODEL MAY NOT ADD COMPETITIVE UTILITY.
+  Swindlefish-related negative result was mentioned; do not assume gains.
+
+C15. PROPRIETARY DETECTOR IS UNKNOWN.
+  No scientifically valid promise that CHIMERA will be impossible to detect
+  as machine-generated or that it can bypass Chess.com enforcement.
+
+================================================================================
+14. PRIORITY PLAN: HOW TO USE THE PHONE'S CAPABILITY INTELLIGENTLY
+================================================================================
+
+P0 (before build): Reviewer verifies papers/repositories/weights/licenses,
+sets real latency and Elo benchmark protocols, and defines accurate data sources.
+
+P1: Train and benchmark a SIMPLE baseline policy on 5M/20M/100M/300M scale
+as resources permit; use exact same held-out positions and fixed hardware.
+
+P2: Add player-style residual embeddings and strategic memory. Check if
+patterns are genuinely distinct and coherent; guard against overfitting.
+
+P3: Add causal precondition learning and counterfactual Blacksmith data.
+Expect strongest novelty mechanism here; do not conflate future image
+prediction with planning to reach a legally viable chess position.
+
+P4: Test intermediate 'suppressed genius' candidates using probes. Keep only
+if they reveal sound unusual moves at negligible inference overhead.
+
+P5: Add bounded Oracle and learned regret. Test its effect on false
+sacrifices, win rate, creativity and time budget.
+
+P6: Run quality-diversity offline tournaments and distill discoveries into
+mobile networks. Evaluate whether 'sixth instinct' is actually new.
+
+P7: Scale network size ONLY where incremental strength/creativity gained
+per ms and per watt justify it, potentially to MoE 1-3B total if warranted.
+
+RECOMMENDED INSTRUMENTATION:
+  Component-level latency timers; model-activation profiling; WDL and
+  candidate entropy; neural-vs-oracle disagreement; plan-state-change
+  reasons; legal move correctness; reproducible game PGN export; seed
+  control; mobile energy/thermal tracking; ablation flags and test receipts.
+
+================================================================================
+15. INDEPENDENT EVALUATOR: MANDATORY RATING ASSIGNMENT
+================================================================================
+
+Review CHIMERA as a real proposed research engineering system, not a fantasy.
+Please independently fact-check all major external references and claims.
+
+PROVIDE SCORES 0-10 FOR EACH DIMENSION, WITH EVIDENCE AND ONE FALSIFIER:
+  1. Scientific originality                    weight 15%
+  2. Cognitive/mechanistic coherence             weight 15%
+  3. Feasibility of GM-level strength            weight 20%
+  4. Creative quality and objective soundness    weight 15%
+  5. OnePlus 15 latency and sustained efficiency weight 15%
+  6. Training/data practicality                  weight  5%
+  7. Licensing, legitimacy and safe scope        weight  5%
+  8. Falsifiability and evaluation quality       weight  5%
+  9. User experience / reproducibility          weight  5%
+                                               ----------
+  TOTAL                                        weight 100%
+
+ALSO DELIVER:
+  A. One-paragraph verdict distinguishing ingenuity from likely performance.
+  B. Strongest competitor/baseline architecture for equal resources.
+  C. Top five mechanisms most likely to improve measured strength AND art.
+  D. Five mechanisms most likely to be redundant or counterproductive.
+  E. Model-size recommendation: 20M, 100M, 300M, or 1-3B MoE, based on
+     actual OnePlus 15 compute/thermal evidence, not RAM alone.
+  F. Quantified risk register with confidence levels.
+  G. Concrete data acquisition / licensing / reproducibility strategy.
+  H. Minimal decisive experiment with pass/fail thresholds.
+  I. Strongest counterexample to the core causal-imagination hypothesis.
+  J. What, if anything, is defensibly NEW after a proper prior-art audit?
+  K. Roadmap to a first working CHIMERA prototype WITHOUT claiming that
+     a roadmap is already an implementation.
+  L. If not technically feasible at target performance, propose a truthful
+     lower-complexity alternative that preserves the founder's artistic aim.
+
+INSTRUCTION TO REVIEWING AGENT:
+  Challenge rather than endorse. Do not fabricate papers, benchmark data,
+  historical PGNs, licenses, code availability, source citations or Elo.
+  Mark unknowns. Separate empirical claims from hypotheses and proposals.
+  Do not propose bypassing external competitive anti-cheating enforcement.
+
+================================================================================
+16. FINAL STATE / WHAT WAS ACTUALLY DONE
+================================================================================
+
+DONE IN CONVERSATION:
+  - Defined founder objective and unique artistic target.
+  - Explored an 11-player inspiration roster and research donors.
+  - Conceptualized neural intuition + oracle critic + plan state.
+  - Generated 45 numbered conceptual inventions and multiple unnumbered ones.
+  - Discussed human grandmaster cognition vs modern chess engine cognition.
+  - Surveyed public aspects of Chess.com Fair Play, with unknowns noted.
+  - Proposed multi-stage training, evaluation, falsification and mobile plans.
+  - Refined model-size exploration after 16GB/Snapdragon confirmation.
+  - Created THIS text handoff to enable independent adversarial review.
+
+NOT DONE:
+  - No comprehensive 11-player game database verified.
+  - No training data or code integrated.
+  - No CHIMERA model weights trained or even initialized.
+  - No working UCI chess engine or Android APK.
+  - No OnePlus 15 inference/thermal/battery measurements.
+  - No calibrated Elo, tournament record, originality rating or ablation.
+  - No legal-license clearance or exhaustive prior-art search.
+  - No proprietary Chess.com detection access, reverse engineering or evasion.
+  - No validated claim that the architecture is a world first.
+
+CURRENT BEST RESEARCH HYPOTHESIS:
+  'A geometry-aware, style-conditioned chess neural model with a persistent
+  causal plan state, trained on counterfactual preparation of tactical motifs
+  and offline quality-diversity discovery, can produce more original yet sound
+  strategic plans than a strength-matched standard neural policy, without
+  unacceptable mobile inference overhead, especially after distillation.'
+
+FAIR FALSIFIER:
+  'At matched computational budget and playing strength, a simpler
+  policy+bounded search produces equal or better originality, strategic
+  coherence, and move latency; counterfactual planning adds no benefit.'
+
+PREFERRED NEXT ACTION:
+  Independent reviewer rates/falsifies the architecture, verifies the source
+  leads, identifies the simplest credible proof-of-concept, and then produces
+  a reproducible engineering spec for later Codex execution. No build was
+  authorized in the originating conversation.
+
+TRUTHFUL RECEIPT:
+  Applied: conversation synthesis and numbered concept inventory.
+  Screened: scope = all substantive CHIMERA topics accessible in this chat;
+            no independent full source/PGN/52-card audit.
+  Rules: evidence vs hypothesis, originality vs prior art, permission,
+         falsifiability, mobile constraints and verification.
+  Evidence: conversation-derived design only; no running chess AI.
+
+END OF HANDOFF.

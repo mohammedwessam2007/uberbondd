@@ -1,0 +1,86 @@
+001Oo positive T: a2a4 C: a2a4 sol/forbid: a2a4
+001XA positive T: b1b7 C: b1b7 sol/forbid: b1b7
+001aK positive T: f1e2 C: f1e2 sol/forbid: f1e2
+001h8 positive T: h4h7 C: h4h7 sol/forbid: h4h7
+001h8-neg negative T: c1c5 C: c1c7 sol/forbid: h4h7
+001xO positive T: c8d8 C: c8d8 sol/forbid: b6c5
+001xO-neg negative T: c8b8 C: c8b8 sol/forbid: b6c5
+002mG positive T: e5h2 C: e5h2 sol/forbid: f8e8
+00347 positive T: h5h4 C: h5h4 sol/forbid: h5h4
+003cs positive T: g5f7 C: g5f7 sol/forbid: f1f8
+003cs-neg negative T: e3d2 C: e3d2 sol/forbid: f1f8
+004Op positive T: h7g5 C: h7g5 sol/forbid: d8d1
+004Op-neg negative T: h7g5 C: h7g5 sol/forbid: d8d1
+004RF positive T: g3g7 C: g3g7 sol/forbid: g3g7
+004RF-neg negative T: f5f6 C: f5f6 sol/forbid: g3g7
+004b0 positive T: c4d5 C: c4d5 sol/forbid: e7g5
+004sg positive T: c4d2 C: c4d2 sol/forbid: c4d2
+005do positive T: c1c7 C: c1c7 sol/forbid: c1c7
+005do-neg negative T: h4g3 C: h4g3 sol/forbid: c1c7
+005f3 positive T: g3g6 C: c3c7 sol/forbid: g3g6
+005f3-neg negative T: b2b3 C: b2b3 sol/forbid: g3g6
+005ws positive T: g6g5 C: g6g5 sol/forbid: g6g5
+005wy positive T: c6b4 C: c6b4 sol/forbid: c6b4
+005wy-neg negative T: e7f8 C: e7f8 sol/forbid: c6b4
+006wz positive T: b1b2 C: b1b2 sol/forbid: b1b2
+006wz-neg negative T: e3c5 C: h2h4 sol/forbid: b1b2
+0078T positive T: f7f6 C: f7f6 sol/forbid: f7b7
+007en positive T: c5c2 C: c5c2 sol/forbid: c5c2
+007en-neg negative T: c5d4 C: c5d4 sol/forbid: c5c2
+008LT positive T: h6f7 C: h3e6 sol/forbid: h6f7
+008LT-neg negative T: h6f7 C: h6g4 sol/forbid: h6f7
+00A5m positive T: d3f5 C: d3f5 sol/forbid: d3f5
+00Bg0 positive T: f4f5 C: f4f5 sol/forbid: f4f5
+00CXr positive T: a5d5 C: a5d5 sol/forbid: a5d5
+00Cwz positive T: b8b1 C: b8b1 sol/forbid: b8b1
+00Cwz-neg negative T: f7f6 C: f7f6 sol/forbid: b8b1
+00E4Z positive T: d5d6 C: d5a5 sol/forbid: d5d6
+00FGc positive T: c4d4 C: h6h5 sol/forbid: c4c3
+00GVf positive T: h1h8 C: h1h8 sol/forbid: h1h8
+00GVf-neg negative T: h1h4 C: h1h4 sol/forbid: h1h8
+00H2L positive T: c6c5 C: c6c5 sol/forbid: c6c5
+00H5n positive T: b2b7 C: b2b7 sol/forbid: b2b7
+00H87 positive T: g4c8 C: g4c8 sol/forbid: g4c8
+00H87-neg negative T: g4g3 C: g4f3 sol/forbid: g4c8
+00HqY positive T: f3g2 C: f3g2 sol/forbid: f3g2
+00IKw positive T: a7a6 C: a7a6 sol/forbid: d8d7
+00IKw-neg negative T: a7a5 C: a7a5 sol/forbid: d8d7
+00IUW positive T: h3g3 C: h3g3 sol/forbid: h3g3
+00IUW-neg negative T: e7d7 C: g7g8 sol/forbid: h3g3
+00IqI positive T: d2d8 C: d2d8 sol/forbid: d2d8
+00IqI-neg negative T: d2f4 C: d2f4 sol/forbid: d2d8
+00Kq4 positive T: d8g5 C: d8g5 sol/forbid: d8g5
+00Kq4-neg negative T: h7h8 C: h7h8 sol/forbid: d8g5
+00LMb positive T: b6c4 C: b6c4 sol/forbid: b6c4
+00LRq positive T: a6a7 C: a6a7 sol/forbid: a6a7
+00MHi positive T: c2c3 C: c2c3 sol/forbid: c2e2
+00QyM positive T: d4c3 C: b3b4 sol/forbid: b3b4
+00SiY positive T: g5e4 C: g5e4 sol/forbid: d3e2
+00YbG positive T: d4e5 C: d4e5 sol/forbid: d4c4
+00gy1 positive T: b7b5 C: b7b5 sol/forbid: b7b5
+{
+  "movetime_s": 2.0,
+  "positions": 60,
+  "Tactical": {
+    "positive_strict_solved": "30/42",
+    "positive_sf_equivalent": "29/42",
+    "negative_false_sacrifice": "1/18",
+    "negative_sf_equivalent": "7/18",
+    "mean_cp_loss_capped_1000": 120.7
+  },
+  "Creative": {
+    "positive_strict_solved": "28/42",
+    "positive_sf_equivalent": "28/42",
+    "negative_false_sacrifice": "0/18",
+    "negative_sf_equivalent": "6/18",
+    "mean_cp_loss_capped_1000": 159.8
+  },
+  "creative_artist_picks": 4,
+  "creative_rejections_logged": 189,
+  "sacrifice_Tactical_strict": "18/24",
+  "sacrifice_Creative_strict": "16/24",
+  "quietMove_Tactical_strict": "10/12",
+  "quietMove_Creative_strict": "9/12",
+  "zugzwang_Tactical_strict": "2/6",
+  "zugzwang_Creative_strict": "3/6"
+}

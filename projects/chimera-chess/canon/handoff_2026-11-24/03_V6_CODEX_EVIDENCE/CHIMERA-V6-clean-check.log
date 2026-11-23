@@ -1,0 +1,44 @@
+id name CHIMERA V6 portable Bridge
+uciok
+readyok
+bestmove c7c5
+test_board_validation (test_v6.Integration.test_board_validation) ... ok
+test_budget_restores_board (test_v6.Integration.test_budget_restores_board) ... ok
+test_clock_timeout (test_v6.Integration.test_clock_timeout) ... ok
+test_mobile_and_reference (test_v6.Integration.test_mobile_and_reference) ... ok
+test_proof_and_counterexample (test_v6.Integration.test_proof_and_counterexample) ... ok
+test_rejected_checkpoint (test_v6.Integration.test_rejected_checkpoint) ... ok
+test_repetition_history (test_v6.Integration.test_repetition_history) ... ok
+test_source_critic (test_v6.Integration.test_source_critic) ... ok
+test_uci_modes_and_stop (test_v6.Integration.test_uci_modes_and_stop) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 1.325s
+
+OK
+V6 manifest, V5 executable, all supplied V5 evidence, baseline PGN byte identity: PASS
+> uci
+< id name CHIMERA V5 CPU reference
+< id author CHIMERA project
+< option name DefaultDepth type spin default 3 min 1 max 128
+< option name StudentOrdering type check default false
+< uciok
+> isready
+< readyok
+> ucinewgame
+> position startpos moves e2e4
+> go nodes 160
+< info depth 1 nodes 21 score cp 4 pv g8f6
+< info depth 2 nodes 132 score cp -14 pv g8f6
+< bestmove g8f6
+> go movetime 40
+< info depth 1 nodes 21 score cp 4 pv g8f6
+< info depth 2 nodes 132 score cp -14 pv g8f6
+< bestmove g8f6
+> go infinite
+< info depth 1 nodes 21 score cp 4 pv g8f6
+> stop
+< bestmove g8f6
+> quit
+exit 0
+No errors detected in compressed data of /workspace/CHIMERA-V6-Android-arm64.zip.

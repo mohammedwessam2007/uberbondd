@@ -1,0 +1,22 @@
+{
+  "a": "chimera:Tactical",
+  "b": "sf:2000",
+  "tc": "40+0.4",
+  "games": 24,
+  "a_wins": 11,
+  "draws": 5,
+  "a_losses": 8,
+  "a_score": 13.5,
+  "a_pct": 0.5625,
+  "elo_diff_a_minus_b_95ci": [
+    44,
+    -97,
+    201
+  ],
+  "time_forfeits": 0,
+  "illegal_or_failure": 0,
+  "stockfish": "/usr/games/stockfish",
+  "python": "3.13.18",
+  "chess": "1.11.2",
+  "date_utc": "2026-11-23T22:52:12"
+}

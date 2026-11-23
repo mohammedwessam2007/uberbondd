@@ -1,0 +1,48 @@
+[
+  {
+    "reply": "a7a6",
+    "fen": "5r1k/6pp/p5BN/8/2Q5/8/8/K7 w - - 0 2",
+    "unrestricted": {
+      "score": "#+2",
+      "depth": 12,
+      "nodes": 823,
+      "pv": "2. Qg8+ Rxg8 3. Nf7#"
+    },
+    "queen_offer": {
+      "score": "#+2",
+      "depth": 12,
+      "nodes": 40,
+      "pv": "2. Qg8+ Rxg8 3. Nf7#"
+    },
+    "line": "2. Qg8+ Rxg8 3. Nf7#",
+    "all_defenses": [
+      "f8g8"
+    ],
+    "escapes": [],
+    "forced_mate_by_plan": true
+  },
+  {
+    "reply": "h7g6",
+    "fen": "5r1k/p5p1/6pN/8/2Q5/8/8/K7 w - - 0 2",
+    "unrestricted": {
+      "score": "+645",
+      "depth": 12,
+      "nodes": 224581,
+      "pv": "2. Nf7+ Rxf7 3. Qxf7 Kh7 4. Qxa7 g5 5. Qf7 g4 6. Qh5+ Kg8 7. Qxg4 g5 8. Qxg5+ Kf7 9. Kb2 Ke6 10. Kb3 Kf7 11. Qh5+ Kf6"
+    },
+    "queen_offer": {
+      "score": "-616",
+      "depth": 12,
+      "nodes": 32768,
+      "pv": "2. Qg8+ Rxg8 3. Nf7+ Kh7 4. Kb2 Rf8 5. Ng5+ Kg8 6. Kb1 Rb8+ 7. Ka2 Rb5 8. Ne6"
+    },
+    "line": "2. Qg8+ Rxg8 3. Nf7+",
+    "all_defenses": [
+      "f8g8"
+    ],
+    "escapes": [
+      "h8h7"
+    ],
+    "forced_mate_by_plan": false
+  }
+]

@@ -1,0 +1,181 @@
+{
+ "games_lost": 9,
+ "classes": {
+  "positional or horizon misjudgement (no immediate material loss)": 7,
+  "material loss within 4 plies (hanging piece / missed tactic)": 1,
+  "gradual: no single move lost >=150cp": 1
+ },
+ "rows": [
+  {
+   "round": "2",
+   "opening": "Ruy Lopez",
+   "white": "sf:1600",
+   "termination": "CHECKMATE",
+   "plies": 71,
+   "worst": {
+    "ply": 32,
+    "move": "f6e4",
+    "fen_before": "r1b1k2r/2p2ppp/p4n2/P3q3/1pB1P3/7P/R1P2PP1/1N1Q1RK1 b kq - 0 16",
+    "before_cp": 22,
+    "after_cp": -314,
+    "drop_cp": 336,
+    "material_before": 0,
+    "sf_best": "e8g8",
+    "material_after_sf_pv4": 100,
+    "class": "positional or horizon misjudgement (no immediate material loss)"
+   }
+  },
+  {
+   "round": "3",
+   "opening": "Sicilian Najdorf",
+   "white": "chimera:Tactical",
+   "termination": "CHECKMATE",
+   "plies": 74,
+   "worst": {
+    "ply": 33,
+    "move": "e2c4",
+    "fen_before": "rn4k1/1b1qp1Np/p2p2p1/8/RP2r3/8/1BP1Q1PP/5BKR w - - 0 17",
+    "before_cp": -208,
+    "after_cp": -392,
+    "drop_cp": 184,
+    "material_before": 230,
+    "sf_best": "e2f2",
+    "material_after_sf_pv4": -220,
+    "class": "material loss within 4 plies (hanging piece / missed tactic)"
+   }
+  },
+  {
+   "round": "7",
+   "opening": "Caro-Kann",
+   "white": "chimera:Tactical",
+   "termination": "CHECKMATE",
+   "plies": 132,
+   "worst": {
+    "ply": 65,
+    "move": "c6c7",
+    "fen_before": "5k2/5p2/2P1pp2/pB5p/Pr1r2nP/RP4N1/6P1/6K1 w - - 1 33",
+    "before_cp": 22,
+    "after_cp": -298,
+    "drop_cp": 320,
+    "material_before": -170,
+    "sf_best": "a3a1",
+    "material_after_sf_pv4": -170,
+    "class": "positional or horizon misjudgement (no immediate material loss)"
+   }
+  },
+  {
+   "round": "9",
+   "opening": "QGD",
+   "white": "chimera:Tactical",
+   "termination": "CHECKMATE",
+   "plies": 108,
+   "worst": {
+    "ply": 21,
+    "move": "b5c6",
+    "fen_before": "rn1qr1k1/pp2bppp/2p5/1B1b2B1/3PN3/5N2/PP3PPP/R2QK2R w KQ - 0 11",
+    "before_cp": -53,
+    "after_cp": -455,
+    "drop_cp": 402,
+    "material_before": 320,
+    "sf_best": "g5e7",
+    "material_after_sf_pv4": 100,
+    "class": "positional or horizon misjudgement (no immediate material loss)"
+   }
+  },
+  {
+   "round": "10",
+   "opening": "QGD",
+   "white": "sf:1600",
+   "termination": "CHECKMATE",
+   "plies": 171,
+   "worst": {
+    "ply": 42,
+    "move": "h6h5",
+    "fen_before": "4rrk1/2pq1p2/1p3n1p/p2p1n2/N2P1NpP/P3P1P1/1PQ2P2/2R2RK1 b - - 3 21",
+    "before_cp": -116,
+    "after_cp": -268,
+    "drop_cp": 152,
+    "material_before": 0,
+    "sf_best": "f5e7",
+    "material_after_sf_pv4": -100,
+    "class": "positional or horizon misjudgement (no immediate material loss)"
+   }
+  },
+  {
+   "round": "12",
+   "opening": "Slav",
+   "white": "sf:1600",
+   "termination": "CHECKMATE",
+   "plies": 91,
+   "worst": {
+    "ply": 42,
+    "move": "e4g6",
+    "fen_before": "2r1kb1r/Q3pppp/2p1b3/P7/3Pq2P/1pRp1N2/1P1B1PP1/5RK1 b k - 0 21",
+    "before_cp": -151,
+    "after_cp": -433,
+    "drop_cp": 282,
+    "material_before": 110,
+    "sf_best": "e6d5",
+    "material_after_sf_pv4": 10,
+    "class": "positional or horizon misjudgement (no immediate material loss)"
+   }
+  },
+  {
+   "round": "14",
+   "opening": "King's Indian",
+   "white": "sf:1600",
+   "termination": "CHECKMATE",
+   "plies": 191,
+   "worst": {
+    "ply": 88,
+    "move": "g7h8",
+    "fen_before": "8/5Qb1/3p1p1k/2p1p3/2Pq4/5BP1/5P2/6K1 b - - 2 44",
+    "before_cp": -257,
+    "after_cp": -466,
+    "drop_cp": 209,
+    "material_before": 100,
+    "sf_best": "g7h8",
+    "material_after_sf_pv4": 100,
+    "class": "positional or horizon misjudgement (no immediate material loss)"
+   }
+  },
+  {
+   "round": "17",
+   "opening": "English",
+   "white": "chimera:Tactical",
+   "termination": "CHECKMATE",
+   "plies": 38,
+   "worst": {
+    "ply": 31,
+    "move": "f8c5",
+    "fen_before": "r4Bk1/p1P3pp/p7/2nP3q/6b1/2N2pP1/PP3P1P/R2Q1RK1 w - - 0 16",
+    "before_cp": 539,
+    "after_cp": 44,
+    "drop_cp": 495,
+    "material_before": 700,
+    "sf_best": "h2h4",
+    "material_after_sf_pv4": 920,
+    "class": "positional or horizon misjudgement (no immediate material loss)"
+   }
+  },
+  {
+   "round": "22",
+   "opening": "Scandinavian",
+   "white": "sf:1600",
+   "termination": "CHECKMATE",
+   "plies": 59,
+   "worst": {
+    "ply": 26,
+    "move": "c6e7",
+    "fen_before": "r1b1kb1r/ppp2ppp/2n5/3p4/2P5/3B1N2/q2B1PPP/1R1QR1K1 b kq - 1 13",
+    "before_cp": -255,
+    "after_cp": -403,
+    "drop_cp": 148,
+    "material_before": 300,
+    "sf_best": "c8e6",
+    "material_after_sf_pv4": 200,
+    "class": "gradual: no single move lost >=150cp"
+   }
+  }
+ ]
+}

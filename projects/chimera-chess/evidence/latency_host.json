@@ -1,0 +1,68 @@
+{
+ "host": "Linux-6.18.44-fc-v726-x86_64-with-glibc2.39",
+ "python": "3.13.18",
+ "processor": "x86_64",
+ "note": "HOST measurements only; no device data",
+ "Tactical_80ms": {
+  "requested_ms": 80.0,
+  "n": 15,
+  "p50": 81.0,
+  "p95": 83.2,
+  "p99": 85.0,
+  "max": 85.0,
+  "mean": 63.1
+ },
+ "Tactical_500ms": {
+  "requested_ms": 500.0,
+  "n": 15,
+  "p50": 354.5,
+  "p95": 501.9,
+  "p99": 502.2,
+  "max": 502.2,
+  "mean": 308.1
+ },
+ "Tactical_1000ms": {
+  "requested_ms": 1000.0,
+  "n": 15,
+  "p50": 658.0,
+  "p95": 1004.5,
+  "p99": 1005.7,
+  "max": 1005.7,
+  "mean": 606.1
+ },
+ "Creative_80ms": {
+  "requested_ms": 80.0,
+  "n": 15,
+  "p50": 40.3,
+  "p95": 54.0,
+  "p99": 54.5,
+  "max": 54.5,
+  "mean": 35.2
+ },
+ "Creative_500ms": {
+  "requested_ms": 500.0,
+  "n": 15,
+  "p50": 452.0,
+  "p95": 483.9,
+  "p99": 489.6,
+  "max": 489.6,
+  "mean": 357.0
+ },
+ "Creative_1000ms": {
+  "requested_ms": 1000.0,
+  "n": 15,
+  "p50": 876.4,
+  "p95": 969.7,
+  "p99": 971.2,
+  "max": 971.2,
+  "mean": 704.5
+ },
+ "maia3_5m_forward": {
+  "load_ms": 163.8,
+  "n": 30,
+  "p50": 13.33,
+  "p95": 14.7,
+  "p99": 16.98
+ },
+ "peak_rss_mb": 102.4
+}

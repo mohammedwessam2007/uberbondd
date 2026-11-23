@@ -1,0 +1,5653 @@
+{
+ "summary": {
+  "movetime_s": 2.0,
+  "positions": 60,
+  "Tactical": {
+   "positive_strict_solved": "30/42",
+   "positive_sf_equivalent": "29/42",
+   "negative_false_sacrifice": "1/18",
+   "negative_sf_equivalent": "7/18",
+   "mean_cp_loss_capped_1000": 120.7
+  },
+  "Creative": {
+   "positive_strict_solved": "28/42",
+   "positive_sf_equivalent": "28/42",
+   "negative_false_sacrifice": "0/18",
+   "negative_sf_equivalent": "6/18",
+   "mean_cp_loss_capped_1000": 159.8
+  },
+  "creative_artist_picks": 4,
+  "creative_rejections_logged": 189,
+  "sacrifice_Tactical_strict": "18/24",
+  "sacrifice_Creative_strict": "16/24",
+  "quietMove_Tactical_strict": "10/12",
+  "quietMove_Creative_strict": "9/12",
+  "zugzwang_Tactical_strict": "2/6",
+  "zugzwang_Creative_strict": "3/6"
+ },
+ "rows": [
+  {
+   "id": "001Oo",
+   "kind": "positive",
+   "theme": "quietMove",
+   "rating": 2078,
+   "sf_best_d16": "a2a4",
+   "sf_best_score": 83,
+   "Tactical": {
+    "move": "a2a4",
+    "elapsed": 1.373,
+    "sf_score": 277,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true
+   },
+   "Creative": {
+    "move": "a2a4",
+    "elapsed": 1.897,
+    "sf_score": 378,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "a2c4",
+      "tags": [
+       "sacrifice"
+      ],
+      "verified": -828,
+      "refutation": "b5c4",
+      "line": [
+       "a2c4",
+       "b5c4",
+       "h2h4",
+       "h7h5",
+       "f2e1",
+       "e7e6",
+       "g2g3"
+      ],
+      "accepted": false,
+      "missing_condition": "defence b5c4 holds; deficit 815cp"
+     },
+     {
+      "move": "a2b3",
+      "tags": [
+       "sacrifice",
+       "quiet"
+      ],
+      "verified": -1141,
+      "refutation": "c4b3",
+      "line": [
+       "a2b3",
+       "c4b3",
+       "d2c1",
+       "a4a2",
+       "f2g3",
+       "b3b2",
+       "c1b2"
+      ],
+      "accepted": false,
+      "missing_condition": "defence c4b3 holds; deficit 1128cp"
+     },
+     {
+      "move": "a2a3",
+      "tags": [
+       "sacrifice",
+       "quiet"
+      ],
+      "verified": -970,
+      "refutation": "a4a3",
+      "line": [
+       "a2a3",
+       "a4a3",
+       "h2h4",
+       "h7h5",
+       "g2g3",
+       "e7e6",
+       "f2e1"
+      ],
+      "accepted": false,
+      "missing_condition": "defence a4a3 holds; deficit 957cp"
+     },
+     {
+      "move": "a2c2",
+      "tags": [
+       "sacrifice",
+       "quiet"
+      ],
+      "verified": -1113,
+      "refutation": "a4c2",
+      "line": [
+       "a2c2",
+       "a4c2",
+       "f2e1",
+       "c2b1",
+       "e1e2",
+       "b1h1",
+       "e2f2",
+       "h1h2"
+      ],
+      "accepted": false,
+      "missing_condition": "defence a4c2 holds; deficit 1100cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "001XA",
+   "kind": "positive",
+   "theme": "sacrifice",
+   "rating": 1722,
+   "sf_best_d16": "b1b7",
+   "sf_best_score": 455,
+   "Tactical": {
+    "move": "b1b7",
+    "elapsed": 1.403,
+    "sf_score": 453,
+    "cp_loss": 2,
+    "sf_equivalent": true,
+    "strict_solved": true
+   },
+   "Creative": {
+    "move": "b1b7",
+    "elapsed": 1.833,
+    "sf_score": 462,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "c3f6",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -330,
+      "refutation": "b7e4",
+      "line": [
+       "c3f6",
+       "b7e4",
+       "g2e4",
+       "e7f6",
+       "e4d3",
+       "c4d3"
+      ],
+      "accepted": false,
+      "missing_condition": "defence b7e4 holds; deficit 688cp"
+     },
+     {
+      "move": "c3b4",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -183,
+      "refutation": "d3b4",
+      "line": [
+       "c3b4",
+       "d3b4",
+       "a3b4",
+       "f7f5",
+       "e4c5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence d3b4 holds; deficit 541cp"
+     },
+     {
+      "move": "c3b2",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -168,
+      "refutation": "f7f5",
+      "line": [
+       "c3b2",
+       "f7f5",
+       "e4d2",
+       "b7g2"
+      ],
+      "accepted": false,
+      "missing_condition": "defence f7f5 holds; deficit 526cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "001aK",
+   "kind": "positive",
+   "theme": "quietMove",
+   "rating": 2052,
+   "sf_best_d16": "f1e2",
+   "sf_best_score": 516,
+   "Tactical": {
+    "move": "f1e2",
+    "elapsed": 1.354,
+    "sf_score": 519,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true
+   },
+   "Creative": {
+    "move": "f1e2",
+    "elapsed": 1.069,
+    "sf_score": 526,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "c5f8",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -99999,
+      "refutation": "e2f2",
+      "line": [
+       "c5f8",
+       "e2f2"
+      ],
+      "accepted": false,
+      "missing_condition": "defence e2f2 holds; deficit 100336cp"
+     },
+     {
+      "move": "c5d4",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -99999,
+      "refutation": "e2f2",
+      "line": [
+       "c5d4",
+       "e2f2"
+      ],
+      "accepted": false,
+      "missing_condition": "defence e2f2 holds; deficit 100336cp"
+     },
+     {
+      "move": "a2a3",
+      "tags": [
+       "sacrifice",
+       "quiet"
+      ],
+      "verified": -99999,
+      "refutation": "e2f2",
+      "line": [
+       "a2a3",
+       "e2f2"
+      ],
+      "accepted": false,
+      "missing_condition": "defence e2f2 holds; deficit 100336cp"
+     },
+     {
+      "move": "a2a1",
+      "tags": [
+       "sacrifice",
+       "quiet"
+      ],
+      "verified": -99999,
+      "refutation": "e2f2",
+      "line": [
+       "a2a1",
+       "e2f2"
+      ],
+      "accepted": false,
+      "missing_condition": "defence e2f2 holds; deficit 100336cp"
+     },
+     {
+      "move": "a2b2",
+      "tags": [
+       "sacrifice"
+      ],
+      "verified": -99997,
+      "refutation": "e2b2",
+      "line": [
+       "a2b2",
+       "e2b2",
+       "h4h5",
+       "b2f2"
+      ],
+      "accepted": false,
+      "missing_condition": "defence e2b2 holds; deficit 100334cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "001h8",
+   "kind": "positive",
+   "theme": "sacrifice",
+   "rating": 1715,
+   "sf_best_d16": "h4h7",
+   "sf_best_score": 235,
+   "Tactical": {
+    "move": "h4h7",
+    "elapsed": 1.373,
+    "sf_score": 200,
+    "cp_loss": 35,
+    "sf_equivalent": false,
+    "strict_solved": true
+   },
+   "Creative": {
+    "move": "h4h7",
+    "elapsed": 1.765,
+    "sf_score": 223,
+    "cp_loss": 12,
+    "sf_equivalent": true,
+    "strict_solved": true,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "h4h5",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -1835,
+      "refutation": "c7c1",
+      "line": [
+       "h4h5",
+       "c7c1",
+       "g1h2",
+       "e2h5",
+       "h3e3",
+       "c8c2",
+       "h2g3"
+      ],
+      "accepted": false,
+      "missing_condition": "defence c7c1 holds; deficit 1835cp"
+     },
+     {
+      "move": "h4g4",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -1849,
+      "refutation": "c7c1",
+      "line": [
+       "h4g4",
+       "c7c1",
+       "g1h2",
+       "d5h1",
+       "h2g3",
+       "c1g1",
+       "f2g1",
+       "h1g1"
+      ],
+      "accepted": false,
+      "missing_condition": "defence c7c1 holds; deficit 1849cp"
+     },
+     {
+      "move": "h3f3",
+      "tags": [
+       "sacrifice",
+       "quiet"
+      ],
+      "verified": -1487,
+      "refutation": "c7c1",
+      "line": [
+       "h3f3",
+       "c7c1",
+       "f2e1",
+       "d5f3",
+       "g1h2",
+       "f3a3",
+       "e1d2",
+       "c1c2"
+      ],
+      "accepted": false,
+      "missing_condition": "defence c7c1 holds; deficit 1487cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "001h8-neg",
+   "kind": "negative",
+   "theme": "sacrifice-counterexample",
+   "rating": 1715,
+   "sf_best_d16": "c1c7",
+   "sf_best_score": -679,
+   "Tactical": {
+    "move": "c1c5",
+    "elapsed": 1.638,
+    "sf_score": -689,
+    "cp_loss": 10,
+    "sf_equivalent": true,
+    "false_sacrifice": false
+   },
+   "Creative": {
+    "move": "c1c7",
+    "elapsed": 1.754,
+    "sf_score": -733,
+    "cp_loss": 54,
+    "sf_equivalent": false,
+    "false_sacrifice": false,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "h4h7",
+      "tags": [
+       "sacrifice",
+       "check"
+      ],
+      "verified": -1712,
+      "refutation": "g8h7",
+      "line": [
+       "h4h7",
+       "g8h7",
+       "c1b1",
+       "c7c1",
+       "b1c1",
+       "c8c1",
+       "g1h2",
+       "c1h1"
+      ],
+      "accepted": false,
+      "missing_condition": "defence g8h7 holds; deficit 884cp"
+     },
+     {
+      "move": "h4h5",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -2451,
+      "refutation": "c7c1",
+      "line": [
+       "h4h5",
+       "c7c1",
+       "g1h2",
+       "e2h5",
+       "f2e1",
+       "c1e1",
+       "h2h3"
+      ],
+      "accepted": false,
+      "missing_condition": "defence c7c1 holds; deficit 1623cp"
+     },
+     {
+      "move": "h4g4",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -2677,
+      "refutation": "c7c1",
+      "line": [
+       "h4g4",
+       "c7c1",
+       "f2e1",
+       "f5g4",
+       "f4f5",
+       "c1e1",
+       "g1f2",
+       "c8c1"
+      ],
+      "accepted": false,
+      "missing_condition": "defence c7c1 holds; deficit 1849cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "001xO",
+   "kind": "positive",
+   "theme": "sacrifice",
+   "rating": 1790,
+   "sf_best_d16": "b6c5",
+   "sf_best_score": 305,
+   "Tactical": {
+    "move": "c8d8",
+    "elapsed": 1.165,
+    "sf_score": -161,
+    "cp_loss": 466,
+    "sf_equivalent": false,
+    "strict_solved": false
+   },
+   "Creative": {
+    "move": "c8d8",
+    "elapsed": 1.809,
+    "sf_score": -147,
+    "cp_loss": 452,
+    "sf_equivalent": false,
+    "strict_solved": false,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "d6d7",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -822,
+      "refutation": "c5d7",
+      "line": [
+       "d6d7",
+       "c5d7",
+       "c7c3",
+       "d7b6",
+       "a7b6",
+       "c1c3",
+       "c8c3"
+      ],
+      "accepted": false,
+      "missing_condition": "defence c5d7 holds; deficit 771cp"
+     },
+     {
+      "move": "d6h2",
+      "tags": [
+       "sacrifice",
+       "check"
+      ],
+      "verified": -880,
+      "refutation": "g1h2",
+      "line": [
+       "d6h2",
+       "g1h2",
+       "b6c5",
+       "a6c8",
+       "c7c8",
+       "d4c5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence g1h2 holds; deficit 829cp"
+     },
+     {
+      "move": "d6f4",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -999,
+      "refutation": "e3f4",
+      "line": [
+       "d6f4",
+       "e3f4",
+       "c8d8",
+       "a6b7",
+       "c7b7",
+       "c5b7",
+       "a8b7",
+       "c3c7"
+      ],
+      "accepted": false,
+      "missing_condition": "defence e3f4 holds; deficit 948cp"
+     },
+     {
+      "move": "d6g3",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -1004,
+      "refutation": "h2g3",
+      "line": [
+       "d6g3",
+       "h2g3",
+       "b6c5",
+       "a6c8",
+       "f6e4",
+       "c8a6",
+       "e4c3"
+      ],
+      "accepted": false,
+      "missing_condition": "defence h2g3 holds; deficit 953cp"
+     },
+     {
+      "move": "d6e5",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -1051,
+      "refutation": "d4e5",
+      "line": [
+       "d6e5",
+       "d4e5",
+       "b6c5",
+       "e5f6",
+       "c5c4",
+       "a6c8"
+      ],
+      "accepted": false,
+      "missing_condition": "defence d4e5 holds; deficit 1000cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "001xO-neg",
+   "kind": "negative",
+   "theme": "sacrifice-counterexample",
+   "rating": 1790,
+   "sf_best_d16": "c8b8",
+   "sf_best_score": -564,
+   "Tactical": {
+    "move": "c8b8",
+    "elapsed": 1.919,
+    "sf_score": -585,
+    "cp_loss": 21,
+    "sf_equivalent": true,
+    "false_sacrifice": false
+   },
+   "Creative": {
+    "move": "c8b8",
+    "elapsed": 1.887,
+    "sf_score": -556,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "false_sacrifice": false,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "d6d7",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -1354,
+      "refutation": "c5d7",
+      "line": [
+       "d6d7",
+       "c5d7",
+       "c8c3",
+       "d7b6",
+       "a7b6",
+       "b3c3",
+       "h7h5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence c5d7 holds; deficit 796cp"
+     },
+     {
+      "move": "d6e5",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -1695,
+      "refutation": "d4e5",
+      "line": [
+       "d6e5",
+       "d4e5",
+       "c8c5",
+       "b4c5",
+       "f6e4"
+      ],
+      "accepted": false,
+      "missing_condition": "defence d4e5 holds; deficit 1137cp"
+     },
+     {
+      "move": "d6f4",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -1520,
+      "refutation": "e3f4",
+      "line": [
+       "d6f4",
+       "e3f4",
+       "c8c7",
+       "c5d3",
+       "e8c6",
+       "f3e5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence e3f4 holds; deficit 962cp"
+     },
+     {
+      "move": "d6g3",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -1528,
+      "refutation": "h2g3",
+      "line": [
+       "d6g3",
+       "h2g3",
+       "c8c7",
+       "c5d3",
+       "e8c6",
+       "f3e5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence h2g3 holds; deficit 970cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "002mG",
+   "kind": "positive",
+   "theme": "quietMove",
+   "rating": 2377,
+   "sf_best_d16": "f8e8",
+   "sf_best_score": 285,
+   "Tactical": {
+    "move": "e5h2",
+    "elapsed": 1.925,
+    "sf_score": -347,
+    "cp_loss": 632,
+    "sf_equivalent": false,
+    "strict_solved": false
+   },
+   "Creative": {
+    "move": "e5h2",
+    "elapsed": 1.849,
+    "sf_score": -356,
+    "cp_loss": 641,
+    "sf_equivalent": false,
+    "strict_solved": false,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "e5e1",
+      "tags": [
+       "sacrifice",
+       "check",
+       "king_zone"
+      ],
+      "verified": -1550,
+      "refutation": "d1e1",
+      "line": [
+       "e5e1",
+       "d1e1",
+       "d6e5",
+       "a4a5",
+       "g7g5",
+       "a7c5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence d1e1 holds; deficit 1140cp"
+     },
+     {
+      "move": "e5d4",
+      "tags": [
+       "sacrifice",
+       "check",
+       "king_zone"
+      ],
+      "verified": -1550,
+      "refutation": "a7d4",
+      "line": [
+       "e5d4",
+       "a7d4",
+       "h7h5",
+       "a4a5",
+       "f8b8",
+       "a5a6"
+      ],
+      "accepted": false,
+      "missing_condition": "defence a7d4 holds; deficit 1140cp"
+     },
+     {
+      "move": "e5e2",
+      "tags": [
+       "sacrifice",
+       "check",
+       "king_zone"
+      ],
+      "verified": -1537,
+      "refutation": "f2e2",
+      "line": [
+       "e5e2",
+       "f2e2",
+       "f8f7",
+       "a7e3",
+       "f6f5",
+       "a4a5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence f2e2 holds; deficit 1127cp"
+     },
+     {
+      "move": "e5e3",
+      "tags": [
+       "sacrifice",
+       "check",
+       "king_zone"
+      ],
+      "verified": -1543,
+      "refutation": "a7e3",
+      "line": [
+       "e5e3",
+       "a7e3",
+       "f6f5",
+       "e3c5",
+       "f8d8",
+       "c5d6"
+      ],
+      "accepted": false,
+      "missing_condition": "defence a7e3 holds; deficit 1133cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "00347",
+   "kind": "positive",
+   "theme": "quietMove",
+   "rating": 2264,
+   "sf_best_d16": "h5h4",
+   "sf_best_score": 464,
+   "Tactical": {
+    "move": "h5h4",
+    "elapsed": 1.346,
+    "sf_score": 559,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true
+   },
+   "Creative": {
+    "move": "h5h4",
+    "elapsed": 1.605,
+    "sf_score": 564,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true,
+    "source": "artist",
+    "candidates": [
+     {
+      "move": "c5c4",
+      "tags": [
+       "check",
+       "king_zone",
+       "break"
+      ],
+      "verified": -56,
+      "refutation": "d3c4",
+      "line": [
+       "c5c4",
+       "d3c4",
+       "e5f4",
+       "c4c5",
+       "f4g3",
+       "c5c6",
+       "g3g2",
+       "c6c7"
+      ],
+      "accepted": false,
+      "missing_condition": "defence d3c4 holds; deficit 190cp"
+     },
+     {
+      "move": "c7c6",
+      "tags": [
+       "quiet",
+       "break"
+      ],
+      "verified": -29,
+      "refutation": "d5c6",
+      "line": [
+       "c7c6",
+       "d5c6",
+       "e5d6",
+       "g2g4",
+       "h5g4",
+       "h3g4",
+       "d6c6",
+       "g4g5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence d5c6 holds; deficit 163cp"
+     },
+     {
+      "move": "h5h4",
+      "tags": [
+       "quiet",
+       "break"
+      ],
+      "verified": 152,
+      "refutation": "d3e2",
+      "line": [
+       "h5h4",
+       "d3e2",
+       "e5e4",
+       "e2f2",
+       "c5c4",
+       "g2g3",
+       "h4g3",
+       "f2g3"
+      ],
+      "accepted": true
+     }
+    ],
+    "witness": {
+     "move": "h5h4",
+     "goal": "pawn break / fortress demolition",
+     "tags": [
+      "quiet",
+      "break"
+     ],
+     "expected_line": [
+      "h5h4",
+      "d3e2",
+      "e5e4",
+      "e2f2",
+      "c5c4",
+      "g2g3",
+      "h4g3",
+      "f2g3"
+     ],
+     "prerequisites": [
+      [
+       "own_piece_on",
+       "e5",
+       "k"
+      ],
+      [
+       "own_piece_on",
+       "c5",
+       "p"
+      ]
+     ],
+     "verified_score": 152,
+     "refutation": "d3e2",
+     "created_ply": 0,
+     "status": "ACTIVE",
+     "history": []
+    }
+   }
+  },
+  {
+   "id": "003cs",
+   "kind": "positive",
+   "theme": "sacrifice",
+   "rating": 2106,
+   "sf_best_d16": "f1f8",
+   "sf_best_score": 368,
+   "Tactical": {
+    "move": "g5f7",
+    "elapsed": 1.819,
+    "sf_score": -242,
+    "cp_loss": 610,
+    "sf_equivalent": false,
+    "strict_solved": false
+   },
+   "Creative": {
+    "move": "g5f7",
+    "elapsed": 1.807,
+    "sf_score": -263,
+    "cp_loss": 631,
+    "sf_equivalent": false,
+    "strict_solved": false,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "g5e4",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -943,
+      "refutation": "d5e4",
+      "line": [
+       "g5e4",
+       "d5e4",
+       "e3a7",
+       "c8c2",
+       "e2c2"
+      ],
+      "accepted": false,
+      "missing_condition": "defence d5e4 holds; deficit 734cp"
+     },
+     {
+      "move": "f1f8",
+      "tags": [
+       "sacrifice",
+       "check"
+      ],
+      "verified": -333,
+      "refutation": "e8f8",
+      "line": [
+       "f1f8",
+       "e8f8",
+       "e3c5",
+       "c8c5",
+       "e2e5",
+       "c5c1",
+       "g1f2",
+       "c1c2"
+      ],
+      "accepted": false,
+      "missing_condition": "defence e8f8 holds; deficit 124cp"
+     },
+     {
+      "move": "f1f6",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -1254,
+      "refutation": "g8f6",
+      "line": [
+       "f1f6",
+       "g8f6",
+       "b1d2",
+       "c8c1",
+       "d2f1",
+       "a1c2"
+      ],
+      "accepted": false,
+      "missing_condition": "defence g8f6 holds; deficit 1045cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "003cs-neg",
+   "kind": "negative",
+   "theme": "sacrifice-counterexample",
+   "rating": 2106,
+   "sf_best_d16": "e3d2",
+   "sf_best_score": -1089,
+   "Tactical": {
+    "move": "e3d2",
+    "elapsed": 1.797,
+    "sf_score": -1103,
+    "cp_loss": 14,
+    "sf_equivalent": true,
+    "false_sacrifice": false
+   },
+   "Creative": {
+    "move": "e3d2",
+    "elapsed": 1.81,
+    "sf_score": -1112,
+    "cp_loss": 23,
+    "sf_equivalent": true,
+    "false_sacrifice": false,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "g5e4",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -2012,
+      "refutation": "e5e4",
+      "line": [
+       "g5e4",
+       "e5e4",
+       "e3a7",
+       "c8c2",
+       "f1f3"
+      ],
+      "accepted": false,
+      "missing_condition": "defence e5e4 holds; deficit 304cp"
+     },
+     {
+      "move": "f1f8",
+      "tags": [
+       "sacrifice",
+       "check"
+      ],
+      "verified": -2076,
+      "refutation": "e8f8",
+      "line": [
+       "f1f8",
+       "e8f8",
+       "g1f2",
+       "c8c2",
+       "f2f3",
+       "e5f5",
+       "e3f4",
+       "c2a2"
+      ],
+      "accepted": false,
+      "missing_condition": "defence e8f8 holds; deficit 368cp"
+     },
+     {
+      "move": "f1f6",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -99995,
+      "refutation": "e5e3",
+      "line": [
+       "f1f6",
+       "e5e3",
+       "g1h1",
+       "c8c1",
+       "f6f1",
+       "c1f1"
+      ],
+      "accepted": false,
+      "missing_condition": "defence e5e3 holds; deficit 98287cp"
+     },
+     {
+      "move": "f1f5",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -99995,
+      "refutation": "e5e3",
+      "line": [
+       "f1f5",
+       "e5e3",
+       "g1h1",
+       "c8c1",
+       "f5f1",
+       "c1f1"
+      ],
+      "accepted": false,
+      "missing_condition": "defence e5e3 holds; deficit 98287cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "004Op",
+   "kind": "positive",
+   "theme": "sacrifice",
+   "rating": 2204,
+   "sf_best_d16": "d8d1",
+   "sf_best_score": 340,
+   "Tactical": {
+    "move": "h7g5",
+    "elapsed": 1.62,
+    "sf_score": -103,
+    "cp_loss": 443,
+    "sf_equivalent": false,
+    "strict_solved": false
+   },
+   "Creative": {
+    "move": "h7g5",
+    "elapsed": 1.801,
+    "sf_score": -102,
+    "cp_loss": 442,
+    "sf_equivalent": false,
+    "strict_solved": false,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "g8g6",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -587,
+      "refutation": "b1g6",
+      "line": [
+       "g8g6",
+       "b1g6",
+       "h7g5",
+       "c5b6",
+       "c7b6"
+      ],
+      "accepted": false,
+      "missing_condition": "defence b1g6 holds; deficit 584cp"
+     },
+     {
+      "move": "g8g5",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -378,
+      "refutation": "b1h7",
+      "line": [
+       "g8g5",
+       "b1h7",
+       "g5g7",
+       "h7c2",
+       "b6c5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence b1h7 holds; deficit 375cp"
+     },
+     {
+      "move": "g8g4",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -546,
+      "refutation": "h3g4",
+      "line": [
+       "g8g4",
+       "h3g4",
+       "h7g5",
+       "c5b6",
+       "c7b6"
+      ],
+      "accepted": false,
+      "missing_condition": "defence h3g4 holds; deficit 543cp"
+     },
+     {
+      "move": "g8g3",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -576,
+      "refutation": "f4g3",
+      "line": [
+       "g8g3",
+       "f4g3",
+       "h7g5",
+       "f2c2",
+       "g5e4",
+       "b4b5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence f4g3 holds; deficit 573cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "004Op-neg",
+   "kind": "negative",
+   "theme": "sacrifice-counterexample",
+   "rating": 2204,
+   "sf_best_d16": "h7f6",
+   "sf_best_score": -806,
+   "Tactical": {
+    "move": "h7g5",
+    "elapsed": 1.153,
+    "sf_score": -839,
+    "cp_loss": 33,
+    "sf_equivalent": false,
+    "false_sacrifice": false
+   },
+   "Creative": {
+    "move": "h7g5",
+    "elapsed": 1.81,
+    "sf_score": -847,
+    "cp_loss": 41,
+    "sf_equivalent": false,
+    "false_sacrifice": false,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "g8g6",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -1585,
+      "refutation": "b1g6",
+      "line": [
+       "g8g6",
+       "b1g6",
+       "h7g5",
+       "c5b6",
+       "c7b6",
+       "f1c4",
+       "c8d7"
+      ],
+      "accepted": false,
+      "missing_condition": "defence b1g6 holds; deficit 557cp"
+     },
+     {
+      "move": "g8g5",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -1346,
+      "refutation": "b1h7",
+      "line": [
+       "g8g5",
+       "b1h7",
+       "g5g7",
+       "h7d3",
+       "b6c5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence b1h7 holds; deficit 318cp"
+     },
+     {
+      "move": "g8g4",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -1533,
+      "refutation": "h3g4",
+      "line": [
+       "g8g4",
+       "h3g4",
+       "h7g5",
+       "c5b6",
+       "a5b4",
+       "b6c7"
+      ],
+      "accepted": false,
+      "missing_condition": "defence h3g4 holds; deficit 505cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "004RF",
+   "kind": "positive",
+   "theme": "sacrifice",
+   "rating": 1709,
+   "sf_best_d16": "g3g7",
+   "sf_best_score": 278,
+   "Tactical": {
+    "move": "g3g7",
+    "elapsed": 1.157,
+    "sf_score": 314,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true
+   },
+   "Creative": {
+    "move": "g3g7",
+    "elapsed": 1.601,
+    "sf_score": 325,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "h5h7",
+      "tags": [
+       "sacrifice",
+       "check"
+      ],
+      "verified": -325,
+      "refutation": "g8h7",
+      "line": [
+       "h5h7",
+       "g8h7"
+      ],
+      "accepted": false,
+      "missing_condition": "defence g8h7 holds; deficit 544cp"
+     },
+     {
+      "move": "h5f7",
+      "tags": [
+       "sacrifice",
+       "check"
+      ],
+      "verified": -1455,
+      "refutation": "f8f7",
+      "line": [
+       "h5f7",
+       "f8f7",
+       "g3a3",
+       "b5f5",
+       "a3a8",
+       "f7f8",
+       "a8a7",
+       "c4c3"
+      ],
+      "accepted": false,
+      "missing_condition": "defence f8f7 holds; deficit 1674cp"
+     },
+     {
+      "move": "h5h6",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -354,
+      "refutation": "b5e5",
+      "line": [
+       "h5h6",
+       "b5e5",
+       "h6b6",
+       "c4c3",
+       "f5f6",
+       "c3c2"
+      ],
+      "accepted": false,
+      "missing_condition": "defence b5e5 holds; deficit 573cp"
+     },
+     {
+      "move": "h5g6",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -1349,
+      "refutation": "h7g6",
+      "line": [
+       "h5g6",
+       "h7g6",
+       "f5g6",
+       "f7g6",
+       "g3g6",
+       "c4c3"
+      ],
+      "accepted": false,
+      "missing_condition": "defence h7g6 holds; deficit 1568cp"
+     },
+     {
+      "move": "g3g6",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -1114,
+      "refutation": "f7g6",
+      "line": [
+       "g3g6",
+       "f7g6",
+       "h5e2",
+       "g6f5",
+       "e2e6",
+       "f8f7",
+       "h2g1"
+      ],
+      "accepted": false,
+      "missing_condition": "defence f7g6 holds; deficit 1333cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "004RF-neg",
+   "kind": "negative",
+   "theme": "sacrifice-counterexample",
+   "rating": 1709,
+   "sf_best_d16": "f5f6",
+   "sf_best_score": -1034,
+   "Tactical": {
+    "move": "f5f6",
+    "elapsed": 1.197,
+    "sf_score": -1274,
+    "cp_loss": 240,
+    "sf_equivalent": false,
+    "false_sacrifice": false
+   },
+   "Creative": {
+    "move": "f5f6",
+    "elapsed": 1.682,
+    "sf_score": -1376,
+    "cp_loss": 342,
+    "sf_equivalent": false,
+    "false_sacrifice": false,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "g3g7",
+      "tags": [
+       "sacrifice",
+       "check"
+      ],
+      "verified": -1831,
+      "refutation": "g8g7",
+      "line": [
+       "g3g7",
+       "g8g7",
+       "g2g4",
+       "c4c3",
+       "g4g5",
+       "b5f5",
+       "h2g1"
+      ],
+      "accepted": false,
+      "missing_condition": "defence g8g7 holds; deficit 380cp"
+     },
+     {
+      "move": "g3g6",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -1969,
+      "refutation": "f7g6",
+      "line": [
+       "g3g6",
+       "f7g6",
+       "f5g6",
+       "b5e5",
+       "h2h3",
+       "e5e6",
+       "g2g4",
+       "f8f3"
+      ],
+      "accepted": false,
+      "missing_condition": "defence f7g6 holds; deficit 518cp"
+     },
+     {
+      "move": "g3e3",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -2205,
+      "refutation": "d4e3",
+      "line": [
+       "g3e3",
+       "d4e3",
+       "f5f6",
+       "e3e2",
+       "f6g7",
+       "b5e5",
+       "g2g3",
+       "e2e1q"
+      ],
+      "accepted": false,
+      "missing_condition": "defence d4e3 holds; deficit 754cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "004b0",
+   "kind": "positive",
+   "theme": "quietMove",
+   "rating": 2368,
+   "sf_best_d16": "e7g5",
+   "sf_best_score": 129,
+   "Tactical": {
+    "move": "c4d5",
+    "elapsed": 1.131,
+    "sf_score": 0,
+    "cp_loss": 129,
+    "sf_equivalent": false,
+    "strict_solved": false
+   },
+   "Creative": {
+    "move": "c4d5",
+    "elapsed": 1.529,
+    "sf_score": 0,
+    "cp_loss": 129,
+    "sf_equivalent": false,
+    "strict_solved": false,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "e7f6",
+      "tags": [
+       "sacrifice",
+       "quiet"
+      ],
+      "verified": -391,
+      "refutation": "a1f6",
+      "line": [
+       "e7f6",
+       "a1f6",
+       "c4d5",
+       "h1g1",
+       "c5c4",
+       "f7g6",
+       "f8g8",
+       "e6e7"
+      ],
+      "accepted": false,
+      "missing_condition": "defence a1f6 holds; deficit 397cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "004sg",
+   "kind": "positive",
+   "theme": "quietMove",
+   "rating": 2440,
+   "sf_best_d16": "c4d2",
+   "sf_best_score": 229,
+   "Tactical": {
+    "move": "c4d2",
+    "elapsed": 2.011,
+    "sf_score": 248,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true
+   },
+   "Creative": {
+    "move": "c4d2",
+    "elapsed": 1.689,
+    "sf_score": 285,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "e7f6",
+      "tags": [
+       "sacrifice",
+       "quiet"
+      ],
+      "verified": -786,
+      "refutation": "d2b4",
+      "line": [
+       "e7f6",
+       "d2b4",
+       "f6e5",
+       "h2g1",
+       "d6d5",
+       "c5c6"
+      ],
+      "accepted": false,
+      "missing_condition": "defence d2b4 holds; deficit 1012cp"
+     },
+     {
+      "move": "e7g5",
+      "tags": [
+       "sacrifice"
+      ],
+      "verified": -99993,
+      "refutation": "d2g5",
+      "line": [
+       "e7g5",
+       "d2g5",
+       "g8f8",
+       "g5f6",
+       "f8g8",
+       "f6f7",
+       "g8h8",
+       "f7f8"
+      ],
+      "accepted": false,
+      "missing_condition": "defence d2g5 holds; deficit 100219cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "005do",
+   "kind": "positive",
+   "theme": "sacrifice",
+   "rating": 1433,
+   "sf_best_d16": "c1c7",
+   "sf_best_score": 333,
+   "Tactical": {
+    "move": "c1c7",
+    "elapsed": 1.271,
+    "sf_score": 337,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true
+   },
+   "Creative": {
+    "move": "c1c7",
+    "elapsed": 1.854,
+    "sf_score": 428,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "g5h7",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -460,
+      "refutation": "g6h7",
+      "line": [
+       "g5h7",
+       "g6h7",
+       "h4g5",
+       "f8f5",
+       "g5h6",
+       "h7g8",
+       "c1g1"
+      ],
+      "accepted": false,
+      "missing_condition": "defence g6h7 holds; deficit 542cp"
+     },
+     {
+      "move": "g5f7",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -445,
+      "refutation": "f8f7",
+      "line": [
+       "g5f7",
+       "f8f7",
+       "h4g5",
+       "g6e4",
+       "g5h5",
+       "e4f3",
+       "h5g5",
+       "f7f5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence f8f7 holds; deficit 527cp"
+     },
+     {
+      "move": "g5e4",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -599,
+      "refutation": "f8f4",
+      "line": [
+       "g5e4",
+       "f8f4",
+       "h4g5",
+       "f4g4",
+       "g5h6",
+       "d5e4",
+       "a2a4",
+       "a7a5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence f8f4 holds; deficit 681cp"
+     },
+     {
+      "move": "c1c8",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -714,
+      "refutation": "f8c8",
+      "line": [
+       "c1c8",
+       "f8c8",
+       "g5f3",
+       "b7b5",
+       "h4g5",
+       "g6e4"
+      ],
+      "accepted": false,
+      "missing_condition": "defence f8c8 holds; deficit 796cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "005do-neg",
+   "kind": "negative",
+   "theme": "sacrifice-counterexample",
+   "rating": 1433,
+   "sf_best_d16": "h4g5",
+   "sf_best_score": -541,
+   "Tactical": {
+    "move": "h4g3",
+    "elapsed": 1.362,
+    "sf_score": -526,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "false_sacrifice": false
+   },
+   "Creative": {
+    "move": "h4g3",
+    "elapsed": 1.799,
+    "sf_score": -520,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "false_sacrifice": false,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "c1c7",
+      "tags": [
+       "sacrifice",
+       "check",
+       "king_zone"
+      ],
+      "verified": -1023,
+      "refutation": "d7c7",
+      "line": [
+       "c1c7",
+       "d7c7",
+       "h4g3",
+       "b7b5",
+       "a2a3",
+       "g6e4",
+       "g3h4"
+      ],
+      "accepted": false,
+      "missing_condition": "defence d7c7 holds; deficit 555cp"
+     },
+     {
+      "move": "c1b1",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -1159,
+      "refutation": "f8f4",
+      "line": [
+       "c1b1",
+       "f8f4",
+       "h4g5",
+       "f4g4",
+       "g5h6",
+       "g6b1",
+       "h6h5",
+       "g4d4"
+      ],
+      "accepted": false,
+      "missing_condition": "defence f8f4 holds; deficit 691cp"
+     },
+     {
+      "move": "c1c2",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -1152,
+      "refutation": "f8f4",
+      "line": [
+       "c1c2",
+       "f8f4",
+       "h4g3",
+       "f4g4",
+       "g3f2",
+       "g6c2",
+       "f2e3",
+       "h5h4"
+      ],
+      "accepted": false,
+      "missing_condition": "defence f8f4 holds; deficit 684cp"
+     },
+     {
+      "move": "c1c6",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -1259,
+      "refutation": "f8f4",
+      "line": [
+       "c1c6",
+       "f8f4",
+       "h4g5",
+       "f4g4",
+       "g5f6",
+       "b7c6",
+       "a2a4",
+       "g6e8"
+      ],
+      "accepted": false,
+      "missing_condition": "defence f8f4 holds; deficit 791cp"
+     },
+     {
+      "move": "c1c8",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -1092,
+      "refutation": "f8f4",
+      "line": [
+       "c1c8",
+       "f8f4",
+       "h4g5",
+       "f4g4",
+       "g5f6",
+       "d7c8",
+       "f6e6",
+       "g4d4"
+      ],
+      "accepted": false,
+      "missing_condition": "defence f8f4 holds; deficit 624cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "005f3",
+   "kind": "positive",
+   "theme": "sacrifice",
+   "rating": 2080,
+   "sf_best_d16": "g3g6",
+   "sf_best_score": 467,
+   "Tactical": {
+    "move": "g3g6",
+    "elapsed": 1.389,
+    "sf_score": 474,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true
+   },
+   "Creative": {
+    "move": "c3c7",
+    "elapsed": 1.771,
+    "sf_score": -219,
+    "cp_loss": 686,
+    "sf_equivalent": false,
+    "strict_solved": false,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "c3g7",
+      "tags": [
+       "sacrifice",
+       "check",
+       "king_zone"
+      ],
+      "verified": -223,
+      "refutation": "g8g7",
+      "line": [
+       "c3g7",
+       "g8g7"
+      ],
+      "accepted": false,
+      "missing_condition": "defence g8g7 holds; deficit 84cp"
+     },
+     {
+      "move": "c3h8",
+      "tags": [
+       "sacrifice",
+       "check",
+       "king_zone"
+      ],
+      "verified": -1230,
+      "refutation": "h5h8",
+      "line": [
+       "c3h8",
+       "h5h8",
+       "a2a3",
+       "h8h2",
+       "b2b4",
+       "e7e5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence h5h8 holds; deficit 1091cp"
+     },
+     {
+      "move": "g3g6",
+      "tags": [
+       "sacrifice",
+       "check"
+      ],
+      "verified": -481,
+      "refutation": "f7g6",
+      "line": [
+       "g3g6",
+       "f7g6",
+       "g1g6",
+       "g8f8",
+       "c3g7",
+       "f8e8",
+       "g7g8",
+       "e8d7"
+      ],
+      "accepted": false,
+      "missing_condition": "defence f7g6 holds; deficit 342cp"
+     },
+     {
+      "move": "c3f6",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -1223,
+      "refutation": "e7f6",
+      "line": [
+       "c3f6",
+       "e7f6",
+       "g3e3",
+       "a8d8",
+       "g1d1",
+       "h5h2"
+      ],
+      "accepted": false,
+      "missing_condition": "defence e7f6 holds; deficit 1084cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "005f3-neg",
+   "kind": "negative",
+   "theme": "sacrifice-counterexample",
+   "rating": 2080,
+   "sf_best_d16": "g3g5",
+   "sf_best_score": -724,
+   "Tactical": {
+    "move": "b2b3",
+    "elapsed": 1.188,
+    "sf_score": -792,
+    "cp_loss": 68,
+    "sf_equivalent": false,
+    "false_sacrifice": false
+   },
+   "Creative": {
+    "move": "b2b3",
+    "elapsed": 1.633,
+    "sf_score": -806,
+    "cp_loss": 82,
+    "sf_equivalent": false,
+    "false_sacrifice": false,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "g3g6",
+      "tags": [
+       "sacrifice",
+       "check"
+      ],
+      "verified": -1617,
+      "refutation": "f7g6",
+      "line": [
+       "g3g6",
+       "f7g6",
+       "g1g6",
+       "g8f8",
+       "g6g1",
+       "b5d3",
+       "b1a1",
+       "c7c5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence f7g6 holds; deficit 383cp"
+     },
+     {
+      "move": "g3h3",
+      "tags": [
+       "sacrifice",
+       "quiet"
+      ],
+      "verified": -1870,
+      "refutation": "h5h3",
+      "line": [
+       "g3h3",
+       "h5h3",
+       "g1d1",
+       "h3d3",
+       "d1h1",
+       "d3d2",
+       "b2b3"
+      ],
+      "accepted": false,
+      "missing_condition": "defence h5h3 holds; deficit 636cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "005ws",
+   "kind": "positive",
+   "theme": "quietMove",
+   "rating": 2487,
+   "sf_best_d16": "g6g5",
+   "sf_best_score": 421,
+   "Tactical": {
+    "move": "g6g5",
+    "elapsed": 2.001,
+    "sf_score": 417,
+    "cp_loss": 4,
+    "sf_equivalent": true,
+    "strict_solved": true
+   },
+   "Creative": {
+    "move": "g6g5",
+    "elapsed": 1.684,
+    "sf_score": 453,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "f6f5",
+      "tags": [
+       "king_zone",
+       "quiet",
+       "break"
+      ],
+      "verified": -124,
+      "refutation": "e6f6",
+      "line": [
+       "f6f5",
+       "e6f6",
+       "g4h4",
+       "f6g6",
+       "h4g4",
+       "d4f5",
+       "h5h4",
+       "f5e3"
+      ],
+      "accepted": false,
+      "missing_condition": "defence e6f6 holds; deficit 120cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "005wy",
+   "kind": "positive",
+   "theme": "sacrifice",
+   "rating": 1918,
+   "sf_best_d16": "c6b4",
+   "sf_best_score": 99997,
+   "Tactical": {
+    "move": "c6b4",
+    "elapsed": 1.396,
+    "sf_score": 99997,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true
+   },
+   "Creative": {
+    "move": "c6b4",
+    "elapsed": 0.68,
+    "sf_score": 99997,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true,
+    "source": "search",
+    "candidates": [],
+    "witness": null
+   }
+  },
+  {
+   "id": "005wy-neg",
+   "kind": "negative",
+   "theme": "sacrifice-counterexample",
+   "rating": 1918,
+   "sf_best_d16": "e7f8",
+   "sf_best_score": -788,
+   "Tactical": {
+    "move": "e7f8",
+    "elapsed": 1.239,
+    "sf_score": -838,
+    "cp_loss": 50,
+    "sf_equivalent": false,
+    "false_sacrifice": false
+   },
+   "Creative": {
+    "move": "e7f8",
+    "elapsed": 1.677,
+    "sf_score": -843,
+    "cp_loss": 55,
+    "sf_equivalent": false,
+    "false_sacrifice": false,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "c6d4",
+      "tags": [
+       "sacrifice",
+       "quiet"
+      ],
+      "verified": -1544,
+      "refutation": "c3d4",
+      "line": [
+       "c6d4",
+       "c3d4",
+       "e7f8",
+       "c1b1",
+       "b7b5",
+       "b2b4"
+      ],
+      "accepted": false,
+      "missing_condition": "defence c3d4 holds; deficit 301cp"
+     },
+     {
+      "move": "c6b4",
+      "tags": [
+       "sacrifice",
+       "quiet"
+      ],
+      "verified": -1529,
+      "refutation": "c3b4",
+      "line": [
+       "c6b4",
+       "c3b4",
+       "e7f8",
+       "a2a4",
+       "b8c8",
+       "c1b1",
+       "e6e5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence c3b4 holds; deficit 286cp"
+     },
+     {
+      "move": "g6f4",
+      "tags": [
+       "sacrifice"
+      ],
+      "verified": -1426,
+      "refutation": "e3f4",
+      "line": [
+       "g6f4",
+       "e3f4",
+       "g7g6",
+       "a2a4",
+       "a7a5",
+       "h7g7"
+      ],
+      "accepted": false,
+      "missing_condition": "defence e3f4 holds; deficit 183cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "006wz",
+   "kind": "positive",
+   "theme": "sacrifice",
+   "rating": 1426,
+   "sf_best_d16": "b1b2",
+   "sf_best_score": 486,
+   "Tactical": {
+    "move": "b1b2",
+    "elapsed": 1.298,
+    "sf_score": 488,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true
+   },
+   "Creative": {
+    "move": "b1b2",
+    "elapsed": 1.675,
+    "sf_score": 466,
+    "cp_loss": 20,
+    "sf_equivalent": true,
+    "strict_solved": true,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "e3h6",
+      "tags": [
+       "sacrifice",
+       "check",
+       "king_zone"
+      ],
+      "verified": -435,
+      "refutation": "g7h6",
+      "line": [
+       "e3h6",
+       "g7h6",
+       "h2h4",
+       "b2a3",
+       "b1b3",
+       "a3b2"
+      ],
+      "accepted": false,
+      "missing_condition": "defence g7h6 holds; deficit 758cp"
+     },
+     {
+      "move": "d1d8",
+      "tags": [
+       "sacrifice",
+       "quiet"
+      ],
+      "verified": -570,
+      "refutation": "c8d8",
+      "line": [
+       "d1d8",
+       "c8d8",
+       "e3c5",
+       "b2a3",
+       "c5e7",
+       "d8d2"
+      ],
+      "accepted": false,
+      "missing_condition": "defence c8d8 holds; deficit 893cp"
+     },
+     {
+      "move": "d1d6",
+      "tags": [
+       "sacrifice",
+       "quiet"
+      ],
+      "verified": -655,
+      "refutation": "e7d6",
+      "line": [
+       "d1d6",
+       "e7d6",
+       "h2h4",
+       "b2a3",
+       "g2g4",
+       "d6d5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence e7d6 holds; deficit 978cp"
+     },
+     {
+      "move": "d1d4",
+      "tags": [
+       "sacrifice",
+       "quiet"
+      ],
+      "verified": -220,
+      "refutation": "b2d4",
+      "line": [
+       "d1d4",
+       "b2d4",
+       "e3d4",
+       "f7f6",
+       "f2f4",
+       "c2d2",
+       "d4c5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence b2d4 holds; deficit 543cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "006wz-neg",
+   "kind": "negative",
+   "theme": "sacrifice-counterexample",
+   "rating": 1426,
+   "sf_best_d16": "h2h3",
+   "sf_best_score": -536,
+   "Tactical": {
+    "move": "e3c5",
+    "elapsed": 1.583,
+    "sf_score": -623,
+    "cp_loss": 87,
+    "sf_equivalent": false,
+    "false_sacrifice": false
+   },
+   "Creative": {
+    "move": "h2h4",
+    "elapsed": 1.811,
+    "sf_score": -588,
+    "cp_loss": 52,
+    "sf_equivalent": false,
+    "false_sacrifice": false,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "e3h6",
+      "tags": [
+       "sacrifice",
+       "check",
+       "king_zone"
+      ],
+      "verified": -995,
+      "refutation": "g7h6",
+      "line": [
+       "e3h6",
+       "g7h6",
+       "f2f4",
+       "c2c1",
+       "b1c1",
+       "c8c1",
+       "g1f2",
+       "b2a3"
+      ],
+      "accepted": false,
+      "missing_condition": "defence g7h6 holds; deficit 342cp"
+     },
+     {
+      "move": "e3d4",
+      "tags": [
+       "sacrifice",
+       "check",
+       "king_zone"
+      ],
+      "verified": -1025,
+      "refutation": "b2d4",
+      "line": [
+       "e3d4",
+       "b2d4",
+       "g2g4",
+       "d4f2",
+       "g1h1",
+       "e7e5",
+       "b1d1",
+       "e5e4"
+      ],
+      "accepted": false,
+      "missing_condition": "defence b2d4 holds; deficit 372cp"
+     },
+     {
+      "move": "e3d2",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -992,
+      "refutation": "c2d2",
+      "line": [
+       "e3d2",
+       "c2d2",
+       "h2h4",
+       "h7h5",
+       "f2f4",
+       "b2a3",
+       "g2g3"
+      ],
+      "accepted": false,
+      "missing_condition": "defence c2d2 holds; deficit 339cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "0078T",
+   "kind": "positive",
+   "theme": "sacrifice",
+   "rating": 2248,
+   "sf_best_d16": "f7b7",
+   "sf_best_score": 311,
+   "Tactical": {
+    "move": "f7f6",
+    "elapsed": 2.018,
+    "sf_score": -112,
+    "cp_loss": 423,
+    "sf_equivalent": false,
+    "strict_solved": false
+   },
+   "Creative": {
+    "move": "f7f6",
+    "elapsed": 1.737,
+    "sf_score": -108,
+    "cp_loss": 419,
+    "sf_equivalent": false,
+    "strict_solved": false,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "f7g7",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -709,
+      "refutation": "h6g7",
+      "line": [
+       "f7g7",
+       "h6g7",
+       "h4f6",
+       "h8f8",
+       "b2b4",
+       "b7d5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence h6g7 holds; deficit 600cp"
+     },
+     {
+      "move": "f7c7",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -667,
+      "refutation": "b8c7",
+      "line": [
+       "f7c7",
+       "b8c7",
+       "f1f7",
+       "c7b8",
+       "a4b3",
+       "b7c8"
+      ],
+      "accepted": false,
+      "missing_condition": "defence b8c7 holds; deficit 558cp"
+     },
+     {
+      "move": "f7b7",
+      "tags": [
+       "sacrifice",
+       "check"
+      ],
+      "verified": -319,
+      "refutation": "b8b7",
+      "line": [
+       "f7b7",
+       "b8b7",
+       "f1f7",
+       "b7b8",
+       "a4b3",
+       "h8f8",
+       "f7e6"
+      ],
+      "accepted": false,
+      "missing_condition": "defence b8b7 holds; deficit 210cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "007en",
+   "kind": "positive",
+   "theme": "sacrifice",
+   "rating": 1766,
+   "sf_best_d16": "c5c2",
+   "sf_best_score": 99997,
+   "Tactical": {
+    "move": "c5c2",
+    "elapsed": 1.365,
+    "sf_score": 99997,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true
+   },
+   "Creative": {
+    "move": "c5c2",
+    "elapsed": 0.741,
+    "sf_score": 99997,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true,
+    "source": "search",
+    "candidates": [],
+    "witness": null
+   }
+  },
+  {
+   "id": "007en-neg",
+   "kind": "negative",
+   "theme": "sacrifice-counterexample",
+   "rating": 1766,
+   "sf_best_d16": "c5d4",
+   "sf_best_score": -651,
+   "Tactical": {
+    "move": "c5d4",
+    "elapsed": 1.19,
+    "sf_score": -683,
+    "cp_loss": 32,
+    "sf_equivalent": false,
+    "false_sacrifice": false
+   },
+   "Creative": {
+    "move": "c5d4",
+    "elapsed": 1.44,
+    "sf_score": -683,
+    "cp_loss": 32,
+    "sf_equivalent": false,
+    "false_sacrifice": false,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "c5c1",
+      "tags": [
+       "sacrifice",
+       "check",
+       "king_zone"
+      ],
+      "verified": -2035,
+      "refutation": "d1c1",
+      "line": [
+       "c5c1",
+       "d1c1",
+       "e7e5",
+       "d4d6",
+       "f8c8",
+       "e2g4"
+      ],
+      "accepted": false,
+      "missing_condition": "defence d1c1 holds; deficit 1363cp"
+     },
+     {
+      "move": "c5f5",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -99999,
+      "refutation": "d4g7",
+      "line": [
+       "c5f5",
+       "d4g7"
+      ],
+      "accepted": false,
+      "missing_condition": "defence d4g7 holds; deficit 99327cp"
+     },
+     {
+      "move": "c5b5",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -99999,
+      "refutation": "d4g7",
+      "line": [
+       "c5b5",
+       "d4g7"
+      ],
+      "accepted": false,
+      "missing_condition": "defence d4g7 holds; deficit 99327cp"
+     },
+     {
+      "move": "c5c4",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -99999,
+      "refutation": "d4g7",
+      "line": [
+       "c5c4",
+       "d4g7"
+      ],
+      "accepted": false,
+      "missing_condition": "defence d4g7 holds; deficit 99327cp"
+     },
+     {
+      "move": "c5c3",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -2065,
+      "refutation": "d4c3",
+      "line": [
+       "c5c3",
+       "d4c3",
+       "e7e5",
+       "e2g4",
+       "g6h5",
+       "h6f8"
+      ],
+      "accepted": false,
+      "missing_condition": "defence d4c3 holds; deficit 1393cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "008LT",
+   "kind": "positive",
+   "theme": "sacrifice",
+   "rating": 2240,
+   "sf_best_d16": "h6f7",
+   "sf_best_score": 498,
+   "Tactical": {
+    "move": "h6f7",
+    "elapsed": 1.341,
+    "sf_score": 483,
+    "cp_loss": 15,
+    "sf_equivalent": true,
+    "strict_solved": true
+   },
+   "Creative": {
+    "move": "h3e6",
+    "elapsed": 1.71,
+    "sf_score": -218,
+    "cp_loss": 716,
+    "sf_equivalent": false,
+    "strict_solved": false,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "h6f7",
+      "tags": [
+       "sacrifice",
+       "check",
+       "king_zone"
+      ],
+      "verified": -96,
+      "refutation": "f8f7",
+      "line": [
+       "h6f7",
+       "f8f7",
+       "h3e6",
+       "a8f8",
+       "e6f7"
+      ],
+      "accepted": false,
+      "missing_condition": "defence f8f7 holds; deficit -136cp"
+     },
+     {
+      "move": "h6g8",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -519,
+      "refutation": "g6f4",
+      "line": [
+       "h6g8",
+       "g6f4",
+       "g2g1",
+       "f4h3",
+       "h1h3",
+       "f8f3",
+       "h3h4",
+       "h8g8"
+      ],
+      "accepted": false,
+      "missing_condition": "defence g6f4 holds; deficit 287cp"
+     },
+     {
+      "move": "h3f5",
+      "tags": [
+       "sacrifice",
+       "quiet"
+      ],
+      "verified": -500,
+      "refutation": "e6f5",
+      "line": [
+       "h3f5",
+       "e6f5",
+       "g2g1",
+       "g7h6",
+       "h1h4"
+      ],
+      "accepted": false,
+      "missing_condition": "defence e6f5 holds; deficit 268cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "008LT-neg",
+   "kind": "negative",
+   "theme": "sacrifice-counterexample",
+   "rating": 2240,
+   "sf_best_d16": "h6g4",
+   "sf_best_score": -696,
+   "Tactical": {
+    "move": "h6f7",
+    "elapsed": 1.338,
+    "sf_score": -818,
+    "cp_loss": 122,
+    "sf_equivalent": false,
+    "false_sacrifice": true
+   },
+   "Creative": {
+    "move": "h6g4",
+    "elapsed": 1.78,
+    "sf_score": -658,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "false_sacrifice": false,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "h6f7",
+      "tags": [
+       "sacrifice",
+       "check",
+       "king_zone"
+      ],
+      "verified": -926,
+      "refutation": "f8f7",
+      "line": [
+       "h6f7",
+       "f8f7",
+       "h3e6",
+       "g6f4",
+       "g2g1",
+       "f7f8",
+       "e6g4"
+      ],
+      "accepted": false,
+      "missing_condition": "defence f8f7 holds; deficit 87cp"
+     },
+     {
+      "move": "h6g8",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -1290,
+      "refutation": "g6f4",
+      "line": [
+       "h6g8",
+       "g6f4",
+       "g2f1",
+       "h4h3",
+       "f3h3",
+       "f4h3",
+       "g8e7",
+       "f8f2"
+      ],
+      "accepted": false,
+      "missing_condition": "defence g6f4 holds; deficit 451cp"
+     },
+     {
+      "move": "h3f5",
+      "tags": [
+       "sacrifice",
+       "quiet"
+      ],
+      "verified": -1250,
+      "refutation": "g6f4",
+      "line": [
+       "h3f5",
+       "g6f4",
+       "g2g1",
+       "e6f5",
+       "h6f5",
+       "f8f5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence g6f4 holds; deficit 411cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "00A5m",
+   "kind": "positive",
+   "theme": "quietMove",
+   "rating": 1980,
+   "sf_best_d16": "d3f5",
+   "sf_best_score": 210,
+   "Tactical": {
+    "move": "d3f5",
+    "elapsed": 1.234,
+    "sf_score": 290,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true
+   },
+   "Creative": {
+    "move": "d3f5",
+    "elapsed": 1.811,
+    "sf_score": 347,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "d3e2",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -401,
+      "refutation": "d2e2",
+      "line": [
+       "d3e2",
+       "d2e2",
+       "c4c5",
+       "e5c3",
+       "c5c4",
+       "c3d2",
+       "c4c5",
+       "d2e3"
+      ],
+      "accepted": false,
+      "missing_condition": "defence d2e2 holds; deficit 571cp"
+     },
+     {
+      "move": "d3c2",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -580,
+      "refutation": "d2c2",
+      "line": [
+       "d3c2",
+       "d2c2",
+       "c4c5",
+       "c2c3",
+       "c5b6",
+       "c3b4",
+       "b6b7",
+       "b4b5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence d2c2 holds; deficit 750cp"
+     },
+     {
+      "move": "d3h7",
+      "tags": [
+       "king_zone",
+       "quiet"
+      ],
+      "verified": 52,
+      "refutation": "e5c3",
+      "line": [
+       "d3h7",
+       "e5c3",
+       "h7f5",
+       "c3e5",
+       "f5c8",
+       "c6c5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence e5c3 holds; deficit 118cp"
+     },
+     {
+      "move": "d3g6",
+      "tags": [
+       "king_zone",
+       "quiet"
+      ],
+      "verified": 52,
+      "refutation": "e5c3",
+      "line": [
+       "d3g6",
+       "e5c3",
+       "g6f5",
+       "c3e5",
+       "f5c8",
+       "c6c5",
+       "c4c5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence e5c3 holds; deficit 118cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "00Bg0",
+   "kind": "positive",
+   "theme": "quietMove",
+   "rating": 1653,
+   "sf_best_d16": "f4f5",
+   "sf_best_score": 720,
+   "Tactical": {
+    "move": "f4f5",
+    "elapsed": 1.153,
+    "sf_score": 3581,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true
+   },
+   "Creative": {
+    "move": "f4f5",
+    "elapsed": 1.885,
+    "sf_score": 3578,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "f4g4",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -720,
+      "refutation": "f3g4",
+      "line": [
+       "f4g4",
+       "f3g4",
+       "d7d6",
+       "f5a5",
+       "d6c7",
+       "g4g5",
+       "c7b6",
+       "a5a8"
+      ],
+      "accepted": false,
+      "missing_condition": "defence f3g4 holds; deficit 879cp"
+     },
+     {
+      "move": "f4e4",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -721,
+      "refutation": "f3e4",
+      "line": [
+       "f4e4",
+       "f3e4",
+       "d7d6",
+       "f5a5",
+       "d6c6",
+       "e4e5",
+       "c6b6",
+       "a5d5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence f3e4 holds; deficit 880cp"
+     },
+     {
+      "move": "f4f3",
+      "tags": [
+       "sacrifice"
+      ],
+      "verified": -544,
+      "refutation": "f5f3",
+      "line": [
+       "f4f3",
+       "f5f3",
+       "d7d6",
+       "f3a3",
+       "a5a4",
+       "a3a4",
+       "d6d5",
+       "a4a5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence f5f3 holds; deficit 703cp"
+     },
+     {
+      "move": "f4h4",
+      "tags": [
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -164,
+      "refutation": "f6e5",
+      "line": [
+       "f4h4",
+       "f6e5",
+       "d7c6",
+       "f5f6",
+       "h4h5",
+       "e5e4",
+       "a5a4"
+      ],
+      "accepted": false,
+      "missing_condition": "defence f6e5 holds; deficit 323cp"
+     },
+     {
+      "move": "f4d4",
+      "tags": [
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -126,
+      "refutation": "f5a5",
+      "line": [
+       "f4d4",
+       "f5a5",
+       "d7d6",
+       "f6f5",
+       "d4d2",
+       "f3f4"
+      ],
+      "accepted": false,
+      "missing_condition": "defence f5a5 holds; deficit 285cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "00CXr",
+   "kind": "positive",
+   "theme": "sacrifice",
+   "rating": 1960,
+   "sf_best_d16": "a5d5",
+   "sf_best_score": 233,
+   "Tactical": {
+    "move": "a5d5",
+    "elapsed": 1.486,
+    "sf_score": 237,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true
+   },
+   "Creative": {
+    "move": "a5d5",
+    "elapsed": 1.876,
+    "sf_score": 275,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "a5b6",
+      "tags": [
+       "sacrifice",
+       "check"
+      ],
+      "verified": -1111,
+      "refutation": "a7b6",
+      "line": [
+       "a5b6",
+       "a7b6",
+       "f7d5",
+       "d4f3",
+       "g2f3",
+       "g7d4",
+       "g1h1",
+       "a8c8"
+      ],
+      "accepted": false,
+      "missing_condition": "defence a7b6 holds; deficit 988cp"
+     },
+     {
+      "move": "f7e6",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -1207,
+      "refutation": "d4f3",
+      "line": [
+       "f7e6",
+       "d4f3",
+       "g2f3",
+       "g7d4",
+       "g1h1",
+       "b6a5",
+       "e6d5",
+       "a8c8"
+      ],
+      "accepted": false,
+      "missing_condition": "defence d4f3 holds; deficit 1084cp"
+     },
+     {
+      "move": "f7b3",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -1198,
+      "refutation": "d4f3",
+      "line": [
+       "f7b3",
+       "d4f3",
+       "g2f3",
+       "b6a5",
+       "b3d5",
+       "g7d4",
+       "g1h1",
+       "a8c8"
+      ],
+      "accepted": false,
+      "missing_condition": "defence d4f3 holds; deficit 1075cp"
+     },
+     {
+      "move": "f7e8",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -1204,
+      "refutation": "d4f3",
+      "line": [
+       "f7e8",
+       "d4f3",
+       "g2f3",
+       "b6a5",
+       "e8c6",
+       "g7d4",
+       "g1h1",
+       "a8c8"
+      ],
+      "accepted": false,
+      "missing_condition": "defence d4f3 holds; deficit 1081cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "00Cwz",
+   "kind": "positive",
+   "theme": "sacrifice",
+   "rating": 1461,
+   "sf_best_d16": "b8b1",
+   "sf_best_score": 99998,
+   "Tactical": {
+    "move": "b8b1",
+    "elapsed": 0.048,
+    "sf_score": 99998,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true
+   },
+   "Creative": {
+    "move": "b8b1",
+    "elapsed": 0.048,
+    "sf_score": 99998,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true,
+    "source": "search",
+    "candidates": [],
+    "witness": null
+   }
+  },
+  {
+   "id": "00Cwz-neg",
+   "kind": "negative",
+   "theme": "sacrifice-counterexample",
+   "rating": 1461,
+   "sf_best_d16": "e6e5",
+   "sf_best_score": -622,
+   "Tactical": {
+    "move": "f7f6",
+    "elapsed": 2.002,
+    "sf_score": -670,
+    "cp_loss": 48,
+    "sf_equivalent": false,
+    "false_sacrifice": false
+   },
+   "Creative": {
+    "move": "f7f6",
+    "elapsed": 1.854,
+    "sf_score": -656,
+    "cp_loss": 34,
+    "sf_equivalent": false,
+    "false_sacrifice": false,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "b8b1",
+      "tags": [
+       "sacrifice",
+       "check",
+       "king_zone"
+      ],
+      "verified": -1192,
+      "refutation": "c1b1",
+      "line": [
+       "b8b1",
+       "c1b1",
+       "f7f5",
+       "b1b7",
+       "g7f8",
+       "b7b8",
+       "f8g7",
+       "h5h6"
+      ],
+      "accepted": false,
+      "missing_condition": "defence c1b1 holds; deficit 568cp"
+     },
+     {
+      "move": "c4e5",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -916,
+      "refutation": "d4e5",
+      "line": [
+       "c4e5",
+       "d4e5",
+       "g7g8",
+       "h5h6",
+       "h8h7",
+       "c1b1"
+      ],
+      "accepted": false,
+      "missing_condition": "defence d4e5 holds; deficit 292cp"
+     },
+     {
+      "move": "b8b6",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -926,
+      "refutation": "e2c4",
+      "line": [
+       "b8b6",
+       "e2c4",
+       "b6b8",
+       "c4d3",
+       "g7f8",
+       "h5h6"
+      ],
+      "accepted": false,
+      "missing_condition": "defence e2c4 holds; deficit 302cp"
+     },
+     {
+      "move": "b8b2",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -1165,
+      "refutation": "a4b2",
+      "line": [
+       "b8b2",
+       "a4b2",
+       "c4b2",
+       "a1b2",
+       "h8b8",
+       "b2c2",
+       "f7f6"
+      ],
+      "accepted": false,
+      "missing_condition": "defence a4b2 holds; deficit 541cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "00E4Z",
+   "kind": "positive",
+   "theme": "quietMove",
+   "rating": 2290,
+   "sf_best_d16": "d5d6",
+   "sf_best_score": 370,
+   "Tactical": {
+    "move": "d5d6",
+    "elapsed": 1.723,
+    "sf_score": 378,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true
+   },
+   "Creative": {
+    "move": "d5a5",
+    "elapsed": 1.737,
+    "sf_score": -586,
+    "cp_loss": 956,
+    "sf_equivalent": false,
+    "strict_solved": false,
+    "source": "artist",
+    "candidates": [
+     {
+      "move": "d5a5",
+      "tags": [
+       "sacrifice",
+       "check",
+       "king_zone"
+      ],
+      "verified": 72,
+      "refutation": "a4a5",
+      "line": [
+       "d5a5",
+       "a4a5"
+      ],
+      "accepted": true
+     },
+     {
+      "move": "d5d4",
+      "tags": [
+       "sacrifice",
+       "check",
+       "king_zone"
+      ],
+      "verified": -530,
+      "refutation": "e3d4",
+      "line": [
+       "d5d4",
+       "e3d4",
+       "e5d4",
+       "c3d4",
+       "b8b6",
+       "d2d3",
+       "b6b2"
+      ],
+      "accepted": false,
+      "missing_condition": "defence e3d4 holds; deficit 587cp"
+     },
+     {
+      "move": "b8b4",
+      "tags": [
+       "sacrifice",
+       "check",
+       "king_zone"
+      ],
+      "verified": -541,
+      "refutation": "a4b4",
+      "line": [
+       "b8b4",
+       "a4b4",
+       "e5h2",
+       "b4c4",
+       "d5d8",
+       "d2d3"
+      ],
+      "accepted": false,
+      "missing_condition": "defence a4b4 holds; deficit 598cp"
+     },
+     {
+      "move": "b8b6",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -226,
+      "refutation": "e3b6",
+      "line": [
+       "b8b6",
+       "e3b6",
+       "a7b6",
+       "d2d3",
+       "d5a5",
+       "a4b3",
+       "e5h2"
+      ],
+      "accepted": false,
+      "missing_condition": "defence e3b6 holds; deficit 283cp"
+     },
+     {
+      "move": "d5c5",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -525,
+      "refutation": "e3c5",
+      "line": [
+       "d5c5",
+       "e3c5",
+       "a7a5",
+       "d2d3",
+       "b8b2",
+       "a4a5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence e3c5 holds; deficit 582cp"
+     }
+    ],
+    "witness": {
+     "move": "d5a5",
+     "goal": "material-for-initiative conversion",
+     "tags": [
+      "sacrifice",
+      "check",
+      "king_zone"
+     ],
+     "expected_line": [
+      "d5a5",
+      "a4a5"
+     ],
+     "prerequisites": [],
+     "verified_score": 72,
+     "refutation": "a4a5",
+     "created_ply": 0,
+     "status": "ACTIVE",
+     "history": []
+    }
+   }
+  },
+  {
+   "id": "00FGc",
+   "kind": "positive",
+   "theme": "sacrifice",
+   "rating": 2438,
+   "sf_best_d16": "c4c3",
+   "sf_best_score": 256,
+   "Tactical": {
+    "move": "c4d4",
+    "elapsed": 1.86,
+    "sf_score": -60,
+    "cp_loss": 316,
+    "sf_equivalent": false,
+    "strict_solved": false
+   },
+   "Creative": {
+    "move": "h6h5",
+    "elapsed": 1.87,
+    "sf_score": -112,
+    "cp_loss": 368,
+    "sf_equivalent": false,
+    "strict_solved": false,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "b8b3",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -610,
+      "refutation": "c2b3",
+      "line": [
+       "b8b3",
+       "c2b3",
+       "a4b3",
+       "a2b3",
+       "c4d4",
+       "b3a2"
+      ],
+      "accepted": false,
+      "missing_condition": "defence c2b3 holds; deficit 531cp"
+     },
+     {
+      "move": "b8b2",
+      "tags": [
+       "sacrifice",
+       "check"
+      ],
+      "verified": -147,
+      "refutation": "a2b2",
+      "line": [
+       "b8b2",
+       "a2b2",
+       "c4c3",
+       "e5e8",
+       "g8h7",
+       "h2h4",
+       "c3g3"
+      ],
+      "accepted": false,
+      "missing_condition": "defence a2b2 holds; deficit 68cp"
+     },
+     {
+      "move": "b8b5",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -595,
+      "refutation": "e5b5",
+      "line": [
+       "b8b5",
+       "e5b5",
+       "c6c8",
+       "a2b1",
+       "f7f5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence e5b5 holds; deficit 516cp"
+     },
+     {
+      "move": "b8b4",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -516,
+      "refutation": "e5e8",
+      "line": [
+       "b8b4",
+       "e5e8",
+       "g8g7",
+       "a3b4",
+       "c4b4",
+       "e2e7",
+       "b4b7"
+      ],
+      "accepted": false,
+      "missing_condition": "defence e5e8 holds; deficit 437cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "00GVf",
+   "kind": "positive",
+   "theme": "sacrifice",
+   "rating": 1497,
+   "sf_best_d16": "h1h8",
+   "sf_best_score": 497,
+   "Tactical": {
+    "move": "h1h8",
+    "elapsed": 1.15,
+    "sf_score": 494,
+    "cp_loss": 3,
+    "sf_equivalent": true,
+    "strict_solved": true
+   },
+   "Creative": {
+    "move": "h1h8",
+    "elapsed": 0.969,
+    "sf_score": 514,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true,
+    "source": "artist",
+    "candidates": [
+     {
+      "move": "e2e8",
+      "tags": [
+       "sacrifice",
+       "check",
+       "king_zone"
+      ],
+      "verified": -345,
+      "refutation": "d7e8",
+      "line": [
+       "e2e8",
+       "d7e8"
+      ],
+      "accepted": false,
+      "missing_condition": "defence d7e8 holds; deficit -20cp"
+     },
+     {
+      "move": "e2g4",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -99999,
+      "refutation": "g7b2",
+      "line": [
+       "e2g4",
+       "g7b2"
+      ],
+      "accepted": false,
+      "missing_condition": "defence g7b2 holds; deficit 99634cp"
+     },
+     {
+      "move": "e2e4",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -99999,
+      "refutation": "g7b2",
+      "line": [
+       "e2e4",
+       "g7b2"
+      ],
+      "accepted": false,
+      "missing_condition": "defence g7b2 holds; deficit 99634cp"
+     },
+     {
+      "move": "e2c4",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -99999,
+      "refutation": "g7b2",
+      "line": [
+       "e2c4",
+       "g7b2"
+      ],
+      "accepted": false,
+      "missing_condition": "defence g7b2 holds; deficit 99634cp"
+     },
+     {
+      "move": "h1h8",
+      "tags": [
+       "sacrifice",
+       "check"
+      ],
+      "verified": 101,
+      "refutation": "g7h8",
+      "line": [
+       "h1h8",
+       "g7h8",
+       "e2e7",
+       "f8g8",
+       "e7d8",
+       "g8g7",
+       "e1e7",
+       "g7h6"
+      ],
+      "accepted": true
+     }
+    ],
+    "witness": {
+     "move": "h1h8",
+     "goal": "material-for-initiative conversion",
+     "tags": [
+      "sacrifice",
+      "check"
+     ],
+     "expected_line": [
+      "h1h8",
+      "g7h8",
+      "e2e7",
+      "f8g8",
+      "e7d8",
+      "g8g7",
+      "e1e7",
+      "g7h6"
+     ],
+     "prerequisites": [
+      [
+       "own_piece_on",
+       "e2",
+       "Q"
+      ],
+      [
+       "own_piece_on",
+       "e1",
+       "R"
+      ]
+     ],
+     "verified_score": 101,
+     "refutation": "g7h8",
+     "created_ply": 0,
+     "status": "ACTIVE",
+     "history": []
+    }
+   }
+  },
+  {
+   "id": "00GVf-neg",
+   "kind": "negative",
+   "theme": "sacrifice-counterexample",
+   "rating": 1497,
+   "sf_best_d16": "h1c1",
+   "sf_best_score": -706,
+   "Tactical": {
+    "move": "h1h4",
+    "elapsed": 2.008,
+    "sf_score": -749,
+    "cp_loss": 43,
+    "sf_equivalent": false,
+    "false_sacrifice": false
+   },
+   "Creative": {
+    "move": "h1h4",
+    "elapsed": 1.473,
+    "sf_score": -834,
+    "cp_loss": 128,
+    "sf_equivalent": false,
+    "false_sacrifice": false,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "e2e7",
+      "tags": [
+       "sacrifice",
+       "check",
+       "king_zone"
+      ],
+      "verified": -1904,
+      "refutation": "g7e7",
+      "line": [
+       "e2e7",
+       "g7e7",
+       "h1c1",
+       "e7e4",
+       "c1c2",
+       "b6d5",
+       "g2g3"
+      ],
+      "accepted": false,
+      "missing_condition": "defence g7e7 holds; deficit 995cp"
+     },
+     {
+      "move": "e2e8",
+      "tags": [
+       "sacrifice",
+       "check",
+       "king_zone"
+      ],
+      "verified": -2543,
+      "refutation": "d7e8",
+      "line": [
+       "e2e8",
+       "d7e8",
+       "b1c1",
+       "g7b2",
+       "c1d1",
+       "b2b1",
+       "d1d2",
+       "b1h1"
+      ],
+      "accepted": false,
+      "missing_condition": "defence d7e8 holds; deficit 1634cp"
+     },
+     {
+      "move": "h1h8",
+      "tags": [
+       "sacrifice",
+       "check"
+      ],
+      "verified": -1474,
+      "refutation": "g7h8",
+      "line": [
+       "h1h8",
+       "g7h8",
+       "b1c1",
+       "b6a4",
+       "b2b3",
+       "h8c3",
+       "e2c2"
+      ],
+      "accepted": false,
+      "missing_condition": "defence g7h8 holds; deficit 565cp"
+     },
+     {
+      "move": "e2h5",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -99999,
+      "refutation": "g7b2",
+      "line": [
+       "e2h5",
+       "g7b2"
+      ],
+      "accepted": false,
+      "missing_condition": "defence g7b2 holds; deficit 99090cp"
+     },
+     {
+      "move": "e2g4",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -99999,
+      "refutation": "g7b2",
+      "line": [
+       "e2g4",
+       "g7b2"
+      ],
+      "accepted": false,
+      "missing_condition": "defence g7b2 holds; deficit 99090cp"
+     },
+     {
+      "move": "e2f3",
+      "tags": [
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -99999,
+      "refutation": "g7b2",
+      "line": [
+       "e2f3",
+       "g7b2"
+      ],
+      "accepted": false,
+      "missing_condition": "defence g7b2 holds; deficit 99090cp"
+     },
+     {
+      "move": "e2e3",
+      "tags": [
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -99999,
+      "refutation": "g7b2",
+      "line": [
+       "e2e3",
+       "g7b2"
+      ],
+      "accepted": false,
+      "missing_condition": "defence g7b2 holds; deficit 99090cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "00H2L",
+   "kind": "positive",
+   "theme": "quietMove",
+   "rating": 2280,
+   "sf_best_d16": "c6c5",
+   "sf_best_score": 384,
+   "Tactical": {
+    "move": "c6c5",
+    "elapsed": 1.736,
+    "sf_score": 384,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true
+   },
+   "Creative": {
+    "move": "c6c5",
+    "elapsed": 0.692,
+    "sf_score": 384,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true,
+    "source": "search",
+    "candidates": [],
+    "witness": null
+   }
+  },
+  {
+   "id": "00H5n",
+   "kind": "positive",
+   "theme": "quietMove",
+   "rating": 2348,
+   "sf_best_d16": "b2b7",
+   "sf_best_score": 185,
+   "Tactical": {
+    "move": "b2b7",
+    "elapsed": 1.34,
+    "sf_score": 310,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true
+   },
+   "Creative": {
+    "move": "b2b7",
+    "elapsed": 1.73,
+    "sf_score": 357,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "f7g7",
+      "tags": [
+       "sacrifice",
+       "check"
+      ],
+      "verified": -557,
+      "refutation": "h7g7",
+      "line": [
+       "f7g7",
+       "h7g7",
+       "b2b7",
+       "c5c7",
+       "b7c7",
+       "c1c7",
+       "g2g4",
+       "e5e4"
+      ],
+      "accepted": false,
+      "missing_condition": "defence h7g7 holds; deficit 492cp"
+     },
+     {
+      "move": "f7c7",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -723,
+      "refutation": "c1h1",
+      "line": [
+       "f7c7",
+       "c1h1",
+       "h2g3",
+       "f2e4",
+       "g3g4",
+       "c5c7",
+       "g4f5",
+       "c7c4"
+      ],
+      "accepted": false,
+      "missing_condition": "defence c1h1 holds; deficit 658cp"
+     },
+     {
+      "move": "f7a7",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -701,
+      "refutation": "c1h1",
+      "line": [
+       "f7a7",
+       "c1h1",
+       "h2g3",
+       "f2e4",
+       "g3g4",
+       "c5a7",
+       "f3e5",
+       "d6e5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence c1h1 holds; deficit 636cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "00H87",
+   "kind": "positive",
+   "theme": "sacrifice",
+   "rating": 1887,
+   "sf_best_d16": "g4c8",
+   "sf_best_score": 496,
+   "Tactical": {
+    "move": "g4c8",
+    "elapsed": 1.383,
+    "sf_score": 507,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true
+   },
+   "Creative": {
+    "move": "g4c8",
+    "elapsed": 1.416,
+    "sf_score": 514,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "h6f8",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -99997,
+      "refutation": "b2g2",
+      "line": [
+       "h6f8",
+       "b2g2",
+       "g1h1",
+       "g3h2"
+      ],
+      "accepted": false,
+      "missing_condition": "defence b2g2 holds; deficit 100170cp"
+     },
+     {
+      "move": "h6g7",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -99997,
+      "refutation": "b2g2",
+      "line": [
+       "h6g7",
+       "b2g2",
+       "g1h1",
+       "g3h2"
+      ],
+      "accepted": false,
+      "missing_condition": "defence b2g2 holds; deficit 100170cp"
+     },
+     {
+      "move": "h6e3",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -99997,
+      "refutation": "b2g2",
+      "line": [
+       "h6e3",
+       "b2g2",
+       "g1h1",
+       "g3h2"
+      ],
+      "accepted": false,
+      "missing_condition": "defence b2g2 holds; deficit 100170cp"
+     },
+     {
+      "move": "h6d2",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -460,
+      "refutation": "b2d2",
+      "line": [
+       "h6d2",
+       "b2d2",
+       "g4f3",
+       "g3f3",
+       "f1f3",
+       "e7e5",
+       "g2g4"
+      ],
+      "accepted": false,
+      "missing_condition": "defence b2d2 holds; deficit 633cp"
+     },
+     {
+      "move": "f1f6",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -99993,
+      "refutation": "b2g2",
+      "line": [
+       "f1f6",
+       "b2g2",
+       "g1f1",
+       "g2g1",
+       "f1e2",
+       "g3e1",
+       "e2f3",
+       "e1f1"
+      ],
+      "accepted": false,
+      "missing_condition": "defence b2g2 holds; deficit 100166cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "00H87-neg",
+   "kind": "negative",
+   "theme": "sacrifice-counterexample",
+   "rating": 1887,
+   "sf_best_d16": "g4f3",
+   "sf_best_score": -577,
+   "Tactical": {
+    "move": "g4g3",
+    "elapsed": 1.815,
+    "sf_score": -591,
+    "cp_loss": 14,
+    "sf_equivalent": true,
+    "false_sacrifice": false
+   },
+   "Creative": {
+    "move": "g4f3",
+    "elapsed": 1.858,
+    "sf_score": -582,
+    "cp_loss": 5,
+    "sf_equivalent": true,
+    "false_sacrifice": false,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "g4g6",
+      "tags": [
+       "sacrifice",
+       "check"
+      ],
+      "verified": -99995,
+      "refutation": "f7g6",
+      "line": [
+       "g4g6",
+       "f7g6",
+       "f1f8",
+       "g8f8",
+       "g1f1",
+       "g3f2"
+      ],
+      "accepted": false,
+      "missing_condition": "defence f7g6 holds; deficit 99519cp"
+     },
+     {
+      "move": "f1f4",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -99995,
+      "refutation": "b2g2",
+      "line": [
+       "f1f4",
+       "b2g2",
+       "g1f1",
+       "g2g1",
+       "f1e2",
+       "g3e3"
+      ],
+      "accepted": false,
+      "missing_condition": "defence b2g2 holds; deficit 99519cp"
+     },
+     {
+      "move": "f1e1",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -99997,
+      "refutation": "b2g2",
+      "line": [
+       "f1e1",
+       "b2g2",
+       "g1h1",
+       "g3h2"
+      ],
+      "accepted": false,
+      "missing_condition": "defence b2g2 holds; deficit 99521cp"
+     },
+     {
+      "move": "f1f5",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -99995,
+      "refutation": "b2g2",
+      "line": [
+       "f1f5",
+       "b2g2",
+       "g1f1",
+       "g2g1",
+       "f1e2",
+       "g3e3"
+      ],
+      "accepted": false,
+      "missing_condition": "defence b2g2 holds; deficit 99519cp"
+     },
+     {
+      "move": "f1f6",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -99995,
+      "refutation": "b2g2",
+      "line": [
+       "f1f6",
+       "b2g2",
+       "g1f1",
+       "g2g1",
+       "f1e2",
+       "g3e3"
+      ],
+      "accepted": false,
+      "missing_condition": "defence b2g2 holds; deficit 99519cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "00HqY",
+   "kind": "positive",
+   "theme": "zugzwang",
+   "rating": 1775,
+   "sf_best_d16": "f3g2",
+   "sf_best_score": 535,
+   "Tactical": {
+    "move": "f3g2",
+    "elapsed": 1.566,
+    "sf_score": 573,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true
+   },
+   "Creative": {
+    "move": "f3g2",
+    "elapsed": 1.678,
+    "sf_score": 603,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "e4e5",
+      "tags": [
+       "quiet",
+       "break"
+      ],
+      "verified": -828,
+      "refutation": "h4h3",
+      "line": [
+       "e4e5",
+       "h4h3",
+       "e5e6",
+       "g3g2",
+       "f3f2",
+       "h3h2",
+       "f2e2",
+       "g2g1q"
+      ],
+      "accepted": false,
+      "missing_condition": "defence h4h3 holds; deficit 919cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "00IKw",
+   "kind": "positive",
+   "theme": "sacrifice",
+   "rating": 2491,
+   "sf_best_d16": "d8d7",
+   "sf_best_score": 374,
+   "Tactical": {
+    "move": "a7a6",
+    "elapsed": 2.021,
+    "sf_score": -365,
+    "cp_loss": 739,
+    "sf_equivalent": false,
+    "strict_solved": false
+   },
+   "Creative": {
+    "move": "a7a6",
+    "elapsed": 1.805,
+    "sf_score": -413,
+    "cp_loss": 787,
+    "sf_equivalent": false,
+    "strict_solved": false,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "h3f1",
+      "tags": [
+       "sacrifice",
+       "check",
+       "king_zone"
+      ],
+      "verified": -1120,
+      "refutation": "d1f1",
+      "line": [
+       "h3f1",
+       "d1f1",
+       "b7b6",
+       "c5c8",
+       "a7a5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence d1f1 holds; deficit 987cp"
+     },
+     {
+      "move": "h3g2",
+      "tags": [
+       "sacrifice",
+       "check",
+       "king_zone"
+      ],
+      "verified": -1250,
+      "refutation": "d2g2",
+      "line": [
+       "h3g2",
+       "d2g2",
+       "b7b5",
+       "c5c8",
+       "a7a5",
+       "c8d8",
+       "g8g7"
+      ],
+      "accepted": false,
+      "missing_condition": "defence d2g2 holds; deficit 1117cp"
+     },
+     {
+      "move": "h3h4",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -988,
+      "refutation": "g3h4",
+      "line": [
+       "h3h4",
+       "g3h4",
+       "h5h4",
+       "c5c8",
+       "h4g4",
+       "g1f1",
+       "g4f4",
+       "d2f4"
+      ],
+      "accepted": false,
+      "missing_condition": "defence g3h4 holds; deficit 855cp"
+     },
+     {
+      "move": "h3h2",
+      "tags": [
+       "sacrifice",
+       "check"
+      ],
+      "verified": -707,
+      "refutation": "d2h2",
+      "line": [
+       "h3h2",
+       "d2h2",
+       "h5h2",
+       "g1h2",
+       "g8f8",
+       "c5c7",
+       "b7b5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence d2h2 holds; deficit 574cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "00IKw-neg",
+   "kind": "negative",
+   "theme": "sacrifice-counterexample",
+   "rating": 2491,
+   "sf_best_d16": "g8g7",
+   "sf_best_score": -1859,
+   "Tactical": {
+    "move": "a7a5",
+    "elapsed": 2.002,
+    "sf_score": -99988,
+    "cp_loss": 98129,
+    "sf_equivalent": false,
+    "false_sacrifice": false
+   },
+   "Creative": {
+    "move": "a7a5",
+    "elapsed": 1.726,
+    "sf_score": -99988,
+    "cp_loss": 98129,
+    "sf_equivalent": false,
+    "false_sacrifice": false,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "h5h4",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -1744,
+      "refutation": "g3h4",
+      "line": [
+       "h5h4",
+       "g3h4",
+       "f7f6",
+       "d2d5",
+       "g8g7",
+       "d5b7"
+      ],
+      "accepted": false,
+      "missing_condition": "defence g3h4 holds; deficit 397cp"
+     },
+     {
+      "move": "h5g5",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -1815,
+      "refutation": "c5c8",
+      "line": [
+       "h5g5",
+       "c5c8",
+       "g5g3",
+       "h2g3",
+       "g8g7",
+       "c8d8",
+       "b7b6"
+      ],
+      "accepted": false,
+      "missing_condition": "defence c5c8 holds; deficit 468cp"
+     },
+     {
+      "move": "d8d7",
+      "tags": [
+       "sacrifice"
+      ],
+      "verified": -1593,
+      "refutation": "d2d7",
+      "line": [
+       "d8d7",
+       "d2d7",
+       "b7b6",
+       "c5c7",
+       "a7a5",
+       "d7f7",
+       "g8h8"
+      ],
+      "accepted": false,
+      "missing_condition": "defence d2d7 holds; deficit 246cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "00IUW",
+   "kind": "positive",
+   "theme": "sacrifice",
+   "rating": 1684,
+   "sf_best_d16": "h3g3",
+   "sf_best_score": 99998,
+   "Tactical": {
+    "move": "h3g3",
+    "elapsed": 0.046,
+    "sf_score": 99998,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true
+   },
+   "Creative": {
+    "move": "h3g3",
+    "elapsed": 0.048,
+    "sf_score": 99998,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true,
+    "source": "search",
+    "candidates": [],
+    "witness": null
+   }
+  },
+  {
+   "id": "00IUW-neg",
+   "kind": "negative",
+   "theme": "sacrifice-counterexample",
+   "rating": 1684,
+   "sf_best_d16": "h5e5",
+   "sf_best_score": -688,
+   "Tactical": {
+    "move": "e7d7",
+    "elapsed": 1.448,
+    "sf_score": -695,
+    "cp_loss": 7,
+    "sf_equivalent": true,
+    "false_sacrifice": false
+   },
+   "Creative": {
+    "move": "g7g8",
+    "elapsed": 1.804,
+    "sf_score": -689,
+    "cp_loss": 1,
+    "sf_equivalent": true,
+    "false_sacrifice": false,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "h3g2",
+      "tags": [
+       "sacrifice",
+       "check",
+       "king_zone"
+      ],
+      "verified": -1713,
+      "refutation": "g1g2",
+      "line": [
+       "h3g2",
+       "g1g2",
+       "e7f7",
+       "e3d4",
+       "c7c5",
+       "d4c5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence g1g2 holds; deficit 999cp"
+     },
+     {
+      "move": "h3f5",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -1226,
+      "refutation": "f2f5",
+      "line": [
+       "h3f5",
+       "f2f5",
+       "h5f5",
+       "f1f5",
+       "g6f5",
+       "a2a4"
+      ],
+      "accepted": false,
+      "missing_condition": "defence f2f5 holds; deficit 512cp"
+     },
+     {
+      "move": "h3f1",
+      "tags": [
+       "sacrifice",
+       "check"
+      ],
+      "verified": -1182,
+      "refutation": "f2f1",
+      "line": [
+       "h3f1",
+       "f2f1",
+       "h5e5",
+       "a2a4",
+       "h7h5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence f2f1 holds; deficit 468cp"
+     },
+     {
+      "move": "h3h2",
+      "tags": [
+       "sacrifice",
+       "check"
+      ],
+      "verified": -588,
+      "refutation": "f2h2",
+      "line": [
+       "h3h2",
+       "f2h2"
+      ],
+      "accepted": false,
+      "missing_condition": "defence f2h2 holds; deficit -126cp"
+     },
+     {
+      "move": "h3g3",
+      "tags": [
+       "sacrifice",
+       "check"
+      ],
+      "verified": -1595,
+      "refutation": "h2g3",
+      "line": [
+       "h3g3",
+       "h2g3",
+       "e7f7",
+       "a2a4",
+       "g6g5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence h2g3 holds; deficit 881cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "00IqI",
+   "kind": "positive",
+   "theme": "sacrifice",
+   "rating": 1409,
+   "sf_best_d16": "d2d8",
+   "sf_best_score": 99998,
+   "Tactical": {
+    "move": "d2d8",
+    "elapsed": 0.034,
+    "sf_score": 99998,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true
+   },
+   "Creative": {
+    "move": "d2d8",
+    "elapsed": 0.034,
+    "sf_score": 99998,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true,
+    "source": "search",
+    "candidates": [],
+    "witness": null
+   }
+  },
+  {
+   "id": "00IqI-neg",
+   "kind": "negative",
+   "theme": "sacrifice-counterexample",
+   "rating": 1409,
+   "sf_best_d16": "d2f4",
+   "sf_best_score": -775,
+   "Tactical": {
+    "move": "d2f4",
+    "elapsed": 1.61,
+    "sf_score": -796,
+    "cp_loss": 21,
+    "sf_equivalent": true,
+    "false_sacrifice": false
+   },
+   "Creative": {
+    "move": "d2f4",
+    "elapsed": 1.799,
+    "sf_score": -807,
+    "cp_loss": 32,
+    "sf_equivalent": false,
+    "false_sacrifice": false,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "d2d8",
+      "tags": [
+       "sacrifice",
+       "check"
+      ],
+      "verified": -945,
+      "refutation": "a8d8",
+      "line": [
+       "d2d8",
+       "a8d8"
+      ],
+      "accepted": false,
+      "missing_condition": "defence a8d8 holds; deficit 16cp"
+     },
+     {
+      "move": "d2d7",
+      "tags": [
+       "sacrifice",
+       "quiet"
+      ],
+      "verified": -2009,
+      "refutation": "f5d7",
+      "line": [
+       "d2d7",
+       "f5d7",
+       "a3a4",
+       "c4b2",
+       "a4a5",
+       "b7b5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence f5d7 holds; deficit 1080cp"
+     },
+     {
+      "move": "d2d6",
+      "tags": [
+       "sacrifice",
+       "quiet"
+      ],
+      "verified": -1967,
+      "refutation": "c4d6",
+      "line": [
+       "d2d6",
+       "c4d6",
+       "f1f2",
+       "e5e4",
+       "h1g2",
+       "e4e3"
+      ],
+      "accepted": false,
+      "missing_condition": "defence c4d6 holds; deficit 1038cp"
+     },
+     {
+      "move": "d2d5",
+      "tags": [
+       "sacrifice",
+       "quiet"
+      ],
+      "verified": -2026,
+      "refutation": "c6d5",
+      "line": [
+       "d2d5",
+       "c6d5",
+       "a3a4",
+       "c4b2",
+       "a4a5",
+       "b7b5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence c6d5 holds; deficit 1097cp"
+     },
+     {
+      "move": "d2d4",
+      "tags": [
+       "sacrifice",
+       "quiet"
+      ],
+      "verified": -1985,
+      "refutation": "e5d4",
+      "line": [
+       "d2d4",
+       "e5d4",
+       "c3d4",
+       "c4b2",
+       "h1g2",
+       "a7a5",
+       "f1e1"
+      ],
+      "accepted": false,
+      "missing_condition": "defence e5d4 holds; deficit 1056cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "00Kq4",
+   "kind": "positive",
+   "theme": "sacrifice",
+   "rating": 1417,
+   "sf_best_d16": "d8g5",
+   "sf_best_score": 300,
+   "Tactical": {
+    "move": "d8g5",
+    "elapsed": 1.281,
+    "sf_score": 306,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true
+   },
+   "Creative": {
+    "move": "d8g5",
+    "elapsed": 1.705,
+    "sf_score": 307,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "h4f3",
+      "tags": [
+       "sacrifice",
+       "check",
+       "king_zone"
+      ],
+      "verified": -434,
+      "refutation": "g5f3",
+      "line": [
+       "h4f3",
+       "g5f3",
+       "a6a5",
+       "f3g5",
+       "h7h8",
+       "a4b5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence g5f3 holds; deficit 623cp"
+     },
+     {
+      "move": "h4g2",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -861,
+      "refutation": "g5h7",
+      "line": [
+       "h4g2",
+       "g5h7",
+       "b5a4",
+       "h7f6",
+       "e8e7",
+       "g1g2",
+       "a4a3"
+      ],
+      "accepted": false,
+      "missing_condition": "defence g5h7 holds; deficit 1050cp"
+     },
+     {
+      "move": "d8f6",
+      "tags": [
+       "sacrifice",
+       "quiet"
+      ],
+      "verified": -1104,
+      "refutation": "e5f6",
+      "line": [
+       "d8f6",
+       "e5f6",
+       "h7h8",
+       "d1e1",
+       "e8f8",
+       "a4b5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence e5f6 holds; deficit 1293cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "00Kq4-neg",
+   "kind": "negative",
+   "theme": "sacrifice-counterexample",
+   "rating": 1417,
+   "sf_best_d16": "h7g7",
+   "sf_best_score": -374,
+   "Tactical": {
+    "move": "h7h8",
+    "elapsed": 1.365,
+    "sf_score": -487,
+    "cp_loss": 113,
+    "sf_equivalent": false,
+    "false_sacrifice": false
+   },
+   "Creative": {
+    "move": "h7h8",
+    "elapsed": 1.757,
+    "sf_score": -471,
+    "cp_loss": 97,
+    "sf_equivalent": false,
+    "false_sacrifice": false,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "h7h1",
+      "tags": [
+       "sacrifice",
+       "check",
+       "king_zone"
+      ],
+      "verified": -962,
+      "refutation": "g1h1",
+      "line": [
+       "h7h1",
+       "g1h1",
+       "a6a5",
+       "c1f4",
+       "a8a7",
+       "a4b5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence g1h1 holds; deficit 506cp"
+     },
+     {
+      "move": "h7h5",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -1003,
+      "refutation": "g4h5",
+      "line": [
+       "h7h5",
+       "g4h5",
+       "a6a5",
+       "h5h6",
+       "b5a4",
+       "a1a4"
+      ],
+      "accepted": false,
+      "missing_condition": "defence g4h5 holds; deficit 547cp"
+     },
+     {
+      "move": "h7h3",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -960,
+      "refutation": "g5h3",
+      "line": [
+       "h7h3",
+       "g5h3",
+       "a6a5",
+       "h3f4",
+       "a8c8",
+       "a4b5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence g5h3 holds; deficit 504cp"
+     },
+     {
+      "move": "h7h2",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -973,
+      "refutation": "g3h2",
+      "line": [
+       "h7h2",
+       "g3h2",
+       "a6a5",
+       "c1f4",
+       "a8a7",
+       "a4b5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence g3h2 holds; deficit 517cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "00LMb",
+   "kind": "positive",
+   "theme": "sacrifice",
+   "rating": 1725,
+   "sf_best_d16": "b6c4",
+   "sf_best_score": 281,
+   "Tactical": {
+    "move": "b6c4",
+    "elapsed": 1.378,
+    "sf_score": 356,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true
+   },
+   "Creative": {
+    "move": "b6c4",
+    "elapsed": 1.566,
+    "sf_score": 358,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "b6d5",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -398,
+      "refutation": "e5d5",
+      "line": [
+       "b6d5",
+       "e5d5",
+       "f5f4",
+       "e3g2",
+       "c3c2",
+       "g2f4",
+       "g6h6",
+       "f4d3"
+      ],
+      "accepted": false,
+      "missing_condition": "defence e5d5 holds; deficit 277cp"
+     },
+     {
+      "move": "b6d7",
+      "tags": [
+       "check",
+       "king_zone"
+      ],
+      "verified": -163,
+      "refutation": "e5f4",
+      "line": [
+       "b6d7",
+       "e5f4",
+       "g6h6",
+       "d4d5",
+       "h6h5",
+       "f4f5",
+       "d7c5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence e5f4 holds; deficit 42cp"
+     },
+     {
+      "move": "b6c8",
+      "tags": [
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -175,
+      "refutation": "d4d5",
+      "line": [
+       "b6c8",
+       "d4d5",
+       "g6h6",
+       "e3f5",
+       "h6g5",
+       "f5d4",
+       "c8e7"
+      ],
+      "accepted": false,
+      "missing_condition": "defence d4d5 holds; deficit 54cp"
+     },
+     {
+      "move": "b6a8",
+      "tags": [
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -211,
+      "refutation": "d4d5",
+      "line": [
+       "b6a8",
+       "d4d5",
+       "g6h6",
+       "d5d6",
+       "h6g5",
+       "e3f5",
+       "c3c2"
+      ],
+      "accepted": false,
+      "missing_condition": "defence d4d5 holds; deficit 90cp"
+     },
+     {
+      "move": "b6a4",
+      "tags": [
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -192,
+      "refutation": "d4d5",
+      "line": [
+       "b6a4",
+       "d4d5",
+       "g6h6",
+       "d5d6",
+       "h6g5",
+       "e3f5",
+       "c3c2"
+      ],
+      "accepted": false,
+      "missing_condition": "defence d4d5 holds; deficit 71cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "00LRq",
+   "kind": "positive",
+   "theme": "sacrifice",
+   "rating": 2219,
+   "sf_best_d16": "a6a7",
+   "sf_best_score": 99996,
+   "Tactical": {
+    "move": "a6a7",
+    "elapsed": 1.954,
+    "sf_score": 99996,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true
+   },
+   "Creative": {
+    "move": "a6a7",
+    "elapsed": 0.968,
+    "sf_score": 99996,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true,
+    "source": "search",
+    "candidates": [],
+    "witness": null
+   }
+  },
+  {
+   "id": "00MHi",
+   "kind": "positive",
+   "theme": "zugzwang",
+   "rating": 2221,
+   "sf_best_d16": "c2e2",
+   "sf_best_score": 506,
+   "Tactical": {
+    "move": "c2c3",
+    "elapsed": 1.398,
+    "sf_score": 2,
+    "cp_loss": 504,
+    "sf_equivalent": false,
+    "strict_solved": false
+   },
+   "Creative": {
+    "move": "c2c3",
+    "elapsed": 1.89,
+    "sf_score": 4,
+    "cp_loss": 502,
+    "sf_equivalent": false,
+    "strict_solved": false,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "c2d2",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -543,
+      "refutation": "e2d2",
+      "line": [
+       "c2d2",
+       "e2d2",
+       "f5g4",
+       "f1f2",
+       "g6g5",
+       "f4g5",
+       "f6g5",
+       "d2d4"
+      ],
+      "accepted": false,
+      "missing_condition": "defence e2d2 holds; deficit 702cp"
+     },
+     {
+      "move": "c2b2",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -543,
+      "refutation": "e2b2",
+      "line": [
+       "c2b2",
+       "e2b2",
+       "f5g4",
+       "f1f2",
+       "g6g5",
+       "f4g5",
+       "f6g5",
+       "b2b4"
+      ],
+      "accepted": false,
+      "missing_condition": "defence e2b2 holds; deficit 702cp"
+     },
+     {
+      "move": "c2a2",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -543,
+      "refutation": "e2a2",
+      "line": [
+       "c2a2",
+       "e2a2",
+       "f5g4",
+       "f1f2",
+       "g6g5",
+       "f4g5",
+       "f6g5",
+       "a2a4"
+      ],
+      "accepted": false,
+      "missing_condition": "defence e2a2 holds; deficit 702cp"
+     },
+     {
+      "move": "c2c1",
+      "tags": [
+       "check",
+       "king_zone"
+      ],
+      "verified": 1,
+      "refutation": "f1f2",
+      "line": [
+       "c2c1",
+       "f1f2",
+       "f5g4",
+       "e2e3",
+       "c1c2",
+       "f2f1",
+       "g6g5",
+       "h4g5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence f1f2 holds; deficit 158cp"
+     },
+     {
+      "move": "c2c8",
+      "tags": [
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -3,
+      "refutation": "e2b2",
+      "line": [
+       "c2c8",
+       "e2b2",
+       "f5e4",
+       "b2b4",
+       "e4d5",
+       "b4b5",
+       "c8c5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence e2b2 holds; deficit 162cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "00QyM",
+   "kind": "positive",
+   "theme": "zugzwang",
+   "rating": 2112,
+   "sf_best_d16": "b3b4",
+   "sf_best_score": 195,
+   "Tactical": {
+    "move": "d4c3",
+    "elapsed": 1.853,
+    "sf_score": 44,
+    "cp_loss": 151,
+    "sf_equivalent": false,
+    "strict_solved": false
+   },
+   "Creative": {
+    "move": "b3b4",
+    "elapsed": 1.556,
+    "sf_score": 294,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true,
+    "source": "artist",
+    "candidates": [
+     {
+      "move": "b3b4",
+      "tags": [
+       "quiet",
+       "break"
+      ],
+      "verified": 143,
+      "refutation": "e6e7",
+      "line": [
+       "b3b4",
+       "e6e7",
+       "d4c3",
+       "b6b5",
+       "c4b5",
+       "c6b5",
+       "c3b3",
+       "e7e6"
+      ],
+      "accepted": true
+     }
+    ],
+    "witness": {
+     "move": "b3b4",
+     "goal": "pawn break / fortress demolition",
+     "tags": [
+      "quiet",
+      "break"
+     ],
+     "expected_line": [
+      "b3b4",
+      "e6e7",
+      "d4c3",
+      "b6b5",
+      "c4b5",
+      "c6b5",
+      "c3b3",
+      "e7e6"
+     ],
+     "prerequisites": [
+      [
+       "own_piece_on",
+       "d4",
+       "K"
+      ],
+      [
+       "own_piece_on",
+       "c4",
+       "P"
+      ]
+     ],
+     "verified_score": 143,
+     "refutation": "e6e7",
+     "created_ply": 0,
+     "status": "ACTIVE",
+     "history": []
+    }
+   }
+  },
+  {
+   "id": "00SiY",
+   "kind": "positive",
+   "theme": "zugzwang",
+   "rating": 2111,
+   "sf_best_d16": "d3e2",
+   "sf_best_score": 423,
+   "Tactical": {
+    "move": "g5e4",
+    "elapsed": 1.271,
+    "sf_score": -60,
+    "cp_loss": 483,
+    "sf_equivalent": false,
+    "strict_solved": false
+   },
+   "Creative": {
+    "move": "g5e4",
+    "elapsed": 1.74,
+    "sf_score": -64,
+    "cp_loss": 487,
+    "sf_equivalent": false,
+    "strict_solved": false,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "g5e6",
+      "tags": [
+       "sacrifice",
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -1049,
+      "refutation": "d5e6",
+      "line": [
+       "g5e6",
+       "d5e6",
+       "d6d5",
+       "e6e7",
+       "d5e4",
+       "e7e8q",
+       "e4f3",
+       "g2f3"
+      ],
+      "accepted": false,
+      "missing_condition": "defence d5e6 holds; deficit 1115cp"
+     },
+     {
+      "move": "g5h3",
+      "tags": [
+       "sacrifice"
+      ],
+      "verified": -453,
+      "refutation": "g2h3",
+      "line": [
+       "g5h3",
+       "g2h3",
+       "d3e3",
+       "h3g4",
+       "e3d4",
+       "h4f5",
+       "d4c5",
+       "g4h5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence g2h3 holds; deficit 519cp"
+     },
+     {
+      "move": "g5f3",
+      "tags": [
+       "sacrifice"
+      ],
+      "verified": -438,
+      "refutation": "g2f3",
+      "line": [
+       "g5f3",
+       "g2f3",
+       "d3c4",
+       "h4f5",
+       "c4c5",
+       "h3h4",
+       "c5b4",
+       "f5d6"
+      ],
+      "accepted": false,
+      "missing_condition": "defence g2f3 holds; deficit 504cp"
+     },
+     {
+      "move": "g5h7",
+      "tags": [
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -157,
+      "refutation": "h4f5",
+      "line": [
+       "g5h7",
+       "h4f5",
+       "h7g5",
+       "f5d6",
+       "d3e2",
+       "h3h4",
+       "g5f3",
+       "h4h5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence h4f5 holds; deficit 223cp"
+     },
+     {
+      "move": "g5f7",
+      "tags": [
+       "king_zone",
+       "quiet"
+      ],
+      "verified": -157,
+      "refutation": "h4f5",
+      "line": [
+       "g5f7",
+       "h4f5",
+       "f7g5",
+       "f5d6",
+       "d3e2",
+       "h3h4",
+       "g5f3",
+       "h4h5"
+      ],
+      "accepted": false,
+      "missing_condition": "defence h4f5 holds; deficit 223cp"
+     }
+    ],
+    "witness": null
+   }
+  },
+  {
+   "id": "00YbG",
+   "kind": "positive",
+   "theme": "zugzwang",
+   "rating": 1849,
+   "sf_best_d16": "d4c4",
+   "sf_best_score": 363,
+   "Tactical": {
+    "move": "d4e5",
+    "elapsed": 1.368,
+    "sf_score": 0,
+    "cp_loss": 363,
+    "sf_equivalent": false,
+    "strict_solved": false
+   },
+   "Creative": {
+    "move": "d4e5",
+    "elapsed": 0.608,
+    "sf_score": -2,
+    "cp_loss": 365,
+    "sf_equivalent": false,
+    "strict_solved": false,
+    "source": "search",
+    "candidates": [],
+    "witness": null
+   }
+  },
+  {
+   "id": "00gy1",
+   "kind": "positive",
+   "theme": "zugzwang",
+   "rating": 1993,
+   "sf_best_d16": "b7b5",
+   "sf_best_score": 123,
+   "Tactical": {
+    "move": "b7b5",
+    "elapsed": 1.484,
+    "sf_score": 241,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true
+   },
+   "Creative": {
+    "move": "b7b5",
+    "elapsed": 1.699,
+    "sf_score": 323,
+    "cp_loss": 0,
+    "sf_equivalent": true,
+    "strict_solved": true,
+    "source": "search",
+    "candidates": [
+     {
+      "move": "g4h3",
+      "tags": [
+       "break"
+      ],
+      "verified": -127,
+      "refutation": "g2h3",
+      "line": [
+       "g4h3",
+       "g2h3",
+       "b7b5",
+       "h3h4",
+       "b5b4",
+       "a2a4",
+       "b4a3",
+       "b2a3"
+      ],
+      "accepted": false,
+      "missing_condition": "defence g2h3 holds; deficit 169cp"
+     },
+     {
+      "move": "b7b6",
+      "tags": [
+       "quiet",
+       "break"
+      ],
+      "verified": -95,
+      "refutation": "b2b3",
+      "line": [
+       "b7b6",
+       "b2b3",
+       "b6b5",
+       "a2a4",
+       "b5a4",
+       "b3a4",
+       "d5e6",
+       "e3e4"
+      ],
+      "accepted": false,
+      "missing_condition": "defence b2b3 holds; deficit 137cp"
+     }
+    ],
+    "witness": null
+   }
+  }
+ ]
+}

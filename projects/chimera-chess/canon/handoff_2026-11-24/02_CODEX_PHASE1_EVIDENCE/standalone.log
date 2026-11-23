@@ -1,0 +1,10 @@
+id name CHIMERA V5 CPU reference
+id author CHIMERA project
+option name DefaultDepth type spin default 3 min 1 max 128
+option name StudentOrdering type check default false
+uciok
+readyok
+info depth 1 nodes 42 score cp 864 pv c4a6
+info depth 2 nodes 142 score cp 508 pv g6h7
+info depth 3 nodes 1716 score mate 2 pv c4g8
+bestmove c4g8

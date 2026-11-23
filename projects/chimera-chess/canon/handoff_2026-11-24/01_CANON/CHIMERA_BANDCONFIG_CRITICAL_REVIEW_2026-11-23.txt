@@ -1,0 +1,99 @@
+CHIMERA Ω — BANDCONFIG / HOUSE RULES SPECIFICATION REVIEW
+23 November 2026 | Review of the latest user-supplied draft | No implementation performed
+
+VERDICT
+Overall quality as a ready-to-build contract: 6.4/10.
+Architecture and separation of concerns: 8.7/10.
+Test-driven discipline: 8.8/10.
+Internal consistency: 4.2/10.
+Actual chess creativity enhancement: 3.5/10.
+Offline difficulty / experimental control potential: 8.0/10.
+
+This is a stronger test-first software-delivery prompt than the previous draft, but not a complete implementation contract. A handful of requirements directly contradict one another, several required symbols are undefined, and a number of statistical acceptance tests do not prove the properties they claim. It mainly configures root selection and experience profiles; it does not itself confer the causal imagination, sustained planning or original neural intuition targeted by CHIMERA.
+
+WHAT IS STRONG
+1. Files-only deliverables and mandatory concrete artifacts resist vague hand-waving.
+2. Explicit hard eligibility constraints are easier to test than a vague creativity preference.
+3. Seeded reproducibility creates useful regression fixtures, if deterministic search state is also controlled.
+4. A separate band/profile layer avoids modifying the core evaluator and can support offline sparring, education and research.
+5. Session-level state, constrained interfaces, and regression receipts are reasonable engineering concerns.
+6. Distinguishing candidate generation from final move selection is architecturally sound.
+7. A documented maximum-strength path, if restored and rigorously tested, can protect baseline performance.
+
+BLOCKING CONTRADICTIONS / FAILURES
+A. Rank-weighted selection vs cap=1.0 uniformity. A cap of 1.0 admits more candidates; it does not eliminate non-uniform rank weights. The two assertions cannot both hold for arbitrary rank_weights.
+B. Cap=0.0 -> rank 0. Other candidates may have the same WDL score, so a zero loss cap alone does not logically force rank 0. The test requires a tie policy not stated in the contract.
+C. Candidate filter vs widened caps. One clause prohibits any draw outside cap; the deviation module explicitly widens that cap. Unless 'cap' means a derived effective cap, the requirements conflict.
+D. 'All candidates removed' fallback. If rank 0 is present, correctly evaluated and has zero regret, a nonnegative cap cannot remove it. The fallback is a defensive/error-path requirement, not an expected normal branch.
+E. Cooling = 1.0. The stated factor (1 - cooling) produces a zero allowance, while the fixture demands a halved allowance. These cannot both pass.
+F. Deliberation after bestmove emission. In the UCI protocol, bestmove is the handoff to the GUI. Sleeping after it does not delay application of that move. This is a functional ordering contradiction, not merely a thread-safety detail.
+G. Probability versus realized deviations. An event that authorizes a widened candidate set does not guarantee any actual non-best move is chosen; the 5k-game event rate and realized loss rate are different quantities.
+H. Gating versus unconditional game-rate tests. A game lacking any eligible position cannot produce the gated event, so its unconditional observed rate need not equal p_game.
+I. Book entropy vs least-used weighting. A strict uniform endpoint and an always-on usage multiplier cannot simultaneously hold across unequal counters unless precedence is explicitly defined.
+J. Band monotonicity direction. 'WDL loss monotone non-decreasing in band' is undefined because band ordering and semantic strength direction are missing. The table from the preceding draft increased rating as profiles got stronger, which suggests the opposite order for loss.
+K. Adjacent bands must differ by >=0.005. A finite stochastic tournament does not guarantee a minimum difference; performance may be genuinely nearly equal. Treating this as a release invariant would create false failures.
+L. Repeat block. DeviationCounters is specified twice verbatim, introducing an unnecessary chance of inconsistent later edits.
+
+UNDEFINED OR INCOMPLETE CONTRACT SURFACE
+- Kotlin is required, but u8 and f32 are not the Kotlin declaration types (Kotlin equivalents must be specified). The quoted schema is currently pseudocode, not source-ready Kotlin.
+- BandConfig fields do not include rank_weights, entropy, opening repertoire eligibility, variance_max/distribution, mate_pref, p_longer, critical_gap, won_below, lost_above, or cool_from even though subsequent blocks require them.
+- WDL advantage/loss scales and perspective are unstated: probability fraction, permille, or signed advantage? Normalize the definition before numerical fixtures can be interpreted.
+- The 0.19/0.20/0.21 boundary fixture should define inclusive equality, comparison precision and upstream WDL quantization behavior.
+- No priority order is specified when FORCED, RECAPTURE, BOOK and CRITICAL classifications overlap.
+- 'Uses persisted per session key' conflicts with an undefined session lifecycle, especially if an engine process persists across multiple games.
+- 'At uci init' is not necessarily the start of a game or player session. The two lifecycles must be distinguished.
+- 'Exact max behavior' from the prior draft is absent as an explicit acceptance requirement here.
+- A Kotlin minSdk 35, single-module Android application and an engine CLI flag are different integration surfaces. Clarify whether the module hosts a UCI subprocess, native engine, or engine library; this is a project-architecture assumption rather than a new dependency request.
+- A mate-related preference requires explicitly defined valid candidate lines; a mate score in the root does not prove every proposed alternate preserves forced mate.
+
+TEST-QUALITY AUDIT
+Strong: exact fixture assertions, deterministic seeding, failure conditions, session stability checks.
+Needs revision: stochastic tests need named distributions, confidence intervals, sample size/power assumptions, and a tolerance policy. 'Within 2%' is ambiguous (percentage points vs relative deviation). A chi-square acceptance test requires expected category frequencies and a chosen significance threshold.
+A 200-game self-play smoke test is useful to catch catastrophic errors but insufficient to prove fine-grained Elo, adjacent-band separation, or monotonic WDL across several profiles. WDL regret should also be evaluated on a common fixed position suite, with external-opponent matches for rating calibration.
+A file-path prohibition ('no eval file modified') is weaker than behavior equivalence: search/evaluation behavior can change indirectly through interfaces, engine options or wiring.
+As a code-quality requirement, forbidding every comment except a one-line public contract is feasible but can reduce maintainability for complex statistical code. It is a style choice, not inherently a correctness guarantee.
+
+RELATION TO CHIMERA'S CENTRAL GOAL
+HIGH relevance:
+- Configurable external profile schema.
+- Baseline equivalence tests.
+- Separating creative proposals from outcome-quality constraints.
+- Controlled, reproducible offline opponent profiles.
+
+MEDIUM relevance:
+- Repertoire diversity as a study/creative exploration tool.
+- Optional move preferences such as aesthetically satisfying mating patterns.
+- Deliberation instrumentation for measuring actual work rather than imposing cosmetic waiting.
+
+LOW relevance to the original invention:
+- Randomly imposed deviations.
+- Arbitrary session-to-session quality multipliers.
+- Precomputed wall-clock pauses.
+These change output behavior but do not create original causal strategic understanding.
+
+A BETTER RESEARCH DIVISION OF LABOR
+Layer 1: Neural creativity generator: generates novel, viable plans and motif-conditioned candidates.
+Layer 2: Tactical/strategic verifier: assesses likely outcomes and attempts adversarial refutation.
+Layer 3: Root policy/profile: chooses among eligible candidates for a declared offline study mode.
+Layer 4: Calibration and reproducibility: measured rating, game quality, identity tests, latency and thermals.
+
+This structure preserves the useful configurable architecture without mistaking a sampling profile for an intelligent chess mind.
+
+TOP THREE REVISIONS TO REQUEST BEFORE CODING
+1. Resolve the mutually exclusive mathematical fixtures and define exact numerical semantics.
+2. Complete the missing configuration schema, state lifecycles and UCI/Android integration boundary.
+3. Split deterministic conformance tests from statistical research benchmarks; restore a precise baseline-identity contract.
+
+COMPARATIVE RATING
+Previous draft: stronger architectural concept, less rigorous artifact gating.
+New draft: stronger deliverables and test discipline, but more visible internal contradictions.
+Best approach: retain this draft's evidence-first contract while consolidating only coherent, independently testable requirements from both versions.
+
+REFERENCE CHECK
+Official Stockfish FAQ: https://official-stockfish.github.io/docs/stockfish-wiki/Stockfish-FAQ.html
+Stockfish UCI engine source: https://github.com/official-stockfish/Stockfish/blob/master/src/uci.cpp
+UCI protocol description: https://github-wiki-see.page/m/official-stockfish/Stockfish/wiki/UCI-Protocol-and-Stockfish-Commands
+These references establish standard Stockfish/UCI concepts, not the correctness of the proposed profile logic.
+
+RECEIPT
+Applied: technical contract evaluation and contradiction audit | Screened: supplied specification, not historical CHIMERA source code | Rules: R03 separate facts from proposals; R04 retain effective architecture; R07 expose contradictions; R10 require measurable tests; R12 report scope | Evidence: user-provided spec plus public Stockfish/UCI documentation; no code written or benchmark run.

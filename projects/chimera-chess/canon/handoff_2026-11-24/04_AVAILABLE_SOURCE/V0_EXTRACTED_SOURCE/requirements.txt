@@ -1,0 +1,3 @@
+torch>=2.4
+# Optional for authentic PGN ingestion; check dependency licenses before redistribution:
+python-chess>=1.999

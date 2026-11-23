@@ -1,0 +1,20 @@
+test_budget_and_rollback (test_engine.Protocol.test_budget_and_rollback) ... ok
+test_uci_play_stop_restart (test_engine.Protocol.test_uci_play_stop_restart) ... ok
+test_wire_terminal_and_atomic_rejection (test_engine.Protocol.test_wire_terminal_and_atomic_rejection) ... ok
+test_bad_position (test_engine.Rules.test_bad_position) ... ok
+test_castling (test_engine.Rules.test_castling) ... ok
+test_claim_and_automatic_draws (test_engine.Rules.test_claim_and_automatic_draws) ... ok
+test_double_check_and_pin (test_engine.Rules.test_double_check_and_pin) ... ok
+test_en_passant (test_engine.Rules.test_en_passant) ... ok
+test_plan_invalidation (test_engine.Rules.test_plan_invalidation) ... ok
+test_promotions (test_engine.Rules.test_promotions) ... ok
+test_reference_perft (test_engine.Rules.test_reference_perft) ... ok
+test_search_changes_queen_offer_after_escape_opens (test_engine.Rules.test_search_changes_queen_offer_after_escape_opens) ... ok
+test_terminal (test_engine.Rules.test_terminal) ... ok
+test_missing_student_uci_fallback (test_student.Student.test_missing_student_uci_fallback) ... ok
+test_portable_holdout_predictions_and_splits (test_student.Student.test_portable_holdout_predictions_and_splits) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.637s
+
+OK

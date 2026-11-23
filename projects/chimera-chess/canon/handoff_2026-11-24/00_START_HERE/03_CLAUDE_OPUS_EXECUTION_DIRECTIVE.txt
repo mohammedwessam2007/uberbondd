@@ -1,0 +1,63 @@
+# CLAUDE OPUS | CHIMERA Ω∞ CODEX TAKEOVER | CONTINUE, DO NOT RESET
+## Role: lead chess-AI engineer, reproducibility auditor, research scientist, quality gatekeeper and relentless integrator
+
+THIS IS A RECOVERY-AND-EXECUTION HANDOFF, NOT A REQUEST TO GENERATE ANOTHER GRANDIOSE DESIGN DOCUMENT.
+
+The founder has reached the Codex usage limit. You are taking over its CHIMERA work. **Preserve all of it**. Do not restart as a new chess engine. Do not falsely imply you possess runtime files that aren't attached. Start by reading the complete `00_START_HERE/01_EXACT_CODEX_STATE_AND_GAPS.md`, `00_START_HERE/02_EVIDENCE_HIERARCHY.md`, `01_CANON/CHIMERA_OMEGA_V4_MASTER_167_ID_REGISTER_2026-11-23.txt`, `03_V6_CODEX_EVIDENCE/REPRODUCE.md`, creative/endgame examples, Phase 1 receipts, and the source inventory. Read historical directives as goals, not as evidence of implementations. The complete V4 canon is mandatory; preserve original ideas, IDs, contradictions, missing bodies, and provenance.
+
+### User's actual desired endpoint
+A highly original private, fully offline OnePlus 15 chess intelligence that is strong under real chess play, astonishingly creative when sound, capable of quiet prophylactic maneuvers and spectacular king hunts, with a consistent historical-master-inspired personality and a learned independent style. Integrate the **scientifically useful, compatible** parts of the 167-idea research program. The 2500–2600 human-equivalent Elo goal is an ambitious target, not a property established by the existing V6 tests. Humanization and creativity require separate blinded tests; neither is a detector-evasion metric.
+
+### Prime directive: retrieve the exact Codex runtime
+The previous Codex reply says it created a **Complete V6 checkpoint ZIP** and a separate **Android ARM64 engine/benchmark ZIP**. Those files are not present in this handoff's accessible uploaded evidence. Their presence is the single largest continuity blocker. Check your workspace, previous Codex artifacts, downloadable output attachments, and any *authorized* connected project directory. Establish real paths and verify the files before claiming recovery. Do not assume the `CHIMERA_ASTRA_V7_FINAL_ASPIRATIONS_NO_SHORTCUTS_PACKAGE.zip` is the executable V6 engine; it is an earlier instruction/evidence package. Do not fabricate Git SHAs, model hash checks or file contents. If source cannot be recovered, state the exact blocker and continue every independent authorized task, preserving the v0 available source as a known fallback, never an equivalent V6 replacement.
+
+### Work hierarchy: reality, not rhetoric
+A. **Recovery & repro:** verify exact files, manifests, source provenance, model hashes, `verify.sh`, `run-uci.sh`, UCI, original 23 tests and 9 V6 tests. Preserve the reported 128 games but only independently accept games actually replayed from available PGNs. Verify 9,882 plies and 7,132 unique boards if the raw data is recovered. Run tests in clean environments and preserve stderr failures. For every artifact, use explicit SHA-256, path, and origin.
+
+B. **Competitive strength is release-blocking:** move beyond the proven Bridge, with Maia3-5M + Searchless9M as a baseline and stronger candidates (Maia3-79M, larger legal checkpoints, deeper conventional search, NNUE/LC0 variants) as research options only after checkpoint/license/compute verification. Diagnose 0–8 v Stockfish15.1: loss-by-loss positions, hanging pieces, tactical blindness, value miscalibration, pruning, horizon issues and out-of-time errors. Make fixes; preserve ablations. Compare under hard wall clocks and equal compute, varied openings and colors, honest uncertainty. Never assign FIDE Elo from selected 8-game sets.
+
+C. **Real creative intelligence:** implement working Artist–Architect–Skeptic, not class placeholders. Artist proposes ordinary and unconventional legal moves; Architect predicts the prerequisites and preparatory moves; Skeptic searches and stress-tests the strongest defense; shared plan memory persists and updates after opponent interference. Implement #047, #050, #052, #053, #065, #073, #095, #112, #113, #118, #163–#166 in a minimal *functional, tested* vertical slice, then expand. Positive and nearly-identical negative counterexamples, independent engine verification, and full-game generalization are mandatory. Sacrifices can be aesthetically valuable but objectively losing; do not label them sound or exploit a supposed 100% defense guarantee.
+
+D. **Original grandmaster personality:** build a legally usable corpus with real game scores, deduplicate, train/validate split by game/player/opening as appropriate, ensure held-out positions and calibrated measurements. The target personality synthesizes Tal, Nezhmetdinov, Basman, Shirov, Dubov, Planinc, Kupreichik, Suttles, Morozevich, Ivanchuk, Petrosian. Aim for coherent planning, an independent sixth style, and specialist ablations. No invented player corpus, no claimed learned traits from generic prompts. Learn when NOT to sacrifice, allow plain strong moves and technical endgames.
+
+E. **Neural research grounded by ablation:** explore cross-backbone distillation, search-to-instinct, delayed-revelation mining, concept transfer/SAE, causal bottlenecks, recurrent latent thinking, Plan-PRM, information budgets, topology, local/global consistency, opponent modeling and quality-diversity only where an experiment can establish incremental benefit. Each experiment needs hypothesis, controls, dataset/version, matched compute, success/failure logs and impact on strength/creativity/latency. Fancy theoretical jargon is not proof. Preserve failures and mark speculative slots in the ledger.
+
+F. **True offline mobile engineering:** existing V6 reportedly compiles Android ARM64 but was not tested on the phone. Recover package; verify native ABI/API, page alignment, ONNX Runtime provenance, model conversion, UCI/native parity and reproducible build. On a real OnePlus 15 measure P50/P95/P99 latency, model load, peak RAM, steady thermals, battery/current if measurable, and long-game performance. If device unavailable, DO NOT invent readings; prepare a safe local install/benchmark package, test on host and report precise one-owner-action needed. Never confuse 80ms REQUESTED with measured response; V6 reported 103ms average default, 62ms deadline-aware.
+
+G. **Preservation & checkpoint:** maintain all 167 original slots verbatim and an updated status ledger with each ID mapped to source anchor, new source path, implementation status, test, quantitative result, failure and blocker. Clearly separate historical fair-play-evasion/impersonation proposals as ARCHIVE-ONLY. Those historical passages remain preserved but must not be implemented as detection-bypass, synthetic user telemetry, online rated-account impersonation or rule-evasion software. No new expenses, paid services, unauthorized public release or external outreach without approval. Choose replaceable local tools, licenses, fallback and rollback.
+
+### Process designed to eliminate shortcuts
+1. **No report-only output:** after brief orientation, perform real local file reads, code modifications, tests, benchmarks and saves. If tools aren't present, accurately state tool limitation and provide completed artifacts possible now, not invented results.
+2. **No prototype substitution:** v0 random model is not V6 neural engine. A mock model is not published weights. An ONNX file's name doesn't prove compatibility. A green test isn't Elo.
+3. **No fake source recovery:** never claim files were downloaded/rebuilt unless exact file and SHA verified. If missing originals, present exact retrieval provenance and do independent work; do not force the user to repeat technical details already attached.
+4. **No cherry-picked results:** attach full test fixtures, failed cases, raw PGNs, opening set, time controls and seeds. Compare every new feature with baseline under similar conditions.
+5. **No decorative architecture:** demonstrate candidate generation, planning consistency and refutation against held-out opponents. Separate policy prediction, theoretical outcome, practical outcome, beauty and human likeness.
+6. **No wasted repetition:** preserve all prior receipts and do not recast V5/V6's original games as new achievements. Fix known failures first.
+7. **No all-or-nothing paralysis:** execute feasible local work even if real device or larger model weights unavailable. At most three owner-only blockers, stating exact required artifact/screen/action, no guesswork.
+8. **No permanent failures hidden:** if quantized model changes 3/100 choices, compare with FP32 and preserve both. If a reranker loses 3–5, leave disabled and diagnose.
+9. **No paper Elo:** report current UNRATED unless statistically grounded through a named pool and actual matches. Never convert online bullet directly to FIDE classical rating.
+10. **No finish-line games:** make release gates measurable, preserve partial checkpoints and mark incomplete modules instead of claiming 167 implemented.
+
+### Mandatory measurable gates and deliverables
+G0 Archive continuity: raw canonical 167-ID source unchanged; hashes and source provenance match.
+G1 Exact V6 recovered: checkpoint and Android package independently verified, or explicit RECOVERY BLOCKED, plus separated independent progress.
+G2 Reproduced executable: actual pretrained Maia and Searchless model forward calls and UCI decision tested; license/source checks.
+G3 Strength: played and archived matches, hard clocks, color-balanced positions, competitive ablations, independent legality, uncertainty, failure analysis.
+G4 Creative mechanism: integrated candidate + plan witness + refutation + repair, tested on several unseen positive/negative positions, not only original Qg8/Kd3 fixtures.
+G5 Memory/personality: recurrent strategic state and trained style evidence across games, with ablations and honest failures.
+G6 Mobile: valid build, parity and device benchmark only if physical OnePlus 15 executed.
+G7 Evidence: complete source tree, weights or lawful retrieval instructions, PGNs, test logs, dependency licenses, exact commands, coverage ledger, SHA manifests, standalone checkpoint ZIP, reversible rollback.
+
+Always report every gate as VERIFIED PASS, VERIFIED FAIL, PARTIAL, BLOCKED, or NOT ATTEMPTED with evidence refs. Provide the strongest verified result, strongest opposing falsifier, and repair. If you lack enough compute for the ultimate goals, perform whatever meaningful benchmarks and implementation you can in THIS run and provide a durable checkpoint; do not promise asynchronous work. Codex's limits are why Opus is here. You are the continuity owner for this handoff.
+
+### Final output contract
+1. RECOVERED PATHS, versions and SHA-256; WHAT WAS NOT RECOVERED.
+2. REAL CODE CHANGES and replayable commands, not narrative summaries.
+3. VERIFIED new test results and raw PGN / match evidence with confidence qualifications.
+4. CREATIVE INTELLIGENCE evidence beyond the earlier fixtures; failed counterexamples included.
+5. MODEL+DATA LICENSE/PROVENANCE and Android packaging state.
+6. 167-ID LEDGER with historical original intact.
+7. COMPLETE CHECKPOINT artifact and manifest, or honest missing-artifact blocker.
+8. At most three exact owner actions, $0 new spend.
+
+**Do not reset CHIMERA. Do not amputate its concepts. Do not confuse grand ambition with demonstrated fact. Build the damn thing and prove what you've built.**

@@ -1,0 +1,11 @@
+misses at 300ms: 10
+00KYC 2272 sol f8f6 line_len 5 1.0s:f8f6*(d14) 3.0s:f8f6*(d17) 10.0s:f8f6*(d20)
+00QjF 2097 sol c5b6 line_len 5 1.0s:c5b6*(d12) 3.0s:c5b6*(d15) 10.0s:c5b6*(d17)
+00eYd 2747 sol g4g6 line_len 5 1.0s:g3g1(d12) 3.0s:g4g6*(d13) 10.0s:g4g6*(d20)
+00rjB 2764 sol c5f2 line_len 5 1.0s:f7g7(d13) 3.0s:f7g7(d14) 10.0s:f7g7(d14)
+01Isj 2728 sol c4a6 line_len 13 1.0s:a2a3(d11) 3.0s:a2a3(d11) 10.0s:c4a6*(d13)
+01OkZ 2171 sol h4h5 line_len 9 1.0s:h4h5*(d17) 3.0s:h4h5*(d19) 10.0s:h4h5*(d21)
+01Pkf 2540 sol b3g3 line_len 5 1.0s:b3g3*(d11) 3.0s:b3g3*(d14) 10.0s:b3g3*(d17)
+01TxI 2201 sol f8f4 line_len 5 1.0s:e6a2(d11) 3.0s:e6a2(d13) 10.0s:f8f4*(d15)
+01uWs 2580 sol f6e4 line_len 5 1.0s:c6c5(d11) 3.0s:c6c5(d12) 10.0s:c6c5(d14)
+023Uk 2993 sol b6g6 line_len 5 1.0s:f2e3(d12) 3.0s:f2e3(d14) 10.0s:f2e3(d16)

@@ -72,3 +72,47 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# ---------------------------------------------------------------- V8 columns (added 2026-11-23)
+V8 = {
+    "#017": ("BOUNDED_TRIAL", "native/chimera.cpp think(): soft/hard deadline", "tests.test_native.test_hard_deadline_movetime; evidence/v8/latency_native_host.json", "hard-deadline time manager, internal <=70.2ms at movetime 80 (10ms overhead)", "rule-based, not learned"),
+    "#099": ("BOUNDED_TRIAL", "native/chimera.cpp soft/hard budget", "same as #017", "iteration-start gate (soft) + abort (hard)", "no value-of-thought model"),
+    "#116": ("BOUNDED_TRIAL", "native/chimera.cpp soft/hard budget", "same as #017", "deliberation stops at soft budget", "no learned governor"),
+    "#063": ("MEASURED_BASELINE", "tools/match.py trace + tools/trace_analysis.py", "evidence/v8/trace_metrics_sf2800.json", "opponent-reply prediction rate from search PV", "PV-based, not a learned opponent model"),
+    "#115": ("MEASURED_BASELINE", "tools/trace_analysis.py", "evidence/v8/trace_metrics_sf2800.json", "see reply_prediction_rate", "PV-based"),
+    "#073": ("MEASURED_BASELINE", "tools/trace_analysis.py plan_continuation", "evidence/v8/trace_metrics_sf2800.json", "plan continuation when prediction held", "PV, not a learned plan head; V7 PlanWitness unchanged"),
+    "#095": ("MEASURED_BASELINE", "tools/trace_analysis.py", "evidence/v8/trace_metrics_sf2800.json", "replan rate after surprise", "PV-based"),
+    "#103": ("MEASURED_BASELINE", "tools/trace_analysis.py surprise_repair", "evidence/v8/trace_metrics_sf2800.json", "score shift + replan after deviation", "no learned repair"),
+    "#118": ("VERIFIED_FAIL", "native/chimera.cpp ArtistExtension (default off)", "evidence/v8/PREREG_artist_extension.md; evidence/v8/hard_sac_ext_vs_base_300ms.json", "50/60 vs 50/60, 0 paired differences", "root +1 ply cannot fix depth/eval-limited misses (evidence/v8/hard_sac_miss_diagnosis.txt)"),
+    "#163": ("VERIFIED_FAIL", "native/chimera.cpp ArtistExtension (default off)", "same as #118", "no gain on pre-registered objective", "see #118"),
+    "#047": ("BOUNDED_TRIAL", "native artistic() tagger + V7 chimera/creative.py", "evidence/v8/hard_sac_*", "tags used by ArtistExtension; V7 grammar unchanged", "no learned primitives"),
+    "#032": ("MEASURED_GENERAL_SEARCH", "native/chimera.cpp (no dedicated mechanism)", "evidence/v8/heldout_v8_vs_v7_1000ms.json", "quietMove 20/20 (V7 14/20)", "gain from search depth, not a quiet-move module"),
+    "#165": ("MEASURED_GENERAL_SEARCH", "native/chimera.cpp", "evidence/v8/heldout_v8_vs_v7_1000ms.json", "zugzwang 10/10 (V7 9/10)", "no zugzwang detector"),
+    "#057": ("MEASURED_GENERAL_SEARCH", "native/chimera.cpp", "evidence/v8/heldout_v8_vs_v7_1000ms.json", "defensiveMove 28/30 (V7 23/30)", "general search, not 'beauty of defence'"),
+    "#143": ("SOURCE_MISSING", "", "", "original body absent from canon; not defined, not implemented", ""),
+    "#144": ("SOURCE_MISSING", "", "", "original body absent from canon; not defined, not implemented", ""),
+}
+
+
+def v8():
+    rows = list(csv.DictReader(open(OUT)))
+    extra = ["v8_status", "v8_source_path", "v8_evidence", "v8_result", "v8_limit"]
+    with open("canon/LEDGER_V8_167.csv", "w", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=list(rows[0].keys()) + extra)
+        w.writeheader()
+        for r in rows:
+            if r["id"] in V8:
+                vals = V8[r["id"]]
+            elif r["v7_status"] == "ARCHIVE_ONLY":
+                vals = ("ARCHIVE_ONLY", "", "", "preserved; never implemented (fair-play evasion / impersonation class)", "")
+            else:
+                vals = ("CARRIED_FROM_V7:" + r["v7_status"], "", "", "", "no V8 experiment this session")
+            r.update(dict(zip(extra, vals)))
+            w.writerow(r)
+    from collections import Counter
+    print("V8", dict(Counter(r["v8_status"] for r in csv.DictReader(open("canon/LEDGER_V8_167.csv")))), "fully demonstrated: 0")
+
+
+if __name__ == "__main__":
+    v8()

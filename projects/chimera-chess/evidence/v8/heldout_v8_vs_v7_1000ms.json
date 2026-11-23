@@ -1,0 +1,1684 @@
+{
+ "summary": {
+  "movetime_ms": 1000,
+  "positions": 110,
+  "native:2": {
+   "solved": "107/110",
+   "by_theme": {
+    "crushing": "20/20",
+    "sacrifice": "29/30",
+    "defensiveMove": "28/30",
+    "quietMove": "20/20",
+    "zugzwang": "10/10"
+   },
+   "mean_cp_loss_capped_1000": 13.7
+  },
+  "chimera:Tactical": {
+   "solved": "87/110",
+   "by_theme": {
+    "crushing": "18/20",
+    "sacrifice": "23/30",
+    "defensiveMove": "23/30",
+    "quietMove": "14/20",
+    "zugzwang": "9/10"
+   },
+   "mean_cp_loss_capped_1000": 103.3
+  },
+  "paired": {
+   "only_native:2": 20,
+   "only_chimera:Tactical": 0
+  }
+ },
+ "rows": [
+  {
+   "id": "0n1i4",
+   "theme": "crushing",
+   "solution": "e8c6",
+   "native:2": {
+    "move": "e8c6",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "e8c6",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0n1Mn",
+   "theme": "sacrifice",
+   "solution": "g8g2",
+   "native:2": {
+    "move": "d6d5",
+    "solved": false,
+    "cp_loss": 298
+   },
+   "chimera:Tactical": {
+    "move": "d6d5",
+    "solved": false,
+    "cp_loss": 289
+   }
+  },
+  {
+   "id": "0n1Ct",
+   "theme": "crushing",
+   "solution": "g2e2",
+   "native:2": {
+    "move": "g2e2",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "g2e2",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0n19Q",
+   "theme": "crushing",
+   "solution": "g4f5",
+   "native:2": {
+    "move": "g4f5",
+    "solved": true,
+    "cp_loss": 2
+   },
+   "chimera:Tactical": {
+    "move": "c3d4",
+    "solved": false,
+    "cp_loss": 446
+   }
+  },
+  {
+   "id": "0n14x",
+   "theme": "crushing",
+   "solution": "g5f6",
+   "native:2": {
+    "move": "g5f6",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "g5f6",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0n0y7",
+   "theme": "crushing",
+   "solution": "a5e5",
+   "native:2": {
+    "move": "a5e5",
+    "solved": true,
+    "cp_loss": 6
+   },
+   "chimera:Tactical": {
+    "move": "a5e5",
+    "solved": true,
+    "cp_loss": 10
+   }
+  },
+  {
+   "id": "0n0rs",
+   "theme": "crushing",
+   "solution": "d8d6",
+   "native:2": {
+    "move": "d8d6",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "d8d6",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0n0p4",
+   "theme": "crushing",
+   "solution": "e3f4",
+   "native:2": {
+    "move": "e3f4",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "e3f4",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0n0W8",
+   "theme": "sacrifice",
+   "solution": "c6d6",
+   "native:2": {
+    "move": "c6d6",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "g2f3",
+    "solved": false,
+    "cp_loss": 299
+   }
+  },
+  {
+   "id": "0n0Sm",
+   "theme": "sacrifice",
+   "solution": "e6f6",
+   "native:2": {
+    "move": "e6f6",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "e6f6",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0n0F6",
+   "theme": "defensiveMove",
+   "solution": "g6h5",
+   "native:2": {
+    "move": "g6h5",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "g6h5",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mzwK",
+   "theme": "quietMove",
+   "solution": "g4h4",
+   "native:2": {
+    "move": "g4h4",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "g4h4",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mzpr",
+   "theme": "crushing",
+   "solution": "c7b6",
+   "native:2": {
+    "move": "c7b6",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "c7b6",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mzlO",
+   "theme": "sacrifice",
+   "solution": "c6e8",
+   "native:2": {
+    "move": "c6e8",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "c6e8",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mziD",
+   "theme": "crushing",
+   "solution": "e7a3",
+   "native:2": {
+    "move": "e7a3",
+    "solved": true,
+    "cp_loss": 2
+   },
+   "chimera:Tactical": {
+    "move": "e7a3",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mzd9",
+   "theme": "crushing",
+   "solution": "c7a7",
+   "native:2": {
+    "move": "c7a7",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "c7a7",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mzYv",
+   "theme": "quietMove",
+   "solution": "g8g5",
+   "native:2": {
+    "move": "g8g5",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "g8g5",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mzYS",
+   "theme": "sacrifice",
+   "solution": "e6f4",
+   "native:2": {
+    "move": "e6f4",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "e6f4",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mzVK",
+   "theme": "defensiveMove",
+   "solution": "b5b1",
+   "native:2": {
+    "move": "b5b1",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "b5b1",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mzUX",
+   "theme": "sacrifice",
+   "solution": "d8d6",
+   "native:2": {
+    "move": "d8d6",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "d8d6",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mz8q",
+   "theme": "sacrifice",
+   "solution": "f2h2",
+   "native:2": {
+    "move": "f2h2",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "f2h2",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mz5Z",
+   "theme": "quietMove",
+   "solution": "b5a4",
+   "native:2": {
+    "move": "b5a4",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "b5a4",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mz4J",
+   "theme": "crushing",
+   "solution": "d2f2",
+   "native:2": {
+    "move": "d2f2",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "d2f2",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0myxZ",
+   "theme": "sacrifice",
+   "solution": "d2d5",
+   "native:2": {
+    "move": "d2d5",
+    "solved": true,
+    "cp_loss": 4
+   },
+   "chimera:Tactical": {
+    "move": "d2d5",
+    "solved": true,
+    "cp_loss": 2
+   }
+  },
+  {
+   "id": "0myoo",
+   "theme": "zugzwang",
+   "solution": "a5a6",
+   "native:2": {
+    "move": "a5a6",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "a5a6",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0myoL",
+   "theme": "sacrifice",
+   "solution": "h7f7",
+   "native:2": {
+    "move": "h7f7",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "h7f7",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mygj",
+   "theme": "crushing",
+   "solution": "c8d6",
+   "native:2": {
+    "move": "c8d6",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "c8d6",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0myd9",
+   "theme": "crushing",
+   "solution": "e7d7",
+   "native:2": {
+    "move": "e7d7",
+    "solved": true,
+    "cp_loss": 16
+   },
+   "chimera:Tactical": {
+    "move": "e7d7",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0myEW",
+   "theme": "crushing",
+   "solution": "e5f6",
+   "native:2": {
+    "move": "e5f6",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "e5f6",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0myCf",
+   "theme": "defensiveMove",
+   "solution": "f4f3",
+   "native:2": {
+    "move": "f4f3",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "h5h4",
+    "solved": false,
+    "cp_loss": 396
+   }
+  },
+  {
+   "id": "0my1N",
+   "theme": "crushing",
+   "solution": "f3d4",
+   "native:2": {
+    "move": "f3d4",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "f3d4",
+    "solved": true,
+    "cp_loss": 5
+   }
+  },
+  {
+   "id": "0my0o",
+   "theme": "crushing",
+   "solution": "g4e6",
+   "native:2": {
+    "move": "g4e6",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "g4e6",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mxyY",
+   "theme": "defensiveMove",
+   "solution": "g5f6",
+   "native:2": {
+    "move": "g5f6",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "g5f6",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mxlZ",
+   "theme": "sacrifice",
+   "solution": "h5h3",
+   "native:2": {
+    "move": "h5h3",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "f6e4",
+    "solved": false,
+    "cp_loss": 593
+   }
+  },
+  {
+   "id": "0mxgU",
+   "theme": "crushing",
+   "solution": "g4g3",
+   "native:2": {
+    "move": "g4g3",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "g4g3",
+    "solved": true,
+    "cp_loss": 15
+   }
+  },
+  {
+   "id": "0mxb2",
+   "theme": "quietMove",
+   "solution": "d5h5",
+   "native:2": {
+    "move": "d5h5",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "d5d6",
+    "solved": false,
+    "cp_loss": 413
+   }
+  },
+  {
+   "id": "0mxR3",
+   "theme": "defensiveMove",
+   "solution": "f5g6",
+   "native:2": {
+    "move": "f5g6",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "a2a4",
+    "solved": false,
+    "cp_loss": 239
+   }
+  },
+  {
+   "id": "0mxKD",
+   "theme": "defensiveMove",
+   "solution": "a4c5",
+   "native:2": {
+    "move": "a4c5",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "a4c5",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mx6C",
+   "theme": "crushing",
+   "solution": "c8c1",
+   "native:2": {
+    "move": "c8c1",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "c8c1",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mwvf",
+   "theme": "crushing",
+   "solution": "d6e5",
+   "native:2": {
+    "move": "d6e5",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "d6e5",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mwkC",
+   "theme": "defensiveMove",
+   "solution": "h4h6",
+   "native:2": {
+    "move": "h4h6",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "h4h6",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mwaV",
+   "theme": "crushing",
+   "solution": "e8e2",
+   "native:2": {
+    "move": "e8e2",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "g7g5",
+    "solved": false,
+    "cp_loss": 597
+   }
+  },
+  {
+   "id": "0mwSQ",
+   "theme": "defensiveMove",
+   "solution": "h1h6",
+   "native:2": {
+    "move": "h1h6",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "h1h6",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mwKy",
+   "theme": "sacrifice",
+   "solution": "d4e6",
+   "native:2": {
+    "move": "d4e6",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "d4e6",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mw6b",
+   "theme": "quietMove",
+   "solution": "f3c6",
+   "native:2": {
+    "move": "f3c6",
+    "solved": true,
+    "cp_loss": 7
+   },
+   "chimera:Tactical": {
+    "move": "f3c6",
+    "solved": true,
+    "cp_loss": 3
+   }
+  },
+  {
+   "id": "0mvIN",
+   "theme": "sacrifice",
+   "solution": "f7f1",
+   "native:2": {
+    "move": "f7f1",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "f7f1",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mv9m",
+   "theme": "defensiveMove",
+   "solution": "f5f3",
+   "native:2": {
+    "move": "f5f3",
+    "solved": true,
+    "cp_loss": 9
+   },
+   "chimera:Tactical": {
+    "move": "f7d7",
+    "solved": false,
+    "cp_loss": 553
+   }
+  },
+  {
+   "id": "0muJu",
+   "theme": "quietMove",
+   "solution": "d6d7",
+   "native:2": {
+    "move": "d6d7",
+    "solved": true,
+    "cp_loss": 12
+   },
+   "chimera:Tactical": {
+    "move": "e4e5",
+    "solved": false,
+    "cp_loss": 3570
+   }
+  },
+  {
+   "id": "0mu1b",
+   "theme": "sacrifice",
+   "solution": "f4f7",
+   "native:2": {
+    "move": "f4f7",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "f4f7",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0msyf",
+   "theme": "defensiveMove",
+   "solution": "f3g4",
+   "native:2": {
+    "move": "f3g4",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "f3g4",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0msvs",
+   "theme": "sacrifice",
+   "solution": "g3g7",
+   "native:2": {
+    "move": "g3g7",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "g3g7",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0msXB",
+   "theme": "defensiveMove",
+   "solution": "f7e8",
+   "native:2": {
+    "move": "f7e8",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "f7e8",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0ms47",
+   "theme": "sacrifice",
+   "solution": "c2e4",
+   "native:2": {
+    "move": "c2e4",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "c2e4",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mrvj",
+   "theme": "sacrifice",
+   "solution": "d3d4",
+   "native:2": {
+    "move": "d3d4",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "d3d4",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mrtl",
+   "theme": "sacrifice",
+   "solution": "f7g7",
+   "native:2": {
+    "move": "f7g7",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "f7a7",
+    "solved": false,
+    "cp_loss": 443
+   }
+  },
+  {
+   "id": "0mqMb",
+   "theme": "defensiveMove",
+   "solution": "e7d7",
+   "native:2": {
+    "move": "e7d7",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "e7d7",
+    "solved": true,
+    "cp_loss": 1
+   }
+  },
+  {
+   "id": "0mpgI",
+   "theme": "quietMove",
+   "solution": "d1d3",
+   "native:2": {
+    "move": "d1d3",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "d1d3",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mpcY",
+   "theme": "sacrifice",
+   "solution": "d8a5",
+   "native:2": {
+    "move": "d8a5",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "d8a5",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mpU0",
+   "theme": "quietMove",
+   "solution": "f6g7",
+   "native:2": {
+    "move": "f6g7",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "f6g7",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mpDl",
+   "theme": "sacrifice",
+   "solution": "g5e4",
+   "native:2": {
+    "move": "g5e4",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "g5e4",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mpAn",
+   "theme": "sacrifice",
+   "solution": "h6h2",
+   "native:2": {
+    "move": "h6h2",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "h6h2",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mp0U",
+   "theme": "sacrifice",
+   "solution": "f3f7",
+   "native:2": {
+    "move": "f3f7",
+    "solved": true,
+    "cp_loss": 71
+   },
+   "chimera:Tactical": {
+    "move": "f3f7",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0monh",
+   "theme": "quietMove",
+   "solution": "d1c1",
+   "native:2": {
+    "move": "d1c1",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "d1d3",
+    "solved": false,
+    "cp_loss": 189
+   }
+  },
+  {
+   "id": "0moas",
+   "theme": "defensiveMove",
+   "solution": "e1e8",
+   "native:2": {
+    "move": "e1e8",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "d5c6",
+    "solved": false,
+    "cp_loss": 396
+   }
+  },
+  {
+   "id": "0moCd",
+   "theme": "quietMove",
+   "solution": "b2g2",
+   "native:2": {
+    "move": "b2g2",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "b2g2",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mo8z",
+   "theme": "sacrifice",
+   "solution": "f3c6",
+   "native:2": {
+    "move": "f3c6",
+    "solved": true,
+    "cp_loss": 185
+   },
+   "chimera:Tactical": {
+    "move": "f3c6",
+    "solved": true,
+    "cp_loss": 222
+   }
+  },
+  {
+   "id": "0mnFn",
+   "theme": "sacrifice",
+   "solution": "c5c2",
+   "native:2": {
+    "move": "c5c2",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "c5c2",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mmjc",
+   "theme": "quietMove",
+   "solution": "g6h5",
+   "native:2": {
+    "move": "g6h5",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "g6h5",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mmdq",
+   "theme": "defensiveMove",
+   "solution": "e2e3",
+   "native:2": {
+    "move": "e2e3",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "e2e3",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mmcU",
+   "theme": "sacrifice",
+   "solution": "h5g6",
+   "native:2": {
+    "move": "h5g6",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "h5g6",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mmUS",
+   "theme": "defensiveMove",
+   "solution": "e1f2",
+   "native:2": {
+    "move": "e1f2",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "e1f2",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mlfh",
+   "theme": "zugzwang",
+   "solution": "f2g3",
+   "native:2": {
+    "move": "f2g3",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "f2g1",
+    "solved": false,
+    "cp_loss": 475
+   }
+  },
+  {
+   "id": "0mlWv",
+   "theme": "sacrifice",
+   "solution": "d3f5",
+   "native:2": {
+    "move": "d3f5",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "d3f5",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mkvd",
+   "theme": "defensiveMove",
+   "solution": "e4f6",
+   "native:2": {
+    "move": "e4f6",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "e4f6",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mk9C",
+   "theme": "sacrifice",
+   "solution": "c4f7",
+   "native:2": {
+    "move": "c4f7",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "d1d4",
+    "solved": false,
+    "cp_loss": 341
+   }
+  },
+  {
+   "id": "0mjxS",
+   "theme": "defensiveMove",
+   "solution": "b3a3",
+   "native:2": {
+    "move": "b3a3",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "b3a3",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mjwL",
+   "theme": "defensiveMove",
+   "solution": "a7f7",
+   "native:2": {
+    "move": "a7f7",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "a7f7",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mjrU",
+   "theme": "sacrifice",
+   "solution": "c8g4",
+   "native:2": {
+    "move": "c8g4",
+    "solved": true,
+    "cp_loss": 80
+   },
+   "chimera:Tactical": {
+    "move": "c8d7",
+    "solved": false,
+    "cp_loss": 823
+   }
+  },
+  {
+   "id": "0mjcb",
+   "theme": "defensiveMove",
+   "solution": "g5e3",
+   "native:2": {
+    "move": "g5e3",
+    "solved": true,
+    "cp_loss": 2
+   },
+   "chimera:Tactical": {
+    "move": "g5e3",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0miYf",
+   "theme": "quietMove",
+   "solution": "g4h6",
+   "native:2": {
+    "move": "g4h6",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "a1e1",
+    "solved": false,
+    "cp_loss": 764
+   }
+  },
+  {
+   "id": "0miTI",
+   "theme": "defensiveMove",
+   "solution": "c3b2",
+   "native:2": {
+    "move": "c3b2",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "c3b2",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mi4A",
+   "theme": "sacrifice",
+   "solution": "f4f5",
+   "native:2": {
+    "move": "f4f5",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "f4h4",
+    "solved": false,
+    "cp_loss": 614
+   }
+  },
+  {
+   "id": "0mhQg",
+   "theme": "defensiveMove",
+   "solution": "f8g7",
+   "native:2": {
+    "move": "f8g7",
+    "solved": true,
+    "cp_loss": 19
+   },
+   "chimera:Tactical": {
+    "move": "f8g7",
+    "solved": true,
+    "cp_loss": 53
+   }
+  },
+  {
+   "id": "0mhMM",
+   "theme": "defensiveMove",
+   "solution": "d1d4",
+   "native:2": {
+    "move": "d1d4",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "h4f6",
+    "solved": false,
+    "cp_loss": 451
+   }
+  },
+  {
+   "id": "0mgtC",
+   "theme": "sacrifice",
+   "solution": "h7g8",
+   "native:2": {
+    "move": "h7g8",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "h7g8",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mg0t",
+   "theme": "defensiveMove",
+   "solution": "e8d8",
+   "native:2": {
+    "move": "g6g5",
+    "solved": false,
+    "cp_loss": 601
+   },
+   "chimera:Tactical": {
+    "move": "e8e2",
+    "solved": false,
+    "cp_loss": 558
+   }
+  },
+  {
+   "id": "0mfko",
+   "theme": "quietMove",
+   "solution": "c2c3",
+   "native:2": {
+    "move": "c2c3",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "c2c3",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mfRl",
+   "theme": "sacrifice",
+   "solution": "e5d5",
+   "native:2": {
+    "move": "e5d5",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "e5d5",
+    "solved": true,
+    "cp_loss": 60
+   }
+  },
+  {
+   "id": "0mf74",
+   "theme": "defensiveMove",
+   "solution": "e3d3",
+   "native:2": {
+    "move": "e3e4",
+    "solved": false,
+    "cp_loss": 181
+   },
+   "chimera:Tactical": {
+    "move": "e3e4",
+    "solved": false,
+    "cp_loss": 172
+   }
+  },
+  {
+   "id": "0mf5n",
+   "theme": "quietMove",
+   "solution": "f2f3",
+   "native:2": {
+    "move": "f2f3",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "f2f3",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0meI4",
+   "theme": "defensiveMove",
+   "solution": "g8f8",
+   "native:2": {
+    "move": "g8f8",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "g8f8",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mdM2",
+   "theme": "defensiveMove",
+   "solution": "f5g4",
+   "native:2": {
+    "move": "f5g4",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "f5g4",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mc6E",
+   "theme": "defensiveMove",
+   "solution": "e8d7",
+   "native:2": {
+    "move": "e8d7",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "e8d7",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mbte",
+   "theme": "defensiveMove",
+   "solution": "g8f8",
+   "native:2": {
+    "move": "g8f8",
+    "solved": true,
+    "cp_loss": 6
+   },
+   "chimera:Tactical": {
+    "move": "g8f8",
+    "solved": true,
+    "cp_loss": 7
+   }
+  },
+  {
+   "id": "0mboi",
+   "theme": "quietMove",
+   "solution": "a4b5",
+   "native:2": {
+    "move": "a4b5",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "c4b5",
+    "solved": false,
+    "cp_loss": 396
+   }
+  },
+  {
+   "id": "0mbYL",
+   "theme": "defensiveMove",
+   "solution": "c8c7",
+   "native:2": {
+    "move": "c8c7",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "c8c7",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mb3b",
+   "theme": "defensiveMove",
+   "solution": "h4g5",
+   "native:2": {
+    "move": "h4g5",
+    "solved": true,
+    "cp_loss": 5
+   },
+   "chimera:Tactical": {
+    "move": "h4g5",
+    "solved": true,
+    "cp_loss": 31
+   }
+  },
+  {
+   "id": "0mYb0",
+   "theme": "quietMove",
+   "solution": "d6f8",
+   "native:2": {
+    "move": "d6f8",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "a2a4",
+    "solved": false,
+    "cp_loss": 451
+   }
+  },
+  {
+   "id": "0mXwF",
+   "theme": "quietMove",
+   "solution": "d8d1",
+   "native:2": {
+    "move": "d8d1",
+    "solved": true,
+    "cp_loss": 1
+   },
+   "chimera:Tactical": {
+    "move": "d8d1",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mXFA",
+   "theme": "quietMove",
+   "solution": "h4h5",
+   "native:2": {
+    "move": "h4h5",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "h4h5",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mWxO",
+   "theme": "quietMove",
+   "solution": "e6d8",
+   "native:2": {
+    "move": "e6d8",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "e6d8",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mWXX",
+   "theme": "quietMove",
+   "solution": "f4f5",
+   "native:2": {
+    "move": "f4f5",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "f4f5",
+    "solved": true,
+    "cp_loss": 58
+   }
+  },
+  {
+   "id": "0mRuK",
+   "theme": "zugzwang",
+   "solution": "a5b4",
+   "native:2": {
+    "move": "a5b4",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "a5b4",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mMOP",
+   "theme": "zugzwang",
+   "solution": "e5e4",
+   "native:2": {
+    "move": "e5e4",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "e5e4",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mM1P",
+   "theme": "zugzwang",
+   "solution": "a2a4",
+   "native:2": {
+    "move": "a2a4",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "a2a4",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mLDG",
+   "theme": "zugzwang",
+   "solution": "g6h6",
+   "native:2": {
+    "move": "g6h6",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "g6h6",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0mFXc",
+   "theme": "zugzwang",
+   "solution": "f6f5",
+   "native:2": {
+    "move": "f6f5",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "f6f5",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0m8Zp",
+   "theme": "zugzwang",
+   "solution": "g3f4",
+   "native:2": {
+    "move": "g3f4",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "g3f4",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0m4YY",
+   "theme": "zugzwang",
+   "solution": "g4f4",
+   "native:2": {
+    "move": "g4f4",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "g4f4",
+    "solved": true,
+    "cp_loss": 0
+   }
+  },
+  {
+   "id": "0m3LS",
+   "theme": "zugzwang",
+   "solution": "a5b4",
+   "native:2": {
+    "move": "a5b4",
+    "solved": true,
+    "cp_loss": 0
+   },
+   "chimera:Tactical": {
+    "move": "a5b4",
+    "solved": true,
+    "cp_loss": 0
+   }
+  }
+ ]
+}

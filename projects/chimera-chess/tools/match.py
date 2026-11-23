@@ -39,6 +39,19 @@ OPENINGS = [
     ("Italian", "e2e4 e7e5 g1f3 b8c6 f1c4 f8c5 c2c3 g8f6"),
     ("Scandinavian", "e2e4 d7d5 e4d5 d8d5 b1c3 d5a5"),
     ("London", "d2d4 d7d5 c1f4 g8f6 e2e3 e7e6 g1f3 c7c5"),
+    # V8 additions (distinct families, appended so the first 12 stay identical to V7 runs)
+    ("Grunfeld", "d2d4 g8f6 c2c4 g7g6 b1c3 d7d5 c4d5 f6d5 e2e4 d5c3 b2c3"),
+    ("Dutch Leningrad", "d2d4 f7f5 g2g3 g8f6 f1g2 g7g6 g1f3 f8g7"),
+    ("Pirc", "e2e4 d7d6 d2d4 g8f6 b1c3 g7g6 f2f4 f8g7"),
+    ("Alekhine", "e2e4 g8f6 e4e5 f6d5 d2d4 d7d6 g1f3"),
+    ("King's Gambit", "e2e4 e7e5 f2f4 e5f4 g1f3 g7g5"),
+    ("Benoni", "d2d4 g8f6 c2c4 c7c5 d4d5 e7e6 b1c3 e6d5 c4d5 d7d6"),
+    ("Sicilian Dragon", "e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 g7g6"),
+    ("Petroff", "e2e4 e7e5 g1f3 g8f6 f3e5 d7d6 e5f3 f6e4"),
+    ("Catalan", "d2d4 g8f6 c2c4 e7e6 g2g3 d7d5 f1g2 f8e7"),
+    ("Bird", "f2f4 d7d5 g1f3 g8f6 e2e3 g7g6"),
+    ("Evans Gambit", "e2e4 e7e5 g1f3 b8c6 f1c4 f8c5 b2b4 c5b4 c2c3"),
+    ("Philidor", "e2e4 e7e5 g1f3 d7d6 d2d4 g8f6 b1c3 b8d7"),
 ]
 
 
@@ -52,6 +65,16 @@ def open_player(spec: str):
         if len(rest) > 1:
             opts["Style"] = rest[1]
         eng.configure(opts)
+        return eng
+    if kind == "native":
+        eng = chess.engine.SimpleEngine.popen_uci(os.path.join(ROOT, "native", "chimera"))
+        opts = {"Hash": 64, "MoveOverheadMs": 20}
+        if rest:
+            opts["EvalVersion"] = int(rest[0])
+        if "art" in rest:
+            opts["ArtistExtension"] = True
+        eng.configure(opts)
+        eng.chimera_nodes = int(rest[1].split("=")[1]) if len(rest) > 1 and rest[1].startswith("nodes=") else None
         return eng
     if kind == "sf":
         eng = chess.engine.SimpleEngine.popen_uci(SF)
@@ -74,6 +97,7 @@ def play_game(args):
     clock = {chess.WHITE: base, chess.BLACK: base}
     result, reason = None, None
     think = {chess.WHITE: [], chess.BLACK: []}
+    trace = []
     try:
         for e in engines.values():
             e.protocol.send_line("ucinewgame")
@@ -81,9 +105,11 @@ def play_game(args):
             side = board.turn
             limit = chess.engine.Limit(white_clock=clock[chess.WHITE], black_clock=clock[chess.BLACK],
                                        white_inc=inc, black_inc=inc)
+            if getattr(engines[side], "chimera_nodes", None):
+                limit = chess.engine.Limit(nodes=engines[side].chimera_nodes)  # fixed-node ablation
             t0 = time.perf_counter()
             try:
-                res = engines[side].play(board, limit)
+                res = engines[side].play(board, limit, info=chess.engine.INFO_SCORE | chess.engine.INFO_PV)
             except (chess.engine.EngineTerminatedError, TimeoutError, chess.engine.EngineError) as ex:
                 result = "0-1" if side == chess.WHITE else "1-0"
                 reason = f"engine failure: {type(ex).__name__}"
@@ -100,6 +126,13 @@ def play_game(args):
                 result = "0-1" if side == chess.WHITE else "1-0"
                 reason = f"illegal move {res.move}"
                 break
+            pv = res.info.get("pv") or []
+            sc = res.info.get("score")
+            trace.append({"ply": board.ply(), "side": "w" if side else "b", "move": res.move.uci(),
+                          "pred_reply": pv[1].uci() if len(pv) > 1 else None,
+                          "pv": [m.uci() for m in pv[:6]],
+                          "score_cp": sc.pov(side).score(mate_score=100000) if sc else None,
+                          "think_s": round(used, 3)})
             board.push(res.move)
         if result is None:
             if board.ply() >= 300:
@@ -129,7 +162,7 @@ def play_game(args):
     mean_think = {("white" if c else "black"): (sum(v) / len(v) if v else 0) for c, v in think.items()}
     return {"idx": idx, "white": white_spec, "black": black_spec, "opening": opening[0],
             "result": result, "reason": reason, "plies": board.ply(), "a_score": a_score,
-            "mean_think_s": mean_think, "pgn": pgn}
+            "mean_think_s": mean_think, "trace": trace, "pgn": pgn}
 
 
 def elo_from_score(p: float, n: int):

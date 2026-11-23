@@ -1,0 +1,22 @@
+nodes 37888 depth 5 nps 7575
+         9600154 function calls (9575580 primitive calls) in 4.960 seconds
+
+   Ordered by: internal time
+   List reduced from 106 to 12 due to restriction <12>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+    24255    1.109    0.000    2.206    0.000 /home/user/uberbondd/projects/chimera-chess/chimera/evaluate.py:73(evaluate)
+  1267854    0.386    0.000    0.492    0.000 /usr/local/lib/python3.13/site-packages/chess/__init__.py:405(scan_forward)
+   331521    0.322    0.000    0.322    0.000 /usr/local/lib/python3.13/site-packages/chess/__init__.py:905(attackers_mask)
+   207140    0.316    0.000    0.676    0.000 /usr/local/lib/python3.13/site-packages/chess/__init__.py:1819(generate_pseudo_legal_moves)
+    50328    0.255    0.000    0.555    0.000 /usr/local/lib/python3.13/site-packages/chess/__init__.py:2310(push)
+   728101    0.179    0.000    0.227    0.000 /usr/local/lib/python3.13/site-packages/chess/__init__.py:414(scan_reversed)
+19862/188    0.176    0.000    4.996    0.027 /home/user/uberbondd/projects/chimera-chess/chimera/search.py:209(negamax)
+  1461297    0.170    0.000    0.170    0.000 {method 'bit_length' of 'int' objects}
+     3219    0.160    0.000    0.351    0.000 /home/user/uberbondd/projects/chimera-chess/chimera/search.py:132(_order)
+   207177    0.141    0.000    1.034    0.000 /usr/local/lib/python3.13/site-packages/chess/__init__.py:3702(generate_legal_moves)
+   190492    0.094    0.000    0.158    0.000 /usr/local/lib/python3.13/site-packages/chess/__init__.py:3664(_is_safe)
+   665243    0.093    0.000    0.093    0.000 {method 'bit_count' of 'int' objects}
+
+
+

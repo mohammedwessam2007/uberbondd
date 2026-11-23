@@ -1,0 +1,48 @@
+  1               native:2 - chimera:Tactical       1-0     CHECKMATE 93
+  2       chimera:Tactical - native:2               0-1     CHECKMATE 62
+  3               native:2 - chimera:Tactical       1-0     CHECKMATE 81
+  4       chimera:Tactical - native:2               0-1     CHECKMATE 52
+  5               native:2 - chimera:Tactical       1-0     CHECKMATE 45
+  6       chimera:Tactical - native:2               0-1     CHECKMATE 94
+  7               native:2 - chimera:Tactical       1-0     CHECKMATE 83
+  8       chimera:Tactical - native:2               0-1     CHECKMATE 78
+  9               native:2 - chimera:Tactical       1-0     CHECKMATE 71
+ 10       chimera:Tactical - native:2               0-1     CHECKMATE 52
+ 11               native:2 - chimera:Tactical       1-0     CHECKMATE 55
+ 12       chimera:Tactical - native:2               0-1     CHECKMATE 70
+ 13               native:2 - chimera:Tactical       1-0     CHECKMATE 57
+ 14       chimera:Tactical - native:2               0-1     CHECKMATE 86
+ 15               native:2 - chimera:Tactical       1-0     CHECKMATE 91
+ 16       chimera:Tactical - native:2               0-1     CHECKMATE 72
+ 17               native:2 - chimera:Tactical       1-0     CHECKMATE 83
+ 18       chimera:Tactical - native:2               0-1     CHECKMATE 46
+ 19               native:2 - chimera:Tactical       1-0     CHECKMATE 147
+ 20       chimera:Tactical - native:2               0-1     CHECKMATE 66
+ 21               native:2 - chimera:Tactical       1-0     CHECKMATE 57
+ 22       chimera:Tactical - native:2               0-1     CHECKMATE 72
+ 23               native:2 - chimera:Tactical       1-0     CHECKMATE 91
+ 24       chimera:Tactical - native:2               0-1     CHECKMATE 74
+/home/user/uberbondd/projects/chimera-chess/tools/match.py:202: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  "date_utc": datetime.datetime.utcnow().isoformat(timespec="seconds")}
+{
+  "a": "native:2",
+  "b": "chimera:Tactical",
+  "tc": "40+0.4",
+  "games": 24,
+  "a_wins": 24,
+  "draws": 0,
+  "a_losses": 0,
+  "a_score": 24.0,
+  "a_pct": 1.0,
+  "elo_diff_a_minus_b_95ci": [
+    669,
+    429,
+    669
+  ],
+  "time_forfeits": 0,
+  "illegal_or_failure": 0,
+  "stockfish": "/usr/games/stockfish",
+  "python": "3.13.18",
+  "chess": "1.11.2",
+  "date_utc": "2026-11-23T23:23:14"
+}

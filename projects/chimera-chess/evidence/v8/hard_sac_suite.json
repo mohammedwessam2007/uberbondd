@@ -1,0 +1,970 @@
+{
+ "source": "Lichess puzzle DB (CC0), byte range 0-16000000, sha256 405fd7fa6a9d7f6855d1e2bea06e65cd6ac2f129f3c5a105ad338de10f1821ee",
+ "selection": "ascending PuzzleId; sacrifice; rating>=2000; >=6 plies; SF16 d20 first-move confirmed; disjoint from earlier suites",
+ "items": [
+  {
+   "id": "002e5",
+   "theme": "hard_sacrifice",
+   "rating": 2602,
+   "fen": "r2q2k1/pp1n2bp/3P2b1/6N1/6Q1/P3P3/6P1/4K2R w K - 2 22",
+   "solution": "g4c4",
+   "line": [
+    "g4c4",
+    "g8h8",
+    "h1h7",
+    "g6h7",
+    "g5f7"
+   ],
+   "themes": "crushing long middlegame sacrifice"
+  },
+  {
+   "id": "00KYC",
+   "theme": "hard_sacrifice",
+   "rating": 2272,
+   "fen": "5rk1/pR5p/2r1pBp1/4P3/2b5/3p4/P4PPP/4R1K1 b - - 1 27",
+   "solution": "f8f6",
+   "line": [
+    "f8f6",
+    "e5f6",
+    "d3d2",
+    "e1d1",
+    "c4e2"
+   ],
+   "themes": "advancedPawn clearance crushing endgame long master sacrifice"
+  },
+  {
+   "id": "00KgF",
+   "theme": "hard_sacrifice",
+   "rating": 2508,
+   "fen": "4r3/p6k/1p5P/1P2P1K1/8/5N2/8/8 w - - 1 43",
+   "solution": "g5h5",
+   "line": [
+    "g5h5",
+    "h7g8",
+    "f3g5",
+    "e8e5",
+    "h5g6",
+    "e5b5",
+    "h6h7"
+   ],
+   "themes": "advancedPawn crushing endgame quietMove sacrifice veryLong"
+  },
+  {
+   "id": "00OKo",
+   "theme": "hard_sacrifice",
+   "rating": 2331,
+   "fen": "r3rk2/pbq5/1p2pp1p/2p1N3/2PP2Q1/1P1B4/P5PP/R5K1 w - - 2 25",
+   "solution": "a1f1",
+   "line": [
+    "a1f1",
+    "c7g7",
+    "f1f6",
+    "g7f6",
+    "e5d7"
+   ],
+   "themes": "advantage exposedKing long middlegame pin sacrifice"
+  },
+  {
+   "id": "00P81",
+   "theme": "hard_sacrifice",
+   "rating": 2267,
+   "fen": "6k1/5p2/4p2p/3pPP2/1R5P/2r5/2B5/2b2K2 w - - 1 47",
+   "solution": "b4b8",
+   "line": [
+    "b4b8",
+    "g8h7",
+    "f5e6",
+    "c3c2",
+    "e6e7"
+   ],
+   "themes": "advancedPawn crushing discoveredAttack discoveredCheck endgame long sacrifice"
+  },
+  {
+   "id": "00Pms",
+   "theme": "hard_sacrifice",
+   "rating": 2127,
+   "fen": "r3kr2/p1p2pQp/bp2pP2/8/8/1P4P1/P2KNP1P/R1B4q w q - 1 18",
+   "solution": "g7f8",
+   "line": [
+    "g7f8",
+    "e8f8",
+    "c1a3",
+    "f8e8",
+    "a1h1"
+   ],
+   "themes": "advantage attraction discoveredAttack long middlegame sacrifice"
+  },
+  {
+   "id": "00QjF",
+   "theme": "hard_sacrifice",
+   "rating": 2097,
+   "fen": "8/8/1pr3kp/pbPpp1pN/3Pp1P1/1P2K3/P6P/2R5 w - - 0 30",
+   "solution": "c5b6",
+   "line": [
+    "c5b6",
+    "c6c1",
+    "b6b7",
+    "c1e1",
+    "e3d2"
+   ],
+   "themes": "advancedPawn crushing endgame long master sacrifice"
+  },
+  {
+   "id": "00UJP",
+   "theme": "hard_sacrifice",
+   "rating": 2204,
+   "fen": "1r2q1k1/2R4p/3pNp2/3P4/1p3pbb/1BP5/1P3PPK/Q4R2 b - - 0 28",
+   "solution": "h4g3",
+   "line": [
+    "h4g3",
+    "h2g1",
+    "e8h5",
+    "c7g7",
+    "g8h8",
+    "f2g3",
+    "f4g3",
+    "f1f3",
+    "h5h2"
+   ],
+   "themes": "crushing middlegame sacrifice veryLong"
+  },
+  {
+   "id": "00WoW",
+   "theme": "hard_sacrifice",
+   "rating": 2140,
+   "fen": "8/4kppR/r1p1p2p/p3P2P/4P1P1/1pP2P2/3K2B1/8 b - - 1 29",
+   "solution": "a5a4",
+   "line": [
+    "a5a4",
+    "g2f1",
+    "a4a3",
+    "f1a6",
+    "a3a2"
+   ],
+   "themes": "advancedPawn advantage endgame long master quietMove sacrifice"
+  },
+  {
+   "id": "00YYk",
+   "theme": "hard_sacrifice",
+   "rating": 2074,
+   "fen": "2k2rr1/1p1q3p/p1nb4/2p1p3/2N1R3/3P1QP1/PPP5/R1B3K1 w - - 5 23",
+   "solution": "f3f8",
+   "line": [
+    "f3f8",
+    "g8f8",
+    "c4b6",
+    "c8c7",
+    "b6d7"
+   ],
+   "themes": "advantage fork long middlegame sacrifice"
+  },
+  {
+   "id": "00ZEW",
+   "theme": "hard_sacrifice",
+   "rating": 2217,
+   "fen": "r1b5/pppqNkp1/3p3p/4r2n/1PP2p1N/P5P1/4Q2P/4RRK1 w - - 4 23",
+   "solution": "e2h5",
+   "line": [
+    "e2h5",
+    "e5h5",
+    "f1f4",
+    "f7e8",
+    "e7g6"
+   ],
+   "themes": "advantage discoveredAttack discoveredCheck long middlegame pin sacrifice"
+  },
+  {
+   "id": "00eYd",
+   "theme": "hard_sacrifice",
+   "rating": 2747,
+   "fen": "r4rk1/1pq2ppp/p2p2n1/3Bp3/4P1R1/P3QPR1/1P3P2/7K w - - 1 25",
+   "solution": "g4g6",
+   "line": [
+    "g4g6",
+    "h7g6",
+    "e3g5",
+    "c7d8",
+    "g5g6"
+   ],
+   "themes": "advantage long master middlegame pin sacrifice"
+  },
+  {
+   "id": "00gpa",
+   "theme": "hard_sacrifice",
+   "rating": 2147,
+   "fen": "r1br2k1/qp3pp1/p3p2p/8/8/P5P1/1PBB2P1/2RQ3K w - - 1 22",
+   "solution": "d2e3",
+   "line": [
+    "d2e3",
+    "d8d1",
+    "c1d1",
+    "g8f8",
+    "e3a7",
+    "a8a7",
+    "d1d8",
+    "f8e7",
+    "d8c8"
+   ],
+   "themes": "advantage fork middlegame sacrifice veryLong"
+  },
+  {
+   "id": "00hCU",
+   "theme": "hard_sacrifice",
+   "rating": 2789,
+   "fen": "r1b2r2/1p5k/2Pp2pp/p2Bb3/2Pp1p2/P2P2Pq/3B1P1P/1R1QR1K1 b - - 0 26",
+   "solution": "f4g3",
+   "line": [
+    "f4g3",
+    "f2g3",
+    "f8f2",
+    "g1f2",
+    "h3h2"
+   ],
+   "themes": "attraction crushing deflection kingsideAttack long middlegame sacrifice"
+  },
+  {
+   "id": "00nsa",
+   "theme": "hard_sacrifice",
+   "rating": 2219,
+   "fen": "6k1/1p1R3p/p5p1/P1B1bpK1/4r2P/6P1/2P2P2/8 b - - 4 34",
+   "solution": "e4g4",
+   "line": [
+    "e4g4",
+    "g5h6",
+    "g4h4",
+    "g3h4",
+    "e5f4"
+   ],
+   "themes": "deflection endgame long mate mateIn3 sacrifice"
+  },
+  {
+   "id": "00rjB",
+   "theme": "hard_sacrifice",
+   "rating": 2764,
+   "fen": "2r3k1/pb3qN1/1p2p2p/2b5/6n1/2Pp2B1/PP1Q1PP1/1BR1R1K1 b - - 1 28",
+   "solution": "c5f2",
+   "line": [
+    "c5f2",
+    "g3f2",
+    "f7c7",
+    "d2h6",
+    "g4h6"
+   ],
+   "themes": "advantage fork long middlegame sacrifice"
+  },
+  {
+   "id": "00sJ9",
+   "theme": "hard_sacrifice",
+   "rating": 2700,
+   "fen": "r3r1k1/p4ppp/2p2n2/1p6/3P1qb1/2NQ2R1/PPB2PP1/R1B3K1 b - - 6 18",
+   "solution": "e8e1",
+   "line": [
+    "e8e1",
+    "g1h2",
+    "e1c1",
+    "a1c1",
+    "f4h6",
+    "h2g1",
+    "h6c1"
+   ],
+   "themes": "advantage attraction fork middlegame sacrifice veryLong"
+  },
+  {
+   "id": "00sKJ",
+   "theme": "hard_sacrifice",
+   "rating": 2372,
+   "fen": "8/1P2pk2/R2b4/N4pp1/8/3K2P1/1r4P1/8 w - - 3 41",
+   "solution": "a6d6",
+   "line": [
+    "a6d6",
+    "e7d6",
+    "a5c6",
+    "b2b7",
+    "c6d8",
+    "f7f6",
+    "d8b7"
+   ],
+   "themes": "crushing endgame fork quietMove sacrifice veryLong"
+  },
+  {
+   "id": "00uL7",
+   "theme": "hard_sacrifice",
+   "rating": 2288,
+   "fen": "4r1k1/p3qpp1/1bQ5/5p1p/1P5P/8/PBP2PP1/3R2K1 b - - 0 24",
+   "solution": "b6f2",
+   "line": [
+    "b6f2",
+    "g1f2",
+    "e7e3",
+    "f2f1",
+    "e3e2",
+    "f1g1",
+    "e2d1"
+   ],
+   "themes": "attraction crushing endgame fork sacrifice veryLong"
+  },
+  {
+   "id": "00vf5",
+   "theme": "hard_sacrifice",
+   "rating": 2162,
+   "fen": "r1b1kb1r/1pqpnppp/p1n1p3/8/2BNP3/P1N5/1PP2PPP/R1BQK2R w KQkq - 1 8",
+   "solution": "d4b5",
+   "line": [
+    "d4b5",
+    "a6b5",
+    "c3b5",
+    "c7b8",
+    "b5d6"
+   ],
+   "themes": "crushing long opening sacrifice"
+  },
+  {
+   "id": "00vuv",
+   "theme": "hard_sacrifice",
+   "rating": 2111,
+   "fen": "r3r3/2q1b1pk/p3P1Np/5Qp1/8/8/PPpp1P2/2R1R1K1 w - - 0 31",
+   "solution": "g6f8",
+   "line": [
+    "g6f8",
+    "h7g8",
+    "f5h7",
+    "g8f8",
+    "h7h8"
+   ],
+   "themes": "discoveredCheck doubleCheck long mate mateIn3 middlegame sacrifice"
+  },
+  {
+   "id": "0122Z",
+   "theme": "hard_sacrifice",
+   "rating": 2430,
+   "fen": "r1bqkr2/1pp3pN/p1np4/4pp2/2B1n3/P1NPK2P/1PP3P1/R1BQ3R b q - 1 11",
+   "solution": "f5f4",
+   "line": [
+    "f5f4",
+    "e3e4",
+    "c8f5",
+    "e4f3",
+    "d8h4"
+   ],
+   "themes": "advantage fork long middlegame sacrifice"
+  },
+  {
+   "id": "013U2",
+   "theme": "hard_sacrifice",
+   "rating": 2199,
+   "fen": "r1bn1k2/p2pbP2/1p4pr/1P5p/2B5/P1B3N1/2P3PP/1K2R3 w - - 1 24",
+   "solution": "e1e7",
+   "line": [
+    "e1e7",
+    "f8e7",
+    "c3b4",
+    "d7d6",
+    "b4d6"
+   ],
+   "themes": "attraction crushing exposedKing long middlegame sacrifice"
+  },
+  {
+   "id": "015zy",
+   "theme": "hard_sacrifice",
+   "rating": 2157,
+   "fen": "4k3/5P1r/4P1N1/p5KP/8/p1P5/2P4P/8 b - - 0 48",
+   "solution": "h7f7",
+   "line": [
+    "h7f7",
+    "e6f7",
+    "e8f7",
+    "h5h6",
+    "f7g8",
+    "g6e5",
+    "g8h7"
+   ],
+   "themes": "crushing endgame sacrifice veryLong"
+  },
+  {
+   "id": "018Cs",
+   "theme": "hard_sacrifice",
+   "rating": 2435,
+   "fen": "6rr/pp1k1p2/1q2p1b1/2bpQ3/5B1P/2N2P2/PPn5/2KR2NR w - - 0 21",
+   "solution": "c3d5",
+   "line": [
+    "c3d5",
+    "e6d5",
+    "d1d5",
+    "d7c6",
+    "d5c5",
+    "b6c5",
+    "e5c7",
+    "c6b5",
+    "a2a4",
+    "b5c4",
+    "b2b3",
+    "c4b3",
+    "c7c5"
+   ],
+   "themes": "advantage deflection middlegame sacrifice veryLong"
+  },
+  {
+   "id": "018eM",
+   "theme": "hard_sacrifice",
+   "rating": 2038,
+   "fen": "r3k2r/1p1bbpp1/pq3p1p/3p4/3P4/2N2N2/PPP1QPPP/R3K2R w KQkq - 2 12",
+   "solution": "e2e7",
+   "line": [
+    "e2e7",
+    "e8e7",
+    "c3d5",
+    "e7d6",
+    "d5b6"
+   ],
+   "themes": "advantage attraction fork long middlegame sacrifice"
+  },
+  {
+   "id": "019PB",
+   "theme": "hard_sacrifice",
+   "rating": 2174,
+   "fen": "5rk1/5p1p/1qp2p2/p2pb2Q/P7/1r5P/4R1P1/4RN1K w - - 0 33",
+   "solution": "e2e5",
+   "line": [
+    "e2e5",
+    "f6e5",
+    "h5g5",
+    "g8h8",
+    "g5f6"
+   ],
+   "themes": "advantage long middlegame sacrifice"
+  },
+  {
+   "id": "019gx",
+   "theme": "hard_sacrifice",
+   "rating": 2115,
+   "fen": "1r6/6R1/3p4/KP1Rp3/2r1P3/2k2P2/8/8 b - - 2 45",
+   "solution": "c4a4",
+   "line": [
+    "c4a4",
+    "a5a4",
+    "b8a8",
+    "g7a7",
+    "a8a7"
+   ],
+   "themes": "attraction endgame long mate mateIn3 rookEndgame sacrifice"
+  },
+  {
+   "id": "01A5W",
+   "theme": "hard_sacrifice",
+   "rating": 2440,
+   "fen": "4r1k1/pp3p2/3p1Ppq/5P2/8/6RP/PP2rQ2/6RK w - - 3 40",
+   "solution": "g3g6",
+   "line": [
+    "g3g6",
+    "f7g6",
+    "f6f7",
+    "g8f7",
+    "f5g6",
+    "f7e7",
+    "f2e2"
+   ],
+   "themes": "advancedPawn attraction crushing discoveredCheck doubleCheck endgame interference intermezzo sacrifice veryLong"
+  },
+  {
+   "id": "01B5q",
+   "theme": "hard_sacrifice",
+   "rating": 2228,
+   "fen": "r4rk1/1pp2p1p/p4Qp1/3n3P/P2Nq3/8/1B4R1/5B1K w - - 0 37",
+   "solution": "f6g7",
+   "line": [
+    "f6g7",
+    "g8g7",
+    "d4f5",
+    "g7g8",
+    "f5h6"
+   ],
+   "themes": "attraction discoveredCheck doubleCheck long mate mateIn3 middlegame pin sacrifice"
+  },
+  {
+   "id": "01BBu",
+   "theme": "hard_sacrifice",
+   "rating": 2586,
+   "fen": "2r5/7R/2P2p2/1P3P2/7k/6pp/1K6/8 b - - 3 48",
+   "solution": "h4g4",
+   "line": [
+    "h4g4",
+    "c6c7",
+    "c8c7",
+    "h7c7",
+    "h3h2",
+    "b5b6",
+    "h2h1q"
+   ],
+   "themes": "advancedPawn crushing endgame promotion rookEndgame sacrifice veryLong"
+  },
+  {
+   "id": "01Brx",
+   "theme": "hard_sacrifice",
+   "rating": 2126,
+   "fen": "5rk1/p1r3b1/1p1pRN2/3b1n1q/3P1p2/2P2N2/PP2BPQP/R6K b - - 6 23",
+   "solution": "f8f6",
+   "line": [
+    "f8f6",
+    "e6f6",
+    "f5h4",
+    "f3h4",
+    "d5g2",
+    "h4g2",
+    "h5e2"
+   ],
+   "themes": "advantage kingsideAttack middlegame sacrifice veryLong"
+  },
+  {
+   "id": "01CmR",
+   "theme": "hard_sacrifice",
+   "rating": 2288,
+   "fen": "5r1k/2p3p1/p1pp3p/8/Pb1PP3/1Q2KP2/1P2R2q/R1B5 b - - 4 25",
+   "solution": "f8f3",
+   "line": [
+    "f8f3",
+    "e3f3",
+    "h2h3",
+    "f3f2",
+    "h3b3"
+   ],
+   "themes": "advantage attraction long middlegame sacrifice skewer"
+  },
+  {
+   "id": "01Isj",
+   "theme": "hard_sacrifice",
+   "rating": 2728,
+   "fen": "1kq1r2r/p1p2pp1/1pPb4/3P4/Q1B2nbp/4B3/P2N1PPP/1R2R1K1 w - - 0 21",
+   "solution": "c4a6",
+   "line": [
+    "c4a6",
+    "c8f5",
+    "e3b6",
+    "e8e1",
+    "b1e1",
+    "c7b6",
+    "c6c7",
+    "d6c7",
+    "e1e8",
+    "h8e8",
+    "a4e8",
+    "f5c8",
+    "a6c8"
+   ],
+   "themes": "advancedPawn crushing middlegame queensideAttack sacrifice veryLong"
+  },
+  {
+   "id": "01JEA",
+   "theme": "hard_sacrifice",
+   "rating": 2281,
+   "fen": "5rkr/1QN5/4R3/p1P5/P2p4/1B1q3P/1P4P1/6K1 b - - 0 44",
+   "solution": "f8f1",
+   "line": [
+    "f8f1",
+    "g1h2",
+    "h8h3",
+    "g2h3",
+    "f1f2",
+    "b7g2",
+    "f2g2",
+    "h2g2",
+    "d3b3"
+   ],
+   "themes": "advantage middlegame sacrifice veryLong"
+  },
+  {
+   "id": "01K6c",
+   "theme": "hard_sacrifice",
+   "rating": 2104,
+   "fen": "1r2r1k1/Q1p3pp/6q1/2nb4/8/5P2/PPP3PP/RNB2RK1 b - - 0 19",
+   "solution": "d5f3",
+   "line": [
+    "d5f3",
+    "f1f3",
+    "e8e1",
+    "f3f1",
+    "e1f1"
+   ],
+   "themes": "crushing fork long middlegame pin sacrifice"
+  },
+  {
+   "id": "01LQB",
+   "theme": "hard_sacrifice",
+   "rating": 2382,
+   "fen": "7r/p4pk1/2pr1nP1/4p1Q1/4P2P/2qB4/b1P3P1/3R1RK1 w - - 1 24",
+   "solution": "g6f7",
+   "line": [
+    "g6f7",
+    "g7f7",
+    "d3c4",
+    "c3c4",
+    "g5e5",
+    "c4e6",
+    "e5d6"
+   ],
+   "themes": "advancedPawn advantage attraction deflection discoveredAttack discoveredCheck middlegame pin sacrifice veryLong"
+  },
+  {
+   "id": "01M2U",
+   "theme": "hard_sacrifice",
+   "rating": 2303,
+   "fen": "1k5r/pp4p1/7r/3p2p1/3P2R1/2P1pP1P/PP3b2/K4B1R b - - 1 38",
+   "solution": "h6h3",
+   "line": [
+    "h6h3",
+    "f1h3",
+    "e3e2",
+    "h1b1",
+    "h8h3"
+   ],
+   "themes": "advancedPawn advantage endgame long master sacrifice"
+  },
+  {
+   "id": "01OkZ",
+   "theme": "hard_sacrifice",
+   "rating": 2171,
+   "fen": "8/8/8/p1p3P1/3k1N1P/6K1/8/3b4 w - - 0 43",
+   "solution": "h4h5",
+   "line": [
+    "h4h5",
+    "d4e5",
+    "h5h6",
+    "d1c2",
+    "g3g4",
+    "c2f5",
+    "g4h5",
+    "e5f4",
+    "g5g6"
+   ],
+   "themes": "crushing defensiveMove endgame master masterVsMaster quietMove sacrifice veryLong"
+  },
+  {
+   "id": "01P1X",
+   "theme": "hard_sacrifice",
+   "rating": 2200,
+   "fen": "r1b2rk1/pp2ppbp/5np1/2qP4/1n2P3/P1N2N2/1P1B1PPP/R2QKB1R b KQ - 0 11",
+   "solution": "f6e4",
+   "line": [
+    "f6e4",
+    "c3e4",
+    "b4c2",
+    "d1c2",
+    "c5c2"
+   ],
+   "themes": "advantage fork long opening sacrifice"
+  },
+  {
+   "id": "01PDg",
+   "theme": "hard_sacrifice",
+   "rating": 2686,
+   "fen": "1b5k/ppq2p1b/2p1pp1p/2Q5/2N1PP2/PPN3rP/2P3BK/3R4 b - - 0 24",
+   "solution": "c7f4",
+   "line": [
+    "c7f4",
+    "c3e2",
+    "g3g5",
+    "e2f4",
+    "b8f4",
+    "h2g1",
+    "g5c5"
+   ],
+   "themes": "advantage discoveredAttack discoveredCheck middlegame sacrifice veryLong"
+  },
+  {
+   "id": "01Pkf",
+   "theme": "hard_sacrifice",
+   "rating": 2540,
+   "fen": "r2q1rk1/3pb1pp/1p1Npn2/pB1bB3/3P3P/PQ6/1P3P2/R3K1R1 w Q - 2 21",
+   "solution": "b3g3",
+   "line": [
+    "b3g3",
+    "g7g6",
+    "b5d3",
+    "e7d6",
+    "d3g6"
+   ],
+   "themes": "crushing long middlegame sacrifice"
+  },
+  {
+   "id": "01TxI",
+   "theme": "hard_sacrifice",
+   "rating": 2201,
+   "fen": "2k2r1r/pp2q3/2p1b3/7p/1P1pPBn1/3B4/P2Q2PP/1RR4K b - - 5 22",
+   "solution": "f8f4",
+   "line": [
+    "f8f4",
+    "d2f4",
+    "h8f8",
+    "f4f8",
+    "e7f8"
+   ],
+   "themes": "clearance crushing long middlegame sacrifice"
+  },
+  {
+   "id": "01Xw1",
+   "theme": "hard_sacrifice",
+   "rating": 2137,
+   "fen": "r2q3r/3b1pk1/p2p1n2/npp1pPN1/4P1PQ/PBPP3P/2P5/R4RK1 w - - 3 20",
+   "solution": "g5e6",
+   "line": [
+    "g5e6",
+    "d7e6",
+    "h4g5",
+    "g7f8",
+    "f5e6"
+   ],
+   "themes": "clearance crushing intermezzo long middlegame sacrifice"
+  },
+  {
+   "id": "01aM3",
+   "theme": "hard_sacrifice",
+   "rating": 2036,
+   "fen": "2k4r/B1p2p2/1P1b1pb1/7p/1PB1P1P1/2P2Q1P/1q1r1PK1/R6R b - - 0 23",
+   "solution": "d2f2",
+   "line": [
+    "d2f2",
+    "f3f2",
+    "g6e4",
+    "g2g1",
+    "b2a1"
+   ],
+   "themes": "advantage deflection fork interference long middlegame pin sacrifice"
+  },
+  {
+   "id": "01fEB",
+   "theme": "hard_sacrifice",
+   "rating": 2516,
+   "fen": "r4rk1/3b2pp/8/p3QB2/1pqP4/8/PP4PP/4RRK1 b - - 0 22",
+   "solution": "a8e8",
+   "line": [
+    "a8e8",
+    "e5f4",
+    "f8f5",
+    "e1e8",
+    "g8f7",
+    "e8e5",
+    "f5f4"
+   ],
+   "themes": "crushing middlegame sacrifice veryLong"
+  },
+  {
+   "id": "01hzW",
+   "theme": "hard_sacrifice",
+   "rating": 2124,
+   "fen": "3r4/1p5p/2kb3R/p4NP1/Prp2P2/K3P3/1P6/3R4 b - - 0 34",
+   "solution": "b4a4",
+   "line": [
+    "b4a4",
+    "a3a4",
+    "b7b5",
+    "a4a5",
+    "d8a8"
+   ],
+   "themes": "attraction discoveredCheck doubleCheck endgame long mate mateIn3 pillsburysMate sacrifice"
+  },
+  {
+   "id": "01kad",
+   "theme": "hard_sacrifice",
+   "rating": 2197,
+   "fen": "1r5k/p4q1p/2Q2p2/4pN2/Pr2P3/1P1n3P/K1P2P2/1R5R b - - 6 27",
+   "solution": "b4b3",
+   "line": [
+    "b4b3",
+    "b1b3",
+    "d3b4",
+    "a2b1",
+    "b4c6",
+    "b3b8",
+    "c6b8"
+   ],
+   "themes": "advantage fork middlegame sacrifice veryLong"
+  },
+  {
+   "id": "01lAW",
+   "theme": "hard_sacrifice",
+   "rating": 2546,
+   "fen": "2r1k2r/1b1q2bp/p5p1/2p1PnB1/2QPN3/8/PP4PP/R4RK1 w k - 2 21",
+   "solution": "e4d6",
+   "line": [
+    "e4d6",
+    "f5d6",
+    "e5d6",
+    "g7d4",
+    "c4d4",
+    "c5d4",
+    "a1e1",
+    "d7e6",
+    "e1e6"
+   ],
+   "themes": "crushing exposedKing fork middlegame sacrifice veryLong"
+  },
+  {
+   "id": "01lBC",
+   "theme": "hard_sacrifice",
+   "rating": 2353,
+   "fen": "r1b1kb1r/ppNp1ppp/2n4n/4P3/8/6B1/PqP1PPPP/R2QKBNR b KQkq - 0 7",
+   "solution": "e8d8",
+   "line": [
+    "e8d8",
+    "c7d5",
+    "f8b4",
+    "d5b4",
+    "b2c3",
+    "d1d2",
+    "c3a1"
+   ],
+   "themes": "advantage deflection fork opening sacrifice veryLong"
+  },
+  {
+   "id": "01oma",
+   "theme": "hard_sacrifice",
+   "rating": 2024,
+   "fen": "r4q1k/1p4pp/1n2Q1pN/p3P3/Pbp1P3/8/1P2p1PP/5RK1 w - - 0 26",
+   "solution": "f1f8",
+   "line": [
+    "f1f8",
+    "a8f8",
+    "e6g8",
+    "f8g8",
+    "h6f7"
+   ],
+   "themes": "kingsideAttack long mate mateIn3 middlegame sacrifice smotheredMate"
+  },
+  {
+   "id": "01rCa",
+   "theme": "hard_sacrifice",
+   "rating": 2495,
+   "fen": "3q1r1k/b3R1p1/p4rnp/2P2N2/1P4Q1/7R/P4PPP/6K1 w - - 8 29",
+   "solution": "f5h6",
+   "line": [
+    "f5h6",
+    "d8e7",
+    "h6f5",
+    "h8g8",
+    "f5e7"
+   ],
+   "themes": "advantage discoveredAttack kingsideAttack long middlegame sacrifice"
+  },
+  {
+   "id": "01uWs",
+   "theme": "hard_sacrifice",
+   "rating": 2580,
+   "fen": "2kr3r/bpp2pp1/2pqbn2/P6p/1N2P3/2PP3P/4BPP1/R1BQK2R b KQ - 0 14",
+   "solution": "f6e4",
+   "line": [
+    "f6e4",
+    "d3e4",
+    "d6c5",
+    "e1g1",
+    "d8d1"
+   ],
+   "themes": "crushing discoveredAttack long middlegame sacrifice"
+  },
+  {
+   "id": "01v4V",
+   "theme": "hard_sacrifice",
+   "rating": 2163,
+   "fen": "6k1/1p2rpp1/p2q1n1p/3P4/1P6/P1NQ3P/5PP1/R4K2 b - - 1 24",
+   "solution": "d6h2",
+   "line": [
+    "d6h2",
+    "c3e2",
+    "e7e2",
+    "f1e2",
+    "h2e5"
+   ],
+   "themes": "advantage attraction endgame long sacrifice"
+  },
+  {
+   "id": "01y0W",
+   "theme": "hard_sacrifice",
+   "rating": 2421,
+   "fen": "1k3q1r/1p3P2/p1p1Q3/3pb3/4p3/8/PP4PP/1R3R1K b - - 2 28",
+   "solution": "h8h2",
+   "line": [
+    "h8h2",
+    "h1g1",
+    "h2g2",
+    "g1g2",
+    "f8g7"
+   ],
+   "themes": "attraction crushing endgame long sacrifice"
+  },
+  {
+   "id": "023Uk",
+   "theme": "hard_sacrifice",
+   "rating": 2993,
+   "fen": "4r1k1/7p/pR4p1/2p5/2qr1pQ1/P3p2P/2P2PP1/1R4K1 w - - 0 34",
+   "solution": "b6g6",
+   "line": [
+    "b6g6",
+    "g8h8",
+    "g4f5",
+    "h7g6",
+    "f5f6"
+   ],
+   "themes": "crushing endgame long sacrifice"
+  },
+  {
+   "id": "024PS",
+   "theme": "hard_sacrifice",
+   "rating": 2168,
+   "fen": "6k1/pp3pp1/1bp1b2p/2q5/P6P/2PrR1P1/5PB1/2Q2RK1 b - - 2 23",
+   "solution": "c5e3",
+   "line": [
+    "c5e3",
+    "f2e3",
+    "b6e3",
+    "g1h2",
+    "e3c1"
+   ],
+   "themes": "advantage fork long master middlegame sacrifice"
+  },
+  {
+   "id": "025BR",
+   "theme": "hard_sacrifice",
+   "rating": 2195,
+   "fen": "r4rk1/p1p1b1pp/8/q3p1B1/1nQpP1P1/1P3N1P/2P2P2/1K1R3R b - - 2 19",
+   "solution": "g8h8",
+   "line": [
+    "g8h8",
+    "g5e7",
+    "a5a2",
+    "b1c1",
+    "f8f3"
+   ],
+   "themes": "crushing defensiveMove long middlegame sacrifice"
+  },
+  {
+   "id": "026QC",
+   "theme": "hard_sacrifice",
+   "rating": 2091,
+   "fen": "8/R1r5/1p5p/1kq1pr2/1N1p4/P2P1p2/1PP4P/2K2Q2 w - - 1 37",
+   "solution": "a3a4",
+   "line": [
+    "a3a4",
+    "b5b4",
+    "f1e1",
+    "c5c3",
+    "b2c3"
+   ],
+   "themes": "crushing endgame long sacrifice"
+  },
+  {
+   "id": "02Chp",
+   "theme": "hard_sacrifice",
+   "rating": 2481,
+   "fen": "r4rk1/p4pp1/4b2p/2bp4/5B1Q/6R1/PP2qPPP/5RK1 w - - 0 22",
+   "solution": "g3g7",
+   "line": [
+    "g3g7",
+    "g8g7",
+    "f4h6",
+    "g7h7",
+    "h6f8",
+    "h7g8",
+    "f8c5"
+   ],
+   "themes": "attraction crushing discoveredAttack discoveredCheck kingsideAttack middlegame sacrifice skewer veryLong"
+  }
+ ]
+}

@@ -1,0 +1,76 @@
+"""CHIMERA Ω∞ configuration (manual §5.1 / codex §5), reconciled with the existing native engine.
+
+PDF values are kept verbatim (target_ipr, softmax_temp, soundness_floor_cp, max_cp_drop, anti_draw_contempt_cp, presets).
+Engineering differences (recorded in canon/PDF_CONTRADICTIONS.json):
+ * Stockfish 19 is unavailable in this environment (github downloads refused, 403) -> verifier = installed Stockfish 16.
+ * CSSLab maia3-uci is unavailable (repo unreachable, not on PyPI) -> Maia3-5M ONNX port (chimera/maia.py, parity 61/61).
+ * enable_clock_delay is ALWAYS False: artificial delays to imitate human timing are restricted (#28 #53 #80 #210).
+ * target_ipr is kept as a label of the preset; nothing in the runtime optimises screening statistics (#179 restricted part).
+"""
+import os
+from dataclasses import dataclass, field, asdict
+from typing import Dict, List
+
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+
+@dataclass
+class ChimeraConfig:
+    stockfish_path: str = os.getenv("STOCKFISH_PATH", "/usr/games/stockfish")
+    native_path: str = os.path.join(ROOT, "native", "chimera")
+    net_file: str = os.path.join(ROOT, "nnue", "v12", "eval_v4_residual.bin")
+    maia3_cmd: List[str] = field(default_factory=lambda: ["maia3-uci", "--model", "5m", "--use-uci-history", "--elo", "2600"])  # PDF value, unavailable
+    target_ipr: int = 2685
+    maia_elo: int = 2600
+    sf_time_sec: float = 0.12
+    sf_multipv: int = 16
+    maia_multipv: int = 6
+    softmax_temp: float = 0.28
+    soundness_floor_cp: float = -45.0
+    max_cp_drop: float = 135.0
+    anti_draw_contempt_cp: float = -120.0
+    enable_clock_delay: bool = False      # PDF: True. Restricted (fabricated timing); hard-disabled.
+    seed: int = 42
+    # ---- runtime / ablation switches (WHOLE_MIND = all True)
+    use_motifs: bool = True
+    use_maia: bool = True
+    use_memory: bool = True              # native Architect PlanMemory + PlanBias causal channel
+    use_creative: bool = True            # Artist: Maia + motif-constructive extra candidates
+    use_neural: bool = True              # native residual NNUE (EvalVersion 3, x0.5) + Maia
+    verifier: str = "stockfish"          # Skeptic backend for sacrifice verification: stockfish | native | none
+    deterministic: bool = True           # argmax (reproducible); False = #25 Boltzmann sampling with seed
+    style_extreme: bool = True           # surrealist/extreme style motifs (opt-out)
+    motif_scale: float = 0.35            # pawn units of motif utility -> pawn units of utility (arbitration, see mind.py)
+    root_nodes: int = 120000
+    reply_nodes: int = 20000
+    verify_nodes: int = 300000
+    reply_k: int = 4
+
+
+ELO_PRESETS: Dict[str, Dict[str, float]] = {
+    "Club_1350": {"target_ipr": 1350, "maia_elo": 1300, "softmax_temp": 0.72, "soundness_floor_cp": -160.0, "max_cp_drop": 240.0},
+    "Intermediate_1720": {"target_ipr": 1720, "maia_elo": 1650, "softmax_temp": 0.54, "soundness_floor_cp": -110.0, "max_cp_drop": 190.0},
+    "Tournament_2120": {"target_ipr": 2120, "maia_elo": 2050, "softmax_temp": 0.40, "soundness_floor_cp": -75.0, "max_cp_drop": 160.0},
+    "Master_2480": {"target_ipr": 2480, "maia_elo": 2400, "softmax_temp": 0.32, "soundness_floor_cp": -55.0, "max_cp_drop": 145.0},
+    "Trauma_GM_2685": {"target_ipr": 2685, "maia_elo": 2600, "softmax_temp": 0.28, "soundness_floor_cp": -45.0, "max_cp_drop": 135.0},
+}
+
+PROFILES = {  # gauntlet ablations (section 16 of the mandate)
+    "WHOLE_MIND": {},
+    "NO_MEMORY": {"use_memory": False},
+    "NO_CREATIVE": {"use_creative": False},
+    "NO_MOTIFS": {"use_motifs": False},
+    "NO_NEURAL": {"use_neural": False, "use_maia": False},
+}
+
+
+def make(preset: str = "Trauma_GM_2685", profile: str = "WHOLE_MIND", **kw) -> ChimeraConfig:
+    c = ChimeraConfig()
+    for k, v in {**ELO_PRESETS[preset], **PROFILES[profile], **kw}.items():
+        setattr(c, k, type(getattr(c, k))(v))
+    c.enable_clock_delay = False
+    return c
+
+
+def as_dict(c: ChimeraConfig) -> dict:
+    return asdict(c)

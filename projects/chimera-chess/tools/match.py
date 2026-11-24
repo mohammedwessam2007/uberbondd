@@ -100,6 +100,20 @@ def open_player(spec: str):
         eng.configure(opts)
         eng.chimera_nodes = int(rest[1].split("=")[1]) if len(rest) > 1 and rest[1].startswith("nodes=") else None
         return eng
+    if kind == "omega":
+        # CHIMERA Omega WHOLE_MIND (python -m chimera.omega.uci); spec omega:<Profile>[:nodes=N][:trace=path][:nostyle]
+        eng = chess.engine.SimpleEngine.popen_uci([sys.executable, "-m", "chimera.omega.uci"], cwd=ROOT, timeout=60)
+        opts = {"Profile": rest[0] if rest else "WHOLE_MIND", "MoveOverheadMs": 60}
+        for t in rest[1:]:
+            if t.startswith("trace="):
+                opts["TraceFile"] = os.path.join(ROOT, t[6:])
+            if t == "nostyle":
+                opts["StyleExtreme"] = False
+            if t.startswith("root="):
+                opts["RootNodes"] = int(t[5:])
+        eng.configure(opts)
+        eng.chimera_nodes = next((int(t[6:]) for t in rest if t.startswith("nodes=")), None)
+        return eng
     if kind == "sf":
         eng = chess.engine.SimpleEngine.popen_uci(SF)
         opts = {"Threads": 1, "Hash": 16}

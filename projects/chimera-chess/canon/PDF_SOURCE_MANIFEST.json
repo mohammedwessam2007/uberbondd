@@ -1,0 +1,27 @@
+{
+ "documents": [
+  {
+   "key": "A",
+   "path": "canon/pdf_sources/CHIMERA_Omega_Infinity_Complete_Master_Codex_and_Ken_Regan_Architecture.pdf",
+   "sha256": "9871563e44677fb722d08936fec776d21daf3bfcb162bdd077e2192c45c32a22",
+   "pages": 21,
+   "title": "CHIMERA Ω∞ Master Architectural Codex & Ken Regan Architecture"
+  },
+  {
+   "key": "B",
+   "path": "canon/pdf_sources/CHIMERA_Omega_Infinity_Complete_Engineering_Realization_and_Benchmark_Manual.pdf",
+   "sha256": "f332ecc30ea49b17e57275f352791c4845bd7edd026b5e9acff610551b83c38b",
+   "pages": 14,
+   "title": "CHIMERA Ω∞ Engineering Realization & Benchmark Verification Manual"
+  }
+ ],
+ "extraction": "poppler pdftotext -layout; rendered pages checked at 60 dpi for code truncation (manual pp.7-10)",
+ "text_snapshots": [
+  "canon/pdf_sources/CHIMERA_Omega_Infinity_Complete_Master_Codex_and_Ken_Regan_Architecture.layout.txt",
+  "canon/pdf_sources/CHIMERA_Omega_Infinity_Complete_Engineering_Realization_and_Benchmark_Manual.layout.txt"
+ ],
+ "namespaces": {
+  "CODEX220": "220 numbered ideas of document A (B maps to the same numbers)",
+  "CORE167": "independent original 167-idea canon (canon/LEDGER_V13_167.json); numbers collide, meanings differ"
+ }
+}

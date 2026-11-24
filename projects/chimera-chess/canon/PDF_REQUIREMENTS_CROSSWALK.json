@@ -1,0 +1,171 @@
+{
+ "schema": "codex220-crosswalk-1",
+ "namespaces": {
+  "CODEX220": "canon/PDF_REQUIREMENTS_220.json",
+  "CORE167": "canon/LEDGER_V13_167.json"
+ },
+ "rule": "numbers collide across canons (CODEX220-001 Negative Draw Contempt != CORE167-001 Future Sculptor); links are manual assessments, shared implementations keep separate contracts",
+ "links": [
+  {
+   "codex": "CODEX220-145",
+   "core": "CORE167-166",
+   "core_title": "Anti-Fortress Demolition",
+   "relation": "SAME_CONCEPT",
+   "note": "Anti-Fortress Demolition (identical title); CODEX predicate = rook-for-minor sac in reduced material with eval >= +50"
+  },
+  {
+   "codex": "CODEX220-178",
+   "core": "CORE167-120",
+   "core_title": "TWO-WORLD VALUE CRITIC",
+   "relation": "SHARED_MECHANISM",
+   "note": "best-defence value + human-response value combined (0.72/0.28 vs two-world critic)"
+  },
+  {
+   "codex": "CODEX220-128",
+   "core": "CORE167-009",
+   "core_title": "TEMPTATION CARTOGRAPHER",
+   "relation": "SHARED_MECHANISM",
+   "note": "Maia reply distribution x searched reply losses (EBG) vs temptation research"
+  },
+  {
+   "codex": "CODEX220-216",
+   "core": "CORE167-009",
+   "core_title": "TEMPTATION CARTOGRAPHER",
+   "relation": "SHARED_MECHANISM",
+   "note": "phantom-threat quiet moves use the same reply-loss evidence"
+  },
+  {
+   "codex": "CODEX220-109",
+   "core": "CORE167-131",
+   "core_title": "Cognitive Overload & Only-Move Torture Maximizer",
+   "relation": "SHARED_MECHANISM",
+   "note": "only-move defense counting (viable replies) vs only-move diagnostic"
+  },
+  {
+   "codex": "CODEX220-137",
+   "core": "CORE167-134",
+   "core_title": "Clock-Drain & Time-Scramble Chokehold",
+   "relation": "RELATED",
+   "note": "clock-burn maze vs clock-drain study (CORE is offline research only)"
+  },
+  {
+   "codex": "CODEX220-180",
+   "core": "CORE167-123",
+   "core_title": "Sparse High-Leverage Deliberation Gate",
+   "relation": "SHARED_MECHANISM",
+   "note": "high-leverage routing of extra compute vs sparse deliberation gate"
+  },
+  {
+   "codex": "CODEX220-029",
+   "core": "CORE167-123",
+   "core_title": "Sparse High-Leverage Deliberation Gate",
+   "relation": "RELATED",
+   "note": "critical-branch extension"
+  },
+  {
+   "codex": "CODEX220-011",
+   "core": "CORE167-002",
+   "core_title": "PARALLEL IMAGINATION CHAMBER",
+   "relation": "SHARED_MECHANISM",
+   "note": "verification of candidate sacrifices (Skeptic / RootHint verification)"
+  },
+  {
+   "codex": "CODEX220-151",
+   "core": "CORE167-002",
+   "core_title": "PARALLEL IMAGINATION CHAMBER",
+   "relation": "SHARED_MECHANISM",
+   "note": "soundness gate"
+  },
+  {
+   "codex": "CODEX220-001",
+   "core": "CORE167-128",
+   "core_title": "Ruthless WDL Draw Contempt (128-R)",
+   "relation": "RELATED",
+   "note": "anti-draw contempt (CORE: transparent WDL utility)"
+  },
+  {
+   "codex": "CODEX220-177",
+   "core": "CORE167-128",
+   "core_title": "Ruthless WDL Draw Contempt (128-R)",
+   "relation": "RELATED",
+   "note": "escalating contempt"
+  },
+  {
+   "codex": "CODEX220-017",
+   "core": "CORE167-129",
+   "core_title": "Anti-Simplification Tension Lock",
+   "relation": "RELATED",
+   "note": "central tension holder vs anti-simplification tension lock"
+  },
+  {
+   "codex": "CODEX220-142",
+   "core": "CORE167-129",
+   "core_title": "Anti-Simplification Tension Lock",
+   "relation": "RELATED",
+   "note": "clutter densifier vs tension lock"
+  },
+  {
+   "codex": "CODEX220-138",
+   "core": "CORE167-158",
+   "core_title": "Quiet-Move Mic-Drop Finale Detector",
+   "relation": "SHARED_MECHANISM",
+   "note": "quiet move that cuts all counterplay vs quiet-move finale detector"
+  },
+  {
+   "codex": "CODEX220-188",
+   "core": "CORE167-164",
+   "core_title": "Triple-Sacrifice Opera House Combinatorial Engine",
+   "relation": "RELATED",
+   "note": "multiple pieces en prise vs multi-sacrifice composition"
+  },
+  {
+   "codex": "CODEX220-213",
+   "core": "CORE167-156",
+   "core_title": "Burn the Ships King-Walk & Double-Piece Sacrifice Engine",
+   "relation": "RELATED",
+   "note": "double exchange sac vs burn-the-ships double-piece sac"
+  },
+  {
+   "codex": "CODEX220-183",
+   "core": "CORE167-156",
+   "core_title": "Burn the Ships King-Walk & Double-Piece Sacrifice Engine",
+   "relation": "RELATED",
+   "note": "offensive king march vs king-walk"
+  },
+  {
+   "codex": "CODEX220-193",
+   "core": "CORE167-149",
+   "core_title": "Multi-Ply False-Rescue Baiting",
+   "relation": "RELATED",
+   "note": "false-hope mirage vs false-rescue baiting"
+  },
+  {
+   "codex": "CODEX220-175",
+   "core": "CORE167-130",
+   "core_title": "Asymmetric Sword-Edge Variance",
+   "relation": "RELATED",
+   "note": "convex risk-reward vs sword-edge variance"
+  },
+  {
+   "codex": "CODEX220-027",
+   "core": "CORE167-157",
+   "core_title": "Anti-Theory Street-Brawl Opening Disruptor",
+   "relation": "RELATED",
+   "note": "offbeat opening router vs anti-theory openings"
+  },
+  {
+   "codex": "CODEX220-144",
+   "core": "CORE167-160",
+   "core_title": "Crowd-Pleaser Aesthetics Score",
+   "relation": "RELATED",
+   "note": "humiliation finish ranker vs aesthetics score"
+  },
+  {
+   "codex": "CODEX220-033",
+   "core": "CORE167-132",
+   "core_title": "CQL Human Tactical Anchor Filtering",
+   "relation": "RELATED",
+   "note": "named mating-pattern recognisers vs CQL-style tactical anchors"
+  }
+ ]
+}

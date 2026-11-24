@@ -1,0 +1,53 @@
+{
+ "schema": "codex220-benchmarks-1",
+ "entries": [
+  {
+   "id": "BM-STRENGTH-2685",
+   "claim": "~2685 IPR target ceiling",
+   "class": "ASPIRATION",
+   "status": "measured relative to frozen V8 and Stockfish UCI_Elo anchors only; see evidence/omega/gauntlet"
+  },
+  {
+   "id": "BM-GEN-6.1",
+   "claim": "§6.1 per-generation peak IPR / MM% / Z / draw rate / motif output",
+   "class": "PROJECTION",
+   "status": "not executable as written (no generations rebuilt); motif output per game measured by tools/omega/artistry.py"
+  },
+  {
+   "id": "BM-PRESET-6.2",
+   "claim": "§6.2 preset win scores (94/91/87/76/52.5%), ASD bands, Z",
+   "class": "PROJECTION + RESTRICTED_SCREENING",
+   "status": "presets implemented; win scores unmeasured (no rated human pools); ASD/Z archived"
+  },
+  {
+   "id": "BM-H2H-6.3",
+   "claim": "§6.3 10-game matchups vs Tal/Harmon/Fischer/Carlsen/Nakamura/Stockfish 19",
+   "class": "NON_EXECUTABLE_PROJECTION",
+   "status": "historical/fictional opponents cannot be played; Stockfish 19 unavailable (C-DEP-SF19)"
+  },
+  {
+   "id": "BM-DRAW-17",
+   "claim": "draw rate 14-20% (~17%) vs peer pool, 50 games",
+   "class": "MEASURABLE",
+   "status": "measured in the gauntlet pools (ref:2, sf:2000) at 60+0.6"
+  },
+  {
+   "id": "BM-LAT-105-205",
+   "claim": "per-ply compute 105-205 ms (excl. #210 delay)",
+   "class": "MEASURABLE",
+   "status": "measured with the full WHOLE_MIND pipeline (root search, Maia, replies, Skeptic) in traces field ms"
+  },
+  {
+   "id": "BM-MM-ASD-Z",
+   "claim": "MM% 53-58, ASD 0.125-0.165, Z < 1.0",
+   "class": "RESTRICTED_SCREENING",
+   "status": "archived; not measured or optimised"
+  },
+  {
+   "id": "BM-ARTISTIC",
+   "claim": "motif frequencies (e.g. '2.8 Judas / Zombie / 0-check mates')",
+   "class": "MEASURABLE",
+   "status": "tools/omega/artistry.py: available/recognised/investigated/selected/constructed/refuted per motif"
+  }
+ ]
+}

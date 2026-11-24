@@ -1,0 +1,19 @@
+{
+ "mechanism": "population-level reply model: held-out log loss of the actual human move under a move-class frequency model (fit on train games) vs Maia3 vs uniform",
+ "heldout_logloss": {
+  "uniform": 3.1938,
+  "class_frequency": 3.1172,
+  "maia3": 1.4446
+ },
+ "ci95_maia_minus_freq": [
+  -2.0285,
+  -1.268
+ ],
+ "maia_top1_accuracy_heldout": 0.554,
+ "note": "Maia probability outside its stored top-5 is spread uniformly (conservative for Maia); population-level only, no individual profiling",
+ "id": "009",
+ "n_games": 157,
+ "error_threshold_cp": 100,
+ "source": "evidence/v13/human_v13_frozen166.jsonl",
+ "base_error_rate": 0.1656
+}

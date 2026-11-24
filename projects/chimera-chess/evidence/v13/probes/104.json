@@ -1,0 +1,16 @@
+{
+ "mechanism": "discovered-genius audit: deterministic re-confirmation of each discovery and classification of the artifact type",
+ "n": 150,
+ "confirmed_within30_at_300k": 132,
+ "confirmed_share": 0.88,
+ "genuine_gain_vs_v8_ge100": 149,
+ "v8_600k_finds_it": 51,
+ "artifact_classes": {
+  "not_confirmed": 18,
+  "pure_search_gap(found at 600k)": 45,
+  "persistent_gap(not found at 600k)": 87
+ },
+ "id": "104",
+ "subset": "150 smallest sha256('v13probe'+id)",
+ "oracle": "300000 nodes"
+}

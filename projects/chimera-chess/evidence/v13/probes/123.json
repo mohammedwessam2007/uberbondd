@@ -1,0 +1,26 @@
+{
+ "mechanism": "deliberation gate: escalate from 20k to 200k nodes only when the 2k and 20k decisions disagree; compared at matched escalation rate to random routing and to always-20k / always-200k (oracle-scored V8 decisions)",
+ "escalation_rate": 0.299,
+ "mean_loss": {
+  "always_20k": 38.69,
+  "always_200k": 31.57,
+  "gate": 41.4,
+  "random_same_rate": 38.56
+ },
+ "mean_cost_knodes": {
+  "always_20k": 20,
+  "always_200k": 200,
+  "gate": 81.9,
+  "random_same_rate": 84.4
+ },
+ "ci95_gate_minus_random": [
+  0.4463,
+  10.3082
+ ],
+ "share_of_200k_gain_recovered": -0.381,
+ "id": "123",
+ "n_games": 157,
+ "error_threshold_cp": 100,
+ "source": "evidence/v13/human_v13_frozen166.jsonl",
+ "base_error_rate": 0.1656
+}

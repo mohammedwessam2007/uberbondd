@@ -1,0 +1,42 @@
+{
+ "mechanism": "native V8 decision loss (deterministic oracle) vs complexity label n_good (moves within 50cp of best, 60k oracle) at 2k/20k/200k nodes; baseline proxy = branching factor",
+ "by_budget": {
+  "2000": {
+   "spearman_ngood_vs_engine_loss": -0.02267929598981583,
+   "ci95": [
+    -0.1798,
+    0.1343
+   ],
+   "baseline_spearman_branching": 0.13660892572259983
+  },
+  "20000": {
+   "spearman_ngood_vs_engine_loss": -0.056435429304250724,
+   "ci95": [
+    -0.2089,
+    0.1037
+   ],
+   "baseline_spearman_branching": 0.15910272181845891
+  },
+  "200000": {
+   "spearman_ngood_vs_engine_loss": 0.035799453857362946,
+   "ci95": [
+    -0.1257,
+    0.1909
+   ],
+   "baseline_spearman_branching": 0.1463450367063662
+  }
+ },
+ "decay_slope_sharp_minus_broad_mean_loss": {
+  "2000": 30.6,
+  "20000": 43.9,
+  "200000": 23.3
+ },
+ "n_sharp": 60,
+ "n_broad": 60,
+ "prediction": "negative Spearman at every budget; |slope| shrinking with budget",
+ "id": "154",
+ "n_games": 157,
+ "error_threshold_cp": 100,
+ "source": "evidence/v13/human_v13_frozen166.jsonl",
+ "base_error_rate": 0.1656
+}

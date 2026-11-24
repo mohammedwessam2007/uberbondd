@@ -1,0 +1,17 @@
+{
+ "mechanism": "false safety: positions whose most human-likely move (Maia) is quiet yet loses >=100cp; rating-band-matched human error-rate difference (retrospective labelled data, no player experiments)",
+ "n_false_safety": 9,
+ "err_rate_false_safety": 0.7778,
+ "err_rate_other": 0.1284,
+ "rating_matched_diff": 0.6359662881402012,
+ "ci95": [
+  0.3219,
+  0.8899
+ ],
+ "human_played_the_trap": 2,
+ "id": "012",
+ "n_games": 157,
+ "error_threshold_cp": 100,
+ "source": "evidence/v13/human_v13_frozen166.jsonl",
+ "base_error_rate": 0.1656
+}

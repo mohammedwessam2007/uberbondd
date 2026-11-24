@@ -1,0 +1,119 @@
+{
+ "022": {
+  "mechanism": "originality auditor: each 'discovery' is checked for (a) source-novelty (is it a published puzzle solution?) and (b) human-novelty (Maia3 2200 rank of the move)",
+  "n": 150,
+  "source_novel": 0,
+  "source_rediscoveries": 150,
+  "note": "every pool item is the first move of a published Lichess puzzle: 0% source originality by construction",
+  "maia_rank_ge3_share": 0.22,
+  "maia_rank0_share": 0.367,
+  "unique_positions": 150
+ },
+ "104": {
+  "mechanism": "discovered-genius audit: deterministic re-confirmation of each discovery and classification of the artifact type",
+  "n": 150,
+  "confirmed_within30_at_300k": 132,
+  "confirmed_share": 0.88,
+  "genuine_gain_vs_v8_ge100": 149,
+  "v8_600k_finds_it": 51,
+  "artifact_classes": {
+   "not_confirmed": 18,
+   "pure_search_gap(found at 600k)": 45,
+   "persistent_gap(not found at 600k)": 87
+  }
+ },
+ "003": {
+  "mechanism": "delayed revelation: relative score rise of the discovery between 60k and 300k oracle nodes (vs V8's move); quiet vs forcing families",
+  "quiet_mean_rise": 86.8,
+  "quiet_ci95": [
+   69.1,
+   107.6
+  ],
+  "forcing_mean_rise": 1568.5,
+  "forcing_ci95": [
+   70.8,
+   4540.3
+  ],
+  "share_revealed_only_late(>=100cp)": 0.373
+ },
+ "029": {
+  "mechanism": "mutation-operator robustness: remove one uninvolved non-king piece; does the discovery stay within 30cp of best?",
+  "n_mutations": 300,
+  "robust_share": 0.633,
+  "by_family": {
+   "king-move": {
+    "n": 28,
+    "robust": 0.821
+   },
+   "check": {
+    "n": 64,
+    "robust": 0.688
+   },
+   "quiet-offer": {
+    "n": 94,
+    "robust": 0.596
+   },
+   "quiet": {
+    "n": 72,
+    "robust": 0.542
+   },
+   "capture": {
+    "n": 42,
+    "robust": 0.667
+   }
+  }
+ },
+ "011": {
+  "mechanism": "counterintuitive-position generator: mutation of verified discoveries, filtered by oracle (sol still best), Maia rank>=3 and V8@100k miss",
+  "candidates": 300,
+  "generated_verified": 21,
+  "yield": 0.07,
+  "examples": [
+   {
+    "fen": "r5r1/p2k1p1p/2pb4/6q1/4Q1b1/P1N1P3/1PP2PPP/R1B2RK1 b - - 2 21",
+    "removed": "Pd2",
+    "oracle_best": "d6h2",
+    "sol_loss": -16,
+    "sol_still_best_within30": true,
+    "maia_rank_sol": 6,
+    "v8_100k": "g4h3"
+   },
+   {
+    "fen": "8/8/8/7p/4K3/2p2pP1/5k2/3N4 b - - 1 44",
+    "removed": "Ph4",
+    "oracle_best": "f2e1",
+    "sol_loss": -84,
+    "sol_still_best_within30": true,
+    "maia_rank_sol": 3,
+    "v8_100k": "f2g3"
+   },
+   {
+    "fen": "8/8/1p3p2/p2BP3/2P3K1/1k2b1p1/8/8 w - - 1 57",
+    "removed": "Pf5",
+    "oracle_best": "c4c5",
+    "sol_loss": 12,
+    "sol_still_best_within30": true,
+    "maia_rank_sol": 3,
+    "v8_100k": "e5f6"
+   },
+   {
+    "fen": "8/3k4/4p3/2K1Pp1p/1P3Pp1/2N3P1/6b1/8 b - - 2 44",
+    "removed": "Pd4",
+    "oracle_best": "g2f3",
+    "sol_loss": -3,
+    "sol_still_best_within30": true,
+    "maia_rank_sol": 3,
+    "v8_100k": "d7c7"
+   },
+   {
+    "fen": "3r3k/7p/5q2/p6R/1p2Q2P/1P1p1P2/8/6K1 b - - 1 38",
+    "removed": "Pg2",
+    "oracle_best": "f6d4",
+    "sol_loss": 15,
+    "sol_still_best_within30": true,
+    "maia_rank_sol": 3,
+    "v8_100k": "f6g7"
+   }
+  ]
+ }
+}

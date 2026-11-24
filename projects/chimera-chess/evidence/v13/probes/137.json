@@ -1,0 +1,29 @@
+{
+ "mechanism": "aggregate motif-difficulty classifier: per-motif error rate of the best move (backward/capture/check/quiet-pawn/knight/king/slider), fit on train games, added to a complexity-matched logistic",
+ "motif_train_rates": {
+  "capture": 0.261,
+  "quiet-slider": 0.2,
+  "quiet-knight": 0.083,
+  "quiet-pawn": 0.167,
+  "backward": 0.286,
+  "quiet-king": 0.182,
+  "check": 0.6
+ },
+ "motif_train_n": {
+  "capture": 21,
+  "quiet-slider": 18,
+  "quiet-knight": 10,
+  "quiet-pawn": 10,
+  "backward": 12,
+  "quiet-king": 9,
+  "check": 3
+ },
+ "heldout_auc_complexity_only": 0.6825396825396826,
+ "heldout_auc_with_motif": 0.6298701298701299,
+ "gain": -0.052669552669552644,
+ "id": "137",
+ "n_games": 157,
+ "error_threshold_cp": 100,
+ "source": "evidence/v13/human_v13_frozen166.jsonl",
+ "base_error_rate": 0.1656
+}

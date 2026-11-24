@@ -1,0 +1,19 @@
+{
+ "mechanism": "instability cartographer: dispersion of legal-move values (share losing >150cp; stdev) predicting held-out turning points (human errors) vs Maia policy entropy",
+ "auc_share_losing": 0.7044920728126834,
+ "ci95_share_losing": [
+  0.5984,
+  0.8068
+ ],
+ "auc_stdev": 0.49060481503229597,
+ "baseline_auc_policy_entropy": 0.6623605402231356,
+ "ci95_share_minus_entropy": [
+  -0.1259,
+  0.223
+ ],
+ "id": "086",
+ "n_games": 157,
+ "error_threshold_cp": 100,
+ "source": "evidence/v13/human_v13_frozen166.jsonl",
+ "base_error_rate": 0.1656
+}

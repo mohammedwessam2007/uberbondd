@@ -1,0 +1,20 @@
+{
+ "mechanism": "delayed revelation: relative score rise of the discovery between 60k and 300k oracle nodes (vs V8's move); quiet vs forcing families",
+ "quiet_mean_rise": 86.8,
+ "quiet_ci95": [
+  69.1,
+  107.6
+ ],
+ "forcing_mean_rise": 91.0,
+ "forcing_ci95": [
+  68.7,
+  114.5
+ ],
+ "share_revealed_only_late(>=100cp)": 0.373,
+ "id": "003",
+ "subset": "150 smallest sha256('v13probe'+id)",
+ "oracle": "300000 nodes",
+ "correction": "V13: scores capped to +-1000cp before differencing (uncapped first pass was dominated by mate scores: forcing 1568.5)",
+ "n_quiet": 83,
+ "n_forcing": 67
+}

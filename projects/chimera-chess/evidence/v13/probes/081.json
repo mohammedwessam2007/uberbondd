@@ -1,0 +1,14 @@
+{
+ "mechanism": "fragility oracle: shallow(60k)-to-deep(300k) value change as error predictor; baseline = static |eval| (static uncertainty proxy)",
+ "auc": 0.5093951849677041,
+ "ci95": [
+  0.3741,
+  0.6374
+ ],
+ "baseline_auc_abs_eval": 0.41764533176746915,
+ "id": "081",
+ "n_games": 157,
+ "error_threshold_cp": 100,
+ "source": "evidence/v13/human_v13_frozen166.jsonl",
+ "base_error_rate": 0.1656
+}

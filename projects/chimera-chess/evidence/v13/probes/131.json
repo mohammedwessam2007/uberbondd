@@ -1,0 +1,26 @@
+{
+ "mechanism": "cognitive-overload diagnostic: count of objectively viable moves for the side to move (within 50cp of best); human error rate by count; Spearman(count, human loss)",
+ "spearman_viable_vs_human_loss": -0.14382008569100113,
+ "ci95": [
+  -0.2818,
+  0.0138
+ ],
+ "err_rate_only_move": [
+  0.2333,
+  60
+ ],
+ "err_rate_2_3": [
+  0.1892,
+  37
+ ],
+ "err_rate_4plus": [
+  0.0833,
+  60
+ ],
+ "note": "source formula for the original 'torture metric' is incomplete; this is the diagnostic only (no use against opponents)",
+ "id": "131",
+ "n_games": 157,
+ "error_threshold_cp": 100,
+ "source": "evidence/v13/human_v13_frozen166.jsonl",
+ "base_error_rate": 0.1656
+}

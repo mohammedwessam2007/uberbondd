@@ -1,0 +1,30 @@
+{
+ "mechanism": "mutation-operator robustness: remove one uninvolved non-king piece; does the discovery stay within 30cp of best?",
+ "n_mutations": 300,
+ "robust_share": 0.633,
+ "by_family": {
+  "king-move": {
+   "n": 28,
+   "robust": 0.821
+  },
+  "check": {
+   "n": 64,
+   "robust": 0.688
+  },
+  "quiet-offer": {
+   "n": 94,
+   "robust": 0.596
+  },
+  "quiet": {
+   "n": 72,
+   "robust": 0.542
+  },
+  "capture": {
+   "n": 42,
+   "robust": 0.667
+  }
+ },
+ "id": "029",
+ "subset": "150 smallest sha256('v13probe'+id)",
+ "oracle": "300000 nodes"
+}

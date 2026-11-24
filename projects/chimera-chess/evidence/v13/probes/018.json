@@ -1,0 +1,34 @@
+{
+ "id": "018",
+ "mechanism": "failure-augmented retraining: each training item adds 2 copies of a reduced contrast set {discovery, V8 failed move, 3 random}; game-disjoint 5-fold top-3 recall",
+ "top3": {
+  "base": 0.825,
+  "failure_aug": 0.829,
+  "maia": 0.762
+ },
+ "folds": {
+  "base": [
+   0.8061224489795918,
+   0.8780487804878049,
+   0.8043478260869565,
+   0.8863636363636364,
+   0.75
+  ],
+  "failure_aug": [
+   0.826530612244898,
+   0.8658536585365854,
+   0.8152173913043478,
+   0.8863636363636364,
+   0.75
+  ],
+  "maia": [
+   0.7346938775510204,
+   0.7804878048780488,
+   0.7717391304347826,
+   0.7727272727272727,
+   0.75
+  ]
+ },
+ "n_pool": 448,
+ "note": "contrast sets force the ranker to separate the discovery from exactly the move the searcher wrongly preferred"
+}

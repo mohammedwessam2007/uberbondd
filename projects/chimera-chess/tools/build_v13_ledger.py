@@ -36,8 +36,8 @@ def put(i, passed, implementation, command, baseline, metric, result, art, limit
 
 
 PH, PD = "evidence/v13/probes/", "evidence/v13/PREREG_probes_human.md"
-HCMD = "python lab/human_dataset.py /tmp/lichess/2013-01.pgn.zst lab/human_v13.jsonl N; python lab/probes_human.py lab/human_v13.jsonl evidence/v13/probes"
-HART = lambda k: [PD, PH + f"{k}.json", "lab/probes_human.py", "lab/human_dataset.py", "lab/oracle.py"]
+HCMD = "python lab/human_dataset.py /tmp/lichess/2013-01.pgn.zst lab/human_v13.jsonl 500 (frozen first 166 rows -> evidence/v13/human_v13_frozen166.jsonl); python lab/probes_human.py evidence/v13/human_v13_frozen166.jsonl evidence/v13/probes"
+HART = lambda k: ["evidence/v13/human_v13_frozen166.jsonl", PD, PH + f"{k}.json", "lab/probes_human.py", "lab/human_dataset.py", "lab/oracle.py"]
 if os.path.isfile(PH + "154.json"):
     p = {k: J(PH + f"{k}.json") for k in ("154", "014", "081", "086", "009", "012", "013", "137", "007", "037", "005", "120", "131", "123")}
     n = p["154"]["n_games"]
@@ -64,7 +64,7 @@ if os.path.isfile(PH + "154.json"):
     c = p["012"]["ci95"]
     put("#012", bool(c and c[0] > 0), "lab/probes_human.py #012", HCMD, "rating-band-matched non-false-safety positions", "human error-rate difference",
         f"n_false_safety {p['012']['n_false_safety']}; err {p['012']['err_rate_false_safety']} vs {p['012']['err_rate_other']}; matched diff {p['012']['rating_matched_diff']} CI {c}",
-        HART("012"), "retrospective data only; no consenting-player experiment", "matched constructed position pairs")
+        HART("012"), f"retrospective data only; no consenting-player experiment; SMALL n={p['012']['n_false_safety']} false-safety positions", "matched constructed position pairs")
     g = p["013"]["gain"]
     put("#013", bool(g and g > 0.02), "lab/probes_human.py #013", HCMD, "logistic(|value|, branching, rating)", "held-out AUC gain from fronts count",
         f"base {p['013']['heldout_auc_base']}, +fronts {p['013']['heldout_auc_with_fronts']}, gain {g}; err by fronts {p['013']['err_rate_by_fronts']}", HART("013"),

@@ -1,0 +1,29 @@
+{
+ "mechanism": "attention conflict: count of distinct fronts (king threats, advanced passers, pawn levers, both sides) added to a logistic error model with |value|, branching and rating; held-out AUC gain",
+ "heldout_auc_base": 0.5050505050505051,
+ "heldout_auc_with_fronts": 0.4906204906204906,
+ "gain": -0.01443001443001446,
+ "fronts_distribution": {
+  "0": 105,
+  "1": 19,
+  "2": 26,
+  "3": 5,
+  "4": 2,
+  "5": 0,
+  "6": 0
+ },
+ "err_rate_by_fronts": {
+  "0": 0.1524,
+  "1": 0.2105,
+  "2": 0.1538,
+  "3": 0.2,
+  "4": 0.5,
+  "5": null,
+  "6": null
+ },
+ "id": "013",
+ "n_games": 157,
+ "error_threshold_cp": 100,
+ "source": "evidence/v13/human_v13_frozen166.jsonl",
+ "base_error_rate": 0.1656
+}

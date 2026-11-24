@@ -1,0 +1,13 @@
+{
+ "mechanism": "originality auditor: each 'discovery' is checked for (a) source-novelty (is it a published puzzle solution?) and (b) human-novelty (Maia3 2200 rank of the move)",
+ "n": 150,
+ "source_novel": 0,
+ "source_rediscoveries": 150,
+ "note": "every pool item is the first move of a published Lichess puzzle: 0% source originality by construction",
+ "maia_rank_ge3_share": 0.22,
+ "maia_rank0_share": 0.367,
+ "unique_positions": 150,
+ "id": "022",
+ "subset": "150 smallest sha256('v13probe'+id)",
+ "oracle": "300000 nodes"
+}

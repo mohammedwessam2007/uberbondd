@@ -1,0 +1,24 @@
+{
+ "mechanism": "disagreement laboratory: persisted policy/search/shallow-search disagreement records adjudicated by the independent deterministic oracle",
+ "n_records": 75,
+ "share_positions_with_disagreement": 0.478,
+ "adjudication": {
+  "search_better": 34,
+  "policy_better": 39,
+  "tie": 2
+ },
+ "human_err_disagree_vs_agree": [
+  0.1733,
+  0.1585
+ ],
+ "ci95_diff": [
+  -0.1035,
+  0.1346
+ ],
+ "not_done": "training on disagreements vs random sample (needs a learner on these records)",
+ "id": "007",
+ "n_games": 157,
+ "error_threshold_cp": 100,
+ "source": "evidence/v13/human_v13_frozen166.jsonl",
+ "base_error_rate": 0.1656
+}

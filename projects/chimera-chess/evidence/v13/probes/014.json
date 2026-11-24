@@ -1,0 +1,94 @@
+{
+ "mechanism": "difficulty atlas keyed by rating band x complexity class x fragility tercile, fit on half the games; held-out AUC vs Maia-entropy baseline (no clocks available)",
+ "heldout_auc_atlas": 0.49783549783549785,
+ "heldout_auc_entropy": 0.5555555555555556,
+ "ci95_atlas_minus_entropy": [
+  -0.3733,
+  0.25
+ ],
+ "cells": {
+  "(0, 0, 0)": {
+   "n": 2,
+   "err_rate_smoothed": 0.25
+  },
+  "(0, 0, 1)": {
+   "n": 1,
+   "err_rate_smoothed": 0.333
+  },
+  "(0, 0, 2)": {
+   "n": 9,
+   "err_rate_smoothed": 0.455
+  },
+  "(0, 1, 0)": {
+   "n": 1,
+   "err_rate_smoothed": 0.333
+  },
+  "(0, 1, 1)": {
+   "n": 1,
+   "err_rate_smoothed": 0.667
+  },
+  "(0, 1, 2)": {
+   "n": 6,
+   "err_rate_smoothed": 0.25
+  },
+  "(0, 2, 0)": {
+   "n": 10,
+   "err_rate_smoothed": 0.167
+  },
+  "(0, 2, 1)": {
+   "n": 7,
+   "err_rate_smoothed": 0.333
+  },
+  "(0, 2, 2)": {
+   "n": 1,
+   "err_rate_smoothed": 0.333
+  },
+  "(1, 0, 0)": {
+   "n": 2,
+   "err_rate_smoothed": 0.25
+  },
+  "(1, 0, 1)": {
+   "n": 2,
+   "err_rate_smoothed": 0.25
+  },
+  "(1, 0, 2)": {
+   "n": 16,
+   "err_rate_smoothed": 0.278
+  },
+  "(1, 1, 0)": {
+   "n": 2,
+   "err_rate_smoothed": 0.25
+  },
+  "(1, 1, 1)": {
+   "n": 5,
+   "err_rate_smoothed": 0.143
+  },
+  "(1, 1, 2)": {
+   "n": 4,
+   "err_rate_smoothed": 0.5
+  },
+  "(1, 2, 0)": {
+   "n": 4,
+   "err_rate_smoothed": 0.167
+  },
+  "(1, 2, 1)": {
+   "n": 8,
+   "err_rate_smoothed": 0.1
+  },
+  "(1, 2, 2)": {
+   "n": 1,
+   "err_rate_smoothed": 0.333
+  },
+  "(2, 1, 2)": {
+   "n": 1,
+   "err_rate_smoothed": 0.333
+  }
+ },
+ "n_train": 83,
+ "n_test": 74,
+ "id": "014",
+ "n_games": 157,
+ "error_threshold_cp": 100,
+ "source": "evidence/v13/human_v13_frozen166.jsonl",
+ "base_error_rate": 0.1656
+}

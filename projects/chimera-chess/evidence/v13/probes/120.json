@@ -1,0 +1,16 @@
+{
+ "mechanism": "two-world critic: best-defence head (oracle logistic) and human-response head (Maia WDL) combined with weight fit on half the games; held-out Brier vs one-head baselines",
+ "alpha_fit": 0.8,
+ "heldout_brier_mix": 0.1769,
+ "heldout_brier_oracle": 0.1583,
+ "heldout_brier_maia": 0.1868,
+ "ci95_mix_minus_oracle_heldout": [
+  -0.0043,
+  0.0421
+ ],
+ "id": "120",
+ "n_games": 157,
+ "error_threshold_cp": 100,
+ "source": "evidence/v13/human_v13_frozen166.jsonl",
+ "base_error_rate": 0.1656
+}

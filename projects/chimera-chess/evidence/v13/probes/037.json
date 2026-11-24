@@ -1,0 +1,11 @@
+{
+ "mechanism": "instant regret estimator: 7-weight logistic on cheap signals (V8 2k/20k vs 200k flips, Maia top-1 prob and entropy, branching, human!=V8@2k) predicting deep-oracle regret>=100 on held-out games",
+ "heldout_auc_tiny": 0.6291486291486291,
+ "heldout_auc_single_flip": 0.49927849927849927,
+ "catastrophic_false_accept_rate": 0.2,
+ "id": "037",
+ "n_games": 157,
+ "error_threshold_cp": 100,
+ "source": "evidence/v13/human_v13_frozen166.jsonl",
+ "base_error_rate": 0.1656
+}

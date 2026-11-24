@@ -1,0 +1,945 @@
+{
+ "source": "evidence/v13/matches/eval4R50_vs_ref_40s.pgn",
+ "oracle": "200k claims, 1M verification",
+ "stats": {
+  "claims": 112,
+  "verified": 93,
+  "dropped": 19
+ },
+ "games": [
+  {
+   "headers": {
+    "Event": "CHIMERA V7 match",
+    "Site": "local container",
+    "Date": "2026.11.24",
+    "Round": "1",
+    "White": "native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin",
+    "Black": "ref:2",
+    "Result": "1-0",
+    "Opening": "Ruy Lopez",
+    "TimeControl": "40+0.4",
+    "Termination": "CHECKMATE"
+   },
+   "highlights": [
+    {
+     "type": "only_move",
+     "ply": 26,
+     "move": "dxc5",
+     "margin": 336,
+     "next_best": "Qe2",
+     "quiet": false,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 30,
+     "move": "Rxd1",
+     "margin": 575,
+     "next_best": "Rf1",
+     "quiet": false,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 41,
+     "move": "axb5",
+     "margin": 324,
+     "next_best": "a5",
+     "quiet": false,
+     "verified_1M": true
+    },
+    {
+     "type": "turning_point",
+     "ply": 77,
+     "move": "h3",
+     "loss": 278,
+     "better": "Kc6",
+     "prior_move": "Bxc7",
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 78,
+     "move": "e6",
+     "margin": 249,
+     "next_best": "Ke7",
+     "quiet": true,
+     "verified_1M": true
+    },
+    {
+     "type": "turning_point",
+     "ply": 80,
+     "move": "e7",
+     "loss": 353,
+     "better": "Bf4",
+     "prior_move": "Kd5",
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 91,
+     "move": "Be8",
+     "margin": 399,
+     "next_best": "Kg2",
+     "quiet": true,
+     "verified_1M": true
+    },
+    {
+     "type": "turning_point",
+     "ply": 94,
+     "move": "Bd6",
+     "loss": 180,
+     "better": "g4",
+     "prior_move": "Bf7",
+     "verified_1M": true
+    },
+    {
+     "type": "turning_point",
+     "ply": 105,
+     "move": "fxg4",
+     "loss": 351,
+     "better": "Kf3",
+     "prior_move": "g4",
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 110,
+     "move": "Kg5",
+     "margin": 411,
+     "next_best": "Kh4",
+     "quiet": true,
+     "verified_1M": true
+    },
+    {
+     "type": "turning_point",
+     "ply": 116,
+     "move": "Bb4",
+     "loss": 406,
+     "better": "Kg7",
+     "prior_move": "Ke4",
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 117,
+     "move": "Kd5",
+     "margin": 384,
+     "next_best": "g5",
+     "quiet": true,
+     "verified_1M": true
+    },
+    {
+     "type": "turning_point",
+     "ply": 121,
+     "move": "Kd5",
+     "loss": 411,
+     "better": "g5",
+     "prior_move": "Bd2",
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 122,
+     "move": "Kg7",
+     "margin": 401,
+     "next_best": "Bb4",
+     "quiet": true,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 124,
+     "move": "Kf8",
+     "margin": 489,
+     "next_best": "Bg5",
+     "quiet": true,
+     "verified_1M": true
+    },
+    {
+     "type": "turning_point",
+     "ply": 125,
+     "move": "Kd7",
+     "loss": 201,
+     "better": "Bc6",
+     "prior_move": "Kf8",
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 126,
+     "move": "Bg5",
+     "margin": 700,
+     "next_best": "Be3",
+     "quiet": true,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 128,
+     "move": "Kxe8",
+     "margin": 200,
+     "next_best": "Bd2",
+     "quiet": false,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 131,
+     "move": "Ke5",
+     "margin": 3197,
+     "next_best": "g5",
+     "quiet": true,
+     "verified_1M": true
+    }
+   ]
+  },
+  {
+   "headers": {
+    "Event": "CHIMERA V7 match",
+    "Site": "local container",
+    "Date": "2026.11.24",
+    "Round": "2",
+    "White": "ref:2",
+    "Black": "native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin",
+    "Result": "1-0",
+    "Opening": "Ruy Lopez",
+    "TimeControl": "40+0.4",
+    "Termination": "CHECKMATE"
+   },
+   "highlights": [
+    {
+     "type": "only_move",
+     "ply": 18,
+     "move": "gxf3",
+     "margin": 632,
+     "next_best": "O-O",
+     "quiet": false,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 31,
+     "move": "fxg3",
+     "margin": 281,
+     "next_best": "Kf7",
+     "quiet": false,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 34,
+     "move": "Rf1",
+     "margin": 182,
+     "next_best": "f4",
+     "quiet": true,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 38,
+     "move": "g4",
+     "margin": 298,
+     "next_best": "f4",
+     "quiet": true,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 59,
+     "move": "hxg4",
+     "margin": 188,
+     "next_best": "Raf8",
+     "quiet": false,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 64,
+     "move": "Bxe5",
+     "margin": 477,
+     "next_best": "Bf2",
+     "quiet": false,
+     "verified_1M": true
+    },
+    {
+     "type": "turning_point",
+     "ply": 74,
+     "move": "Rxa5",
+     "loss": 238,
+     "better": "Kf3",
+     "prior_move": "Rg8",
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 77,
+     "move": "Rxg5",
+     "margin": 200,
+     "next_best": "Rgg7",
+     "quiet": false,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 78,
+     "move": "fxg5",
+     "margin": 505,
+     "next_best": "Kf3",
+     "quiet": false,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 103,
+     "move": "Rg8",
+     "margin": 481,
+     "next_best": "Rg4",
+     "quiet": true,
+     "verified_1M": true
+    },
+    {
+     "type": "turning_point",
+     "ply": 115,
+     "move": "Kg4",
+     "loss": 188,
+     "better": "Rd1",
+     "prior_move": "Kd4",
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 116,
+     "move": "Ke5",
+     "margin": 188,
+     "next_best": "b4",
+     "quiet": true,
+     "verified_1M": true
+    },
+    {
+     "type": "turning_point",
+     "ply": 135,
+     "move": "Rxe7+",
+     "loss": 2799,
+     "better": "Rd1",
+     "prior_move": "Bd6",
+     "verified_1M": true
+    }
+   ]
+  },
+  {
+   "headers": {
+    "Event": "CHIMERA V7 match",
+    "Site": "local container",
+    "Date": "2026.11.24",
+    "Round": "3",
+    "White": "native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin",
+    "Black": "ref:2",
+    "Result": "1-0",
+    "Opening": "Sicilian Najdorf",
+    "TimeControl": "40+0.4",
+    "Termination": "CHECKMATE"
+   },
+   "highlights": [
+    {
+     "type": "turning_point",
+     "ply": 14,
+     "move": "Nd5",
+     "loss": 174,
+     "better": "Bc4",
+     "prior_move": "Nc6",
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 17,
+     "move": "Qa5+",
+     "margin": 171,
+     "next_best": "Be7",
+     "quiet": false,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 18,
+     "move": "Nc3",
+     "margin": 315,
+     "next_best": "c3",
+     "quiet": true,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 24,
+     "move": "b3",
+     "margin": 228,
+     "next_best": "b4",
+     "quiet": true,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 28,
+     "move": "Bxe7",
+     "margin": 171,
+     "next_best": "f6",
+     "quiet": false,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 58,
+     "move": "Rxd4",
+     "margin": 152,
+     "next_best": "Bd3",
+     "quiet": false,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 60,
+     "move": "Rxf6+",
+     "margin": 613,
+     "next_best": "Qf5",
+     "quiet": false,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 62,
+     "move": "Qxd6+",
+     "margin": 577,
+     "next_best": "Rxf7+",
+     "quiet": false,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 63,
+     "move": "Qxd6",
+     "margin": 99464,
+     "next_best": "Kg7",
+     "quiet": false,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 64,
+     "move": "Rxd6",
+     "margin": 1130,
+     "next_best": "Rf5",
+     "quiet": false,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 83,
+     "move": "Kxg5",
+     "margin": 99331,
+     "next_best": "a4",
+     "quiet": false,
+     "verified_1M": true
+    },
+    {
+     "type": "turning_point",
+     "ply": 93,
+     "move": "Kf7",
+     "loss": 222,
+     "better": "Kf7",
+     "prior_move": "h5",
+     "verified_1M": true
+    },
+    {
+     "type": "turning_point",
+     "ply": 95,
+     "move": "Kf8",
+     "loss": 191,
+     "better": "Ke6",
+     "prior_move": "g4",
+     "verified_1M": true
+    }
+   ]
+  },
+  {
+   "headers": {
+    "Event": "CHIMERA V7 match",
+    "Site": "local container",
+    "Date": "2026.11.24",
+    "Round": "4",
+    "White": "ref:2",
+    "Black": "native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin",
+    "Result": "0-1",
+    "Opening": "Sicilian Najdorf",
+    "TimeControl": "40+0.4",
+    "Termination": "CHECKMATE"
+   },
+   "highlights": [
+    {
+     "type": "only_move",
+     "ply": 17,
+     "move": "fxe6",
+     "margin": 603,
+     "next_best": "Qa5",
+     "quiet": false,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 21,
+     "move": "exd5",
+     "margin": 168,
+     "next_best": "Nxd5",
+     "quiet": false,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 34,
+     "move": "Rxf3",
+     "margin": 227,
+     "next_best": "Qxf3",
+     "quiet": false,
+     "verified_1M": true
+    },
+    {
+     "type": "turning_point",
+     "ply": 40,
+     "move": "Nd1",
+     "loss": 151,
+     "better": "Rh3",
+     "prior_move": "Nd7",
+     "verified_1M": true
+    },
+    {
+     "type": "turning_point",
+     "ply": 45,
+     "move": "Qf5",
+     "loss": 174,
+     "better": "Rf5",
+     "prior_move": "Qb5",
+     "verified_1M": true
+    },
+    {
+     "type": "turning_point",
+     "ply": 48,
+     "move": "Rh3",
+     "loss": 233,
+     "better": "Bxc5",
+     "prior_move": "Qe6",
+     "verified_1M": true
+    },
+    {
+     "type": "turning_point",
+     "ply": 49,
+     "move": "Qc6",
+     "loss": 158,
+     "better": "Rf5",
+     "prior_move": "Rh3",
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 52,
+     "move": "Ra1",
+     "margin": 458,
+     "next_best": "b4",
+     "quiet": true,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 65,
+     "move": "axb4",
+     "margin": 361,
+     "next_best": "Bxe3+",
+     "quiet": false,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 78,
+     "move": "Qf2",
+     "margin": 99486,
+     "next_best": "Kh1",
+     "quiet": true,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 88,
+     "move": "Kh2",
+     "margin": 198,
+     "next_best": "Kf2",
+     "quiet": true,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 89,
+     "move": "gxf6",
+     "margin": 240,
+     "next_best": "Qb7",
+     "quiet": false,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 90,
+     "move": "Qg6+",
+     "margin": 167,
+     "next_best": "Qc3",
+     "quiet": false,
+     "verified_1M": true
+    }
+   ]
+  },
+  {
+   "headers": {
+    "Event": "CHIMERA V7 match",
+    "Site": "local container",
+    "Date": "2026.11.24",
+    "Round": "5",
+    "White": "native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin",
+    "Black": "ref:2",
+    "Result": "1-0",
+    "Opening": "French Winawer",
+    "TimeControl": "40+0.4",
+    "Termination": "CHECKMATE"
+   },
+   "highlights": [
+    {
+     "type": "only_move",
+     "ply": 10,
+     "move": "bxc3",
+     "margin": 490,
+     "next_best": "Ke2",
+     "quiet": false,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 23,
+     "move": "gxf6",
+     "margin": 200,
+     "next_best": "Rxf6",
+     "quiet": false,
+     "verified_1M": true
+    },
+    {
+     "type": "turning_point",
+     "ply": 31,
+     "move": "Qa5",
+     "loss": 175,
+     "better": "e4",
+     "prior_move": "a4",
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 32,
+     "move": "dxe5",
+     "margin": 152,
+     "next_best": "Nd2",
+     "quiet": false,
+     "verified_1M": true
+    },
+    {
+     "type": "turning_point",
+     "ply": 40,
+     "move": "Nc7",
+     "loss": 265,
+     "better": "Re3",
+     "prior_move": "Rb8",
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 44,
+     "move": "Nc7",
+     "margin": 156,
+     "next_best": "Nc5",
+     "quiet": true,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 49,
+     "move": "Nxe7",
+     "margin": 185,
+     "next_best": "Bxg4",
+     "quiet": false,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 57,
+     "move": "Qxf3",
+     "margin": 514,
+     "next_best": "Qg7",
+     "quiet": false,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 58,
+     "move": "Bxf3",
+     "margin": 282,
+     "next_best": "gxf3",
+     "quiet": false,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 60,
+     "move": "Rxe6",
+     "margin": 681,
+     "next_best": "g4",
+     "quiet": false,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 66,
+     "move": "Rxb8",
+     "margin": 302,
+     "next_best": "Rbe1",
+     "quiet": false,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 67,
+     "move": "Rxb8",
+     "margin": 195,
+     "next_best": "Kf7",
+     "quiet": false,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 68,
+     "move": "Rxe7+",
+     "margin": 460,
+     "next_best": "h4",
+     "quiet": false,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 70,
+     "move": "Re1",
+     "margin": 895,
+     "next_best": "Rf7+",
+     "quiet": true,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 107,
+     "move": "Rb8",
+     "margin": 99318,
+     "next_best": "Kg8",
+     "quiet": true,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 119,
+     "move": "Kh8",
+     "margin": 3063,
+     "next_best": "Kf7",
+     "quiet": true,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 127,
+     "move": "Kg7",
+     "margin": 2749,
+     "next_best": "Rd8",
+     "quiet": true,
+     "verified_1M": true
+    },
+    {
+     "type": "turning_point",
+     "ply": 128,
+     "move": "Kg3",
+     "loss": 233,
+     "better": "g5",
+     "prior_move": "Kg7",
+     "verified_1M": true
+    },
+    {
+     "type": "turning_point",
+     "ply": 130,
+     "move": "Rc6",
+     "loss": 2760,
+     "better": "Kh4",
+     "prior_move": "Kh8",
+     "verified_1M": true
+    }
+   ]
+  },
+  {
+   "headers": {
+    "Event": "CHIMERA V7 match",
+    "Site": "local container",
+    "Date": "2026.11.24",
+    "Round": "6",
+    "White": "ref:2",
+    "Black": "native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin",
+    "Result": "1-0",
+    "Opening": "French Winawer",
+    "TimeControl": "40+0.4",
+    "Termination": "CHECKMATE"
+   },
+   "highlights": [
+    {
+     "type": "only_move",
+     "ply": 10,
+     "move": "bxc3",
+     "margin": 490,
+     "next_best": "Ke2",
+     "quiet": false,
+     "verified_1M": true
+    },
+    {
+     "type": "turning_point",
+     "ply": 17,
+     "move": "Nf5",
+     "loss": 180,
+     "better": "Ng6",
+     "prior_move": "Bd3",
+     "verified_1M": true
+    },
+    {
+     "type": "turning_point",
+     "ply": 19,
+     "move": "b6",
+     "loss": 178,
+     "better": "c4",
+     "prior_move": "O-O",
+     "verified_1M": true
+    },
+    {
+     "type": "turning_point",
+     "ply": 23,
+     "move": "cxd3",
+     "loss": 307,
+     "better": "f6",
+     "prior_move": "gxf5",
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 24,
+     "move": "f6",
+     "margin": 265,
+     "next_best": "Ng5",
+     "quiet": true,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 27,
+     "move": "Kf8",
+     "margin": 99440,
+     "next_best": "g6",
+     "quiet": true,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 29,
+     "move": "Kg8",
+     "margin": 190,
+     "next_best": "Ke8",
+     "quiet": true,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 32,
+     "move": "exf6",
+     "margin": 172,
+     "next_best": "Kh1",
+     "quiet": false,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 41,
+     "move": "Qxg7",
+     "margin": 99361,
+     "next_best": "e5",
+     "quiet": false,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 71,
+     "move": "Bxe6",
+     "margin": 635,
+     "next_best": "a5",
+     "quiet": false,
+     "verified_1M": true
+    },
+    {
+     "type": "turning_point",
+     "ply": 75,
+     "move": "a6",
+     "loss": 167,
+     "better": "Bh5",
+     "prior_move": "Re1",
+     "verified_1M": true
+    },
+    {
+     "type": "turning_point",
+     "ply": 77,
+     "move": "Kg7",
+     "loss": 2551,
+     "better": "b5",
+     "prior_move": "d6",
+     "verified_1M": true
+    },
+    {
+     "type": "turning_point",
+     "ply": 79,
+     "move": "Kg6",
+     "loss": 2447,
+     "better": "Kf8",
+     "prior_move": "Re7+",
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 81,
+     "move": "Bxd7",
+     "margin": 96102,
+     "next_best": "Be2",
+     "quiet": false,
+     "verified_1M": true
+    },
+    {
+     "type": "only_move",
+     "ply": 82,
+     "move": "Rxd7",
+     "margin": 3006,
+     "next_best": "c5",
+     "quiet": false,
+     "verified_1M": true
+    },
+    {
+     "type": "turning_point",
+     "ply": 84,
+     "move": "Rf7+",
+     "loss": 2968,
+     "better": "Rb7",
+     "prior_move": "Kf5",
+     "verified_1M": true
+    }
+   ]
+  }
+ ],
+ "quiet_only_moves": 25
+}

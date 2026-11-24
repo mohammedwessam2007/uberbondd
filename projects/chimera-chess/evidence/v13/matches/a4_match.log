@@ -1,0 +1,4 @@
+  1 native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin - ref:2                  1-0     CHECKMATE 161
+  2                  ref:2 - native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin 1-0     CHECKMATE 161
+  3 native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin - ref:2                  1-0     CHECKMATE 115
+  4                  ref:2 - native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin 0-1     CHECKMATE 138

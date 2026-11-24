@@ -4,3 +4,4 @@ __pycache__/
 checkpoints/*.zip.tmp
 native/chimera
 native/ref/chimera-v8-ref
+lab/oracle_cache.sqlite

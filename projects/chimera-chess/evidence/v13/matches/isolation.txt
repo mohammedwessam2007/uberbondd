@@ -1,0 +1,14 @@
+stopped: 537 696 1293 10988 
+Tue Nov 24 11:54:20 UTC 2026
+ 11:54:20 up 20 min,  0 user,  load average: 3.97, 3.93, 2.35
+  537 Tl    0.8 python3 tools/headroom_miner.py mine /tmp/puzzles16.csv lab/headroom/v13_s0.jsonl 0 2 45
+  551 S     5.9 /home/user/uberbondd/projects/chimera-chess/native/chimera
+  560 Sl   88.7 /usr/games/stockfish
+  696 Tl    0.9 python3 tools/headroom_miner.py mine /tmp/puzzles16.csv lab/headroom/v13_s1.jsonl 1 2 45
+  703 S     6.4 /home/user/uberbondd/projects/chimera-chess/native/chimera
+  708 Sl   87.8 /usr/games/stockfish
+ 1293 Tl    3.8 python3 lab/human_dataset.py /tmp/lichess/2013-01.pgn.zst lab/human_v13.jsonl 500
+ 1328 S     2.0 /home/user/uberbondd/projects/chimera-chess/native/chimera
+ 1335 Sl   87.6 /usr/games/stockfish
+10988 Tl    2.8 python3 lab/probes_discovery.py evidence/v13/probes
+11008 Sl   82.1 /usr/games/stockfish

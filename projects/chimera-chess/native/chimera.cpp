@@ -361,6 +361,10 @@ static int MULTIPV = 1;            // V11: exact scores for the top-k root moves
 static int STYLE_PROFILE = 0;      // V11: 0 none, 1 attack, 2 restraint (trait-conditioned choice among near-best moves)
 static int STYLE_MARGIN = 30;
 static int CLEAR_STATE = 0;
+static int RFP_MARGIN = 120, FUT_MARGIN = 150, SEARCH_STATS = 0;
+static int PLAN_BIAS = 0, PLAN_CORRUPT = 0;     // V13 causal memory channel + incorrect-memory control
+static U64 PLAN_TARGETS = 0; static int PLAN_SIDE = -1; static int PLAN_ACTIVE = 0;
+static int TRANSFORM_MOB = 28, TRANSFORM_ATT = 6;  // V13 Petrosian-Tal transform thresholds  // V13: exposed pruning margins + statistics
 static std::string ROOT_HINT;  // V12: single externally proposed candidate (e.g. Maia3 top-1): searched first + 1 ply deeper              // V11 memory ablation: wipe TT/history/plan before every move (memoryless control)
 static int GOV_TRACE = 0, GOVERNOR = 0;   // V11 value-of-computation governor
 static double GOV_W[7] = {0, 0, 0, 0, 0, 0, 0};  // bias + 6 features; set by GovernorWeights option
@@ -562,6 +566,8 @@ struct Searcher {
   Move root_best = 0; int root_score = 0;
   std::vector<std::pair<Move, int>> last_mpv;  // last fully completed MultiPV set (move, exact score)
   int style_changed = 0;
+  int last_transform_mode = -1;
+  long long st_q = 0, st_tt = 0, st_tthit = 0, st_null = 0, st_nullcut = 0, st_lmr = 0, st_lmrre = 0, st_cut = 0, st_cut1 = 0, st_rfp = 0, st_fut = 0;
   Move root_hint = 0;   // V12 single-candidate focused deepening (ordering + extension; never forced)
   Move plan_hint = 0;   // Architect: next move of the persisted plan (ordering only, never forced)
   int stable_iters = 0; // how many final iterations kept the same best move (plan confidence input)
@@ -625,6 +631,16 @@ struct Searcher {
     if (!pos.make(m)) return -1e18;
     double v = 0;
     U64 o = pos.all();
+    if (profile == 3) {  // V13 Petrosian-Tal transform: restraint until counterplay is suppressed, then attack
+      pos.unmake(m);
+      std::vector<Move> ol; { Undo u; pos.make_null(u); pos.legal(ol); pos.unmake_null(u); }
+      int opp_mob = (int)ol.size();
+      double att = trait(m, 1);
+      int mode_attack = (opp_mob <= TRANSFORM_MOB) || (att >= TRANSFORM_ATT);
+      last_transform_mode = mode_attack;
+      double r = trait(m, mode_attack ? 1 : 2);
+      return r;
+    }
     if (profile == 1) {  // attack: weighted pressure on the enemy king zone, check bonus
       int ek = pos.king_sq(us ^ 1);
       U64 zone = ek >= 0 ? (KG[ek] | bit(ek)) : 0;
@@ -660,6 +676,7 @@ struct Searcher {
     if (mpromo(m)) return 900000 + PV[mpromo(m)];
     if (ply < 128 && m == killers[ply][0]) return 800000;
     if (ply < 128 && m == killers[ply][1]) return 700000;
+    if (PLAN_BIAS && PLAN_ACTIVE && pos.side == PLAN_SIDE && (PLAN_TARGETS & bit(mto(m)))) return 650000 + hist[pos.side][mfrom(m)][mto(m)];
     return hist[pos.side][mfrom(m)][mto(m)];
   }
   void order(std::vector<Move> &mv, Move tt, int ply) {
@@ -671,7 +688,7 @@ struct Searcher {
   bool is_cap(Move m) const { return pos.board[mto(m)] != NONE || mflag(m) == F_EP; }
 
   int qsearch(int alpha, int beta, int ply) {
-    nodes++;
+    nodes++; st_q++;
     if (time_up()) { aborted = true; return 0; }
     bool inc = pos.in_check();
     if (ply > 120) return evaluate(pos);
@@ -728,7 +745,9 @@ struct Searcher {
 
     TTE &e = TT[pos.hash & TT_MASK];
     Move tt_move = 0;
+    st_tt++;
     if (e.key == pos.hash) {
+      st_tthit++;
       tt_move = e.move;
       if (e.depth >= depth && ply > 0) {
         int sc = e.score;
@@ -742,14 +761,15 @@ struct Searcher {
     int stat = -INF;
     if (!inc && !pv) {
       stat = evaluate(pos);
-      if (depth <= 3 && stat - 120 * depth >= beta && std::abs(beta) < MATE_BOUND) return stat;
+      if (depth <= 3 && stat - RFP_MARGIN * depth >= beta && std::abs(beta) < MATE_BOUND) { st_rfp++; return stat; }
       if (allow_null && depth >= 3 && stat >= beta && has_pieces(pos.side)) {
+        st_null++;
         Undo u; pos.make_null(u);
         int r = 2 + depth / 4;
         int s = -negamax(depth - 1 - r, -beta, -beta + 1, ply + 1, false);
         pos.unmake_null(u);
         if (aborted) return 0;
-        if (s >= beta && std::abs(s) < MATE_BOUND) return beta;
+        if (s >= beta && std::abs(s) < MATE_BOUND) { st_nullcut++; return beta; }
       }
     }
     std::vector<Move> mv; mv.reserve(64);
@@ -766,7 +786,7 @@ struct Searcher {
       bool gives_check = pos.in_check();
       if (quiet && !inc && !gives_check && !pv && depth <= 2 && legal > 1 && best > -MATE_BOUND) {
         if (stat == -INF) { pos.unmake(m); stat = evaluate(pos); pos.make(m); }
-        if (stat + 150 * depth <= alpha) { pos.unmake(m); continue; }
+        if (stat + FUT_MARGIN * depth <= alpha) { st_fut++; pos.unmake(m); continue; }
       }
       int s;
       if (legal == 1) s = -negamax(depth - 1, -beta, -alpha, ply + 1, true);
@@ -776,8 +796,9 @@ struct Searcher {
           r = 1 + (legal >= 9) + (depth >= 6);
           if (pv) r--;
         }
+        if (r > 0) st_lmr++;
         s = -negamax(depth - 1 - r, -alpha - 1, -alpha, ply + 1, true);
-        if (!aborted && s > alpha && r > 0) s = -negamax(depth - 1, -alpha - 1, -alpha, ply + 1, true);
+        if (!aborted && s > alpha && r > 0) { st_lmrre++; s = -negamax(depth - 1, -alpha - 1, -alpha, ply + 1, true); }
         if (!aborted && alpha < s && s < beta) s = -negamax(depth - 1, -beta, -alpha, ply + 1, true);
       }
       pos.unmake(m);
@@ -786,6 +807,7 @@ struct Searcher {
       if (s > alpha) {
         alpha = s;
         if (alpha >= beta) {
+          st_cut++; if (legal == 1) st_cut1++;
           if (quiet && ply < 128) {
             if (killers[ply][0] != m) { killers[ply][1] = killers[ply][0]; killers[ply][0] = m; }
             hist[pos.side][mfrom(m)][mto(m)] += depth * depth;
@@ -828,6 +850,7 @@ struct Searcher {
     if (has_deadline) hard_deadline = start + std::chrono::microseconds((long long)(hard_ms * 1000));
     node_limit = lim.nodes;
     nodes = 0; aborted = false;
+    st_q = st_tt = st_tthit = st_null = st_nullcut = st_lmr = st_lmrre = st_cut = st_cut1 = st_rfp = st_fut = 0;
     memset(killers, 0, sizeof killers);
     for (auto &a : hist) for (auto &b : a) for (auto &c : b) c /= 8;
     std::vector<Move> root; pos.legal(root);
@@ -993,7 +1016,7 @@ struct Searcher {
       }
       if (pick != best) {
         style_changed = 1;
-        if (print) { printf("info string style %s chose %s (%d) over %s (%d) trait %.1f\n", STYLE_PROFILE == 1 ? "attack" : "restraint", move_str(pick).c_str(), pick_score, move_str(best).c_str(), top, pick_trait); fflush(stdout); }
+        if (print) { printf("info string style %s chose %s (%d) over %s (%d) trait %.1f\n", STYLE_PROFILE == 1 ? "attack" : STYLE_PROFILE == 3 ? (last_transform_mode ? "transform:attack" : "transform:restraint") : "restraint", move_str(pick).c_str(), pick_score, move_str(best).c_str(), top, pick_trait); fflush(stdout); }
         best = pick; best_score = pick_score;
       }
     }
@@ -1027,6 +1050,12 @@ struct Searcher {
       }
     }
     root_best = best; root_score = best_score;
+    if (SEARCH_STATS && print) {
+      printf("info string stats depth %d nodes %lld qnodes %lld tt_hit_rate %.4f null_tries %lld null_cut_rate %.4f lmr %lld lmr_research_rate %.4f cutoffs %lld first_move_cut_rate %.4f rfp %lld fut %lld\n",
+             out_depth, nodes, st_q, st_tt ? (double)st_tthit / st_tt : 0.0, st_null, st_null ? (double)st_nullcut / st_null : 0.0, st_lmr,
+             st_lmr ? (double)st_lmrre / st_lmr : 0.0, st_cut, st_cut ? (double)st_cut1 / st_cut : 0.0, st_rfp, st_fut);
+      fflush(stdout);
+    }
     return best;
   }
 };
@@ -1204,11 +1233,16 @@ int main(int argc, char **argv) {
       printf("option name Skeptic type check default false\n");
       printf("option name MultiPV type spin default 1 min 1 max 16\n");
       printf("option name ForceMultiPV type spin default 1 min 1 max 16\n");
-      printf("option name StyleProfile type combo default none var none var attack var restraint\n");
+      printf("option name StyleProfile type combo default none var none var attack var restraint var transform\n");
+      printf("option name PlanBias type check default false\n");
+      printf("option name PlanCorrupt type check default false\n");
       printf("option name StyleMarginCp type spin default 30 min 0 max 300\n");
       printf("option name GovernorTrace type check default false\n");
       printf("option name ClearStateEachMove type check default false\n");
       printf("option name RootHint type string default <empty>\n");
+      printf("option name RFPMargin type spin default 120 min 0 max 1000\n");
+      printf("option name FutilityMargin type spin default 150 min 0 max 1000\n");
+      printf("option name SearchStats type check default false\n");
       printf("option name NNResidualScale type spin default 100 min 0 max 200\n");
       printf("option name Governor type check default false\n");
       printf("option name GovernorWeights type string default 0,0,0,0,0,0,0\n");
@@ -1235,10 +1269,15 @@ int main(int argc, char **argv) {
       else if (name == "PlanMemory") PLAN_MEMORY = value == "true" ? 1 : 0;
       else if (name == "Skeptic") SKEPTIC = value == "true" ? 1 : 0;
       else if (name == "MultiPV" || name == "ForceMultiPV") MULTIPV = std::max(1, std::min(16, atoi(value.c_str())));
-      else if (name == "StyleProfile") STYLE_PROFILE = value == "attack" ? 1 : value == "restraint" ? 2 : 0;
+      else if (name == "StyleProfile") STYLE_PROFILE = value == "attack" ? 1 : value == "restraint" ? 2 : value == "transform" ? 3 : 0;
+      else if (name == "PlanBias") PLAN_BIAS = value == "true";
+      else if (name == "PlanCorrupt") PLAN_CORRUPT = value == "true";
       else if (name == "GovernorTrace") GOV_TRACE = value == "true";
       else if (name == "ClearStateEachMove") CLEAR_STATE = value == "true";
       else if (name == "NNResidualScale") NN_RES_SCALE = std::max(0, std::min(200, atoi(value.c_str())));
+      else if (name == "RFPMargin") RFP_MARGIN = std::max(0, std::min(1000, atoi(value.c_str())));
+      else if (name == "FutilityMargin") FUT_MARGIN = std::max(0, std::min(1000, atoi(value.c_str())));
+      else if (name == "SearchStats") SEARCH_STATS = value == "true";
       else if (name == "RootHint") ROOT_HINT = (value == "<empty>" ? "" : value);
       else if (name == "Governor") GOVERNOR = value == "true";
       else if (name == "GovernorWeights") { std::stringstream ss(value); std::string x; int q = 0; while (std::getline(ss, x, ',') && q < 9) { if (q < 7) GOV_W[q] = atof(x.c_str()); else if (q == 7) GOV_HI = atof(x.c_str()); else GOV_LO = atof(x.c_str()); q++; } }
@@ -1311,6 +1350,20 @@ int main(int argc, char **argv) {
       ROOT_HINT.clear();  // a hint applies to exactly one go
       double mult = plan_observe(S.pos, game_moves);
       S.plan_hint = 0;
+      PLAN_ACTIVE = 0;
+      if (PLAN_BIAS && PLAN.valid && PLAN.status == "ON_TRACK") {
+        PLAN_TARGETS = 0;
+        for (size_t i = 2; i < PLAN.pv.size(); i += 2) PLAN_TARGETS |= bit(mto(PLAN.pv[i]));
+        Move nxt = PLAN.next_move;
+        if (PLAN_CORRUPT) {  // plausible but incorrect memory: mirrored targets, and a different legal quiet move as 'next'
+          U64 t = PLAN_TARGETS, m2 = 0; while (t) { int q = pop_lsb(t); m2 |= bit(q ^ 7); } PLAN_TARGETS = m2;
+          std::vector<Move> lg; S.pos.legal(lg); nxt = 0;
+          for (Move m : lg) if (m != PLAN.next_move && S.pos.board[mto(m)] == NONE && !mpromo(m)) { nxt = m; break; }
+        }
+        PLAN_SIDE = S.pos.side; PLAN_ACTIVE = 1;
+        if (nxt) S.root_hint = nxt;
+        printf("info string planbias next %s targets %d corrupt %d\n", nxt ? move_str(nxt).c_str() : "none", popcnt(PLAN_TARGETS), PLAN_CORRUPT); fflush(stdout);
+      }
       if (PLAN_MEMORY) {
         if (PLAN.status == "ON_TRACK") S.plan_hint = PLAN.next_move;
         if (soft > 0) soft = std::min(soft * mult, hard > 0 ? hard * 0.8 : soft * mult);  // hard deadline never extended

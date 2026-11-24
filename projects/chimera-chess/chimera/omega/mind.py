@@ -171,14 +171,17 @@ class WholeMind:
                     if n in bd:
                         ms += bd[n]; bd[n] *= 2
             capped, groups = 0.0, {}
+            cp_units = sum(bd.get(n, 0.0) for n in (1, 12, 36, 177))   # PDF states anti-draw penalties in centipawns: unscaled
             for n, v in bd.items():
+                if n in (1, 12, 36, 177):
+                    continue
                 g = M.REGISTRY[n].group
                 groups[g] = groups.get(g, 0.0) + v
             for g, v in groups.items():
                 capped += max(-CAPS.get(g, 99), min(CAPS.get(g, 99), v))
             ev = gate[u]
             evu = max(-30.0, min(30.0, ev / 100.0)) if abs(ev) < MATE_T else (40.0 if ev > 0 else -40.0)
-            util = evu + cfg.motif_scale * mult * capped
+            util = evu + cp_units + cfg.motif_scale * mult * capped
             sac = any(M.REGISTRY[n].group in SAC_GROUPS for n in bd) or ctx.sac_value() >= 1
             rec = {"move": u, "eval": ev, "motif": round(capped, 3), "util": round(util, 3), "bd": {f"#{n}": round(v, 3) for n, v in bd.items()},
                    "sac": sac, "deep": u in deep}

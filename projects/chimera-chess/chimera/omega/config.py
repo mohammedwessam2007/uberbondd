@@ -73,6 +73,9 @@ PROFILES = {  # gauntlet ablations (section 16 of the mandate)
     # PDF-faithful architecture: Stockfish MultiPV=16 at sf_time_sec (0.12 s, scaled by the clock) as tactical truth,
     # Maia3 human policy, all motifs + arbitration + Skeptic deciding the move (document A §1, manual §1).
     "PDF_FAITHFUL": {"tactical": "stockfish", "root_multipv": 16, "root_time_frac": 0.0, "reply_k": 4, "reply_nodes": 40000, "verify_nodes": 300000},
+    # V3 iteration after the PDF_FAITHFUL benchmark (0-6-4 vs sf2685, 6/6 draws by repetition, overrides on 52% of moves):
+    # anti-draw fixed (repetition entry, cp units) and motif scale 0.35 -> 0.15 so motifs arbitrate among near-equal sound moves.
+    "PDF_FAITHFUL_V3": {"tactical": "stockfish", "root_multipv": 16, "root_time_frac": 0.0, "reply_k": 3, "reply_nodes": 30000, "verify_nodes": 300000, "motif_scale": 0.15},
     "WHOLE_MIND_V2": {"root_multipv": 4, "root_time_frac": 0.6, "reply_k": 3, "reply_nodes": 15000, "verify_nodes": 150000},
 }
 

@@ -132,7 +132,9 @@ def _drawish(nb: chess.Board) -> bool:
 
 @motif(1, "Negative Draw Contempt", -1.20, ["eval"], group="anti-draw")
 def m001(c):  # -120 cp when the move leads to repetition/stalemate/50-move draw while eval >= -80
-    return 1.0 if c.ev() >= -80 and _drawish(c.nb) else 0.0
+    # V3 fix: 'leads to repetition' includes re-entering an already-seen position (2-fold), from which the opponent can complete
+    # the threefold; the gauntlet showed 6/6 PDF_FAITHFUL draws were threefold repetitions with the 3-fold-only test.
+    return 1.0 if c.ev() >= -80 and (_drawish(c.nb) or c.nb.is_repetition(2)) else 0.0
 
 
 @motif(2, "Piece-Mobility Multiplier", 0.06)
@@ -1382,7 +1384,7 @@ def m176(c):
 
 @motif(177, "Dynamic Contempt Curve", -1.0, ["eval"], group="anti-draw")
 def m177(c):  # contempt escalates from -1.20 to -2.50 past move 30 (replaces #1 magnitude after move 30)
-    if c.board.fullmove_number <= 30 or c.ev() < -80 or not _drawish(c.nb):
+    if c.board.fullmove_number <= 30 or c.ev() < -80 or not (_drawish(c.nb) or c.nb.is_repetition(2)):
         return 0.0
     return 2.50 - 1.20
 

@@ -73,7 +73,8 @@ class WholeMind:
             self.verifier.close()
 
     # ------------------------------------------------------------------ main
-    def choose(self, board: chess.Board, budget_scale: float = 1.0, opp_clock_s: Optional[float] = None, opp_think_frac: Optional[float] = None):
+    def choose(self, board: chess.Board, budget_scale: float = 1.0, opp_clock_s: Optional[float] = None, opp_think_frac: Optional[float] = None,
+               budget_s: Optional[float] = None):
         t0 = time.perf_counter()
         cfg = self.cfg
         legal = list(board.legal_moves)
@@ -94,7 +95,8 @@ class WholeMind:
         rn = max(5000, int(cfg.root_nodes * budget_scale))
         rnn = max(2000, int(cfg.reply_nodes * budget_scale))
         # 2 ROOT SEARCH
-        cand = self.backend.analyse_root(board, rn, min(cfg.sf_multipv, len(legal)))
+        secs = budget_s * cfg.root_time_frac if (budget_s and cfg.root_time_frac > 0) else None
+        cand = self.backend.analyse_root(board, rn, min(cfg.root_multipv, len(legal)), seconds=secs)
         tr["root"] = dict(sorted(cand.items(), key=lambda kv: -kv[1]))
         self.partial = max(cand, key=cand.get)
         self.note_root_eval(max(cand.values()))

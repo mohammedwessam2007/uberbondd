@@ -150,7 +150,8 @@ class UCI:
 
         def work():
             try:
-                self.result = mind.choose(board, budget_scale=0.08 if reflex else scale, opp_clock_s=opp_left if opp_left >= 0 else None, opp_think_frac=think)
+                self.result = mind.choose(board, budget_scale=0.08 if reflex else scale, opp_clock_s=opp_left if opp_left >= 0 else None, opp_think_frac=think,
+                                          budget_s=(0.15 if reflex else budget) if budget else None)
             except Exception as ex:
                 self.result = (None, {"error": repr(ex)})
 

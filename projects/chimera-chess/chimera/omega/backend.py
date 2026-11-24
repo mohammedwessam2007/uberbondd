@@ -76,10 +76,12 @@ class NativeBackend:
         self.aux = Proc([cfg.native_path], opts)
         self.nodes_used = 0
 
-    def analyse_root(self, board, nodes, multipv):
-        """#150 candidate pruning: native MultiPV over the root (game history included so plan memory stays continuous)."""
+    def analyse_root(self, board, nodes, multipv, seconds=None):
+        """#150 candidate pruning: native MultiPV over the root (game history included so plan memory stays continuous).
+        With `seconds` the root search is time-limited (V2 budget fix: the native search owns most of the clock)."""
         validate(board)
-        info = self.root.call(lambda e: e.analyse(board, chess.engine.Limit(nodes=nodes), multipv=multipv))
+        lim = chess.engine.Limit(time=seconds) if seconds else chess.engine.Limit(nodes=nodes)
+        info = self.root.call(lambda e: e.analyse(board, lim, multipv=multipv))
         out = {}
         for it in info:
             if it.get("pv"):

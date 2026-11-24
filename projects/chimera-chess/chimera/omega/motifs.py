@@ -715,9 +715,7 @@ restricted(77, "ASD band regulator against Regan scaled-difference screening. Ar
 restricted(78, "Session style-weight drift to defeat cross-game statistical fingerprinting. Archived.")
 
 
-@motif(79, "Opening Human Book Noise", 0.0, ["maia"], group="opening")
-def m079(c):  # control: plies 1-10 sample among Maia top-4 at temperature +0.5 (applied in mind.select); value = Maia prob
-    return 0.0
+# #79: control, see controls.CONTROLS
 
 
 restricted(80, "Log-normal think-time generator to replicate human latency (fabricated human timing). Archived.")
@@ -735,9 +733,7 @@ def m082(c):  # among mating continuations prefer creative nets (#144 ranker) ov
     return 0.5 if c.piece.piece_type in (chess.KNIGHT, chess.BISHOP, chess.PAWN, chess.KING) else 0.0
 
 
-@motif(83, "PGN Diversity Auditor", 0.0, ["history"], group="analytics")
-def m083(c):  # analytics only (game-level move-type entropy is computed in tools/omega/artistry.py); no move effect
-    return 0.0
+# #83: control, see controls.CONTROLS
 
 
 restricted(161, "Live MM/ASD logger feeding the stealth governors (#75 #77 #84): screening-statistics telemetry. Archived.")

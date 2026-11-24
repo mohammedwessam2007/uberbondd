@@ -45,6 +45,8 @@ class ChimeraConfig:
     reply_nodes: int = 20000
     verify_nodes: int = 300000
     reply_k: int = 4
+    root_multipv: int = 16               # PDF sf_multipv; V2 runtime uses 4 (see PROFILES WHOLE_MIND_V2)
+    root_time_frac: float = 0.0          # >0: root search gets this fraction of the move's time budget (V2 budget fix)
 
 
 ELO_PRESETS: Dict[str, Dict[str, float]] = {
@@ -64,6 +66,9 @@ PROFILES = {  # gauntlet ablations (section 16 of the mandate)
     # engineering correction (not a PDF preset): same motifs, max_cp_drop 40 instead of 135 -- tests the flaw found in the
     # gauntlet (motif arbitration overrode the objective best on 130/250 moves). Pre-registered in evidence/omega/PREREG_sound.md
     "WHOLE_MIND_SOUND": {"max_cp_drop": 40.0},
+    # V2 budget fix (gauntlet diagnosis: NO_MOTIFS also lost 0-1-7 -> search starvation, not motifs): every motif active,
+    # native root search owns 60% of the clock with MultiPV 4; Artist/motif evidence/Skeptic share the rest.
+    "WHOLE_MIND_V2": {"root_multipv": 4, "root_time_frac": 0.6, "reply_k": 3, "reply_nodes": 15000, "verify_nodes": 150000},
 }
 
 

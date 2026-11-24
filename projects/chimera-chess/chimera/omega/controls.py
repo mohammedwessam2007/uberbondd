@@ -5,6 +5,8 @@ CONTROLS = {
     29: ("Critical-Branch Extension", "mind.choose step 5 (top-2 swing > 120 cp -> top-3 re-searched at 2x nodes)", "trace field routing.critical_extension"),
     30: ("Syzygy Tablebase Veto", "no tablebase path is configured for any backend", "tests.test_omega_controls.test_no_tablebases"),
     43: ("Rating-Conditioned Maia", "mind._maia(elo_self, elo_opp) from preset maia_elo", "tests.test_omega_controls.test_presets"),
+    79: ("Opening Human Book Noise", "mind._select: plies < 10 temperature +0.5 over the gated candidates (incl. Maia top-3 Artist candidates)", "tests.test_omega_controls.test_softmax_sampling"),
+    83: ("PGN Diversity Auditor", "tools/omega/artistry.py move-type / motif diversity per game (analytics, no move effect)", "evidence/omega/artistry.json"),
     149: ("Dual Stockfish+Maia-3 Worker Bridge", "backend.NativeBackend(root+aux) + StockfishVerifier + chimera.maia", "tests.test_omega.UciRobustness"),
     150: ("Candidate Pruning", "backend.analyse_root MultiPV (sf_multipv=16) + mind gate", "trace root/gated_out"),
     151: ("Soundness Gatekeeper", "mind.choose step 4 gate: eval >= max(floor, best - max_cp_drop); mate obligation", "tests.test_omega_controls.test_gate"),

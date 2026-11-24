@@ -2,6 +2,6 @@ rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 d2d4 93746
 r1bqkb1r/pppp1ppp/2n2n2/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4 f3g5 83478
 r2q1rk1/pp2bppp/2n1pn2/3p4/2PP4/2N1PN2/PP2BPPP/R2Q1RK1 w - - 0 10 a2a3 343214
 8/5pk1/6p1/3P4/5P2/6P1/5K2/8 w - - 0 40 f2e3 15917
-x86-64 == arm64 (qemu-aarch64-static) == frozen V8 ref, fixed-depth-8 bench, 2026-11-24T01:31:34Z
-89fb12b38270306d4dbaffff660ad772b5edeb529760df9c1b08e66f1f8c7335  native/dist/chimera-linux-arm64-static
-source sha256 a830ebc9266293747282280a8802dece4bc07c52ab191f926437d9a762f4a938
+x86-64 == arm64 (qemu-aarch64-static) == frozen V8 ref, fixed-depth-8 bench, 2026-11-24T02:17:21Z
+e64ebea78a7b6d9e2b5ec75a076469fa46f6e82f6a6ec9a84225c53290a0ddd1  native/dist/chimera-linux-arm64-static
+source sha256 914b40046aeaed461d5a19741017f397494932fe84f40f418af47c9a61a8e596

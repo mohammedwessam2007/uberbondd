@@ -133,7 +133,7 @@ V9 = {
     "#113": ("BOUNDED_TRIAL_NO_GAIN", "native PlanState (deterministic)", "same", "episodic state across moves", "not learned"),
     "#063": ("MEASURED_BASELINE", "native pred_reply + tools/trace_analysis.py", "evidence/v8/trace_metrics_sf2800.json", "39.5% reply prediction", ""),
     "#045": ("MEASURED_BASELINE", "tools/human_match.py", "evidence/v9/human_match_lichess2013.json", "human top-1: Maia3 54.9%, V8 40.3%, SF16 d10 38.5% (800 positions)", "Lichess 2013 amateurs, not grandmasters"),
-    "#013": ("MEASURED_BASELINE", "tools/humanizer_pareto.py", "evidence/v9/humanizer_pareto.json", "bounded-loss human preference curve", "not blinded expert assessment"),
+    "#013": ("MEASURED_BASELINE", "tools/humanizer_pareto.py", "evidence/v9/humanizer_pareto.json", "margin 50cp: human match 50.8% vs V8 39.9% for +3cp SF loss (800 positions)", "not wired into UCI; not blinded expert assessment"),
     "#020": ("BLOCKED", "", "", "", "needs a lawfully licensed historical master PGN corpus (owner decision on source/terms)"),
     "#059": ("BLOCKED", "", "", "", "same corpus blocker as #020"),
     "#111": ("BLOCKED", "", "", "", "same corpus blocker as #020"),

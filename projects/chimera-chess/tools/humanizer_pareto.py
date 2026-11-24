@@ -1,6 +1,6 @@
 """Bounded-loss human preference (G11): play Maia3's predicted human move when V8's own search rates it within
 `margin` cp of V8's best (both at 20k nodes). No scripted errors: the loss bound is enforced by our own search, and
-every chosen move is re-scored by Stockfish 16 (depth 12) for an independent cp-loss. Positions: the 800 held-out
+every chosen move is re-scored by Stockfish 16 (depth 10) for an independent cp-loss. Positions: the 800 held-out
 human positions in evidence/v9/human_match_lichess2013.json (Lichess 2013-01, CC0).
 Usage: python tools/humanizer_pareto.py /tmp/lichess/2013-01.pgn.zst out.json"""
 import json
@@ -38,13 +38,14 @@ def main(src, out, n=800):
         best = i_best["pv"][0]
         s_best = score(i_best)
         s_h = s_best if mh == best else score(me.analyse(b, chess.engine.Limit(nodes=20000), root_moves=[mh]))
-        sf_best = sf.analyse(b, chess.engine.Limit(depth=12))
+        sf_best = sf.analyse(b, chess.engine.Limit(depth=10))
         sfb = score(sf_best)
 
         def sfloss(m):
-            v = score(sf.analyse(b, chess.engine.Limit(depth=12), root_moves=[m]))
+            v = score(sf.analyse(b, chess.engine.Limit(depth=10), root_moves=[m]))
             return 0 if abs(sfb) >= 90000 and v >= 90000 else max(0, min(1000, sfb - v))
         loss_best, loss_h = sfloss(best), (sfloss(mh) if mh != best else None)
+        print(len(rows), p["site"], flush=True)
         rows.append({"site": p["site"], "human": p["human"], "v8": best.uci(), "maia": mh.uci(),
                      "v8_gap_cp": s_best - s_h, "sf_loss_v8": loss_best, "sf_loss_maia": loss_h if loss_h is not None else loss_best})
     me.quit(); sf.quit()
@@ -64,4 +65,4 @@ def main(src, out, n=800):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2])
+    main(sys.argv[1], sys.argv[2], int(sys.argv[3]) if len(sys.argv) > 3 else 300)

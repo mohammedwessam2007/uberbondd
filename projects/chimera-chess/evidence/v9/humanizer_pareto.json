@@ -1,0 +1,7248 @@
+{
+ "baselines": {
+  "pure_v8_human_match": 0.3987,
+  "pure_maia_human_match": 0.5487,
+  "pure_maia_sf_loss": 58.4,
+  "human_players_sf_loss_not_measured": true
+ },
+ "curve": [
+  {
+   "margin_cp": 0,
+   "human_match": 0.4113,
+   "mean_sf_cp_loss": 36.3,
+   "share_maia_move": 0.495
+  },
+  {
+   "margin_cp": 10,
+   "human_match": 0.435,
+   "mean_sf_cp_loss": 38.6,
+   "share_maia_move": 0.57
+  },
+  {
+   "margin_cp": 25,
+   "human_match": 0.47,
+   "mean_sf_cp_loss": 38.2,
+   "share_maia_move": 0.6863
+  },
+  {
+   "margin_cp": 50,
+   "human_match": 0.5075,
+   "mean_sf_cp_loss": 39.3,
+   "share_maia_move": 0.8125
+  },
+  {
+   "margin_cp": 100,
+   "human_match": 0.5262,
+   "mean_sf_cp_loss": 40.8,
+   "share_maia_move": 0.8975
+  },
+  {
+   "margin_cp": 200,
+   "human_match": 0.5487,
+   "mean_sf_cp_loss": 43.8,
+   "share_maia_move": 0.9563
+  }
+ ],
+ "rows": [
+  {
+   "site": "https://lichess.org/a9tcp02g",
+   "human": "h1h7",
+   "v8": "c2c3",
+   "maia": "h1h4",
+   "v8_gap_cp": 182,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 142
+  },
+  {
+   "site": "https://lichess.org/7b44wxzu",
+   "human": "g6h6",
+   "v8": "g6h5",
+   "maia": "g6d3",
+   "v8_gap_cp": 98515,
+   "sf_loss_v8": 266,
+   "sf_loss_maia": 1000
+  },
+  {
+   "site": "https://lichess.org/n5crd00d",
+   "human": "d7e8",
+   "v8": "a8f8",
+   "maia": "e7d8",
+   "v8_gap_cp": 36,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/iinnkv77",
+   "human": "c7d6",
+   "v8": "c7d6",
+   "maia": "c7d6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 26,
+   "sf_loss_maia": 26
+  },
+  {
+   "site": "https://lichess.org/vb3w3rmn",
+   "human": "e8c8",
+   "v8": "g8h6",
+   "maia": "g8f6",
+   "v8_gap_cp": 5,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 87
+  },
+  {
+   "site": "https://lichess.org/iclkx584",
+   "human": "f8e7",
+   "v8": "h7h5",
+   "maia": "f8e7",
+   "v8_gap_cp": 24,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 114
+  },
+  {
+   "site": "https://lichess.org/kpyneu5v",
+   "human": "e6d5",
+   "v8": "e6d5",
+   "maia": "e6d5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 7,
+   "sf_loss_maia": 7
+  },
+  {
+   "site": "https://lichess.org/v778e8mr",
+   "human": "b1c3",
+   "v8": "b1c3",
+   "maia": "b1c3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 39,
+   "sf_loss_maia": 39
+  },
+  {
+   "site": "https://lichess.org/aw9vx3l5",
+   "human": "h4g3",
+   "v8": "h4g3",
+   "maia": "h4g3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 66,
+   "sf_loss_maia": 66
+  },
+  {
+   "site": "https://lichess.org/flvoc7ly",
+   "human": "f2f3",
+   "v8": "c1g5",
+   "maia": "f2f3",
+   "v8_gap_cp": -25,
+   "sf_loss_v8": 99,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/m45sueue",
+   "human": "f8e8",
+   "v8": "f8e8",
+   "maia": "f8e8",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 48,
+   "sf_loss_maia": 48
+  },
+  {
+   "site": "https://lichess.org/k29ncaud",
+   "human": "e6e5",
+   "v8": "e6e5",
+   "maia": "e6e5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 71,
+   "sf_loss_maia": 71
+  },
+  {
+   "site": "https://lichess.org/ckfufm8a",
+   "human": "e1g1",
+   "v8": "g2g4",
+   "maia": "e1g1",
+   "v8_gap_cp": 2,
+   "sf_loss_v8": 41,
+   "sf_loss_maia": 10
+  },
+  {
+   "site": "https://lichess.org/lfhdo7vu",
+   "human": "f6e4",
+   "v8": "f6e4",
+   "maia": "f6e4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/ez8rfz4d",
+   "human": "g8h7",
+   "v8": "g8h7",
+   "maia": "g8h7",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 92,
+   "sf_loss_maia": 92
+  },
+  {
+   "site": "https://lichess.org/7tuxquet",
+   "human": "f7f5",
+   "v8": "f8g8",
+   "maia": "f7f5",
+   "v8_gap_cp": 116,
+   "sf_loss_v8": 54,
+   "sf_loss_maia": 6
+  },
+  {
+   "site": "https://lichess.org/l9vbwjsg",
+   "human": "e2c3",
+   "v8": "d2b2",
+   "maia": "f1c1",
+   "v8_gap_cp": 10,
+   "sf_loss_v8": 94,
+   "sf_loss_maia": 55
+  },
+  {
+   "site": "https://lichess.org/8gpxwk4e",
+   "human": "c7c6",
+   "v8": "e8g8",
+   "maia": "d4f3",
+   "v8_gap_cp": 18,
+   "sf_loss_v8": 6,
+   "sf_loss_maia": 1
+  },
+  {
+   "site": "https://lichess.org/wab4h6cl",
+   "human": "f2e3",
+   "v8": "a1d1",
+   "maia": "f2e3",
+   "v8_gap_cp": -1,
+   "sf_loss_v8": 5,
+   "sf_loss_maia": 77
+  },
+  {
+   "site": "https://lichess.org/i9tv4tqx",
+   "human": "a8c8",
+   "v8": "c5d4",
+   "maia": "c5d4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 15,
+   "sf_loss_maia": 15
+  },
+  {
+   "site": "https://lichess.org/hr26k5dq",
+   "human": "e6f5",
+   "v8": "e6f5",
+   "maia": "e6f5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/rt8ztwx0",
+   "human": "f6e4",
+   "v8": "a8b8",
+   "maia": "f6e4",
+   "v8_gap_cp": 1,
+   "sf_loss_v8": 73,
+   "sf_loss_maia": 47
+  },
+  {
+   "site": "https://lichess.org/ggzdwso3",
+   "human": "c1a3",
+   "v8": "b1c3",
+   "maia": "g1f3",
+   "v8_gap_cp": 14,
+   "sf_loss_v8": 21,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/d5wxowah",
+   "human": "b4c2",
+   "v8": "g7c3",
+   "maia": "b4c2",
+   "v8_gap_cp": 76,
+   "sf_loss_v8": 47,
+   "sf_loss_maia": 80
+  },
+  {
+   "site": "https://lichess.org/qjxqrtpf",
+   "human": "g8e7",
+   "v8": "e6e5",
+   "maia": "e6e5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/t2cs01w8",
+   "human": "c8e6",
+   "v8": "e8g8",
+   "maia": "h7h6",
+   "v8_gap_cp": -17,
+   "sf_loss_v8": 90,
+   "sf_loss_maia": 23
+  },
+  {
+   "site": "https://lichess.org/n5um0uyp",
+   "human": "c6a5",
+   "v8": "c6a5",
+   "maia": "c6a5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 47,
+   "sf_loss_maia": 47
+  },
+  {
+   "site": "https://lichess.org/lq8ul77r",
+   "human": "b2b4",
+   "v8": "b2b4",
+   "maia": "d3e4",
+   "v8_gap_cp": 26,
+   "sf_loss_v8": 1,
+   "sf_loss_maia": 49
+  },
+  {
+   "site": "https://lichess.org/06r2k4i6",
+   "human": "e2c4",
+   "v8": "e2c4",
+   "maia": "e2c4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 104,
+   "sf_loss_maia": 104
+  },
+  {
+   "site": "https://lichess.org/eqralcjr",
+   "human": "d8f6",
+   "v8": "d8f6",
+   "maia": "g5e3",
+   "v8_gap_cp": 149,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 42
+  },
+  {
+   "site": "https://lichess.org/m85x3xbc",
+   "human": "c3d4",
+   "v8": "c3d4",
+   "maia": "c3d4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 24,
+   "sf_loss_maia": 24
+  },
+  {
+   "site": "https://lichess.org/pl0mbfcr",
+   "human": "g5g4",
+   "v8": "c8h8",
+   "maia": "c8h8",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 43,
+   "sf_loss_maia": 43
+  },
+  {
+   "site": "https://lichess.org/q4xkbal4",
+   "human": "a5c7",
+   "v8": "a5c7",
+   "maia": "a5c7",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/wjmg3i9z",
+   "human": "c4d5",
+   "v8": "c4d5",
+   "maia": "c4d5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 20,
+   "sf_loss_maia": 20
+  },
+  {
+   "site": "https://lichess.org/fr4y1pwv",
+   "human": "c8e6",
+   "v8": "b4c2",
+   "maia": "a5b5",
+   "v8_gap_cp": 10,
+   "sf_loss_v8": 26,
+   "sf_loss_maia": 6
+  },
+  {
+   "site": "https://lichess.org/fzjtms6a",
+   "human": "h7h6",
+   "v8": "b6b5",
+   "maia": "h7h6",
+   "v8_gap_cp": 30,
+   "sf_loss_v8": 62,
+   "sf_loss_maia": 30
+  },
+  {
+   "site": "https://lichess.org/2woqygsw",
+   "human": "e1c1",
+   "v8": "a1c1",
+   "maia": "a1c1",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/ij09g35z",
+   "human": "f3d2",
+   "v8": "a4d1",
+   "maia": "f3d2",
+   "v8_gap_cp": 24,
+   "sf_loss_v8": 107,
+   "sf_loss_maia": 11
+  },
+  {
+   "site": "https://lichess.org/7o2v7y16",
+   "human": "b8c6",
+   "v8": "f6g4",
+   "maia": "c8g4",
+   "v8_gap_cp": 55,
+   "sf_loss_v8": 35,
+   "sf_loss_maia": 49
+  },
+  {
+   "site": "https://lichess.org/jh03pg5g",
+   "human": "d1h5",
+   "v8": "g6g7",
+   "maia": "h1h7",
+   "v8_gap_cp": 387,
+   "sf_loss_v8": 30,
+   "sf_loss_maia": 350
+  },
+  {
+   "site": "https://lichess.org/j4qtyx9e",
+   "human": "b5c4",
+   "v8": "b5c4",
+   "maia": "b5c4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/bk0e0xqk",
+   "human": "d8b6",
+   "v8": "a8c8",
+   "maia": "d8c7",
+   "v8_gap_cp": -118,
+   "sf_loss_v8": 69,
+   "sf_loss_maia": 137
+  },
+  {
+   "site": "https://lichess.org/rgzzk0ax",
+   "human": "c6a5",
+   "v8": "a8c8",
+   "maia": "a8c8",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 31,
+   "sf_loss_maia": 31
+  },
+  {
+   "site": "https://lichess.org/8ek0fqf3",
+   "human": "g6h5",
+   "v8": "g6h5",
+   "maia": "g6h5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/1cr8q7r0",
+   "human": "d7e7",
+   "v8": "g6g4",
+   "maia": "g6g4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 26,
+   "sf_loss_maia": 26
+  },
+  {
+   "site": "https://lichess.org/cahkc3v2",
+   "human": "e7e6",
+   "v8": "b8c6",
+   "maia": "e7e6",
+   "v8_gap_cp": 30,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 48
+  },
+  {
+   "site": "https://lichess.org/y0vvjr32",
+   "human": "a1d1",
+   "v8": "e2d3",
+   "maia": "a1d1",
+   "v8_gap_cp": 60,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 2
+  },
+  {
+   "site": "https://lichess.org/pgr0qcn1",
+   "human": "f1d1",
+   "v8": "f1d1",
+   "maia": "f1d1",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/rl1bwodm",
+   "human": "d5d1",
+   "v8": "d5d1",
+   "maia": "d5d1",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/kenx7lfq",
+   "human": "e1g1",
+   "v8": "e1c1",
+   "maia": "e1g1",
+   "v8_gap_cp": 112,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 52
+  },
+  {
+   "site": "https://lichess.org/52j6e03r",
+   "human": "b7c6",
+   "v8": "d7c6",
+   "maia": "b7c6",
+   "v8_gap_cp": 4,
+   "sf_loss_v8": 52,
+   "sf_loss_maia": 5
+  },
+  {
+   "site": "https://lichess.org/aab3psbp",
+   "human": "g1h1",
+   "v8": "g1h1",
+   "maia": "g1h1",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/t0qn56a5",
+   "human": "a2c2",
+   "v8": "a2b1",
+   "maia": "a2c2",
+   "v8_gap_cp": 40,
+   "sf_loss_v8": 92,
+   "sf_loss_maia": 39
+  },
+  {
+   "site": "https://lichess.org/g91s0oxx",
+   "human": "a7a5",
+   "v8": "h6h5",
+   "maia": "a7a6",
+   "v8_gap_cp": 14,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 39
+  },
+  {
+   "site": "https://lichess.org/eb1nruls",
+   "human": "d2d3",
+   "v8": "b4b5",
+   "maia": "b4b5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 14,
+   "sf_loss_maia": 14
+  },
+  {
+   "site": "https://lichess.org/o3tewvmq",
+   "human": "c5d6",
+   "v8": "c5d6",
+   "maia": "c5b6",
+   "v8_gap_cp": -3,
+   "sf_loss_v8": 108,
+   "sf_loss_maia": 101
+  },
+  {
+   "site": "https://lichess.org/75p4bzso",
+   "human": "b1a1",
+   "v8": "b1a1",
+   "maia": "b1a1",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 47,
+   "sf_loss_maia": 47
+  },
+  {
+   "site": "https://lichess.org/t1sjkrjl",
+   "human": "f2f4",
+   "v8": "d3d4",
+   "maia": "d3d4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/6su6em7r",
+   "human": "f3d4",
+   "v8": "f3d4",
+   "maia": "f3d4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 15,
+   "sf_loss_maia": 15
+  },
+  {
+   "site": "https://lichess.org/x6kvnesk",
+   "human": "e4f6",
+   "v8": "d7d5",
+   "maia": "e4f6",
+   "v8_gap_cp": 33,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 5
+  },
+  {
+   "site": "https://lichess.org/bidh4zh3",
+   "human": "f2f4",
+   "v8": "b5b6",
+   "maia": "d1b1",
+   "v8_gap_cp": 48,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/z0ule4l2",
+   "human": "a2a4",
+   "v8": "a2a4",
+   "maia": "f3f6",
+   "v8_gap_cp": 152,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 203
+  },
+  {
+   "site": "https://lichess.org/kf1xuyl5",
+   "human": "f4g6",
+   "v8": "b1c3",
+   "maia": "f4g6",
+   "v8_gap_cp": 242,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 422
+  },
+  {
+   "site": "https://lichess.org/0ek89da9",
+   "human": "e3d4",
+   "v8": "g1f3",
+   "maia": "e3d4",
+   "v8_gap_cp": 24,
+   "sf_loss_v8": 26,
+   "sf_loss_maia": 81
+  },
+  {
+   "site": "https://lichess.org/xsw84bqc",
+   "human": "e6d5",
+   "v8": "f6d5",
+   "maia": "e6d5",
+   "v8_gap_cp": 34,
+   "sf_loss_v8": 51,
+   "sf_loss_maia": 7
+  },
+  {
+   "site": "https://lichess.org/ddsw4k3x",
+   "human": "e1g1",
+   "v8": "e1g1",
+   "maia": "e1g1",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 45,
+   "sf_loss_maia": 45
+  },
+  {
+   "site": "https://lichess.org/7rrigtow",
+   "human": "c2c4",
+   "v8": "b1c3",
+   "maia": "g1f3",
+   "v8_gap_cp": 6,
+   "sf_loss_v8": 60,
+   "sf_loss_maia": 8
+  },
+  {
+   "site": "https://lichess.org/2irq4pg0",
+   "human": "d1d2",
+   "v8": "e1g1",
+   "maia": "e1g1",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 13,
+   "sf_loss_maia": 13
+  },
+  {
+   "site": "https://lichess.org/hvd69rfo",
+   "human": "d2f4",
+   "v8": "d2f4",
+   "maia": "d2f4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/n2g7v0iy",
+   "human": "b1c3",
+   "v8": "a2a4",
+   "maia": "b1c3",
+   "v8_gap_cp": -4,
+   "sf_loss_v8": 43,
+   "sf_loss_maia": 3
+  },
+  {
+   "site": "https://lichess.org/y1uwhaqv",
+   "human": "e1e6",
+   "v8": "e1e6",
+   "maia": "e1e6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/2tqqbxca",
+   "human": "d1c2",
+   "v8": "f2f3",
+   "maia": "e4e5",
+   "v8_gap_cp": 90,
+   "sf_loss_v8": 103,
+   "sf_loss_maia": 2
+  },
+  {
+   "site": "https://lichess.org/4xq83cx4",
+   "human": "f2g3",
+   "v8": "f2g3",
+   "maia": "f2g3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/ysyzjjls",
+   "human": "f7f6",
+   "v8": "f7f6",
+   "maia": "f7f6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 11,
+   "sf_loss_maia": 11
+  },
+  {
+   "site": "https://lichess.org/v99hdexl",
+   "human": "b2d2",
+   "v8": "b2a3",
+   "maia": "f5f6",
+   "v8_gap_cp": 31,
+   "sf_loss_v8": 53,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/0jrx9g2b",
+   "human": "c3c2",
+   "v8": "d5f3",
+   "maia": "d5f3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/awljc558",
+   "human": "h7g6",
+   "v8": "c5c4",
+   "maia": "h7g6",
+   "v8_gap_cp": 129,
+   "sf_loss_v8": 1,
+   "sf_loss_maia": 29
+  },
+  {
+   "site": "https://lichess.org/lcduhmtl",
+   "human": "e1g1",
+   "v8": "c2c4",
+   "maia": "c1b2",
+   "v8_gap_cp": 34,
+   "sf_loss_v8": 42,
+   "sf_loss_maia": 32
+  },
+  {
+   "site": "https://lichess.org/th6yggkp",
+   "human": "e3e7",
+   "v8": "f7c4",
+   "maia": "f7c4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 175,
+   "sf_loss_maia": 175
+  },
+  {
+   "site": "https://lichess.org/s91kkh8x",
+   "human": "f3g5",
+   "v8": "h2h3",
+   "maia": "h2h3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 13,
+   "sf_loss_maia": 13
+  },
+  {
+   "site": "https://lichess.org/5ruwxguo",
+   "human": "c1b1",
+   "v8": "c1c8",
+   "maia": "c1c8",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 11,
+   "sf_loss_maia": 11
+  },
+  {
+   "site": "https://lichess.org/3hxq7ou0",
+   "human": "d7c7",
+   "v8": "d7c7",
+   "maia": "d7c7",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/cogm6ife",
+   "human": "d8f6",
+   "v8": "g8f6",
+   "maia": "g8f6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 20,
+   "sf_loss_maia": 20
+  },
+  {
+   "site": "https://lichess.org/68b00b61",
+   "human": "d5f4",
+   "v8": "d5f4",
+   "maia": "d5f4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/rmdi2lsw",
+   "human": "c8d7",
+   "v8": "d6d5",
+   "maia": "b7b5",
+   "v8_gap_cp": 4,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 27
+  },
+  {
+   "site": "https://lichess.org/ls95wa0c",
+   "human": "e3f3",
+   "v8": "g2g4",
+   "maia": "e3f3",
+   "v8_gap_cp": 32,
+   "sf_loss_v8": 7,
+   "sf_loss_maia": 32
+  },
+  {
+   "site": "https://lichess.org/qqv15g22",
+   "human": "d5c4",
+   "v8": "f6e4",
+   "maia": "e8g8",
+   "v8_gap_cp": 20,
+   "sf_loss_v8": 47,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/ijziw3m7",
+   "human": "c1e3",
+   "v8": "d3d4",
+   "maia": "e1g1",
+   "v8_gap_cp": 32,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 27
+  },
+  {
+   "site": "https://lichess.org/jghknx31",
+   "human": "d2e1",
+   "v8": "d2e1",
+   "maia": "f1g2",
+   "v8_gap_cp": 100026,
+   "sf_loss_v8": 42,
+   "sf_loss_maia": 1000
+  },
+  {
+   "site": "https://lichess.org/dak3zn1a",
+   "human": "h7h6",
+   "v8": "d7d4",
+   "maia": "h7h6",
+   "v8_gap_cp": 1,
+   "sf_loss_v8": 58,
+   "sf_loss_maia": 55
+  },
+  {
+   "site": "https://lichess.org/yy4vk3ya",
+   "human": "a3b4",
+   "v8": "a3b4",
+   "maia": "a3b4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 38,
+   "sf_loss_maia": 38
+  },
+  {
+   "site": "https://lichess.org/rfadu3q0",
+   "human": "a5d2",
+   "v8": "a5d2",
+   "maia": "a5d2",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/ju7q74p3",
+   "human": "e1c1",
+   "v8": "c2c4",
+   "maia": "d2h6",
+   "v8_gap_cp": 33,
+   "sf_loss_v8": 5,
+   "sf_loss_maia": 14
+  },
+  {
+   "site": "https://lichess.org/4vykdfmx",
+   "human": "d8h8",
+   "v8": "d8h8",
+   "maia": "d8h8",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 20,
+   "sf_loss_maia": 20
+  },
+  {
+   "site": "https://lichess.org/l6uc9nf2",
+   "human": "b1c1",
+   "v8": "b1c1",
+   "maia": "b1c1",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 24,
+   "sf_loss_maia": 24
+  },
+  {
+   "site": "https://lichess.org/3dxqmave",
+   "human": "f3h2",
+   "v8": "b1c3",
+   "maia": "f3h2",
+   "v8_gap_cp": 62,
+   "sf_loss_v8": 23,
+   "sf_loss_maia": 65
+  },
+  {
+   "site": "https://lichess.org/ojhalzb6",
+   "human": "h4e7",
+   "v8": "h4d4",
+   "maia": "h4d4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 165,
+   "sf_loss_maia": 165
+  },
+  {
+   "site": "https://lichess.org/q9l0b11x",
+   "human": "e1e6",
+   "v8": "e1e6",
+   "maia": "f5f6",
+   "v8_gap_cp": 60,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 88
+  },
+  {
+   "site": "https://lichess.org/texrpozn",
+   "human": "b7c6",
+   "v8": "b7c6",
+   "maia": "b7c6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 10,
+   "sf_loss_maia": 10
+  },
+  {
+   "site": "https://lichess.org/wck5oc3i",
+   "human": "e6e5",
+   "v8": "d7c8",
+   "maia": "e6e5",
+   "v8_gap_cp": 51,
+   "sf_loss_v8": 10,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/phj645ao",
+   "human": "e4e5",
+   "v8": "c3g3",
+   "maia": "b2b4",
+   "v8_gap_cp": 22,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 136
+  },
+  {
+   "site": "https://lichess.org/sp2xmtwf",
+   "human": "h5f6",
+   "v8": "c7c6",
+   "maia": "c7c6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/5ewvgpj1",
+   "human": "f6h7",
+   "v8": "g8h7",
+   "maia": "f6h7",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 29,
+   "sf_loss_maia": 24
+  },
+  {
+   "site": "https://lichess.org/rgw42jab",
+   "human": "c8b8",
+   "v8": "c8b8",
+   "maia": "c7d6",
+   "v8_gap_cp": 50,
+   "sf_loss_v8": 19,
+   "sf_loss_maia": 214
+  },
+  {
+   "site": "https://lichess.org/rlqpc9yf",
+   "human": "f8f7",
+   "v8": "f8e7",
+   "maia": "f8e7",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 28,
+   "sf_loss_maia": 28
+  },
+  {
+   "site": "https://lichess.org/nzw26o43",
+   "human": "f6g5",
+   "v8": "h6g5",
+   "maia": "h6g5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 39,
+   "sf_loss_maia": 39
+  },
+  {
+   "site": "https://lichess.org/g9d0b4od",
+   "human": "c7c5",
+   "v8": "c7c6",
+   "maia": "d7d6",
+   "v8_gap_cp": 31,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 14
+  },
+  {
+   "site": "https://lichess.org/zq3ge1zj",
+   "human": "d2e4",
+   "v8": "h3d3",
+   "maia": "d2e4",
+   "v8_gap_cp": 28,
+   "sf_loss_v8": 27,
+   "sf_loss_maia": 15
+  },
+  {
+   "site": "https://lichess.org/icizwpgq",
+   "human": "c8d7",
+   "v8": "f6e4",
+   "maia": "c8d7",
+   "v8_gap_cp": -1,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/ywuyip5e",
+   "human": "e5f4",
+   "v8": "g3e2",
+   "maia": "g3e2",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/7psznin0",
+   "human": "c5e7",
+   "v8": "c5e7",
+   "maia": "c5e7",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 15,
+   "sf_loss_maia": 15
+  },
+  {
+   "site": "https://lichess.org/r2pqrb87",
+   "human": "f1e1",
+   "v8": "f1e1",
+   "maia": "c1b2",
+   "v8_gap_cp": 134,
+   "sf_loss_v8": 14,
+   "sf_loss_maia": 145
+  },
+  {
+   "site": "https://lichess.org/uhlys3y6",
+   "human": "d8e7",
+   "v8": "d8e7",
+   "maia": "d8e7",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 144,
+   "sf_loss_maia": 144
+  },
+  {
+   "site": "https://lichess.org/7i8m4p98",
+   "human": "c5c4",
+   "v8": "c5c4",
+   "maia": "c8d6",
+   "v8_gap_cp": 9,
+   "sf_loss_v8": 3,
+   "sf_loss_maia": 165
+  },
+  {
+   "site": "https://lichess.org/z9p8vb1v",
+   "human": "f3e5",
+   "v8": "d1e1",
+   "maia": "a2a3",
+   "v8_gap_cp": 256,
+   "sf_loss_v8": 174,
+   "sf_loss_maia": 393
+  },
+  {
+   "site": "https://lichess.org/qw8gfcgu",
+   "human": "c4a5",
+   "v8": "h2h4",
+   "maia": "h2h3",
+   "v8_gap_cp": -1,
+   "sf_loss_v8": 117,
+   "sf_loss_maia": 89
+  },
+  {
+   "site": "https://lichess.org/rl7lm5f1",
+   "human": "e1g1",
+   "v8": "e1g1",
+   "maia": "g5h3",
+   "v8_gap_cp": 62,
+   "sf_loss_v8": 22,
+   "sf_loss_maia": 68
+  },
+  {
+   "site": "https://lichess.org/t2z7n1q5",
+   "human": "e2f2",
+   "v8": "e2g2",
+   "maia": "e2d2",
+   "v8_gap_cp": 21,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/sjiazz3i",
+   "human": "c4f4",
+   "v8": "c4f4",
+   "maia": "f6e4",
+   "v8_gap_cp": 120,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 180
+  },
+  {
+   "site": "https://lichess.org/igdvecm9",
+   "human": "e1g1",
+   "v8": "a1b1",
+   "maia": "e3d2",
+   "v8_gap_cp": 3,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 1000
+  },
+  {
+   "site": "https://lichess.org/4wnuclab",
+   "human": "c6e7",
+   "v8": "c6e7",
+   "maia": "c6e7",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 6,
+   "sf_loss_maia": 6
+  },
+  {
+   "site": "https://lichess.org/29asss6q",
+   "human": "c2c3",
+   "v8": "b1c3",
+   "maia": "c1g5",
+   "v8_gap_cp": 12,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 12
+  },
+  {
+   "site": "https://lichess.org/167324is",
+   "human": "d8d7",
+   "v8": "h7g6",
+   "maia": "h8g8",
+   "v8_gap_cp": 131,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 69
+  },
+  {
+   "site": "https://lichess.org/imgjwwxq",
+   "human": "b2b4",
+   "v8": "d5e6",
+   "maia": "c1e3",
+   "v8_gap_cp": 94,
+   "sf_loss_v8": 62,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/g92zltym",
+   "human": "e6f5",
+   "v8": "e6f5",
+   "maia": "e6f5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 48,
+   "sf_loss_maia": 48
+  },
+  {
+   "site": "https://lichess.org/fa8il9g1",
+   "human": "c2c3",
+   "v8": "c2c3",
+   "maia": "c2c3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/2cj7onop",
+   "human": "c4c3",
+   "v8": "c4c3",
+   "maia": "c4c3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 28,
+   "sf_loss_maia": 28
+  },
+  {
+   "site": "https://lichess.org/y52hrg16",
+   "human": "e3d4",
+   "v8": "f2f3",
+   "maia": "e3d4",
+   "v8_gap_cp": 199,
+   "sf_loss_v8": 43,
+   "sf_loss_maia": 77
+  },
+  {
+   "site": "https://lichess.org/rfqgfeai",
+   "human": "g6h6",
+   "v8": "g6h7",
+   "maia": "g6h7",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 40,
+   "sf_loss_maia": 40
+  },
+  {
+   "site": "https://lichess.org/yhp3mc0b",
+   "human": "b1c3",
+   "v8": "b2b3",
+   "maia": "b1c3",
+   "v8_gap_cp": 59,
+   "sf_loss_v8": 27,
+   "sf_loss_maia": 15
+  },
+  {
+   "site": "https://lichess.org/q88393ag",
+   "human": "f8f2",
+   "v8": "h7g5",
+   "maia": "c6c5",
+   "v8_gap_cp": 4,
+   "sf_loss_v8": 11,
+   "sf_loss_maia": 28
+  },
+  {
+   "site": "https://lichess.org/ent12593",
+   "human": "c1d2",
+   "v8": "c1d2",
+   "maia": "a2a3",
+   "v8_gap_cp": 7,
+   "sf_loss_v8": 49,
+   "sf_loss_maia": 14
+  },
+  {
+   "site": "https://lichess.org/jzqv7tqp",
+   "human": "d8b6",
+   "v8": "f8e8",
+   "maia": "a8c8",
+   "v8_gap_cp": 28,
+   "sf_loss_v8": 8,
+   "sf_loss_maia": 4
+  },
+  {
+   "site": "https://lichess.org/rjzktqk2",
+   "human": "b5c5",
+   "v8": "b5c5",
+   "maia": "b5c5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 97,
+   "sf_loss_maia": 97
+  },
+  {
+   "site": "https://lichess.org/mu1c005t",
+   "human": "g1g2",
+   "v8": "g1f1",
+   "maia": "g1g2",
+   "v8_gap_cp": 1,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 1
+  },
+  {
+   "site": "https://lichess.org/qrlw1ru1",
+   "human": "c6d4",
+   "v8": "a7a6",
+   "maia": "c8e6",
+   "v8_gap_cp": 18,
+   "sf_loss_v8": 161,
+   "sf_loss_maia": 32
+  },
+  {
+   "site": "https://lichess.org/ut5rvt28",
+   "human": "c6d4",
+   "v8": "c6d4",
+   "maia": "h4f2",
+   "v8_gap_cp": 40,
+   "sf_loss_v8": 6,
+   "sf_loss_maia": 128
+  },
+  {
+   "site": "https://lichess.org/rvmtbo3s",
+   "human": "e3f4",
+   "v8": "e3f4",
+   "maia": "e3f4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 19,
+   "sf_loss_maia": 19
+  },
+  {
+   "site": "https://lichess.org/n27wv680",
+   "human": "e4h4",
+   "v8": "g2g4",
+   "maia": "g2g4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 31,
+   "sf_loss_maia": 31
+  },
+  {
+   "site": "https://lichess.org/aendr2i9",
+   "human": "f7e6",
+   "v8": "b6b5",
+   "maia": "f7e6",
+   "v8_gap_cp": 142,
+   "sf_loss_v8": 118,
+   "sf_loss_maia": 63
+  },
+  {
+   "site": "https://lichess.org/olpj6jq3",
+   "human": "a3a4",
+   "v8": "b2c1",
+   "maia": "b2c1",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/g132eczt",
+   "human": "f8g8",
+   "v8": "g5f7",
+   "maia": "g5e4",
+   "v8_gap_cp": -16,
+   "sf_loss_v8": 2,
+   "sf_loss_maia": 36
+  },
+  {
+   "site": "https://lichess.org/q34l39as",
+   "human": "d4d5",
+   "v8": "a2a4",
+   "maia": "d4d5",
+   "v8_gap_cp": 5,
+   "sf_loss_v8": 63,
+   "sf_loss_maia": 37
+  },
+  {
+   "site": "https://lichess.org/9brgnt3s",
+   "human": "b8b7",
+   "v8": "b8b7",
+   "maia": "b8b7",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 46,
+   "sf_loss_maia": 46
+  },
+  {
+   "site": "https://lichess.org/1yt1c40d",
+   "human": "f3e5",
+   "v8": "f3e5",
+   "maia": "c4c5",
+   "v8_gap_cp": 278,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/li9vbduu",
+   "human": "f6d5",
+   "v8": "f6d5",
+   "maia": "e8g8",
+   "v8_gap_cp": 37,
+   "sf_loss_v8": 2,
+   "sf_loss_maia": 91
+  },
+  {
+   "site": "https://lichess.org/f1p38d86",
+   "human": "b1b2",
+   "v8": "b1b2",
+   "maia": "b1b2",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/wbv5b9y6",
+   "human": "f8d8",
+   "v8": "f8d8",
+   "maia": "d4c2",
+   "v8_gap_cp": 242,
+   "sf_loss_v8": 41,
+   "sf_loss_maia": 103
+  },
+  {
+   "site": "https://lichess.org/9aadffg4",
+   "human": "g1f3",
+   "v8": "f1d3",
+   "maia": "g1f3",
+   "v8_gap_cp": 1,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 15
+  },
+  {
+   "site": "https://lichess.org/waw63p4v",
+   "human": "d8d6",
+   "v8": "d8d6",
+   "maia": "a7a6",
+   "v8_gap_cp": 79,
+   "sf_loss_v8": 69,
+   "sf_loss_maia": 167
+  },
+  {
+   "site": "https://lichess.org/e2mbithf",
+   "human": "d1d2",
+   "v8": "d1d2",
+   "maia": "d1e2",
+   "v8_gap_cp": 34,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 50
+  },
+  {
+   "site": "https://lichess.org/e6u7vb9l",
+   "human": "d5c6",
+   "v8": "d5c6",
+   "maia": "d5c6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 96,
+   "sf_loss_maia": 96
+  },
+  {
+   "site": "https://lichess.org/dcny6h0k",
+   "human": "b7c6",
+   "v8": "b7c6",
+   "maia": "b7c6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 75,
+   "sf_loss_maia": 75
+  },
+  {
+   "site": "https://lichess.org/ozgxvf6c",
+   "human": "d4d3",
+   "v8": "b7b5",
+   "maia": "d4d3",
+   "v8_gap_cp": 28,
+   "sf_loss_v8": 171,
+   "sf_loss_maia": 33
+  },
+  {
+   "site": "https://lichess.org/lrymyrvm",
+   "human": "g8h8",
+   "v8": "f6g5",
+   "maia": "g8h7",
+   "v8_gap_cp": 90,
+   "sf_loss_v8": 56,
+   "sf_loss_maia": 77
+  },
+  {
+   "site": "https://lichess.org/5tbm6foy",
+   "human": "c4b5",
+   "v8": "c4b3",
+   "maia": "c4b5",
+   "v8_gap_cp": 291,
+   "sf_loss_v8": 101,
+   "sf_loss_maia": 199
+  },
+  {
+   "site": "https://lichess.org/a1ie9vj3",
+   "human": "d4c5",
+   "v8": "d4d2",
+   "maia": "d4c5",
+   "v8_gap_cp": 64,
+   "sf_loss_v8": 146,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/sn4io172",
+   "human": "e8d7",
+   "v8": "g8e7",
+   "maia": "g8e7",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/qqe13eu1",
+   "human": "e4d4",
+   "v8": "c1e3",
+   "maia": "g2f3",
+   "v8_gap_cp": 11,
+   "sf_loss_v8": 67,
+   "sf_loss_maia": 51
+  },
+  {
+   "site": "https://lichess.org/ybiecn4l",
+   "human": "a4c4",
+   "v8": "a4c4",
+   "maia": "a4c4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 2,
+   "sf_loss_maia": 2
+  },
+  {
+   "site": "https://lichess.org/1wveg52i",
+   "human": "d1d3",
+   "v8": "f1e1",
+   "maia": "f1e1",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 1,
+   "sf_loss_maia": 1
+  },
+  {
+   "site": "https://lichess.org/npuzmsmp",
+   "human": "f5e6",
+   "v8": "d4d5",
+   "maia": "f5e6",
+   "v8_gap_cp": 26,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 128
+  },
+  {
+   "site": "https://lichess.org/uf8j1cit",
+   "human": "g7g6",
+   "v8": "e7e5",
+   "maia": "g7g6",
+   "v8_gap_cp": 15,
+   "sf_loss_v8": 75,
+   "sf_loss_maia": 10
+  },
+  {
+   "site": "https://lichess.org/2r0ln0tm",
+   "human": "f3f4",
+   "v8": "b1c3",
+   "maia": "f3f4",
+   "v8_gap_cp": 22,
+   "sf_loss_v8": 1,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/l4bufu06",
+   "human": "c2c4",
+   "v8": "a2a4",
+   "maia": "c2c4",
+   "v8_gap_cp": 5,
+   "sf_loss_v8": 24,
+   "sf_loss_maia": 81
+  },
+  {
+   "site": "https://lichess.org/yuvrceow",
+   "human": "b1a3",
+   "v8": "b3b4",
+   "maia": "c1g5",
+   "v8_gap_cp": 41,
+   "sf_loss_v8": 15,
+   "sf_loss_maia": 40
+  },
+  {
+   "site": "https://lichess.org/qski5xu5",
+   "human": "g7g6",
+   "v8": "g7g6",
+   "maia": "g7g6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/47zn35wu",
+   "human": "h5g6",
+   "v8": "h5g6",
+   "maia": "h5g6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 9,
+   "sf_loss_maia": 9
+  },
+  {
+   "site": "https://lichess.org/ma1569az",
+   "human": "d2e1",
+   "v8": "d2f2",
+   "maia": "d2e1",
+   "v8_gap_cp": 90,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 21
+  },
+  {
+   "site": "https://lichess.org/hvhc3vx0",
+   "human": "h6g4",
+   "v8": "h6g4",
+   "maia": "f8d8",
+   "v8_gap_cp": 16,
+   "sf_loss_v8": 4,
+   "sf_loss_maia": 79
+  },
+  {
+   "site": "https://lichess.org/23why19h",
+   "human": "f6d6",
+   "v8": "f6g6",
+   "maia": "g8h6",
+   "v8_gap_cp": 33,
+   "sf_loss_v8": 89,
+   "sf_loss_maia": 7
+  },
+  {
+   "site": "https://lichess.org/1fnm2cq7",
+   "human": "e2e3",
+   "v8": "a1b1",
+   "maia": "e2e3",
+   "v8_gap_cp": 21,
+   "sf_loss_v8": 43,
+   "sf_loss_maia": 68
+  },
+  {
+   "site": "https://lichess.org/0ya82cug",
+   "human": "b8d7",
+   "v8": "b8c6",
+   "maia": "b8d7",
+   "v8_gap_cp": 28,
+   "sf_loss_v8": 17,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/cvtt8fut",
+   "human": "f5d6",
+   "v8": "h2h4",
+   "maia": "f5d6",
+   "v8_gap_cp": 123,
+   "sf_loss_v8": 68,
+   "sf_loss_maia": 89
+  },
+  {
+   "site": "https://lichess.org/0ginf27l",
+   "human": "a3e7",
+   "v8": "a3c5",
+   "maia": "b5b4",
+   "v8_gap_cp": 49,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 66
+  },
+  {
+   "site": "https://lichess.org/a65nuic0",
+   "human": "c6b5",
+   "v8": "c6b5",
+   "maia": "d6d5",
+   "v8_gap_cp": 85,
+   "sf_loss_v8": 22,
+   "sf_loss_maia": 16
+  },
+  {
+   "site": "https://lichess.org/q89me3vw",
+   "human": "a6b5",
+   "v8": "g7g5",
+   "maia": "a6b5",
+   "v8_gap_cp": 99,
+   "sf_loss_v8": 7,
+   "sf_loss_maia": 26
+  },
+  {
+   "site": "https://lichess.org/gapbccn5",
+   "human": "h2h3",
+   "v8": "d4c5",
+   "maia": "b1d2",
+   "v8_gap_cp": 65,
+   "sf_loss_v8": 64,
+   "sf_loss_maia": 5
+  },
+  {
+   "site": "https://lichess.org/k1our1h6",
+   "human": "f6e4",
+   "v8": "a3e3",
+   "maia": "a3e3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 11,
+   "sf_loss_maia": 11
+  },
+  {
+   "site": "https://lichess.org/e0mf0tjv",
+   "human": "a4a2",
+   "v8": "a4a7",
+   "maia": "a4a7",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/4f8y25at",
+   "human": "f1e1",
+   "v8": "f1e1",
+   "maia": "f1e1",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 25,
+   "sf_loss_maia": 25
+  },
+  {
+   "site": "https://lichess.org/peeql00e",
+   "human": "f3e5",
+   "v8": "d4e5",
+   "maia": "f3e5",
+   "v8_gap_cp": 16,
+   "sf_loss_v8": 11,
+   "sf_loss_maia": 37
+  },
+  {
+   "site": "https://lichess.org/gwzui3va",
+   "human": "e3e2",
+   "v8": "e3e2",
+   "maia": "e3e2",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 6,
+   "sf_loss_maia": 6
+  },
+  {
+   "site": "https://lichess.org/9uvi2frg",
+   "human": "h4h3",
+   "v8": "h2e5",
+   "maia": "d8d1",
+   "v8_gap_cp": 14,
+   "sf_loss_v8": 47,
+   "sf_loss_maia": 5
+  },
+  {
+   "site": "https://lichess.org/jz1o1p7f",
+   "human": "c8b7",
+   "v8": "e7f6",
+   "maia": "c6b4",
+   "v8_gap_cp": 37,
+   "sf_loss_v8": 58,
+   "sf_loss_maia": 30
+  },
+  {
+   "site": "https://lichess.org/el45lw90",
+   "human": "f1c4",
+   "v8": "d1a4",
+   "maia": "f1c4",
+   "v8_gap_cp": 343,
+   "sf_loss_v8": 2,
+   "sf_loss_maia": 460
+  },
+  {
+   "site": "https://lichess.org/6ws4u4o9",
+   "human": "b8c6",
+   "v8": "b8c6",
+   "maia": "b8c6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/grlbwrz4",
+   "human": "e3f4",
+   "v8": "e3c5",
+   "maia": "e3f4",
+   "v8_gap_cp": 105,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 83
+  },
+  {
+   "site": "https://lichess.org/b4yyjmjx",
+   "human": "b3c5",
+   "v8": "b3a5",
+   "maia": "d4e5",
+   "v8_gap_cp": -23,
+   "sf_loss_v8": 91,
+   "sf_loss_maia": 5
+  },
+  {
+   "site": "https://lichess.org/10flsauk",
+   "human": "d5c6",
+   "v8": "a1b1",
+   "maia": "c2c3",
+   "v8_gap_cp": -16,
+   "sf_loss_v8": 48,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/781ihah7",
+   "human": "f5e5",
+   "v8": "h6g6",
+   "maia": "f5e5",
+   "v8_gap_cp": 57,
+   "sf_loss_v8": 110,
+   "sf_loss_maia": 30
+  },
+  {
+   "site": "https://lichess.org/5gpsawsc",
+   "human": "c5b6",
+   "v8": "c5b6",
+   "maia": "c5b6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/vmx6ec68",
+   "human": "f3e4",
+   "v8": "g2g4",
+   "maia": "g2g4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 28,
+   "sf_loss_maia": 28
+  },
+  {
+   "site": "https://lichess.org/gayu07vr",
+   "human": "d8d3",
+   "v8": "e5d3",
+   "maia": "d8d3",
+   "v8_gap_cp": 29,
+   "sf_loss_v8": 36,
+   "sf_loss_maia": 66
+  },
+  {
+   "site": "https://lichess.org/95kh0oem",
+   "human": "c3d4",
+   "v8": "c3d4",
+   "maia": "c3d4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/vf43dd4w",
+   "human": "f6h5",
+   "v8": "h6h5",
+   "maia": "a4c6",
+   "v8_gap_cp": 15,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/j67ftq29",
+   "human": "d6f6",
+   "v8": "d6e5",
+   "maia": "d6e5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 56,
+   "sf_loss_maia": 56
+  },
+  {
+   "site": "https://lichess.org/1tcrixcg",
+   "human": "f8e7",
+   "v8": "f6h7",
+   "maia": "f8e7",
+   "v8_gap_cp": 143,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/qnxhvx8p",
+   "human": "g5e4",
+   "v8": "g5e4",
+   "maia": "e7f6",
+   "v8_gap_cp": 34,
+   "sf_loss_v8": 5,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/796kp455",
+   "human": "g2g3",
+   "v8": "g2g3",
+   "maia": "g2g3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 50,
+   "sf_loss_maia": 50
+  },
+  {
+   "site": "https://lichess.org/smuvhw0v",
+   "human": "g3f4",
+   "v8": "g2e4",
+   "maia": "g2e4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 99,
+   "sf_loss_maia": 99
+  },
+  {
+   "site": "https://lichess.org/keuu6my1",
+   "human": "e8f7",
+   "v8": "e8d7",
+   "maia": "e8f7",
+   "v8_gap_cp": 5,
+   "sf_loss_v8": 9,
+   "sf_loss_maia": 34
+  },
+  {
+   "site": "https://lichess.org/3gdjf16s",
+   "human": "c3e4",
+   "v8": "c3e4",
+   "maia": "c3e4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/p3cxllpw",
+   "human": "f3e5",
+   "v8": "f3e5",
+   "maia": "b2b4",
+   "v8_gap_cp": -3,
+   "sf_loss_v8": 25,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/2ska4r16",
+   "human": "e3c4",
+   "v8": "d6d2",
+   "maia": "e3c4",
+   "v8_gap_cp": 3,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 1000
+  },
+  {
+   "site": "https://lichess.org/tgrspcpg",
+   "human": "e8g8",
+   "v8": "e8g8",
+   "maia": "e8g8",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 4,
+   "sf_loss_maia": 4
+  },
+  {
+   "site": "https://lichess.org/lpbrolsb",
+   "human": "a6b5",
+   "v8": "b7e4",
+   "maia": "a6b5",
+   "v8_gap_cp": 11,
+   "sf_loss_v8": 12,
+   "sf_loss_maia": 57
+  },
+  {
+   "site": "https://lichess.org/xpkmq3y3",
+   "human": "a8d8",
+   "v8": "a8d8",
+   "maia": "a8d8",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 5,
+   "sf_loss_maia": 5
+  },
+  {
+   "site": "https://lichess.org/rh4ld91d",
+   "human": "c4e5",
+   "v8": "a1d1",
+   "maia": "c4e5",
+   "v8_gap_cp": 42,
+   "sf_loss_v8": 28,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/k44cshm9",
+   "human": "h5g6",
+   "v8": "h5g6",
+   "maia": "h5g6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 17,
+   "sf_loss_maia": 17
+  },
+  {
+   "site": "https://lichess.org/0lw9nflz",
+   "human": "e2e3",
+   "v8": "e2d2",
+   "maia": "e2e3",
+   "v8_gap_cp": 88,
+   "sf_loss_v8": 28,
+   "sf_loss_maia": 36
+  },
+  {
+   "site": "https://lichess.org/2yjyh8tu",
+   "human": "a7a6",
+   "v8": "f6h5",
+   "maia": "e8g8",
+   "v8_gap_cp": 17,
+   "sf_loss_v8": 38,
+   "sf_loss_maia": 17
+  },
+  {
+   "site": "https://lichess.org/l9ynkv37",
+   "human": "d3c3",
+   "v8": "d3c3",
+   "maia": "d3c3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 12,
+   "sf_loss_maia": 12
+  },
+  {
+   "site": "https://lichess.org/tv8x9729",
+   "human": "f4g5",
+   "v8": "g3f3",
+   "maia": "g3f3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 13,
+   "sf_loss_maia": 13
+  },
+  {
+   "site": "https://lichess.org/367dg9oo",
+   "human": "c5e6",
+   "v8": "c5a6",
+   "maia": "c5e6",
+   "v8_gap_cp": 135,
+   "sf_loss_v8": 31,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/1yvd6k7d",
+   "human": "d2d4",
+   "v8": "d2d4",
+   "maia": "d2d4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/yrkf2u3o",
+   "human": "f4h6",
+   "v8": "b7c8",
+   "maia": "f4h6",
+   "v8_gap_cp": 44,
+   "sf_loss_v8": 50,
+   "sf_loss_maia": 104
+  },
+  {
+   "site": "https://lichess.org/k4vyrkk5",
+   "human": "h5g6",
+   "v8": "d8c7",
+   "maia": "h5g6",
+   "v8_gap_cp": 5,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 27
+  },
+  {
+   "site": "https://lichess.org/3oq7b9fz",
+   "human": "g7g8",
+   "v8": "g1d1",
+   "maia": "g7g8",
+   "v8_gap_cp": 25,
+   "sf_loss_v8": 20,
+   "sf_loss_maia": 63
+  },
+  {
+   "site": "https://lichess.org/q2o31osp",
+   "human": "d6f4",
+   "v8": "d6e7",
+   "maia": "d7e5",
+   "v8_gap_cp": 289,
+   "sf_loss_v8": 51,
+   "sf_loss_maia": 10
+  },
+  {
+   "site": "https://lichess.org/tfw6282q",
+   "human": "c8c7",
+   "v8": "c8d8",
+   "maia": "c8d8",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/qwdhjthm",
+   "human": "c8b8",
+   "v8": "c8b8",
+   "maia": "c8b8",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/zyr66h2p",
+   "human": "a1b1",
+   "v8": "g4e4",
+   "maia": "b4e7",
+   "v8_gap_cp": 129,
+   "sf_loss_v8": 9,
+   "sf_loss_maia": 154
+  },
+  {
+   "site": "https://lichess.org/20dynuth",
+   "human": "b5d3",
+   "v8": "b5f1",
+   "maia": "b5d3",
+   "v8_gap_cp": 88,
+   "sf_loss_v8": 139,
+   "sf_loss_maia": 135
+  },
+  {
+   "site": "https://lichess.org/qxh74cb3",
+   "human": "f5c2",
+   "v8": "g8f6",
+   "maia": "g8f6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/x9kzxltp",
+   "human": "b8d7",
+   "v8": "b8d7",
+   "maia": "b8d7",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/6msgp4tq",
+   "human": "b2a2",
+   "v8": "b2a2",
+   "maia": "b2a2",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/bfaygfco",
+   "human": "f4d3",
+   "v8": "f4d3",
+   "maia": "f4d3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/qbtfy560",
+   "human": "b6b5",
+   "v8": "c7e7",
+   "maia": "b6b5",
+   "v8_gap_cp": 145,
+   "sf_loss_v8": 3,
+   "sf_loss_maia": 74
+  },
+  {
+   "site": "https://lichess.org/lmvmoxx6",
+   "human": "g1f1",
+   "v8": "g1g2",
+   "maia": "g1g2",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 4,
+   "sf_loss_maia": 4
+  },
+  {
+   "site": "https://lichess.org/onez6nm3",
+   "human": "e6d5",
+   "v8": "e6d5",
+   "maia": "e6d5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 151,
+   "sf_loss_maia": 151
+  },
+  {
+   "site": "https://lichess.org/5yhfvt5l",
+   "human": "c5c4",
+   "v8": "c5b4",
+   "maia": "c5c4",
+   "v8_gap_cp": 154,
+   "sf_loss_v8": 27,
+   "sf_loss_maia": 36
+  },
+  {
+   "site": "https://lichess.org/p25l96r0",
+   "human": "b7b6",
+   "v8": "h7h6",
+   "maia": "e8g8",
+   "v8_gap_cp": 22,
+   "sf_loss_v8": 8,
+   "sf_loss_maia": 8
+  },
+  {
+   "site": "https://lichess.org/2d6xfr2q",
+   "human": "b7b5",
+   "v8": "f8h8",
+   "maia": "b7b5",
+   "v8_gap_cp": 30,
+   "sf_loss_v8": 49,
+   "sf_loss_maia": 49
+  },
+  {
+   "site": "https://lichess.org/ja5p8klq",
+   "human": "a8c8",
+   "v8": "c3c2",
+   "maia": "c3c2",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/jgym2lcy",
+   "human": "f6g4",
+   "v8": "c6d4",
+   "maia": "d6e5",
+   "v8_gap_cp": 142,
+   "sf_loss_v8": 35,
+   "sf_loss_maia": 211
+  },
+  {
+   "site": "https://lichess.org/huwlul1t",
+   "human": "e4f6",
+   "v8": "e4f6",
+   "maia": "e4f6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/ja3lkq4r",
+   "human": "a7a6",
+   "v8": "c6e5",
+   "maia": "c6e5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 59,
+   "sf_loss_maia": 59
+  },
+  {
+   "site": "https://lichess.org/t2y98vd7",
+   "human": "f6g5",
+   "v8": "b3b2",
+   "maia": "b3b2",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 2,
+   "sf_loss_maia": 2
+  },
+  {
+   "site": "https://lichess.org/36p2a9te",
+   "human": "d8d6",
+   "v8": "d8d6",
+   "maia": "a8c8",
+   "v8_gap_cp": 24,
+   "sf_loss_v8": 49,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/x33qzyxs",
+   "human": "d8e7",
+   "v8": "d8e7",
+   "maia": "d8e7",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 105,
+   "sf_loss_maia": 105
+  },
+  {
+   "site": "https://lichess.org/nkrdz9sb",
+   "human": "d4d3",
+   "v8": "d4h4",
+   "maia": "d4d1",
+   "v8_gap_cp": 75,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 77
+  },
+  {
+   "site": "https://lichess.org/d8y6jdsy",
+   "human": "a6b5",
+   "v8": "a6b5",
+   "maia": "a6b5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 22,
+   "sf_loss_maia": 22
+  },
+  {
+   "site": "https://lichess.org/jbwbpa1l",
+   "human": "g7g6",
+   "v8": "c6a5",
+   "maia": "f4h5",
+   "v8_gap_cp": 432,
+   "sf_loss_v8": 98,
+   "sf_loss_maia": 474
+  },
+  {
+   "site": "https://lichess.org/qqia5qqs",
+   "human": "h5e2",
+   "v8": "h5g4",
+   "maia": "h5f3",
+   "v8_gap_cp": 18,
+   "sf_loss_v8": 17,
+   "sf_loss_maia": 8
+  },
+  {
+   "site": "https://lichess.org/u61541ta",
+   "human": "d2d4",
+   "v8": "d2d4",
+   "maia": "d2d4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 12,
+   "sf_loss_maia": 12
+  },
+  {
+   "site": "https://lichess.org/vp5xcujc",
+   "human": "e4f5",
+   "v8": "c1g5",
+   "maia": "e4f5",
+   "v8_gap_cp": 41,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/hlt3o2av",
+   "human": "a4a5",
+   "v8": "e4f6",
+   "maia": "e4f6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/g7t0atft",
+   "human": "e8g6",
+   "v8": "h7h6",
+   "maia": "e8g6",
+   "v8_gap_cp": 28,
+   "sf_loss_v8": 4,
+   "sf_loss_maia": 33
+  },
+  {
+   "site": "https://lichess.org/ih111f0a",
+   "human": "c8e6",
+   "v8": "e8g8",
+   "maia": "a6a5",
+   "v8_gap_cp": 20,
+   "sf_loss_v8": 4,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/edgxa1yn",
+   "human": "e3d4",
+   "v8": "b1d2",
+   "maia": "f1b5",
+   "v8_gap_cp": 10,
+   "sf_loss_v8": 2,
+   "sf_loss_maia": 11
+  },
+  {
+   "site": "https://lichess.org/r1vr9yx6",
+   "human": "h5f3",
+   "v8": "h5f3",
+   "maia": "h5f3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/u1umewou",
+   "human": "f2h4",
+   "v8": "f2h4",
+   "maia": "f2h4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 47,
+   "sf_loss_maia": 47
+  },
+  {
+   "site": "https://lichess.org/ioag74e8",
+   "human": "b7b5",
+   "v8": "b7b5",
+   "maia": "b7b5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/7uce8f42",
+   "human": "h2h4",
+   "v8": "g4g5",
+   "maia": "f4f5",
+   "v8_gap_cp": 62,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/2iafuh72",
+   "human": "f8e7",
+   "v8": "h7h6",
+   "maia": "f8e7",
+   "v8_gap_cp": 60,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 23
+  },
+  {
+   "site": "https://lichess.org/lwgcpiav",
+   "human": "e7g6",
+   "v8": "b7b5",
+   "maia": "g8f6",
+   "v8_gap_cp": 101,
+   "sf_loss_v8": 68,
+   "sf_loss_maia": 17
+  },
+  {
+   "site": "https://lichess.org/0hmvdrj0",
+   "human": "f4d4",
+   "v8": "f4h4",
+   "maia": "g6g5",
+   "v8_gap_cp": -7,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 5
+  },
+  {
+   "site": "https://lichess.org/8e6nd7h7",
+   "human": "c5d4",
+   "v8": "c5d4",
+   "maia": "c5d4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 20,
+   "sf_loss_maia": 20
+  },
+  {
+   "site": "https://lichess.org/57z0o4wj",
+   "human": "c5c3",
+   "v8": "c5c6",
+   "maia": "a1c1",
+   "v8_gap_cp": 16,
+   "sf_loss_v8": 50,
+   "sf_loss_maia": 100
+  },
+  {
+   "site": "https://lichess.org/lsmfizi6",
+   "human": "c8d7",
+   "v8": "b8c6",
+   "maia": "b8c6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 76,
+   "sf_loss_maia": 76
+  },
+  {
+   "site": "https://lichess.org/eq7y3ksw",
+   "human": "e5d4",
+   "v8": "a8b8",
+   "maia": "e5d4",
+   "v8_gap_cp": 17,
+   "sf_loss_v8": 44,
+   "sf_loss_maia": 92
+  },
+  {
+   "site": "https://lichess.org/u8z4v30e",
+   "human": "d6e7",
+   "v8": "d6e7",
+   "maia": "d6e7",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/w488rcg5",
+   "human": "g2g1",
+   "v8": "g2g1",
+   "maia": "g2g1",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/wwqzkrzw",
+   "human": "g3e3",
+   "v8": "e1e7",
+   "maia": "e1e7",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 238,
+   "sf_loss_maia": 238
+  },
+  {
+   "site": "https://lichess.org/xuabwya3",
+   "human": "g4f5",
+   "v8": "d6e5",
+   "maia": "e8g8",
+   "v8_gap_cp": 17,
+   "sf_loss_v8": 144,
+   "sf_loss_maia": 54
+  },
+  {
+   "site": "https://lichess.org/6al0rtnj",
+   "human": "c8d7",
+   "v8": "c8d7",
+   "maia": "c8d7",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/wcumqrxw",
+   "human": "d1d3",
+   "v8": "e3d2",
+   "maia": "e3g1",
+   "v8_gap_cp": 12,
+   "sf_loss_v8": 109,
+   "sf_loss_maia": 16
+  },
+  {
+   "site": "https://lichess.org/06lj6gkj",
+   "human": "h5g4",
+   "v8": "h5g5",
+   "maia": "d4d3",
+   "v8_gap_cp": 18,
+   "sf_loss_v8": 35,
+   "sf_loss_maia": 86
+  },
+  {
+   "site": "https://lichess.org/gqiwynj9",
+   "human": "d5d4",
+   "v8": "c6e7",
+   "maia": "c6e7",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 130,
+   "sf_loss_maia": 130
+  },
+  {
+   "site": "https://lichess.org/mt1ysrh9",
+   "human": "g2g4",
+   "v8": "a2a4",
+   "maia": "h2h4",
+   "v8_gap_cp": 50,
+   "sf_loss_v8": 61,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/4xt1usf9",
+   "human": "c4c2",
+   "v8": "c4c2",
+   "maia": "c4c2",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 66,
+   "sf_loss_maia": 66
+  },
+  {
+   "site": "https://lichess.org/e2r15r7y",
+   "human": "c6d4",
+   "v8": "c6d4",
+   "maia": "c6d4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/bl05bqxe",
+   "human": "b7b8",
+   "v8": "b7b8",
+   "maia": "b7c8",
+   "v8_gap_cp": 553,
+   "sf_loss_v8": 13,
+   "sf_loss_maia": 117
+  },
+  {
+   "site": "https://lichess.org/xy44v7w5",
+   "human": "c7e7",
+   "v8": "c7e7",
+   "maia": "c7e7",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 98,
+   "sf_loss_maia": 98
+  },
+  {
+   "site": "https://lichess.org/7saz0eix",
+   "human": "h8f8",
+   "v8": "f5g3",
+   "maia": "f5g3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 17,
+   "sf_loss_maia": 17
+  },
+  {
+   "site": "https://lichess.org/aql9k4z4",
+   "human": "e2d2",
+   "v8": "e2d2",
+   "maia": "e2d2",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 32,
+   "sf_loss_maia": 32
+  },
+  {
+   "site": "https://lichess.org/y5obnxr0",
+   "human": "b1a3",
+   "v8": "b1a3",
+   "maia": "b1a3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 13,
+   "sf_loss_maia": 13
+  },
+  {
+   "site": "https://lichess.org/rbaq3e96",
+   "human": "e1g1",
+   "v8": "e1g1",
+   "maia": "e1g1",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 16,
+   "sf_loss_maia": 16
+  },
+  {
+   "site": "https://lichess.org/2bcvdnqp",
+   "human": "b1c3",
+   "v8": "f3e5",
+   "maia": "b1c3",
+   "v8_gap_cp": 103,
+   "sf_loss_v8": 30,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/86kujut4",
+   "human": "e8c8",
+   "v8": "e8c8",
+   "maia": "e6c4",
+   "v8_gap_cp": 24,
+   "sf_loss_v8": 22,
+   "sf_loss_maia": 40
+  },
+  {
+   "site": "https://lichess.org/qe5kag8m",
+   "human": "d4c6",
+   "v8": "d4c6",
+   "maia": "e1g1",
+   "v8_gap_cp": 97,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 194
+  },
+  {
+   "site": "https://lichess.org/iyefzl3i",
+   "human": "c3d4",
+   "v8": "c3d4",
+   "maia": "c3d4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/yzcl19rn",
+   "human": "a6c7",
+   "v8": "g8f6",
+   "maia": "a6c7",
+   "v8_gap_cp": 45,
+   "sf_loss_v8": 13,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/jfbw015e",
+   "human": "e5e4",
+   "v8": "c6d4",
+   "maia": "g7g5",
+   "v8_gap_cp": 77,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 181
+  },
+  {
+   "site": "https://lichess.org/f3h8rfpc",
+   "human": "f7f6",
+   "v8": "f7f6",
+   "maia": "c1e1",
+   "v8_gap_cp": 88,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 58
+  },
+  {
+   "site": "https://lichess.org/aqpusgf5",
+   "human": "g7g6",
+   "v8": "c6e7",
+   "maia": "g7g6",
+   "v8_gap_cp": 69,
+   "sf_loss_v8": 59,
+   "sf_loss_maia": 49
+  },
+  {
+   "site": "https://lichess.org/jzv7kv32",
+   "human": "f3f4",
+   "v8": "f3f4",
+   "maia": "f3f4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/axyv6b14",
+   "human": "f3f4",
+   "v8": "b2c2",
+   "maia": "b2c3",
+   "v8_gap_cp": 36,
+   "sf_loss_v8": 19,
+   "sf_loss_maia": 103
+  },
+  {
+   "site": "https://lichess.org/jh36fq1m",
+   "human": "f8e7",
+   "v8": "e6e5",
+   "maia": "f8e7",
+   "v8_gap_cp": 22,
+   "sf_loss_v8": 153,
+   "sf_loss_maia": 17
+  },
+  {
+   "site": "https://lichess.org/oo4sbj3g",
+   "human": "f3e5",
+   "v8": "f3e5",
+   "maia": "f3e5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 7,
+   "sf_loss_maia": 7
+  },
+  {
+   "site": "https://lichess.org/qzautthk",
+   "human": "e2d2",
+   "v8": "e2d2",
+   "maia": "e2d2",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 23,
+   "sf_loss_maia": 23
+  },
+  {
+   "site": "https://lichess.org/5d2gviuk",
+   "human": "d7b5",
+   "v8": "d6d5",
+   "maia": "d6d5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/eyg421sa",
+   "human": "d4e5",
+   "v8": "d4e5",
+   "maia": "d4e5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/grwu5lg9",
+   "human": "f8b4",
+   "v8": "b8c6",
+   "maia": "f8b4",
+   "v8_gap_cp": 29,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 60
+  },
+  {
+   "site": "https://lichess.org/yzwft9zg",
+   "human": "e8g8",
+   "v8": "e8c8",
+   "maia": "b7f3",
+   "v8_gap_cp": 50,
+   "sf_loss_v8": 22,
+   "sf_loss_maia": 13
+  },
+  {
+   "site": "https://lichess.org/jqzemq3i",
+   "human": "e7c7",
+   "v8": "e7c7",
+   "maia": "e7c7",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/bwjuvqnb",
+   "human": "d5f4",
+   "v8": "e8g8",
+   "maia": "d7f6",
+   "v8_gap_cp": 14,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 7
+  },
+  {
+   "site": "https://lichess.org/2vhbbaza",
+   "human": "a2a4",
+   "v8": "d1c2",
+   "maia": "d1c2",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 79,
+   "sf_loss_maia": 79
+  },
+  {
+   "site": "https://lichess.org/c0svmpj2",
+   "human": "f5d3",
+   "v8": "c1d1",
+   "maia": "f5c2",
+   "v8_gap_cp": 9,
+   "sf_loss_v8": 4,
+   "sf_loss_maia": 3
+  },
+  {
+   "site": "https://lichess.org/63l87aog",
+   "human": "f3h4",
+   "v8": "c1e3",
+   "maia": "c1g5",
+   "v8_gap_cp": 119,
+   "sf_loss_v8": 200,
+   "sf_loss_maia": 98
+  },
+  {
+   "site": "https://lichess.org/fwihoipq",
+   "human": "c5b6",
+   "v8": "c5e7",
+   "maia": "c5b6",
+   "v8_gap_cp": 98,
+   "sf_loss_v8": 62,
+   "sf_loss_maia": 37
+  },
+  {
+   "site": "https://lichess.org/2zsy5cx3",
+   "human": "f1g2",
+   "v8": "f1g2",
+   "maia": "f1g2",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/fs03vpsh",
+   "human": "b7a7",
+   "v8": "f1c1",
+   "maia": "e3a7",
+   "v8_gap_cp": 311,
+   "sf_loss_v8": 21,
+   "sf_loss_maia": 429
+  },
+  {
+   "site": "https://lichess.org/5sf32ev3",
+   "human": "f7e6",
+   "v8": "f7e6",
+   "maia": "f7e6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 416,
+   "sf_loss_maia": 416
+  },
+  {
+   "site": "https://lichess.org/j24ifbtd",
+   "human": "d2d5",
+   "v8": "h1h3",
+   "maia": "d2d5",
+   "v8_gap_cp": 163,
+   "sf_loss_v8": 27,
+   "sf_loss_maia": 170
+  },
+  {
+   "site": "https://lichess.org/fvb1uh34",
+   "human": "b2c2",
+   "v8": "b2c2",
+   "maia": "b2b3",
+   "v8_gap_cp": 356,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 108
+  },
+  {
+   "site": "https://lichess.org/tzre5z6x",
+   "human": "f3h2",
+   "v8": "b1c3",
+   "maia": "c2c3",
+   "v8_gap_cp": 21,
+   "sf_loss_v8": 32,
+   "sf_loss_maia": 43
+  },
+  {
+   "site": "https://lichess.org/2lu75dld",
+   "human": "c3e4",
+   "v8": "a2a3",
+   "maia": "f1e1",
+   "v8_gap_cp": 18,
+   "sf_loss_v8": 15,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/ov4a17y3",
+   "human": "c4d3",
+   "v8": "c4b3",
+   "maia": "c4b3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 219,
+   "sf_loss_maia": 219
+  },
+  {
+   "site": "https://lichess.org/m5l5iglm",
+   "human": "e6d5",
+   "v8": "e6d5",
+   "maia": "e6d5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/a0tgad4i",
+   "human": "f3e5",
+   "v8": "e3e4",
+   "maia": "e3e4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/oy0cvp3x",
+   "human": "c1f4",
+   "v8": "e1g1",
+   "maia": "e1g1",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 15,
+   "sf_loss_maia": 15
+  },
+  {
+   "site": "https://lichess.org/6m3u4g9a",
+   "human": "d7d6",
+   "v8": "b8c6",
+   "maia": "e8g8",
+   "v8_gap_cp": 11,
+   "sf_loss_v8": 18,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/e2p8lsos",
+   "human": "d3e2",
+   "v8": "c1e3",
+   "maia": "e1g1",
+   "v8_gap_cp": 25,
+   "sf_loss_v8": 10,
+   "sf_loss_maia": 43
+  },
+  {
+   "site": "https://lichess.org/eg31n3q0",
+   "human": "d6e5",
+   "v8": "d6e5",
+   "maia": "d6e5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/syx8e0vg",
+   "human": "f8e7",
+   "v8": "h7h5",
+   "maia": "f8d6",
+   "v8_gap_cp": 16,
+   "sf_loss_v8": 47,
+   "sf_loss_maia": 84
+  },
+  {
+   "site": "https://lichess.org/y5pn7j3j",
+   "human": "f8e8",
+   "v8": "f8e8",
+   "maia": "f8e8",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/ql82qxun",
+   "human": "e8e6",
+   "v8": "d5d4",
+   "maia": "e8e6",
+   "v8_gap_cp": 71,
+   "sf_loss_v8": 59,
+   "sf_loss_maia": 121
+  },
+  {
+   "site": "https://lichess.org/qb5fa1fi",
+   "human": "c8f5",
+   "v8": "b8c6",
+   "maia": "b8c6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/jz8b8274",
+   "human": "c6d5",
+   "v8": "c6d5",
+   "maia": "c6d5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 7,
+   "sf_loss_maia": 7
+  },
+  {
+   "site": "https://lichess.org/g5uj3tj6",
+   "human": "g3g4",
+   "v8": "g3g4",
+   "maia": "h4g5",
+   "v8_gap_cp": 19,
+   "sf_loss_v8": 40,
+   "sf_loss_maia": 17
+  },
+  {
+   "site": "https://lichess.org/balvia34",
+   "human": "f7f4",
+   "v8": "f7f4",
+   "maia": "f7f4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 5,
+   "sf_loss_maia": 5
+  },
+  {
+   "site": "https://lichess.org/4s9uzego",
+   "human": "e7d6",
+   "v8": "b6b5",
+   "maia": "e7d6",
+   "v8_gap_cp": 11,
+   "sf_loss_v8": 107,
+   "sf_loss_maia": 98
+  },
+  {
+   "site": "https://lichess.org/787sv951",
+   "human": "a2c2",
+   "v8": "d7e8",
+   "maia": "d7e8",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/vi5nto6t",
+   "human": "c1c6",
+   "v8": "e2e3",
+   "maia": "c1c6",
+   "v8_gap_cp": 20,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 178
+  },
+  {
+   "site": "https://lichess.org/2jzkk3e1",
+   "human": "e7e6",
+   "v8": "b4c2",
+   "maia": "b4c2",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/fpf7zt00",
+   "human": "e7e6",
+   "v8": "g8f6",
+   "maia": "g8f6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 2,
+   "sf_loss_maia": 2
+  },
+  {
+   "site": "https://lichess.org/qvfwwmbq",
+   "human": "d5h5",
+   "v8": "d5h5",
+   "maia": "d5f3",
+   "v8_gap_cp": 36,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 14
+  },
+  {
+   "site": "https://lichess.org/jyxk1q3p",
+   "human": "a6a7",
+   "v8": "h2h4",
+   "maia": "a6a7",
+   "v8_gap_cp": 6,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 6
+  },
+  {
+   "site": "https://lichess.org/i1px4fj0",
+   "human": "g5h4",
+   "v8": "g5f4",
+   "maia": "g5h4",
+   "v8_gap_cp": 11,
+   "sf_loss_v8": 10,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/58u33ywf",
+   "human": "g3h3",
+   "v8": "e4c6",
+   "maia": "g3h3",
+   "v8_gap_cp": 24,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 60
+  },
+  {
+   "site": "https://lichess.org/pzg7ptgw",
+   "human": "f2e3",
+   "v8": "f2e3",
+   "maia": "f2e3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/5usm0rw4",
+   "human": "d5e7",
+   "v8": "h2h3",
+   "maia": "f1e2",
+   "v8_gap_cp": 18,
+   "sf_loss_v8": 17,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/l7dtuisx",
+   "human": "b8c6",
+   "v8": "b8c6",
+   "maia": "b8c6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 27,
+   "sf_loss_maia": 27
+  },
+  {
+   "site": "https://lichess.org/hvhu122n",
+   "human": "c5d4",
+   "v8": "g4e2",
+   "maia": "c5d4",
+   "v8_gap_cp": 39,
+   "sf_loss_v8": 6,
+   "sf_loss_maia": 95
+  },
+  {
+   "site": "https://lichess.org/qj4r92ao",
+   "human": "c8d8",
+   "v8": "b6b5",
+   "maia": "c8d7",
+   "v8_gap_cp": 64,
+   "sf_loss_v8": 59,
+   "sf_loss_maia": 28
+  },
+  {
+   "site": "https://lichess.org/qrtbexsl",
+   "human": "d5d6",
+   "v8": "e2c4",
+   "maia": "e2c4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/pkfci2q2",
+   "human": "c7c6",
+   "v8": "a7a5",
+   "maia": "c7c6",
+   "v8_gap_cp": 16,
+   "sf_loss_v8": 17,
+   "sf_loss_maia": 44
+  },
+  {
+   "site": "https://lichess.org/r83sqgjj",
+   "human": "g5h4",
+   "v8": "g5f4",
+   "maia": "g5f4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 3,
+   "sf_loss_maia": 3
+  },
+  {
+   "site": "https://lichess.org/zaklu5dy",
+   "human": "c5e3",
+   "v8": "f3g5",
+   "maia": "c5d4",
+   "v8_gap_cp": -9,
+   "sf_loss_v8": 114,
+   "sf_loss_maia": 45
+  },
+  {
+   "site": "https://lichess.org/rkf0m3zh",
+   "human": "e1d1",
+   "v8": "d6d7",
+   "maia": "d6d7",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 11,
+   "sf_loss_maia": 11
+  },
+  {
+   "site": "https://lichess.org/5zmqwj2r",
+   "human": "e2d4",
+   "v8": "d2d4",
+   "maia": "d2d4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 92,
+   "sf_loss_maia": 92
+  },
+  {
+   "site": "https://lichess.org/g30fuvsg",
+   "human": "e5e4",
+   "v8": "e5e8",
+   "maia": "f6f5",
+   "v8_gap_cp": -34,
+   "sf_loss_v8": 89,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/ibonwj4l",
+   "human": "d8a5",
+   "v8": "h7h6",
+   "maia": "f8b4",
+   "v8_gap_cp": 35,
+   "sf_loss_v8": 30,
+   "sf_loss_maia": 20
+  },
+  {
+   "site": "https://lichess.org/re70ifqa",
+   "human": "h1h7",
+   "v8": "h1h7",
+   "maia": "f2f4",
+   "v8_gap_cp": -8,
+   "sf_loss_v8": 102,
+   "sf_loss_maia": 44
+  },
+  {
+   "site": "https://lichess.org/9zey8ixa",
+   "human": "c8g4",
+   "v8": "c8g4",
+   "maia": "c8g4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/46mdvyuk",
+   "human": "f8h6",
+   "v8": "f8h6",
+   "maia": "e4e3",
+   "v8_gap_cp": 2,
+   "sf_loss_v8": 28,
+   "sf_loss_maia": 62
+  },
+  {
+   "site": "https://lichess.org/kxqgzwa6",
+   "human": "f6f5",
+   "v8": "e7d8",
+   "maia": "f8e8",
+   "v8_gap_cp": 28,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 86
+  },
+  {
+   "site": "https://lichess.org/8shkkhul",
+   "human": "e1g1",
+   "v8": "e1g1",
+   "maia": "e1g1",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/rawqfwyp",
+   "human": "e3e4",
+   "v8": "d3f5",
+   "maia": "d3f5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/eeln96yf",
+   "human": "e1g1",
+   "v8": "b1c3",
+   "maia": "b1c3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/n0lr3ao9",
+   "human": "a8d8",
+   "v8": "a8d8",
+   "maia": "a8d8",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/vic7kx8e",
+   "human": "a1a2",
+   "v8": "d1c1",
+   "maia": "c2c3",
+   "v8_gap_cp": 1,
+   "sf_loss_v8": 49,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/85az86mh",
+   "human": "b6f6",
+   "v8": "c5e4",
+   "maia": "c5d3",
+   "v8_gap_cp": 34,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 6
+  },
+  {
+   "site": "https://lichess.org/dyukqlno",
+   "human": "g1f3",
+   "v8": "g1f3",
+   "maia": "g1f3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 3,
+   "sf_loss_maia": 3
+  },
+  {
+   "site": "https://lichess.org/ouc2wku7",
+   "human": "h2h3",
+   "v8": "b6b7",
+   "maia": "b6b7",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 11,
+   "sf_loss_maia": 11
+  },
+  {
+   "site": "https://lichess.org/ym79yecs",
+   "human": "d1g4",
+   "v8": "a3a4",
+   "maia": "d1h5",
+   "v8_gap_cp": 31,
+   "sf_loss_v8": 132,
+   "sf_loss_maia": 86
+  },
+  {
+   "site": "https://lichess.org/38151oa6",
+   "human": "e7d5",
+   "v8": "d7d6",
+   "maia": "e7d5",
+   "v8_gap_cp": 26,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 47
+  },
+  {
+   "site": "https://lichess.org/ohf4za32",
+   "human": "a7a6",
+   "v8": "c3b2",
+   "maia": "e2f3",
+   "v8_gap_cp": 54,
+   "sf_loss_v8": 10,
+   "sf_loss_maia": 42
+  },
+  {
+   "site": "https://lichess.org/oko60ym8",
+   "human": "b4b7",
+   "v8": "b4b3",
+   "maia": "b4c5",
+   "v8_gap_cp": 30,
+   "sf_loss_v8": 11,
+   "sf_loss_maia": 39
+  },
+  {
+   "site": "https://lichess.org/bfsgex6b",
+   "human": "g7f6",
+   "v8": "g7f6",
+   "maia": "g7f6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 57,
+   "sf_loss_maia": 57
+  },
+  {
+   "site": "https://lichess.org/fk5kb8cd",
+   "human": "b1b3",
+   "v8": "f4a4",
+   "maia": "f4a4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 9,
+   "sf_loss_maia": 9
+  },
+  {
+   "site": "https://lichess.org/8xctj6o1",
+   "human": "b8c8",
+   "v8": "b8c8",
+   "maia": "b8c8",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 25,
+   "sf_loss_maia": 25
+  },
+  {
+   "site": "https://lichess.org/0x47126d",
+   "human": "g4f3",
+   "v8": "g2g3",
+   "maia": "h3f3",
+   "v8_gap_cp": 30,
+   "sf_loss_v8": 56,
+   "sf_loss_maia": 92
+  },
+  {
+   "site": "https://lichess.org/vhvfq9ke",
+   "human": "e2f4",
+   "v8": "e2f4",
+   "maia": "d5b7",
+   "v8_gap_cp": 297,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 450
+  },
+  {
+   "site": "https://lichess.org/bpqfg7xq",
+   "human": "e3b3",
+   "v8": "e3f4",
+   "maia": "f3e5",
+   "v8_gap_cp": 28,
+   "sf_loss_v8": 24,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/w02wx3gd",
+   "human": "c6c5",
+   "v8": "g8f7",
+   "maia": "g8g7",
+   "v8_gap_cp": 13,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/3bpr7ws8",
+   "human": "f5c2",
+   "v8": "f5e5",
+   "maia": "f5c2",
+   "v8_gap_cp": 66,
+   "sf_loss_v8": 76,
+   "sf_loss_maia": 26
+  },
+  {
+   "site": "https://lichess.org/elz38vo8",
+   "human": "f1b1",
+   "v8": "f1b1",
+   "maia": "f1d1",
+   "v8_gap_cp": -3,
+   "sf_loss_v8": 14,
+   "sf_loss_maia": 6
+  },
+  {
+   "site": "https://lichess.org/u85fm6j6",
+   "human": "c7c3",
+   "v8": "b1c3",
+   "maia": "h2h3",
+   "v8_gap_cp": 32,
+   "sf_loss_v8": 75,
+   "sf_loss_maia": 149
+  },
+  {
+   "site": "https://lichess.org/fsdrdx6x",
+   "human": "e5c6",
+   "v8": "b7c6",
+   "maia": "e5c6",
+   "v8_gap_cp": 3,
+   "sf_loss_v8": 28,
+   "sf_loss_maia": 17
+  },
+  {
+   "site": "https://lichess.org/lwnnacj5",
+   "human": "b5b4",
+   "v8": "f6d5",
+   "maia": "b5b4",
+   "v8_gap_cp": 15,
+   "sf_loss_v8": 47,
+   "sf_loss_maia": 44
+  },
+  {
+   "site": "https://lichess.org/1qmd0zan",
+   "human": "g8h8",
+   "v8": "e5b2",
+   "maia": "g7g6",
+   "v8_gap_cp": 243,
+   "sf_loss_v8": 417,
+   "sf_loss_maia": 179
+  },
+  {
+   "site": "https://lichess.org/vgf9h3n1",
+   "human": "c1d2",
+   "v8": "f3d4",
+   "maia": "f3d4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/gztt8osx",
+   "human": "b5b4",
+   "v8": "d8d7",
+   "maia": "b5b4",
+   "v8_gap_cp": 25,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 87
+  },
+  {
+   "site": "https://lichess.org/rspxnyn4",
+   "human": "c2c1",
+   "v8": "c2d1",
+   "maia": "c2c1",
+   "v8_gap_cp": 226,
+   "sf_loss_v8": 3,
+   "sf_loss_maia": 100
+  },
+  {
+   "site": "https://lichess.org/03puc3f2",
+   "human": "h5e5",
+   "v8": "e3f4",
+   "maia": "h5e5",
+   "v8_gap_cp": -5,
+   "sf_loss_v8": 139,
+   "sf_loss_maia": 42
+  },
+  {
+   "site": "https://lichess.org/mgkbx0ya",
+   "human": "a1d1",
+   "v8": "c2b3",
+   "maia": "c2b3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/fu67cmgr",
+   "human": "d1e2",
+   "v8": "a2a3",
+   "maia": "f1e1",
+   "v8_gap_cp": 32,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/day4ok9x",
+   "human": "c8d7",
+   "v8": "c8d7",
+   "maia": "c8d7",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 64,
+   "sf_loss_maia": 64
+  },
+  {
+   "site": "https://lichess.org/4n00p4tn",
+   "human": "c3d4",
+   "v8": "f3d4",
+   "maia": "c3d4",
+   "v8_gap_cp": -7,
+   "sf_loss_v8": 114,
+   "sf_loss_maia": 6
+  },
+  {
+   "site": "https://lichess.org/do87u8pd",
+   "human": "g8h8",
+   "v8": "g8h8",
+   "maia": "g8h8",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/3b0a9kox",
+   "human": "h7h6",
+   "v8": "h7h6",
+   "maia": "f8e7",
+   "v8_gap_cp": 3,
+   "sf_loss_v8": 43,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/pkw2gwvh",
+   "human": "e6d5",
+   "v8": "f6g5",
+   "maia": "e6d5",
+   "v8_gap_cp": 33,
+   "sf_loss_v8": 102,
+   "sf_loss_maia": 18
+  },
+  {
+   "site": "https://lichess.org/v6d9kol3",
+   "human": "e7d5",
+   "v8": "a7a6",
+   "maia": "e8g8",
+   "v8_gap_cp": 12,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 4
+  },
+  {
+   "site": "https://lichess.org/2cter7nl",
+   "human": "f3g4",
+   "v8": "c1e3",
+   "maia": "d3d4",
+   "v8_gap_cp": 24,
+   "sf_loss_v8": 1,
+   "sf_loss_maia": 25
+  },
+  {
+   "site": "https://lichess.org/jone4kxd",
+   "human": "d3d4",
+   "v8": "d3d4",
+   "maia": "d3d4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/xlvy7w2h",
+   "human": "d1a4",
+   "v8": "d1a4",
+   "maia": "e1g1",
+   "v8_gap_cp": 7,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/gde13z8u",
+   "human": "a7b6",
+   "v8": "a7b6",
+   "maia": "a7b6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/jfpf5mfz",
+   "human": "h6d2",
+   "v8": "h6d2",
+   "maia": "h6d2",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 5,
+   "sf_loss_maia": 5
+  },
+  {
+   "site": "https://lichess.org/b1tevlx4",
+   "human": "f7f5",
+   "v8": "d7f6",
+   "maia": "f7f5",
+   "v8_gap_cp": 18,
+   "sf_loss_v8": 4,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/ay4853km",
+   "human": "d7b7",
+   "v8": "d7b7",
+   "maia": "d7b7",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/itpn40iv",
+   "human": "c2d4",
+   "v8": "c2d4",
+   "maia": "c2d4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 4,
+   "sf_loss_maia": 4
+  },
+  {
+   "site": "https://lichess.org/a2cqj7r9",
+   "human": "e7g6",
+   "v8": "e7g6",
+   "maia": "d7c6",
+   "v8_gap_cp": 53,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 174
+  },
+  {
+   "site": "https://lichess.org/r726fykm",
+   "human": "f8d6",
+   "v8": "g4e6",
+   "maia": "f8d6",
+   "v8_gap_cp": 101,
+   "sf_loss_v8": 116,
+   "sf_loss_maia": 81
+  },
+  {
+   "site": "https://lichess.org/ruj5gezj",
+   "human": "f1b5",
+   "v8": "f1d3",
+   "maia": "f1b5",
+   "v8_gap_cp": 43,
+   "sf_loss_v8": 33,
+   "sf_loss_maia": 121
+  },
+  {
+   "site": "https://lichess.org/tftp8xl2",
+   "human": "e2f1",
+   "v8": "e2f1",
+   "maia": "e2f1",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 30,
+   "sf_loss_maia": 30
+  },
+  {
+   "site": "https://lichess.org/rvutu5mr",
+   "human": "a3a4",
+   "v8": "g2g4",
+   "maia": "d5f4",
+   "v8_gap_cp": 124,
+   "sf_loss_v8": 65,
+   "sf_loss_maia": 162
+  },
+  {
+   "site": "https://lichess.org/s9fxqpb3",
+   "human": "f5h3",
+   "v8": "f5h3",
+   "maia": "f5h3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/zwau00n9",
+   "human": "a1a4",
+   "v8": "a1a4",
+   "maia": "a1a4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 15,
+   "sf_loss_maia": 15
+  },
+  {
+   "site": "https://lichess.org/udwtbqzd",
+   "human": "f4d2",
+   "v8": "f4d2",
+   "maia": "f4g3",
+   "v8_gap_cp": 10,
+   "sf_loss_v8": 5,
+   "sf_loss_maia": 29
+  },
+  {
+   "site": "https://lichess.org/b00tu9ab",
+   "human": "b4c3",
+   "v8": "b8c6",
+   "maia": "b8c6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/hf1jo96n",
+   "human": "c1b1",
+   "v8": "c1b1",
+   "maia": "c1b1",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 118,
+   "sf_loss_maia": 118
+  },
+  {
+   "site": "https://lichess.org/ylylsmoy",
+   "human": "c7e6",
+   "v8": "c7e6",
+   "maia": "c7e6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 28,
+   "sf_loss_maia": 28
+  },
+  {
+   "site": "https://lichess.org/i51tl5cs",
+   "human": "f8f7",
+   "v8": "a6a5",
+   "maia": "d7e7",
+   "v8_gap_cp": 28,
+   "sf_loss_v8": 3,
+   "sf_loss_maia": 13
+  },
+  {
+   "site": "https://lichess.org/q2nqm6vn",
+   "human": "h4g3",
+   "v8": "h4g3",
+   "maia": "h4g3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 25,
+   "sf_loss_maia": 25
+  },
+  {
+   "site": "https://lichess.org/d7messmo",
+   "human": "d3c4",
+   "v8": "d3c4",
+   "maia": "d3c4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 6,
+   "sf_loss_maia": 6
+  },
+  {
+   "site": "https://lichess.org/282s2n5n",
+   "human": "g5h4",
+   "v8": "f4f3",
+   "maia": "g5h4",
+   "v8_gap_cp": 460,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/mcsn8ymm",
+   "human": "c8b7",
+   "v8": "c8b7",
+   "maia": "c8b7",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 3,
+   "sf_loss_maia": 3
+  },
+  {
+   "site": "https://lichess.org/3g0ld3vy",
+   "human": "d1e1",
+   "v8": "d1e1",
+   "maia": "d1e1",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 9,
+   "sf_loss_maia": 9
+  },
+  {
+   "site": "https://lichess.org/zbr2revh",
+   "human": "d7f6",
+   "v8": "d7f6",
+   "maia": "d7f6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/6yifv9f7",
+   "human": "d7b6",
+   "v8": "d7c5",
+   "maia": "c7c6",
+   "v8_gap_cp": 17,
+   "sf_loss_v8": 17,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/la5og1l1",
+   "human": "d1c2",
+   "v8": "d2e4",
+   "maia": "d1c2",
+   "v8_gap_cp": 4,
+   "sf_loss_v8": 7,
+   "sf_loss_maia": 9
+  },
+  {
+   "site": "https://lichess.org/2uf99x7f",
+   "human": "f8d6",
+   "v8": "f8d6",
+   "maia": "f8d6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/2qzl1ync",
+   "human": "e3d4",
+   "v8": "e3d4",
+   "maia": "e3d4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 90,
+   "sf_loss_maia": 90
+  },
+  {
+   "site": "https://lichess.org/hfumvzq1",
+   "human": "b1d2",
+   "v8": "b1a3",
+   "maia": "b1d2",
+   "v8_gap_cp": 14,
+   "sf_loss_v8": 96,
+   "sf_loss_maia": 14
+  },
+  {
+   "site": "https://lichess.org/de4drvwq",
+   "human": "h6h5",
+   "v8": "g6h7",
+   "maia": "h6h5",
+   "v8_gap_cp": 51,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/0844ezjx",
+   "human": "g1f3",
+   "v8": "g1f3",
+   "maia": "g1f3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 20,
+   "sf_loss_maia": 20
+  },
+  {
+   "site": "https://lichess.org/8k91yuc6",
+   "human": "a2a3",
+   "v8": "c1e3",
+   "maia": "a2a3",
+   "v8_gap_cp": -1,
+   "sf_loss_v8": 22,
+   "sf_loss_maia": 19
+  },
+  {
+   "site": "https://lichess.org/3weobjmo",
+   "human": "e4e5",
+   "v8": "e4f5",
+   "maia": "e4e5",
+   "v8_gap_cp": 46,
+   "sf_loss_v8": 7,
+   "sf_loss_maia": 117
+  },
+  {
+   "site": "https://lichess.org/391hwbqv",
+   "human": "d1d2",
+   "v8": "h2h4",
+   "maia": "d1d2",
+   "v8_gap_cp": 37,
+   "sf_loss_v8": 64,
+   "sf_loss_maia": 15
+  },
+  {
+   "site": "https://lichess.org/sgroao9a",
+   "human": "g6h7",
+   "v8": "g6h7",
+   "maia": "g6h7",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/nez225t5",
+   "human": "a1b1",
+   "v8": "g2g4",
+   "maia": "e1c1",
+   "v8_gap_cp": 94,
+   "sf_loss_v8": 28,
+   "sf_loss_maia": 95
+  },
+  {
+   "site": "https://lichess.org/y9duyo8z",
+   "human": "e1g1",
+   "v8": "e1g1",
+   "maia": "e1g1",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 60,
+   "sf_loss_maia": 60
+  },
+  {
+   "site": "https://lichess.org/y3xkh5yw",
+   "human": "a3a4",
+   "v8": "c4a6",
+   "maia": "a3a4",
+   "v8_gap_cp": 245,
+   "sf_loss_v8": 319,
+   "sf_loss_maia": 149
+  },
+  {
+   "site": "https://lichess.org/9dpjjsnd",
+   "human": "f8e7",
+   "v8": "b7b5",
+   "maia": "f8e7",
+   "v8_gap_cp": 35,
+   "sf_loss_v8": 11,
+   "sf_loss_maia": 1
+  },
+  {
+   "site": "https://lichess.org/g2t1en6c",
+   "human": "a7a6",
+   "v8": "a7a6",
+   "maia": "c8e6",
+   "v8_gap_cp": 33,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 1
+  },
+  {
+   "site": "https://lichess.org/72mz9gyk",
+   "human": "c8d7",
+   "v8": "e8g8",
+   "maia": "b7b5",
+   "v8_gap_cp": 9,
+   "sf_loss_v8": 48,
+   "sf_loss_maia": 3
+  },
+  {
+   "site": "https://lichess.org/3eux0sy7",
+   "human": "d1c2",
+   "v8": "h2h3",
+   "maia": "c1b2",
+   "v8_gap_cp": 2,
+   "sf_loss_v8": 14,
+   "sf_loss_maia": 43
+  },
+  {
+   "site": "https://lichess.org/w0nqnxng",
+   "human": "e8g8",
+   "v8": "b8c6",
+   "maia": "e8g8",
+   "v8_gap_cp": 8,
+   "sf_loss_v8": 31,
+   "sf_loss_maia": 20
+  },
+  {
+   "site": "https://lichess.org/kz6gw52q",
+   "human": "a1a2",
+   "v8": "g2g4",
+   "maia": "f1d2",
+   "v8_gap_cp": 14,
+   "sf_loss_v8": 77,
+   "sf_loss_maia": 26
+  },
+  {
+   "site": "https://lichess.org/gdjilp5c",
+   "human": "b2b4",
+   "v8": "b2b4",
+   "maia": "b2b4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 2,
+   "sf_loss_maia": 2
+  },
+  {
+   "site": "https://lichess.org/3avoysk6",
+   "human": "e6f5",
+   "v8": "e6f5",
+   "maia": "e6f5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/0vyb7gr8",
+   "human": "a6b4",
+   "v8": "e7b4",
+   "maia": "e7b4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/54m2t23n",
+   "human": "a2a4",
+   "v8": "f1f3",
+   "maia": "b4b5",
+   "v8_gap_cp": 99741,
+   "sf_loss_v8": 1000,
+   "sf_loss_maia": 1000
+  },
+  {
+   "site": "https://lichess.org/b4xllxa0",
+   "human": "c1d1",
+   "v8": "f1c4",
+   "maia": "c1d1",
+   "v8_gap_cp": 87,
+   "sf_loss_v8": 52,
+   "sf_loss_maia": 119
+  },
+  {
+   "site": "https://lichess.org/tkyyk7w0",
+   "human": "a2b3",
+   "v8": "a2b3",
+   "maia": "a2b3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/pg0t1sdl",
+   "human": "d6b5",
+   "v8": "d6b5",
+   "maia": "d6b5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/g216ygp3",
+   "human": "e2h5",
+   "v8": "g6e5",
+   "maia": "e2h5",
+   "v8_gap_cp": 86,
+   "sf_loss_v8": 31,
+   "sf_loss_maia": 61
+  },
+  {
+   "site": "https://lichess.org/8wtuk5na",
+   "human": "b1d2",
+   "v8": "b1c3",
+   "maia": "b1c3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 21,
+   "sf_loss_maia": 21
+  },
+  {
+   "site": "https://lichess.org/r0vrxdtu",
+   "human": "c1b1",
+   "v8": "d2d3",
+   "maia": "c1b1",
+   "v8_gap_cp": 8,
+   "sf_loss_v8": 16,
+   "sf_loss_maia": 23
+  },
+  {
+   "site": "https://lichess.org/nz1ht6lx",
+   "human": "f5e7",
+   "v8": "f5e7",
+   "maia": "f5e7",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/6gb9025z",
+   "human": "d8d6",
+   "v8": "d8d3",
+   "maia": "e5f3",
+   "v8_gap_cp": 25,
+   "sf_loss_v8": 49,
+   "sf_loss_maia": 170
+  },
+  {
+   "site": "https://lichess.org/ezkjfa14",
+   "human": "a8c8",
+   "v8": "c5c4",
+   "maia": "a8c8",
+   "v8_gap_cp": 34,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/9h30rg1o",
+   "human": "c6d4",
+   "v8": "c6d4",
+   "maia": "c6d4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 13,
+   "sf_loss_maia": 13
+  },
+  {
+   "site": "https://lichess.org/qt5idbc3",
+   "human": "g5e4",
+   "v8": "g5e4",
+   "maia": "g5e4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/crzal23f",
+   "human": "f2f4",
+   "v8": "d2c1",
+   "maia": "f2f4",
+   "v8_gap_cp": 45,
+   "sf_loss_v8": 4,
+   "sf_loss_maia": 9
+  },
+  {
+   "site": "https://lichess.org/vu79o0v7",
+   "human": "d2c2",
+   "v8": "d2c2",
+   "maia": "d2c2",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 4,
+   "sf_loss_maia": 4
+  },
+  {
+   "site": "https://lichess.org/7mv1ebd9",
+   "human": "h4f3",
+   "v8": "h4f5",
+   "maia": "h4f5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 8,
+   "sf_loss_maia": 8
+  },
+  {
+   "site": "https://lichess.org/rezkunk0",
+   "human": "f7c7",
+   "v8": "f7g6",
+   "maia": "f7f4",
+   "v8_gap_cp": 15,
+   "sf_loss_v8": 142,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/pbw1q7g8",
+   "human": "d8d3",
+   "v8": "g6d3",
+   "maia": "d8d3",
+   "v8_gap_cp": 177,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 205
+  },
+  {
+   "site": "https://lichess.org/ugqhm087",
+   "human": "f7d6",
+   "v8": "f7d6",
+   "maia": "f7d6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 31,
+   "sf_loss_maia": 31
+  },
+  {
+   "site": "https://lichess.org/hd8h1dhq",
+   "human": "h7h6",
+   "v8": "e6g4",
+   "maia": "h7h6",
+   "v8_gap_cp": 119,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 62
+  },
+  {
+   "site": "https://lichess.org/3y11zwum",
+   "human": "h6g7",
+   "v8": "g4e2",
+   "maia": "h6g7",
+   "v8_gap_cp": 4,
+   "sf_loss_v8": 32,
+   "sf_loss_maia": 45
+  },
+  {
+   "site": "https://lichess.org/ceyi2jq1",
+   "human": "d3d4",
+   "v8": "d3d4",
+   "maia": "e4e5",
+   "v8_gap_cp": -15,
+   "sf_loss_v8": 22,
+   "sf_loss_maia": 12
+  },
+  {
+   "site": "https://lichess.org/96o41zha",
+   "human": "c1g5",
+   "v8": "e1g1",
+   "maia": "c1g5",
+   "v8_gap_cp": 27,
+   "sf_loss_v8": 16,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/ctlbg3jl",
+   "human": "d6d5",
+   "v8": "d6d5",
+   "maia": "d6d5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 34,
+   "sf_loss_maia": 34
+  },
+  {
+   "site": "https://lichess.org/cvm1gf13",
+   "human": "f4g3",
+   "v8": "f4e5",
+   "maia": "f4g3",
+   "v8_gap_cp": 20,
+   "sf_loss_v8": 107,
+   "sf_loss_maia": 64
+  },
+  {
+   "site": "https://lichess.org/3r623wbu",
+   "human": "f5f4",
+   "v8": "f5f4",
+   "maia": "d7f6",
+   "v8_gap_cp": 31,
+   "sf_loss_v8": 50,
+   "sf_loss_maia": 2
+  },
+  {
+   "site": "https://lichess.org/oa129uax",
+   "human": "e5f5",
+   "v8": "a7a6",
+   "maia": "a7a6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/wjm1ek2e",
+   "human": "d4e3",
+   "v8": "h2h4",
+   "maia": "c3d2",
+   "v8_gap_cp": -39,
+   "sf_loss_v8": 23,
+   "sf_loss_maia": 3
+  },
+  {
+   "site": "https://lichess.org/64rl7w3i",
+   "human": "c5d4",
+   "v8": "a7a6",
+   "maia": "a7a6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 46,
+   "sf_loss_maia": 46
+  },
+  {
+   "site": "https://lichess.org/0g7a79el",
+   "human": "g2h3",
+   "v8": "c2c3",
+   "maia": "g3e5",
+   "v8_gap_cp": 99305,
+   "sf_loss_v8": 77,
+   "sf_loss_maia": 1000
+  },
+  {
+   "site": "https://lichess.org/fycszw5x",
+   "human": "b4d5",
+   "v8": "b4d5",
+   "maia": "b4d5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 11,
+   "sf_loss_maia": 11
+  },
+  {
+   "site": "https://lichess.org/0feszhyz",
+   "human": "f4d5",
+   "v8": "d4d5",
+   "maia": "d4d5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 92,
+   "sf_loss_maia": 92
+  },
+  {
+   "site": "https://lichess.org/cpcxdkpt",
+   "human": "b1c3",
+   "v8": "f1e1",
+   "maia": "b1c3",
+   "v8_gap_cp": -11,
+   "sf_loss_v8": 8,
+   "sf_loss_maia": 54
+  },
+  {
+   "site": "https://lichess.org/e04pn9gf",
+   "human": "c1g5",
+   "v8": "c1g5",
+   "maia": "c1g5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/a53nu50g",
+   "human": "h5f5",
+   "v8": "g4e2",
+   "maia": "g4e2",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/jk47nmcm",
+   "human": "f3e5",
+   "v8": "f3d4",
+   "maia": "f3d4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 75,
+   "sf_loss_maia": 75
+  },
+  {
+   "site": "https://lichess.org/kei571sj",
+   "human": "g3g4",
+   "v8": "f2f4",
+   "maia": "g3g4",
+   "v8_gap_cp": 6,
+   "sf_loss_v8": 61,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/u4160d50",
+   "human": "c6d4",
+   "v8": "c6d4",
+   "maia": "c6d4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 47,
+   "sf_loss_maia": 47
+  },
+  {
+   "site": "https://lichess.org/oq0eev0p",
+   "human": "e4e5",
+   "v8": "c2c4",
+   "maia": "e4d5",
+   "v8_gap_cp": 37,
+   "sf_loss_v8": 100,
+   "sf_loss_maia": 87
+  },
+  {
+   "site": "https://lichess.org/pmr8kxio",
+   "human": "a5b4",
+   "v8": "a5b4",
+   "maia": "a5b4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 26,
+   "sf_loss_maia": 26
+  },
+  {
+   "site": "https://lichess.org/tsqczi0z",
+   "human": "d2f3",
+   "v8": "d2e4",
+   "maia": "f2f3",
+   "v8_gap_cp": 18,
+   "sf_loss_v8": 90,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/jid3ecg2",
+   "human": "a2a4",
+   "v8": "d1d3",
+   "maia": "c2c4",
+   "v8_gap_cp": 39,
+   "sf_loss_v8": 39,
+   "sf_loss_maia": 70
+  },
+  {
+   "site": "https://lichess.org/d8grpavu",
+   "human": "e6g4",
+   "v8": "e6g4",
+   "maia": "e6g4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 1,
+   "sf_loss_maia": 1
+  },
+  {
+   "site": "https://lichess.org/y2rm8pey",
+   "human": "e7e5",
+   "v8": "e7e5",
+   "maia": "e7e5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/o7hd9zd8",
+   "human": "c2e1",
+   "v8": "e6b3",
+   "maia": "e6b3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/3f0u7v5b",
+   "human": "e6f5",
+   "v8": "e6f5",
+   "maia": "e6f5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/81ymkp2m",
+   "human": "a4a6",
+   "v8": "c4b2",
+   "maia": "a4a6",
+   "v8_gap_cp": -144,
+   "sf_loss_v8": 125,
+   "sf_loss_maia": 29
+  },
+  {
+   "site": "https://lichess.org/hmkhqepi",
+   "human": "g8f6",
+   "v8": "d8d7",
+   "maia": "g8f6",
+   "v8_gap_cp": 9,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/2f8mm3s2",
+   "human": "d3d4",
+   "v8": "b2b4",
+   "maia": "e5g4",
+   "v8_gap_cp": 29,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 30
+  },
+  {
+   "site": "https://lichess.org/krre9ad2",
+   "human": "e4c2",
+   "v8": "e4c2",
+   "maia": "e4c2",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 69,
+   "sf_loss_maia": 69
+  },
+  {
+   "site": "https://lichess.org/kz0b12dg",
+   "human": "f8h8",
+   "v8": "f8h8",
+   "maia": "e6e7",
+   "v8_gap_cp": 435,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 1000
+  },
+  {
+   "site": "https://lichess.org/lhk9b98e",
+   "human": "a4c2",
+   "v8": "g2g4",
+   "maia": "a4c2",
+   "v8_gap_cp": 28,
+   "sf_loss_v8": 106,
+   "sf_loss_maia": 11
+  },
+  {
+   "site": "https://lichess.org/obszoxxz",
+   "human": "g1f2",
+   "v8": "b3d1",
+   "maia": "b3d1",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/4rkm54on",
+   "human": "e6e7",
+   "v8": "e6e7",
+   "maia": "e6e7",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 1,
+   "sf_loss_maia": 1
+  },
+  {
+   "site": "https://lichess.org/yn0m1vja",
+   "human": "f5f3",
+   "v8": "d4f3",
+   "maia": "f5f6",
+   "v8_gap_cp": 83,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 99
+  },
+  {
+   "site": "https://lichess.org/jd8ceb6s",
+   "human": "h4g2",
+   "v8": "h4g2",
+   "maia": "h4g2",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/ic3mjyar",
+   "human": "g8h8",
+   "v8": "g8h8",
+   "maia": "g8h8",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/g3nnh06x",
+   "human": "d2f3",
+   "v8": "h2h4",
+   "maia": "d2f3",
+   "v8_gap_cp": 73,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 32
+  },
+  {
+   "site": "https://lichess.org/925py0fy",
+   "human": "a8b8",
+   "v8": "a8a7",
+   "maia": "a8b8",
+   "v8_gap_cp": -2,
+   "sf_loss_v8": 78,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/5iwont6t",
+   "human": "e5e4",
+   "v8": "c5e3",
+   "maia": "d5d4",
+   "v8_gap_cp": 314,
+   "sf_loss_v8": 87,
+   "sf_loss_maia": 161
+  },
+  {
+   "site": "https://lichess.org/l6ec0rr5",
+   "human": "d7e8",
+   "v8": "d7e8",
+   "maia": "d7e8",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/zgxgnaib",
+   "human": "f3g5",
+   "v8": "f3g5",
+   "maia": "f3d4",
+   "v8_gap_cp": -8,
+   "sf_loss_v8": 22,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/613zicew",
+   "human": "e3e4",
+   "v8": "c3c4",
+   "maia": "e1g1",
+   "v8_gap_cp": 9,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 12
+  },
+  {
+   "site": "https://lichess.org/k89tl7xf",
+   "human": "c8f5",
+   "v8": "c8f5",
+   "maia": "c8f5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/1d8olbtz",
+   "human": "d3e2",
+   "v8": "d3d4",
+   "maia": "d3d4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/y5o5n1df",
+   "human": "g8h8",
+   "v8": "g8h8",
+   "maia": "g8h8",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 25,
+   "sf_loss_maia": 25
+  },
+  {
+   "site": "https://lichess.org/vghn5igk",
+   "human": "f1e2",
+   "v8": "d2d4",
+   "maia": "b1c3",
+   "v8_gap_cp": -10,
+   "sf_loss_v8": 25,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/acgxy7al",
+   "human": "e7d8",
+   "v8": "e7d8",
+   "maia": "e7d8",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/vhsaazwp",
+   "human": "c5b6",
+   "v8": "c5d6",
+   "maia": "c5b6",
+   "v8_gap_cp": 47,
+   "sf_loss_v8": 31,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/g8x5fg59",
+   "human": "f2f3",
+   "v8": "a1c1",
+   "maia": "a1c1",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/al3qg3s4",
+   "human": "f8d6",
+   "v8": "f8h8",
+   "maia": "f8b4",
+   "v8_gap_cp": 173,
+   "sf_loss_v8": 380,
+   "sf_loss_maia": 35
+  },
+  {
+   "site": "https://lichess.org/xy895zsi",
+   "human": "f4g3",
+   "v8": "f4g3",
+   "maia": "f4g3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/gi7y7dmv",
+   "human": "d8a8",
+   "v8": "d8a8",
+   "maia": "d8a8",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/2n1bfykd",
+   "human": "e4c3",
+   "v8": "e4c3",
+   "maia": "e4c3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 48,
+   "sf_loss_maia": 48
+  },
+  {
+   "site": "https://lichess.org/2rhjqkb1",
+   "human": "d7b5",
+   "v8": "e7e6",
+   "maia": "d7b5",
+   "v8_gap_cp": 23,
+   "sf_loss_v8": 173,
+   "sf_loss_maia": 228
+  },
+  {
+   "site": "https://lichess.org/3bslitab",
+   "human": "d8c8",
+   "v8": "d8d1",
+   "maia": "d8d1",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/rgvlp3dm",
+   "human": "b6c5",
+   "v8": "b6c5",
+   "maia": "b6c5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 50,
+   "sf_loss_maia": 50
+  },
+  {
+   "site": "https://lichess.org/jp4va4ha",
+   "human": "d4b5",
+   "v8": "h6d2",
+   "maia": "d4c6",
+   "v8_gap_cp": 60,
+   "sf_loss_v8": 81,
+   "sf_loss_maia": 89
+  },
+  {
+   "site": "https://lichess.org/s9orkuj9",
+   "human": "d2d6",
+   "v8": "d2d6",
+   "maia": "d2d6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/vpcmqiwi",
+   "human": "d3e4",
+   "v8": "e1c1",
+   "maia": "e1g1",
+   "v8_gap_cp": 13,
+   "sf_loss_v8": 1,
+   "sf_loss_maia": 73
+  },
+  {
+   "site": "https://lichess.org/g3gvt6tq",
+   "human": "f2f4",
+   "v8": "e2c4",
+   "maia": "e2c4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 11,
+   "sf_loss_maia": 11
+  },
+  {
+   "site": "https://lichess.org/43c1stxr",
+   "human": "f4d6",
+   "v8": "f4d6",
+   "maia": "f4c7",
+   "v8_gap_cp": 53,
+   "sf_loss_v8": 125,
+   "sf_loss_maia": 218
+  },
+  {
+   "site": "https://lichess.org/ex16sl97",
+   "human": "f5e4",
+   "v8": "f5e4",
+   "maia": "f5e4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 25,
+   "sf_loss_maia": 25
+  },
+  {
+   "site": "https://lichess.org/wa7t26xd",
+   "human": "f6d5",
+   "v8": "g6g5",
+   "maia": "f6d5",
+   "v8_gap_cp": -5,
+   "sf_loss_v8": 180,
+   "sf_loss_maia": 184
+  },
+  {
+   "site": "https://lichess.org/ec0zicb7",
+   "human": "f4d2",
+   "v8": "f4d2",
+   "maia": "f4d2",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/ujswpcq8",
+   "human": "c1g5",
+   "v8": "c1g5",
+   "maia": "c1g5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/lwc33u2t",
+   "human": "d8d7",
+   "v8": "f6h5",
+   "maia": "g4f3",
+   "v8_gap_cp": 30,
+   "sf_loss_v8": 28,
+   "sf_loss_maia": 48
+  },
+  {
+   "site": "https://lichess.org/dv3cba7v",
+   "human": "h1e1",
+   "v8": "g5f6",
+   "maia": "g5f6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 37,
+   "sf_loss_maia": 37
+  },
+  {
+   "site": "https://lichess.org/7vwr3fl9",
+   "human": "d8c8",
+   "v8": "d8c8",
+   "maia": "d8g8",
+   "v8_gap_cp": 17,
+   "sf_loss_v8": 18,
+   "sf_loss_maia": 26
+  },
+  {
+   "site": "https://lichess.org/dm9jjyrn",
+   "human": "g4f6",
+   "v8": "g4e5",
+   "maia": "g4f6",
+   "v8_gap_cp": 122,
+   "sf_loss_v8": 2,
+   "sf_loss_maia": 186
+  },
+  {
+   "site": "https://lichess.org/d5j52139",
+   "human": "b3c4",
+   "v8": "f3d5",
+   "maia": "b3c4",
+   "v8_gap_cp": 740,
+   "sf_loss_v8": 21,
+   "sf_loss_maia": 38
+  },
+  {
+   "site": "https://lichess.org/962ope8u",
+   "human": "g7e7",
+   "v8": "g7g2",
+   "maia": "g7f7",
+   "v8_gap_cp": 14,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 3
+  },
+  {
+   "site": "https://lichess.org/21hvlxf1",
+   "human": "c5c4",
+   "v8": "c5c4",
+   "maia": "c5d4",
+   "v8_gap_cp": 37,
+   "sf_loss_v8": 39,
+   "sf_loss_maia": 25
+  },
+  {
+   "site": "https://lichess.org/wia127md",
+   "human": "g2g3",
+   "v8": "g2g3",
+   "maia": "g2g3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/51zgnldm",
+   "human": "b3a5",
+   "v8": "b3a5",
+   "maia": "b3a5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/2t729dfh",
+   "human": "c4b3",
+   "v8": "c4b3",
+   "maia": "c4b3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 26,
+   "sf_loss_maia": 26
+  },
+  {
+   "site": "https://lichess.org/r4m06070",
+   "human": "f3g4",
+   "v8": "g2g4",
+   "maia": "f3g4",
+   "v8_gap_cp": 33,
+   "sf_loss_v8": 53,
+   "sf_loss_maia": 4
+  },
+  {
+   "site": "https://lichess.org/6jlck4dw",
+   "human": "a1d1",
+   "v8": "a1d1",
+   "maia": "a1d1",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/mxmwbvg6",
+   "human": "c8e6",
+   "v8": "d6d5",
+   "maia": "g8f6",
+   "v8_gap_cp": 32,
+   "sf_loss_v8": 57,
+   "sf_loss_maia": 93
+  },
+  {
+   "site": "https://lichess.org/lg1qma02",
+   "human": "a7a6",
+   "v8": "e8g8",
+   "maia": "e8g8",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 6,
+   "sf_loss_maia": 6
+  },
+  {
+   "site": "https://lichess.org/edac3mc2",
+   "human": "c5b3",
+   "v8": "c5b3",
+   "maia": "c5b3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 73,
+   "sf_loss_maia": 73
+  },
+  {
+   "site": "https://lichess.org/usmba0yq",
+   "human": "h5f5",
+   "v8": "h5g4",
+   "maia": "h5f5",
+   "v8_gap_cp": 122,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 11
+  },
+  {
+   "site": "https://lichess.org/enzevlnk",
+   "human": "a8b7",
+   "v8": "a8b7",
+   "maia": "a8b7",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 116,
+   "sf_loss_maia": 116
+  },
+  {
+   "site": "https://lichess.org/hu6wz5xi",
+   "human": "g6e7",
+   "v8": "f6f5",
+   "maia": "g6f4",
+   "v8_gap_cp": 44,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 16
+  },
+  {
+   "site": "https://lichess.org/7r5n07ux",
+   "human": "a6c7",
+   "v8": "h3h4",
+   "maia": "a6c7",
+   "v8_gap_cp": 17,
+   "sf_loss_v8": 26,
+   "sf_loss_maia": 21
+  },
+  {
+   "site": "https://lichess.org/x8haqjwv",
+   "human": "c6d4",
+   "v8": "d8d4",
+   "maia": "c6d4",
+   "v8_gap_cp": 121,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 22
+  },
+  {
+   "site": "https://lichess.org/e2klzts0",
+   "human": "f3e5",
+   "v8": "d4e5",
+   "maia": "d4d5",
+   "v8_gap_cp": 118,
+   "sf_loss_v8": 21,
+   "sf_loss_maia": 360
+  },
+  {
+   "site": "https://lichess.org/xs2gu01v",
+   "human": "e5e4",
+   "v8": "e5e4",
+   "maia": "e5e4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 55,
+   "sf_loss_maia": 55
+  },
+  {
+   "site": "https://lichess.org/1prn72su",
+   "human": "d1d4",
+   "v8": "d1d4",
+   "maia": "f5d5",
+   "v8_gap_cp": 203,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 326
+  },
+  {
+   "site": "https://lichess.org/7s0h7k2g",
+   "human": "e4d5",
+   "v8": "d3d5",
+   "maia": "e4d5",
+   "v8_gap_cp": 26,
+   "sf_loss_v8": 95,
+   "sf_loss_maia": 82
+  },
+  {
+   "site": "https://lichess.org/m17ifo7w",
+   "human": "e7e6",
+   "v8": "b8c6",
+   "maia": "b8c6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 95,
+   "sf_loss_maia": 95
+  },
+  {
+   "site": "https://lichess.org/4m5fbkfw",
+   "human": "d7b6",
+   "v8": "d7b6",
+   "maia": "d7b6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 48,
+   "sf_loss_maia": 48
+  },
+  {
+   "site": "https://lichess.org/i9c2um7c",
+   "human": "d1d2",
+   "v8": "g4g5",
+   "maia": "d1f3",
+   "v8_gap_cp": 72,
+   "sf_loss_v8": 69,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/08eoirmn",
+   "human": "f1e1",
+   "v8": "f1e1",
+   "maia": "f1e1",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 37,
+   "sf_loss_maia": 37
+  },
+  {
+   "site": "https://lichess.org/3svjw4dk",
+   "human": "f8e7",
+   "v8": "f8d6",
+   "maia": "f8d6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 43,
+   "sf_loss_maia": 43
+  },
+  {
+   "site": "https://lichess.org/17h90m7j",
+   "human": "e2f3",
+   "v8": "g5d2",
+   "maia": "g5h4",
+   "v8_gap_cp": 48,
+   "sf_loss_v8": 338,
+   "sf_loss_maia": 269
+  },
+  {
+   "site": "https://lichess.org/tbzasz2u",
+   "human": "f3h2",
+   "v8": "f3h2",
+   "maia": "f3h2",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 172,
+   "sf_loss_maia": 172
+  },
+  {
+   "site": "https://lichess.org/775nfzy5",
+   "human": "c5b6",
+   "v8": "g3f5",
+   "maia": "c5b6",
+   "v8_gap_cp": -1,
+   "sf_loss_v8": 60,
+   "sf_loss_maia": 148
+  },
+  {
+   "site": "https://lichess.org/i7cjin9c",
+   "human": "b7b6",
+   "v8": "c5d4",
+   "maia": "b7b6",
+   "v8_gap_cp": 31,
+   "sf_loss_v8": 53,
+   "sf_loss_maia": 1
+  },
+  {
+   "site": "https://lichess.org/ccd77c4g",
+   "human": "f3d4",
+   "v8": "f3h4",
+   "maia": "f3h4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 48,
+   "sf_loss_maia": 48
+  },
+  {
+   "site": "https://lichess.org/sgrh8dk6",
+   "human": "e1c3",
+   "v8": "e1b4",
+   "maia": "a1c1",
+   "v8_gap_cp": 30,
+   "sf_loss_v8": 92,
+   "sf_loss_maia": 61
+  },
+  {
+   "site": "https://lichess.org/fbsa0nne",
+   "human": "c5d3",
+   "v8": "e8g8",
+   "maia": "c5d3",
+   "v8_gap_cp": 62,
+   "sf_loss_v8": 24,
+   "sf_loss_maia": 26
+  },
+  {
+   "site": "https://lichess.org/6md54don",
+   "human": "g4h5",
+   "v8": "a2a4",
+   "maia": "g4h5",
+   "v8_gap_cp": 21,
+   "sf_loss_v8": 62,
+   "sf_loss_maia": 50
+  },
+  {
+   "site": "https://lichess.org/ksrgb389",
+   "human": "e1g1",
+   "v8": "e1g1",
+   "maia": "e1g1",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 2,
+   "sf_loss_maia": 2
+  },
+  {
+   "site": "https://lichess.org/us5w34oi",
+   "human": "b4c4",
+   "v8": "b4c4",
+   "maia": "b4c4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 333,
+   "sf_loss_maia": 333
+  },
+  {
+   "site": "https://lichess.org/xm8c7wu3",
+   "human": "b7b5",
+   "v8": "c7c5",
+   "maia": "e7d7",
+   "v8_gap_cp": 34,
+   "sf_loss_v8": 162,
+   "sf_loss_maia": 25
+  },
+  {
+   "site": "https://lichess.org/yiis1g5y",
+   "human": "f3h4",
+   "v8": "f3e5",
+   "maia": "e1g1",
+   "v8_gap_cp": 34,
+   "sf_loss_v8": 42,
+   "sf_loss_maia": 22
+  },
+  {
+   "site": "https://lichess.org/nre3heit",
+   "human": "f1e2",
+   "v8": "g2g3",
+   "maia": "f1e2",
+   "v8_gap_cp": 37,
+   "sf_loss_v8": 5,
+   "sf_loss_maia": 83
+  },
+  {
+   "site": "https://lichess.org/y3zhesp4",
+   "human": "a8c8",
+   "v8": "d8c7",
+   "maia": "e8g8",
+   "v8_gap_cp": -1,
+   "sf_loss_v8": 5,
+   "sf_loss_maia": 9
+  },
+  {
+   "site": "https://lichess.org/n0hqultu",
+   "human": "h5g4",
+   "v8": "h5g4",
+   "maia": "h5g4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 26,
+   "sf_loss_maia": 26
+  },
+  {
+   "site": "https://lichess.org/5dwpponc",
+   "human": "e1g1",
+   "v8": "e1g1",
+   "maia": "e1g1",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 53,
+   "sf_loss_maia": 53
+  },
+  {
+   "site": "https://lichess.org/a2ogrhoz",
+   "human": "e5f4",
+   "v8": "h7h5",
+   "maia": "e5f4",
+   "v8_gap_cp": 23,
+   "sf_loss_v8": 141,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/qdcs9111",
+   "human": "g6d3",
+   "v8": "b8d7",
+   "maia": "g6d3",
+   "v8_gap_cp": 5,
+   "sf_loss_v8": 20,
+   "sf_loss_maia": 2
+  },
+  {
+   "site": "https://lichess.org/m4nea8fi",
+   "human": "a3a4",
+   "v8": "e1g1",
+   "maia": "e1g1",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/62dqfl4a",
+   "human": "d5c6",
+   "v8": "d5c6",
+   "maia": "d5c6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 2,
+   "sf_loss_maia": 2
+  },
+  {
+   "site": "https://lichess.org/gib4jra4",
+   "human": "d4d5",
+   "v8": "d4d5",
+   "maia": "d4d5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 3,
+   "sf_loss_maia": 3
+  },
+  {
+   "site": "https://lichess.org/0gp2phte",
+   "human": "e8c8",
+   "v8": "e8c8",
+   "maia": "e8c8",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/3zqvmhox",
+   "human": "g5e6",
+   "v8": "g5e6",
+   "maia": "g5e6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/b2kjg5a3",
+   "human": "e6e5",
+   "v8": "g7c3",
+   "maia": "e6d5",
+   "v8_gap_cp": 69,
+   "sf_loss_v8": 299,
+   "sf_loss_maia": 169
+  },
+  {
+   "site": "https://lichess.org/v1zc3f5g",
+   "human": "h6g5",
+   "v8": "h6h5",
+   "maia": "h6g5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/1knf5lkr",
+   "human": "b7e4",
+   "v8": "b7e4",
+   "maia": "b7e4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/wgbcetyb",
+   "human": "c3d5",
+   "v8": "c3b5",
+   "maia": "c3d5",
+   "v8_gap_cp": 90,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 261
+  },
+  {
+   "site": "https://lichess.org/e592wcms",
+   "human": "e5f6",
+   "v8": "e5f6",
+   "maia": "e5f6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 41,
+   "sf_loss_maia": 41
+  },
+  {
+   "site": "https://lichess.org/ofwbk33i",
+   "human": "b7c7",
+   "v8": "b7a7",
+   "maia": "b7c7",
+   "v8_gap_cp": 6,
+   "sf_loss_v8": 5,
+   "sf_loss_maia": 17
+  },
+  {
+   "site": "https://lichess.org/chh3h926",
+   "human": "h4g3",
+   "v8": "h4g3",
+   "maia": "h4g3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 39,
+   "sf_loss_maia": 39
+  },
+  {
+   "site": "https://lichess.org/usstuz09",
+   "human": "a4a5",
+   "v8": "g2g4",
+   "maia": "b4b5",
+   "v8_gap_cp": 111,
+   "sf_loss_v8": 155,
+   "sf_loss_maia": 74
+  },
+  {
+   "site": "https://lichess.org/yyj67t88",
+   "human": "d2d3",
+   "v8": "d2d4",
+   "maia": "b1c3",
+   "v8_gap_cp": -20,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/dvi3nlpv",
+   "human": "c1g1",
+   "v8": "c1e1",
+   "maia": "c1g1",
+   "v8_gap_cp": 5,
+   "sf_loss_v8": 8,
+   "sf_loss_maia": 43
+  },
+  {
+   "site": "https://lichess.org/lmk2qw83",
+   "human": "e8c8",
+   "v8": "f3e4",
+   "maia": "f3e4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 19,
+   "sf_loss_maia": 19
+  },
+  {
+   "site": "https://lichess.org/imrq1pqc",
+   "human": "e8c8",
+   "v8": "d4b5",
+   "maia": "d4e2",
+   "v8_gap_cp": 21,
+   "sf_loss_v8": 46,
+   "sf_loss_maia": 46
+  },
+  {
+   "site": "https://lichess.org/mdphgb84",
+   "human": "d7d5",
+   "v8": "b7e4",
+   "maia": "b7d5",
+   "v8_gap_cp": 41,
+   "sf_loss_v8": 14,
+   "sf_loss_maia": 55
+  },
+  {
+   "site": "https://lichess.org/tbondvht",
+   "human": "e6f5",
+   "v8": "e6f5",
+   "maia": "e6f5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 3,
+   "sf_loss_maia": 3
+  },
+  {
+   "site": "https://lichess.org/o8wu6zds",
+   "human": "c6e5",
+   "v8": "c6e5",
+   "maia": "c6e5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 44,
+   "sf_loss_maia": 44
+  },
+  {
+   "site": "https://lichess.org/lde8inn1",
+   "human": "h2h3",
+   "v8": "c3b5",
+   "maia": "a2a3",
+   "v8_gap_cp": 5,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 36
+  },
+  {
+   "site": "https://lichess.org/jbe95lke",
+   "human": "f3e5",
+   "v8": "f3e5",
+   "maia": "f3e5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 17,
+   "sf_loss_maia": 17
+  },
+  {
+   "site": "https://lichess.org/yciv8pk8",
+   "human": "c4b3",
+   "v8": "c4b3",
+   "maia": "c4b3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 18,
+   "sf_loss_maia": 18
+  },
+  {
+   "site": "https://lichess.org/3pvmreyy",
+   "human": "f2e2",
+   "v8": "f2g1",
+   "maia": "h1f1",
+   "v8_gap_cp": 90,
+   "sf_loss_v8": 77,
+   "sf_loss_maia": 52
+  },
+  {
+   "site": "https://lichess.org/gq24ma6w",
+   "human": "a8b7",
+   "v8": "a8d8",
+   "maia": "a8b7",
+   "v8_gap_cp": 7,
+   "sf_loss_v8": 27,
+   "sf_loss_maia": 2
+  },
+  {
+   "site": "https://lichess.org/zq8g34vk",
+   "human": "f8e7",
+   "v8": "f8d6",
+   "maia": "f8d6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 29,
+   "sf_loss_maia": 29
+  },
+  {
+   "site": "https://lichess.org/5ri83370",
+   "human": "h5g6",
+   "v8": "e4c6",
+   "maia": "f5f4",
+   "v8_gap_cp": 11,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/ot70rr73",
+   "human": "b8d7",
+   "v8": "b8d7",
+   "maia": "b8d7",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 16,
+   "sf_loss_maia": 16
+  },
+  {
+   "site": "https://lichess.org/kv3owmv6",
+   "human": "g4e6",
+   "v8": "a2a4",
+   "maia": "g4e6",
+   "v8_gap_cp": 137,
+   "sf_loss_v8": 46,
+   "sf_loss_maia": 144
+  },
+  {
+   "site": "https://lichess.org/3cpm8acj",
+   "human": "a8a4",
+   "v8": "a8a4",
+   "maia": "f8e8",
+   "v8_gap_cp": 46,
+   "sf_loss_v8": 34,
+   "sf_loss_maia": 181
+  },
+  {
+   "site": "https://lichess.org/sz2checj",
+   "human": "d7d6",
+   "v8": "h7h5",
+   "maia": "f8c5",
+   "v8_gap_cp": 28,
+   "sf_loss_v8": 108,
+   "sf_loss_maia": 43
+  },
+  {
+   "site": "https://lichess.org/exbrrco3",
+   "human": "d1b3",
+   "v8": "d1b3",
+   "maia": "d1h5",
+   "v8_gap_cp": 179,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 66
+  },
+  {
+   "site": "https://lichess.org/3tvl00pj",
+   "human": "f6h8",
+   "v8": "f6h8",
+   "maia": "f6h8",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/zdksb18z",
+   "human": "b5b4",
+   "v8": "b5b4",
+   "maia": "a7a5",
+   "v8_gap_cp": -4,
+   "sf_loss_v8": 54,
+   "sf_loss_maia": 37
+  },
+  {
+   "site": "https://lichess.org/b7lll3yd",
+   "human": "h6g5",
+   "v8": "h6g5",
+   "maia": "h6g5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 88,
+   "sf_loss_maia": 88
+  },
+  {
+   "site": "https://lichess.org/n7krrzz6",
+   "human": "e4e5",
+   "v8": "e4e5",
+   "maia": "e4e5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 59,
+   "sf_loss_maia": 59
+  },
+  {
+   "site": "https://lichess.org/d17eguaz",
+   "human": "c5c4",
+   "v8": "c5c4",
+   "maia": "c5c4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/76vx2pyk",
+   "human": "e4d3",
+   "v8": "b8b2",
+   "maia": "b8b2",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 15,
+   "sf_loss_maia": 15
+  },
+  {
+   "site": "https://lichess.org/pwk15w1f",
+   "human": "h5e2",
+   "v8": "h5e2",
+   "maia": "h5e2",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 7,
+   "sf_loss_maia": 7
+  },
+  {
+   "site": "https://lichess.org/bhve8hh9",
+   "human": "c7c6",
+   "v8": "c7c6",
+   "maia": "c7c6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/2wmhnm52",
+   "human": "f7f6",
+   "v8": "f7f5",
+   "maia": "e6e5",
+   "v8_gap_cp": 1,
+   "sf_loss_v8": 107,
+   "sf_loss_maia": 58
+  },
+  {
+   "site": "https://lichess.org/1dtsfy5g",
+   "human": "c4a2",
+   "v8": "c4b3",
+   "maia": "c4a2",
+   "v8_gap_cp": 5,
+   "sf_loss_v8": 18,
+   "sf_loss_maia": 7
+  },
+  {
+   "site": "https://lichess.org/y2gsk575",
+   "human": "h1e1",
+   "v8": "h1g1",
+   "maia": "h1e1",
+   "v8_gap_cp": 9,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 50
+  },
+  {
+   "site": "https://lichess.org/ay58n2mx",
+   "human": "g5h4",
+   "v8": "g5f6",
+   "maia": "g5h4",
+   "v8_gap_cp": 22,
+   "sf_loss_v8": 33,
+   "sf_loss_maia": 12
+  },
+  {
+   "site": "https://lichess.org/iupv5w7i",
+   "human": "a2a3",
+   "v8": "e2e3",
+   "maia": "e2e3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 4,
+   "sf_loss_maia": 4
+  },
+  {
+   "site": "https://lichess.org/5rylplvf",
+   "human": "e8g8",
+   "v8": "e8g8",
+   "maia": "e8g8",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 12,
+   "sf_loss_maia": 12
+  },
+  {
+   "site": "https://lichess.org/0oox30oh",
+   "human": "h2h4",
+   "v8": "f4f5",
+   "maia": "f4f5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 151,
+   "sf_loss_maia": 151
+  },
+  {
+   "site": "https://lichess.org/aj7e9kgd",
+   "human": "e3b3",
+   "v8": "a3b2",
+   "maia": "d7b5",
+   "v8_gap_cp": 53,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/dnqn1g0m",
+   "human": "e6e5",
+   "v8": "d5c6",
+   "maia": "e6e5",
+   "v8_gap_cp": 111,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/jkhvhyda",
+   "human": "e4c5",
+   "v8": "d1e2",
+   "maia": "e4g5",
+   "v8_gap_cp": 10,
+   "sf_loss_v8": 123,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/k0cpzklm",
+   "human": "g2g4",
+   "v8": "a1a3",
+   "maia": "g2g4",
+   "v8_gap_cp": 70,
+   "sf_loss_v8": 33,
+   "sf_loss_maia": 17
+  },
+  {
+   "site": "https://lichess.org/p93pg367",
+   "human": "f3e4",
+   "v8": "d3e4",
+   "maia": "f3e4",
+   "v8_gap_cp": 164,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/n6vk4gg3",
+   "human": "b5b4",
+   "v8": "c4d6",
+   "maia": "b5b4",
+   "v8_gap_cp": 126,
+   "sf_loss_v8": 3,
+   "sf_loss_maia": 11
+  },
+  {
+   "site": "https://lichess.org/lvuomb7g",
+   "human": "d7d6",
+   "v8": "c5d4",
+   "maia": "d7d6",
+   "v8_gap_cp": 31,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 27
+  },
+  {
+   "site": "https://lichess.org/7qbic11d",
+   "human": "e4e1",
+   "v8": "e4e3",
+   "maia": "e4e1",
+   "v8_gap_cp": 6,
+   "sf_loss_v8": 55,
+   "sf_loss_maia": 107
+  },
+  {
+   "site": "https://lichess.org/54aontcw",
+   "human": "g2g3",
+   "v8": "g2g3",
+   "maia": "g2g3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 328,
+   "sf_loss_maia": 328
+  },
+  {
+   "site": "https://lichess.org/t9nya4hu",
+   "human": "b2d4",
+   "v8": "b2d4",
+   "maia": "a1d1",
+   "v8_gap_cp": -8,
+   "sf_loss_v8": 68,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/utv5w460",
+   "human": "h1f2",
+   "v8": "f8b4",
+   "maia": "f8b4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 14,
+   "sf_loss_maia": 14
+  },
+  {
+   "site": "https://lichess.org/xplg3eph",
+   "human": "e8g8",
+   "v8": "d7d5",
+   "maia": "e8g8",
+   "v8_gap_cp": -19,
+   "sf_loss_v8": 7,
+   "sf_loss_maia": 75
+  },
+  {
+   "site": "https://lichess.org/owuzxw4u",
+   "human": "b6b2",
+   "v8": "c8a6",
+   "maia": "b6b2",
+   "v8_gap_cp": 37,
+   "sf_loss_v8": 39,
+   "sf_loss_maia": 10
+  },
+  {
+   "site": "https://lichess.org/hkgmoxiw",
+   "human": "b6c7",
+   "v8": "b6g6",
+   "maia": "b6c7",
+   "v8_gap_cp": 61,
+   "sf_loss_v8": 88,
+   "sf_loss_maia": 8
+  },
+  {
+   "site": "https://lichess.org/zysllvd8",
+   "human": "f3e2",
+   "v8": "f3e2",
+   "maia": "g5g4",
+   "v8_gap_cp": 8,
+   "sf_loss_v8": 8,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/m1u91jkr",
+   "human": "d1a4",
+   "v8": "d5d6",
+   "maia": "d5d6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 46,
+   "sf_loss_maia": 46
+  },
+  {
+   "site": "https://lichess.org/9xezk2tt",
+   "human": "b3c2",
+   "v8": "g7g5",
+   "maia": "d5c6",
+   "v8_gap_cp": 64,
+   "sf_loss_v8": 51,
+   "sf_loss_maia": 5
+  },
+  {
+   "site": "https://lichess.org/aql9oxgm",
+   "human": "h4f5",
+   "v8": "e1e8",
+   "maia": "h4f5",
+   "v8_gap_cp": 99,
+   "sf_loss_v8": 16,
+   "sf_loss_maia": 229
+  },
+  {
+   "site": "https://lichess.org/oxhs5oc0",
+   "human": "d7a4",
+   "v8": "d7a4",
+   "maia": "d7a4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 15,
+   "sf_loss_maia": 15
+  },
+  {
+   "site": "https://lichess.org/x2l9asoi",
+   "human": "c7c8",
+   "v8": "c7d6",
+   "maia": "f4e5",
+   "v8_gap_cp": 8,
+   "sf_loss_v8": 424,
+   "sf_loss_maia": 428
+  },
+  {
+   "site": "https://lichess.org/2jrfsozi",
+   "human": "g8e7",
+   "v8": "c7f7",
+   "maia": "g8e7",
+   "v8_gap_cp": -1,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/sm2p1t8h",
+   "human": "g5e3",
+   "v8": "g5e3",
+   "maia": "g5h4",
+   "v8_gap_cp": 55,
+   "sf_loss_v8": 18,
+   "sf_loss_maia": 18
+  },
+  {
+   "site": "https://lichess.org/4l37q050",
+   "human": "f2f4",
+   "v8": "f2e3",
+   "maia": "f2f4",
+   "v8_gap_cp": 229,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 392
+  },
+  {
+   "site": "https://lichess.org/9z0e31zz",
+   "human": "d7d6",
+   "v8": "e7h4",
+   "maia": "e7b4",
+   "v8_gap_cp": 70,
+   "sf_loss_v8": 191,
+   "sf_loss_maia": 22
+  },
+  {
+   "site": "https://lichess.org/ch4ptur2",
+   "human": "d4e5",
+   "v8": "d4e5",
+   "maia": "d4e5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/rcaxcm1f",
+   "human": "f3e3",
+   "v8": "h5h6",
+   "maia": "f3g3",
+   "v8_gap_cp": 37,
+   "sf_loss_v8": 35,
+   "sf_loss_maia": 45
+  },
+  {
+   "site": "https://lichess.org/zjx3bo1j",
+   "human": "b1d2",
+   "v8": "f1d1",
+   "maia": "a3d6",
+   "v8_gap_cp": 68,
+   "sf_loss_v8": 18,
+   "sf_loss_maia": 107
+  },
+  {
+   "site": "https://lichess.org/6n27qyh2",
+   "human": "e1g1",
+   "v8": "d1a4",
+   "maia": "c1g5",
+   "v8_gap_cp": 51,
+   "sf_loss_v8": 50,
+   "sf_loss_maia": 44
+  },
+  {
+   "site": "https://lichess.org/m9lnbmyp",
+   "human": "e1d1",
+   "v8": "e1d1",
+   "maia": "e1d1",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/9130pw48",
+   "human": "c4c5",
+   "v8": "c4c5",
+   "maia": "c4c5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 6,
+   "sf_loss_maia": 6
+  },
+  {
+   "site": "https://lichess.org/khgzwjub",
+   "human": "d4d5",
+   "v8": "e2f1",
+   "maia": "b2b4",
+   "v8_gap_cp": 43,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/8ez8jy7p",
+   "human": "f5e4",
+   "v8": "f5e4",
+   "maia": "d5e4",
+   "v8_gap_cp": 140,
+   "sf_loss_v8": 1,
+   "sf_loss_maia": 53
+  },
+  {
+   "site": "https://lichess.org/owgjvz5e",
+   "human": "c5d4",
+   "v8": "d8d4",
+   "maia": "c5d4",
+   "v8_gap_cp": 163,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 81
+  },
+  {
+   "site": "https://lichess.org/n6iybyut",
+   "human": "a5b5",
+   "v8": "a5b5",
+   "maia": "a5b5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 16,
+   "sf_loss_maia": 16
+  },
+  {
+   "site": "https://lichess.org/kz9f3elg",
+   "human": "b5c6",
+   "v8": "b5c6",
+   "maia": "b5c6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 120,
+   "sf_loss_maia": 120
+  },
+  {
+   "site": "https://lichess.org/e72ftosz",
+   "human": "d8d6",
+   "v8": "d8d6",
+   "maia": "d8d6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/jscslx7z",
+   "human": "f5f1",
+   "v8": "b3b4",
+   "maia": "g3g4",
+   "v8_gap_cp": 12,
+   "sf_loss_v8": 7,
+   "sf_loss_maia": 6
+  },
+  {
+   "site": "https://lichess.org/kyxs4tty",
+   "human": "e2f3",
+   "v8": "e2f1",
+   "maia": "e2f1",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/k71zas3l",
+   "human": "h3g2",
+   "v8": "h3g2",
+   "maia": "h3g2",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/emmsrjyv",
+   "human": "f3e5",
+   "v8": "f3e5",
+   "maia": "f3e5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 6,
+   "sf_loss_maia": 6
+  },
+  {
+   "site": "https://lichess.org/l61ckmaa",
+   "human": "c7c5",
+   "v8": "b8c6",
+   "maia": "c7c5",
+   "v8_gap_cp": 17,
+   "sf_loss_v8": 94,
+   "sf_loss_maia": 33
+  },
+  {
+   "site": "https://lichess.org/3c5qk42v",
+   "human": "h7h6",
+   "v8": "h7h5",
+   "maia": "g6d3",
+   "v8_gap_cp": 35,
+   "sf_loss_v8": 60,
+   "sf_loss_maia": 93
+  },
+  {
+   "site": "https://lichess.org/cpsyidl2",
+   "human": "e6f5",
+   "v8": "e6f5",
+   "maia": "e6f5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 63,
+   "sf_loss_maia": 63
+  },
+  {
+   "site": "https://lichess.org/5pgbtd4e",
+   "human": "d8e8",
+   "v8": "f2f4",
+   "maia": "h2g2",
+   "v8_gap_cp": 26,
+   "sf_loss_v8": 67,
+   "sf_loss_maia": 47
+  },
+  {
+   "site": "https://lichess.org/bidelu3h",
+   "human": "d3d4",
+   "v8": "f2f3",
+   "maia": "d3d4",
+   "v8_gap_cp": 30,
+   "sf_loss_v8": 85,
+   "sf_loss_maia": 123
+  },
+  {
+   "site": "https://lichess.org/x9p3m8zo",
+   "human": "f3e4",
+   "v8": "f3h5",
+   "maia": "e5d7",
+   "v8_gap_cp": 14,
+   "sf_loss_v8": 63,
+   "sf_loss_maia": 119
+  },
+  {
+   "site": "https://lichess.org/0ge1gfgt",
+   "human": "g1h1",
+   "v8": "f1f2",
+   "maia": "g1h1",
+   "v8_gap_cp": 20,
+   "sf_loss_v8": 73,
+   "sf_loss_maia": 7
+  },
+  {
+   "site": "https://lichess.org/ttfjj5mp",
+   "human": "a7a5",
+   "v8": "f6g4",
+   "maia": "c7c6",
+   "v8_gap_cp": 103,
+   "sf_loss_v8": 24,
+   "sf_loss_maia": 61
+  },
+  {
+   "site": "https://lichess.org/m3ddkptp",
+   "human": "h2e5",
+   "v8": "h2e5",
+   "maia": "h2g3",
+   "v8_gap_cp": -3,
+   "sf_loss_v8": 1,
+   "sf_loss_maia": 4
+  },
+  {
+   "site": "https://lichess.org/4huwws5o",
+   "human": "f2c2",
+   "v8": "e1e2",
+   "maia": "f2f1",
+   "v8_gap_cp": 7,
+   "sf_loss_v8": 18,
+   "sf_loss_maia": 12
+  },
+  {
+   "site": "https://lichess.org/szwn42ro",
+   "human": "d1d2",
+   "v8": "e1g1",
+   "maia": "e1g1",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 17,
+   "sf_loss_maia": 17
+  },
+  {
+   "site": "https://lichess.org/23o8jcg8",
+   "human": "b6c5",
+   "v8": "b6c5",
+   "maia": "b6c5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/wlxx3gz9",
+   "human": "g1g2",
+   "v8": "c1d1",
+   "maia": "c1d1",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 45,
+   "sf_loss_maia": 45
+  },
+  {
+   "site": "https://lichess.org/1jdapf7y",
+   "human": "e1f1",
+   "v8": "e1f1",
+   "maia": "e1f1",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 38,
+   "sf_loss_maia": 38
+  },
+  {
+   "site": "https://lichess.org/tza9ph1y",
+   "human": "g8h6",
+   "v8": "g8f6",
+   "maia": "g8f6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 1,
+   "sf_loss_maia": 1
+  },
+  {
+   "site": "https://lichess.org/rsyyqpzf",
+   "human": "d5c6",
+   "v8": "b2b4",
+   "maia": "d2d4",
+   "v8_gap_cp": -3,
+   "sf_loss_v8": 30,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/5ireuph2",
+   "human": "a8d8",
+   "v8": "a8d8",
+   "maia": "a8d8",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 20,
+   "sf_loss_maia": 20
+  },
+  {
+   "site": "https://lichess.org/uhz8z3v3",
+   "human": "e7f5",
+   "v8": "e7c6",
+   "maia": "e7f5",
+   "v8_gap_cp": 20,
+   "sf_loss_v8": 10,
+   "sf_loss_maia": 121
+  },
+  {
+   "site": "https://lichess.org/8c53pzh7",
+   "human": "g5f6",
+   "v8": "g5f6",
+   "maia": "c3b4",
+   "v8_gap_cp": 240,
+   "sf_loss_v8": 4,
+   "sf_loss_maia": 202
+  },
+  {
+   "site": "https://lichess.org/qr7jbwk2",
+   "human": "d1d8",
+   "v8": "d1h1",
+   "maia": "d1d8",
+   "v8_gap_cp": 21,
+   "sf_loss_v8": 87,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/dmhrtiol",
+   "human": "h7g6",
+   "v8": "h7g6",
+   "maia": "f7e6",
+   "v8_gap_cp": 375,
+   "sf_loss_v8": 13,
+   "sf_loss_maia": 139
+  },
+  {
+   "site": "https://lichess.org/66a51rf8",
+   "human": "f1d3",
+   "v8": "e4e5",
+   "maia": "h2h3",
+   "v8_gap_cp": 6,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/xcl08a5s",
+   "human": "e7g6",
+   "v8": "c7c6",
+   "maia": "e7d5",
+   "v8_gap_cp": 22,
+   "sf_loss_v8": 79,
+   "sf_loss_maia": 84
+  },
+  {
+   "site": "https://lichess.org/5cr0wgke",
+   "human": "a3b2",
+   "v8": "c3c1",
+   "maia": "c3c1",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/caw34can",
+   "human": "c7c6",
+   "v8": "b8c6",
+   "maia": "f8e8",
+   "v8_gap_cp": 9,
+   "sf_loss_v8": 16,
+   "sf_loss_maia": 5
+  },
+  {
+   "site": "https://lichess.org/ni04tbad",
+   "human": "e2g2",
+   "v8": "e2g2",
+   "maia": "e2g2",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 1,
+   "sf_loss_maia": 1
+  },
+  {
+   "site": "https://lichess.org/p6tlavhv",
+   "human": "a2a4",
+   "v8": "a2a4",
+   "maia": "d1e2",
+   "v8_gap_cp": 17,
+   "sf_loss_v8": 97,
+   "sf_loss_maia": 75
+  },
+  {
+   "site": "https://lichess.org/i9z3kxvo",
+   "human": "c4b3",
+   "v8": "c4b3",
+   "maia": "c4a2",
+   "v8_gap_cp": 18,
+   "sf_loss_v8": 25,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/v36vnovx",
+   "human": "f5e6",
+   "v8": "f5e4",
+   "maia": "f5e4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 209,
+   "sf_loss_maia": 209
+  },
+  {
+   "site": "https://lichess.org/iz1ihcjn",
+   "human": "d5b7",
+   "v8": "d5c6",
+   "maia": "d5b7",
+   "v8_gap_cp": 650,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 1000
+  },
+  {
+   "site": "https://lichess.org/hpr7w8e6",
+   "human": "c3d4",
+   "v8": "b2b4",
+   "maia": "c3d4",
+   "v8_gap_cp": 33,
+   "sf_loss_v8": 13,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/3z5rlhcd",
+   "human": "h2h3",
+   "v8": "h2h4",
+   "maia": "g2g3",
+   "v8_gap_cp": 7,
+   "sf_loss_v8": 33,
+   "sf_loss_maia": 23
+  },
+  {
+   "site": "https://lichess.org/lstk8hwc",
+   "human": "a7a5",
+   "v8": "a7a5",
+   "maia": "d7d6",
+   "v8_gap_cp": 2,
+   "sf_loss_v8": 9,
+   "sf_loss_maia": 10
+  },
+  {
+   "site": "https://lichess.org/7g4awwuo",
+   "human": "g4h5",
+   "v8": "g4f3",
+   "maia": "g4h5",
+   "v8_gap_cp": 42,
+   "sf_loss_v8": 10,
+   "sf_loss_maia": 6
+  },
+  {
+   "site": "https://lichess.org/zgeej9fg",
+   "human": "b5b4",
+   "v8": "b5b4",
+   "maia": "b5b4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/6rcun7aj",
+   "human": "f1b5",
+   "v8": "f1b5",
+   "maia": "c1e3",
+   "v8_gap_cp": 51,
+   "sf_loss_v8": 35,
+   "sf_loss_maia": 23
+  },
+  {
+   "site": "https://lichess.org/9btzur2f",
+   "human": "d4e3",
+   "v8": "d4e3",
+   "maia": "d4c5",
+   "v8_gap_cp": 60,
+   "sf_loss_v8": 22,
+   "sf_loss_maia": 16
+  },
+  {
+   "site": "https://lichess.org/8ncqxgt9",
+   "human": "h5h4",
+   "v8": "h5h4",
+   "maia": "a7a6",
+   "v8_gap_cp": 46,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 119
+  },
+  {
+   "site": "https://lichess.org/t3yod2mm",
+   "human": "a1b1",
+   "v8": "a1b1",
+   "maia": "a1b1",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/zf36lm7m",
+   "human": "g7g5",
+   "v8": "g7g5",
+   "maia": "g7g5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 13,
+   "sf_loss_maia": 13
+  },
+  {
+   "site": "https://lichess.org/odrntwfv",
+   "human": "g2g3",
+   "v8": "f7h8",
+   "maia": "g2g3",
+   "v8_gap_cp": 103,
+   "sf_loss_v8": 48,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/i3rlnh8p",
+   "human": "g1e2",
+   "v8": "g1e2",
+   "maia": "a3b4",
+   "v8_gap_cp": 19,
+   "sf_loss_v8": 11,
+   "sf_loss_maia": 46
+  },
+  {
+   "site": "https://lichess.org/qcdsxb8x",
+   "human": "c8c4",
+   "v8": "c8c4",
+   "maia": "c8c4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 31,
+   "sf_loss_maia": 31
+  },
+  {
+   "site": "https://lichess.org/qao1bgg1",
+   "human": "e7f5",
+   "v8": "e7d5",
+   "maia": "e7d5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 20,
+   "sf_loss_maia": 20
+  },
+  {
+   "site": "https://lichess.org/wv6yq9d6",
+   "human": "g7g6",
+   "v8": "e8c8",
+   "maia": "h5h4",
+   "v8_gap_cp": 92,
+   "sf_loss_v8": 82,
+   "sf_loss_maia": 118
+  },
+  {
+   "site": "https://lichess.org/i0e2f090",
+   "human": "c4f7",
+   "v8": "c4f7",
+   "maia": "c4f7",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/15vhgbry",
+   "human": "c4c6",
+   "v8": "c4c6",
+   "maia": "c4c6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 76,
+   "sf_loss_maia": 76
+  },
+  {
+   "site": "https://lichess.org/rr7p9rfd",
+   "human": "b7a6",
+   "v8": "h5h4",
+   "maia": "b7a6",
+   "v8_gap_cp": -46,
+   "sf_loss_v8": 108,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/t031in1o",
+   "human": "g4h3",
+   "v8": "g4h3",
+   "maia": "g4h3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/6hsarmor",
+   "human": "g5e7",
+   "v8": "g5e7",
+   "maia": "b2c3",
+   "v8_gap_cp": 32,
+   "sf_loss_v8": 9,
+   "sf_loss_maia": 67
+  },
+  {
+   "site": "https://lichess.org/zaiqqubg",
+   "human": "f1e1",
+   "v8": "f1d1",
+   "maia": "c1g5",
+   "v8_gap_cp": 53,
+   "sf_loss_v8": 15,
+   "sf_loss_maia": 53
+  },
+  {
+   "site": "https://lichess.org/3v9ttxkl",
+   "human": "g5e6",
+   "v8": "g5e6",
+   "maia": "c4e6",
+   "v8_gap_cp": 128,
+   "sf_loss_v8": 70,
+   "sf_loss_maia": 222
+  },
+  {
+   "site": "https://lichess.org/wc7jfw0c",
+   "human": "f1f7",
+   "v8": "f1f7",
+   "maia": "f1f7",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/6ohwe6uf",
+   "human": "f8a8",
+   "v8": "f8a8",
+   "maia": "f8a8",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 11,
+   "sf_loss_maia": 11
+  },
+  {
+   "site": "https://lichess.org/hv2bd35v",
+   "human": "e6e5",
+   "v8": "e6e5",
+   "maia": "e6e5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/l15yabjw",
+   "human": "c4b4",
+   "v8": "c4b3",
+   "maia": "c4b3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 230,
+   "sf_loss_maia": 230
+  },
+  {
+   "site": "https://lichess.org/wx4955el",
+   "human": "g7g5",
+   "v8": "g7g5",
+   "maia": "g7g5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 1,
+   "sf_loss_maia": 1
+  },
+  {
+   "site": "https://lichess.org/q7h815ij",
+   "human": "c8c7",
+   "v8": "f6d7",
+   "maia": "c8b8",
+   "v8_gap_cp": 97,
+   "sf_loss_v8": 13,
+   "sf_loss_maia": 122
+  },
+  {
+   "site": "https://lichess.org/w90scdbi",
+   "human": "f8e7",
+   "v8": "g7g6",
+   "maia": "c5c4",
+   "v8_gap_cp": -5,
+   "sf_loss_v8": 55,
+   "sf_loss_maia": 2
+  },
+  {
+   "site": "https://lichess.org/0j7tncit",
+   "human": "f2e3",
+   "v8": "f2e3",
+   "maia": "e1e3",
+   "v8_gap_cp": -4,
+   "sf_loss_v8": 23,
+   "sf_loss_maia": 26
+  },
+  {
+   "site": "https://lichess.org/yqmlxrke",
+   "human": "e8g8",
+   "v8": "e8g8",
+   "maia": "e8g8",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/ki8qfjd1",
+   "human": "d4c5",
+   "v8": "f3g5",
+   "maia": "d4c5",
+   "v8_gap_cp": 16,
+   "sf_loss_v8": 89,
+   "sf_loss_maia": 22
+  },
+  {
+   "site": "https://lichess.org/ftz8hwlo",
+   "human": "f2e3",
+   "v8": "c7c3",
+   "maia": "f2e3",
+   "v8_gap_cp": 42,
+   "sf_loss_v8": 14,
+   "sf_loss_maia": 12
+  },
+  {
+   "site": "https://lichess.org/628up9lc",
+   "human": "d1e2",
+   "v8": "d1e2",
+   "maia": "d1e2",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 16,
+   "sf_loss_maia": 16
+  },
+  {
+   "site": "https://lichess.org/j1awpgai",
+   "human": "a4b4",
+   "v8": "c3b4",
+   "maia": "a4b4",
+   "v8_gap_cp": 32,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 26
+  },
+  {
+   "site": "https://lichess.org/yzn3g20t",
+   "human": "f4e5",
+   "v8": "f3e3",
+   "maia": "f3e3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 1,
+   "sf_loss_maia": 1
+  },
+  {
+   "site": "https://lichess.org/juydx84r",
+   "human": "g5f4",
+   "v8": "g5f4",
+   "maia": "g5f4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 27,
+   "sf_loss_maia": 27
+  },
+  {
+   "site": "https://lichess.org/zbrpa6bj",
+   "human": "a8b8",
+   "v8": "f8b8",
+   "maia": "b4a2",
+   "v8_gap_cp": -3,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 81
+  },
+  {
+   "site": "https://lichess.org/nuog4orc",
+   "human": "d3c4",
+   "v8": "d3c4",
+   "maia": "d3c4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 49,
+   "sf_loss_maia": 49
+  },
+  {
+   "site": "https://lichess.org/xdgxt64h",
+   "human": "g2g4",
+   "v8": "f2f4",
+   "maia": "a2a4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 13,
+   "sf_loss_maia": 5
+  },
+  {
+   "site": "https://lichess.org/b84i10vr",
+   "human": "b3c3",
+   "v8": "b3b4",
+   "maia": "b3c4",
+   "v8_gap_cp": 34,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 113
+  },
+  {
+   "site": "https://lichess.org/lucxm9p8",
+   "human": "d4d5",
+   "v8": "d4d5",
+   "maia": "c2c3",
+   "v8_gap_cp": 23,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/wrxfawnw",
+   "human": "c6e7",
+   "v8": "c6e7",
+   "maia": "c6e7",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/78uk0bto",
+   "human": "b4c3",
+   "v8": "b4c3",
+   "maia": "b4c3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 27,
+   "sf_loss_maia": 27
+  },
+  {
+   "site": "https://lichess.org/xv9dys5f",
+   "human": "e6f5",
+   "v8": "a8a5",
+   "maia": "b4d3",
+   "v8_gap_cp": 444,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 527
+  },
+  {
+   "site": "https://lichess.org/hw8viewe",
+   "human": "g4h5",
+   "v8": "g4e6",
+   "maia": "g4h5",
+   "v8_gap_cp": 30,
+   "sf_loss_v8": 6,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/znwrxcm2",
+   "human": "e6g5",
+   "v8": "c7c6",
+   "maia": "h7h6",
+   "v8_gap_cp": -11,
+   "sf_loss_v8": 32,
+   "sf_loss_maia": 46
+  },
+  {
+   "site": "https://lichess.org/jbboadva",
+   "human": "d6c8",
+   "v8": "d6c8",
+   "maia": "d6c8",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 21,
+   "sf_loss_maia": 21
+  },
+  {
+   "site": "https://lichess.org/6fihquai",
+   "human": "d7c6",
+   "v8": "d7c6",
+   "maia": "d7c6",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 26,
+   "sf_loss_maia": 26
+  },
+  {
+   "site": "https://lichess.org/ir8c6ql9",
+   "human": "d8d7",
+   "v8": "e8g8",
+   "maia": "d8d7",
+   "v8_gap_cp": 6,
+   "sf_loss_v8": 90,
+   "sf_loss_maia": 3
+  },
+  {
+   "site": "https://lichess.org/13zdyhs2",
+   "human": "c7b6",
+   "v8": "e4e8",
+   "maia": "c7b6",
+   "v8_gap_cp": 19,
+   "sf_loss_v8": 40,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/743tko2d",
+   "human": "e6c4",
+   "v8": "d8f6",
+   "maia": "e6c4",
+   "v8_gap_cp": -185,
+   "sf_loss_v8": 55,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/b3yrcqfb",
+   "human": "b2f6",
+   "v8": "f1e1",
+   "maia": "e4e5",
+   "v8_gap_cp": 158,
+   "sf_loss_v8": 60,
+   "sf_loss_maia": 148
+  },
+  {
+   "site": "https://lichess.org/wc5h602k",
+   "human": "e7d8",
+   "v8": "d6e5",
+   "maia": "e7d8",
+   "v8_gap_cp": 98158,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 1000
+  },
+  {
+   "site": "https://lichess.org/bbyozbws",
+   "human": "e7e5",
+   "v8": "e7e5",
+   "maia": "e7e5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 10,
+   "sf_loss_maia": 10
+  },
+  {
+   "site": "https://lichess.org/17pz08kb",
+   "human": "e7a3",
+   "v8": "f7f6",
+   "maia": "e7a3",
+   "v8_gap_cp": 16,
+   "sf_loss_v8": 102,
+   "sf_loss_maia": 131
+  },
+  {
+   "site": "https://lichess.org/l38dpff5",
+   "human": "d8d4",
+   "v8": "d8d4",
+   "maia": "d8h4",
+   "v8_gap_cp": 105,
+   "sf_loss_v8": 54,
+   "sf_loss_maia": 34
+  },
+  {
+   "site": "https://lichess.org/wjyzqti0",
+   "human": "a3g3",
+   "v8": "a3b3",
+   "maia": "a3g3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/tyj45g6l",
+   "human": "c2d2",
+   "v8": "c2c3",
+   "maia": "c2d2",
+   "v8_gap_cp": 82,
+   "sf_loss_v8": 50,
+   "sf_loss_maia": 58
+  },
+  {
+   "site": "https://lichess.org/ovny5ko6",
+   "human": "a5c3",
+   "v8": "a5c3",
+   "maia": "a5c3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 83,
+   "sf_loss_maia": 83
+  },
+  {
+   "site": "https://lichess.org/59z26wsw",
+   "human": "e5e2",
+   "v8": "e5e2",
+   "maia": "e5e2",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 4,
+   "sf_loss_maia": 4
+  },
+  {
+   "site": "https://lichess.org/fmuud1pe",
+   "human": "f4g2",
+   "v8": "d5f3",
+   "maia": "f4g2",
+   "v8_gap_cp": 421,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 11
+  },
+  {
+   "site": "https://lichess.org/hlf4bg90",
+   "human": "g7g6",
+   "v8": "g7g6",
+   "maia": "g7f6",
+   "v8_gap_cp": 19,
+   "sf_loss_v8": 57,
+   "sf_loss_maia": 94
+  },
+  {
+   "site": "https://lichess.org/jlyyi0tm",
+   "human": "e8g8",
+   "v8": "b8c6",
+   "maia": "e8g8",
+   "v8_gap_cp": 17,
+   "sf_loss_v8": 52,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/0t9pv5y5",
+   "human": "e2b5",
+   "v8": "e2d3",
+   "maia": "e2b5",
+   "v8_gap_cp": 12,
+   "sf_loss_v8": 76,
+   "sf_loss_maia": 155
+  },
+  {
+   "site": "https://lichess.org/3jpgbmnq",
+   "human": "d5b6",
+   "v8": "e2f4",
+   "maia": "d5f6",
+   "v8_gap_cp": 214,
+   "sf_loss_v8": 71,
+   "sf_loss_maia": 131
+  },
+  {
+   "site": "https://lichess.org/0kpoy5t6",
+   "human": "d5e4",
+   "v8": "d5e4",
+   "maia": "d5e4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 657,
+   "sf_loss_maia": 657
+  },
+  {
+   "site": "https://lichess.org/5wuu6qdr",
+   "human": "g1f3",
+   "v8": "g1f3",
+   "maia": "g1f3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/rvhgdjon",
+   "human": "f2f3",
+   "v8": "a4a5",
+   "maia": "a4a5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 9,
+   "sf_loss_maia": 9
+  },
+  {
+   "site": "https://lichess.org/p9gervet",
+   "human": "f3h4",
+   "v8": "f3h4",
+   "maia": "f3h4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 9,
+   "sf_loss_maia": 9
+  },
+  {
+   "site": "https://lichess.org/9ia4rmxf",
+   "human": "h6g7",
+   "v8": "h6f8",
+   "maia": "f7f6",
+   "v8_gap_cp": 73,
+   "sf_loss_v8": 197,
+   "sf_loss_maia": 83
+  },
+  {
+   "site": "https://lichess.org/7vm8p8zb",
+   "human": "e4e5",
+   "v8": "c1g5",
+   "maia": "b1c3",
+   "v8_gap_cp": 18,
+   "sf_loss_v8": 57,
+   "sf_loss_maia": 8
+  },
+  {
+   "site": "https://lichess.org/n2jplum2",
+   "human": "e8e7",
+   "v8": "e8e7",
+   "maia": "e8e7",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/w356pd8j",
+   "human": "b1c3",
+   "v8": "b1c3",
+   "maia": "g1f3",
+   "v8_gap_cp": 1,
+   "sf_loss_v8": 21,
+   "sf_loss_maia": 27
+  },
+  {
+   "site": "https://lichess.org/00niptx8",
+   "human": "d6d5",
+   "v8": "d6d5",
+   "maia": "d6d5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/msx2vdh1",
+   "human": "f2f4",
+   "v8": "f2e2",
+   "maia": "f2e2",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/w3oqv93i",
+   "human": "h8h7",
+   "v8": "e8d8",
+   "maia": "d7d6",
+   "v8_gap_cp": 1663,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 895
+  },
+  {
+   "site": "https://lichess.org/7o38ato0",
+   "human": "d1g1",
+   "v8": "b2b4",
+   "maia": "b2b4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 48,
+   "sf_loss_maia": 48
+  },
+  {
+   "site": "https://lichess.org/ptk0ld1t",
+   "human": "e3e4",
+   "v8": "g2g4",
+   "maia": "b1a1",
+   "v8_gap_cp": 10,
+   "sf_loss_v8": 26,
+   "sf_loss_maia": 1
+  },
+  {
+   "site": "https://lichess.org/5gv4tge0",
+   "human": "h4g4",
+   "v8": "h4g4",
+   "maia": "h4g4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/0jqp6ptp",
+   "human": "e4g3",
+   "v8": "f2f3",
+   "maia": "e4g3",
+   "v8_gap_cp": -4,
+   "sf_loss_v8": 38,
+   "sf_loss_maia": 7
+  },
+  {
+   "site": "https://lichess.org/zus38lup",
+   "human": "a5a4",
+   "v8": "b3b2",
+   "maia": "a5a4",
+   "v8_gap_cp": 17,
+   "sf_loss_v8": 39,
+   "sf_loss_maia": 1
+  },
+  {
+   "site": "https://lichess.org/d3sgnkk6",
+   "human": "g3d6",
+   "v8": "e2d3",
+   "maia": "g3d6",
+   "v8_gap_cp": 24,
+   "sf_loss_v8": 34,
+   "sf_loss_maia": 56
+  },
+  {
+   "site": "https://lichess.org/1iynowmp",
+   "human": "g2g4",
+   "v8": "g2g4",
+   "maia": "g1f2",
+   "v8_gap_cp": -10,
+   "sf_loss_v8": 17,
+   "sf_loss_maia": 41
+  },
+  {
+   "site": "https://lichess.org/1cvnyrt6",
+   "human": "f6g4",
+   "v8": "f6g4",
+   "maia": "f6g4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 9,
+   "sf_loss_maia": 9
+  },
+  {
+   "site": "https://lichess.org/3n63fgzz",
+   "human": "f3g5",
+   "v8": "a2a3",
+   "maia": "a2a3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 19,
+   "sf_loss_maia": 19
+  },
+  {
+   "site": "https://lichess.org/64y9tebg",
+   "human": "f2f4",
+   "v8": "d4d5",
+   "maia": "e3g5",
+   "v8_gap_cp": 155,
+   "sf_loss_v8": 127,
+   "sf_loss_maia": 252
+  },
+  {
+   "site": "https://lichess.org/zajgpfry",
+   "human": "b2c3",
+   "v8": "d2c2",
+   "maia": "b2c3",
+   "v8_gap_cp": -4,
+   "sf_loss_v8": 37,
+   "sf_loss_maia": 49
+  },
+  {
+   "site": "https://lichess.org/a5nw9wyq",
+   "human": "h1f1",
+   "v8": "c1c7",
+   "maia": "h1f1",
+   "v8_gap_cp": 60,
+   "sf_loss_v8": 19,
+   "sf_loss_maia": 38
+  },
+  {
+   "site": "https://lichess.org/f12n636w",
+   "human": "d8e7",
+   "v8": "d8e7",
+   "maia": "f6e4",
+   "v8_gap_cp": 94,
+   "sf_loss_v8": 25,
+   "sf_loss_maia": 116
+  },
+  {
+   "site": "https://lichess.org/fjxjynkq",
+   "human": "e6g7",
+   "v8": "e6g7",
+   "maia": "e6g7",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/djkovyfj",
+   "human": "e4e5",
+   "v8": "e4f5",
+   "maia": "b4b5",
+   "v8_gap_cp": 15,
+   "sf_loss_v8": 73,
+   "sf_loss_maia": 34
+  },
+  {
+   "site": "https://lichess.org/3x6rjbqe",
+   "human": "b2b3",
+   "v8": "b2b3",
+   "maia": "b2b3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/xbnbeqeu",
+   "human": "d3d4",
+   "v8": "d3d4",
+   "maia": "d3d4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/y7da977i",
+   "human": "f4d5",
+   "v8": "d4e5",
+   "maia": "f4d5",
+   "v8_gap_cp": 155,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 84
+  },
+  {
+   "site": "https://lichess.org/ia4meujy",
+   "human": "d1h5",
+   "v8": "d1a4",
+   "maia": "a2a4",
+   "v8_gap_cp": 52,
+   "sf_loss_v8": 58,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/hfefkdwz",
+   "human": "e7f5",
+   "v8": "e7f5",
+   "maia": "e8g8",
+   "v8_gap_cp": 41,
+   "sf_loss_v8": 135,
+   "sf_loss_maia": 20
+  },
+  {
+   "site": "https://lichess.org/ybvn16h5",
+   "human": "f2f3",
+   "v8": "f2f3",
+   "maia": "f2f3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/tlo95d84",
+   "human": "c7c5",
+   "v8": "b8c6",
+   "maia": "f6e4",
+   "v8_gap_cp": 8,
+   "sf_loss_v8": 17,
+   "sf_loss_maia": 2
+  },
+  {
+   "site": "https://lichess.org/cpx3xcbj",
+   "human": "f4e2",
+   "v8": "c8b7",
+   "maia": "f4e2",
+   "v8_gap_cp": 20,
+   "sf_loss_v8": 18,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/kvlvvuvu",
+   "human": "b7a6",
+   "v8": "b7e4",
+   "maia": "b7e4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 3,
+   "sf_loss_maia": 3
+  },
+  {
+   "site": "https://lichess.org/6drnx88k",
+   "human": "e1g1",
+   "v8": "e1g1",
+   "maia": "e4e5",
+   "v8_gap_cp": 55,
+   "sf_loss_v8": 14,
+   "sf_loss_maia": 48
+  },
+  {
+   "site": "https://lichess.org/kv4evmb9",
+   "human": "g3f3",
+   "v8": "c6c5",
+   "maia": "g3f3",
+   "v8_gap_cp": 46,
+   "sf_loss_v8": 26,
+   "sf_loss_maia": 85
+  },
+  {
+   "site": "https://lichess.org/qjiv6108",
+   "human": "a2b2",
+   "v8": "c2f2",
+   "maia": "f1g3",
+   "v8_gap_cp": 62,
+   "sf_loss_v8": 29,
+   "sf_loss_maia": 39
+  },
+  {
+   "site": "https://lichess.org/ltsdbhnk",
+   "human": "g5e4",
+   "v8": "g5e6",
+   "maia": "g5e4",
+   "v8_gap_cp": 34,
+   "sf_loss_v8": 121,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/dvr7zrbe",
+   "human": "d1a4",
+   "v8": "d1a4",
+   "maia": "c4c5",
+   "v8_gap_cp": 11,
+   "sf_loss_v8": 31,
+   "sf_loss_maia": 23
+  },
+  {
+   "site": "https://lichess.org/25hrso11",
+   "human": "c1b2",
+   "v8": "a4c5",
+   "maia": "a4c5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 28,
+   "sf_loss_maia": 28
+  },
+  {
+   "site": "https://lichess.org/3z7fmp5j",
+   "human": "b2c3",
+   "v8": "b2c3",
+   "maia": "b2c3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/jqty0hsf",
+   "human": "d6e5",
+   "v8": "d6e5",
+   "maia": "d6e5",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 0,
+   "sf_loss_maia": 0
+  },
+  {
+   "site": "https://lichess.org/p6s3hz7t",
+   "human": "d3e4",
+   "v8": "e2g2",
+   "maia": "d3e4",
+   "v8_gap_cp": 89,
+   "sf_loss_v8": 60,
+   "sf_loss_maia": 149
+  },
+  {
+   "site": "https://lichess.org/j19mcw4p",
+   "human": "d2d4",
+   "v8": "h2h3",
+   "maia": "d2d4",
+   "v8_gap_cp": 10,
+   "sf_loss_v8": 11,
+   "sf_loss_maia": 5
+  },
+  {
+   "site": "https://lichess.org/uxnvgjv0",
+   "human": "f2g3",
+   "v8": "f2g3",
+   "maia": "f2g3",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 5,
+   "sf_loss_maia": 5
+  },
+  {
+   "site": "https://lichess.org/yfoslu0w",
+   "human": "e8f8",
+   "v8": "a7a5",
+   "maia": "a8d8",
+   "v8_gap_cp": 36,
+   "sf_loss_v8": 20,
+   "sf_loss_maia": 47
+  },
+  {
+   "site": "https://lichess.org/jq7icvdl",
+   "human": "f8f7",
+   "v8": "f8f7",
+   "maia": "b7e4",
+   "v8_gap_cp": 99319,
+   "sf_loss_v8": 241,
+   "sf_loss_maia": 1000
+  },
+  {
+   "site": "https://lichess.org/va2ul0w3",
+   "human": "e3f5",
+   "v8": "e3c4",
+   "maia": "e3c4",
+   "v8_gap_cp": 0,
+   "sf_loss_v8": 59,
+   "sf_loss_maia": 59
+  },
+  {
+   "site": "https://lichess.org/7q2777w3",
+   "human": "f3h5",
+   "v8": "f2d2",
+   "maia": "f3h5",
+   "v8_gap_cp": 25,
+   "sf_loss_v8": 28,
+   "sf_loss_maia": 0
+  }
+ ]
+}

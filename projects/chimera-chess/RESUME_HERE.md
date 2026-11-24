@@ -1,28 +1,36 @@
 # RESUME HERE (CHIMERA)
 
-1. `git fetch origin ccr-9399d410-lphg3o && git checkout ccr-9399d410-lphg3o`. Check HEAD against the last commit that touches `projects/chimera-chess/`.
-2. `cd projects/chimera-chess && sh native/build.sh && python -m unittest tests.test_v7 tests.test_native`. Expect 22 OK.
-3. Read `STATUS_V8.md` (current gates), then `STATUS.md` (V7 history), then `canon/LEDGER_V8_167.csv`.
+1. `git fetch origin ccr-9399d410-lphg3o && git checkout ccr-9399d410-lphg3o`.
+2. `cd projects/chimera-chess && sh native/build.sh && g++ -std=c++17 -O2 -DNDEBUG -pthread native/ref/chimera_v8_996f592.cpp -o native/ref/chimera-v8-ref`
+3. `python -m unittest tests.test_v7 tests.test_native`. Expect 27 OK.
+4. Read `STATUS_V9.md` (current), `STATUS_V8.md`, `STATUS.md`, then `canon/LEDGER_V9_167.csv`.
 
-## Next experiments, ordered by evidence
+## What the V9 evidence says to do next (ordered)
 
-1. **Evaluation and depth, the strength bottleneck.**
-   - The 3 evaluation-limited hard misses (00rjB, 01uWs, 023Uk) and V7's positional-loss diagnosis both point at evaluation.
-   - Next step: a small NNUE-style network (768→64→1), trained on positions from `evidence/v8/matches/*.pgn` plus puzzle FENs, labelled by SF16 at depth 10–12. Split by game, then by opening.
-   - Gate it with `tools/match.py --a native:3 --b native:2 --tc 10+0.1` (48+ games) and the hard suite.
-2. **A real Skeptic.**
-   - Make it independent: a different evaluator, either NNUE or the Maia3 value head, verifying sacrifices.
-   - Trigger it on criticality: best-move instability across iterations, or score swing above 60cp.
-   - Never take time from easy positions.
-   - Pre-register it the same way as `evidence/v8/PREREG_artist_extension.md`.
-3. **Memory-dependent task suite.** Same board, different histories; this needs a learned plan-state head. Compare it against the PV baseline in `evidence/v8/trace_metrics_sf2800.json`.
-4. **Style corpus:** do a licensing review of historical master PGN sources before downloading anything.
-5. **Device:** follow the owner action in `native/dist/device_bench.sh`.
+1. **Strength via evaluation, done properly.** Both trained-evaluator attempts failed (`evidence/v9/PREREG_nnue.md`).
+   - **Root causes:**
+     - Data size: 63–129k positions is far too few.
+     - Label bias: puzzle positions skew the target.
+     - No incremental accumulator: about 2× node-rate cost.
+   - **Next:**
+     - Generate at least 2M quiet self-play positions (`tools/build_selfplay_dataset.py`, run in parallel shards). Label them with SF16 depth 9.
+     - Add an incremental accumulator in `nnue_eval`.
+     - Retrain the residual net.
+   - **Gate:** the same pre-registration, versus `ref:2`.
+2. **Creativity where the deficit actually is.** V8 does not play unsound sacrifices (0/37 hard counterexamples). It misses deep sound ones: 10/60 hard sacrifices, depth- or evaluation-limited.
+   - The useful mechanism is selective *search* depth on sacrifice lines: singular or sacrifice extensions *inside* the tree, not just at the root, plus better evaluation.
+   - **Gate:** `evidence/v8/hard_sac_suite.json` plus `evidence/v9/hard_sac_negatives.json` (no false-sacrifice regression).
+3. **Memory.** The deterministic `PlanState` has no strength benefit (`evidence/v9/matches/planmemory_vs_none_10s.*`).
+   - **Next:** a memory-*dependent* task suite, e.g. the same board where the history makes a different plan correct (opponent tendencies, repetition rights).
+   - A learned plan-state head should only follow once that suite exists.
+4. **Humanization.** On real human games, Maia3 matches 54.9% vs V8's 40.3%.
+   - The bounded-loss curve in `evidence/v9/humanizer_pareto.json` gives the human-likeness vs cp-loss trade-off.
+   - **Next:** wire it into the engine as a UCI option, with the margin chosen from that curve. Then do blinded assessment.
+5. **Style corpus.** Blocked on a licensing decision.
+6. **Device:** run `native/dist/device_bench.sh` on the phone.
 
 ## Next command
 
 ```sh
-cd projects/chimera-chess && python tools/match.py --a native:2 --b sf:2800 --tc 60+0.6 --jobs 3 --out evidence/v8/matches/v8n2_vs_sf2800_60s
+cd projects/chimera-chess && for s in 11 12 13; do python tools/build_selfplay_dataset.py nnue/dataset_v3_s$s.tsv.gz 8000 $s & done; wait
 ```
-
-This is an anchor at Stockfish's own calibration time control.

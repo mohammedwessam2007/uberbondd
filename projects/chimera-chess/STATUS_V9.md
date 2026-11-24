@@ -81,7 +81,24 @@ On 800 held-out human positions (Lichess 2013-01, CC0, SHA-256 `aa40b367…1635`
 
 V8 agrees with Maia on 43.5% (`evidence/v9/human_match_lichess2013.json`).
 
-The bounded-loss human-preference trade-off curve is in `evidence/v9/humanizer_pareto.json`, with values below. These are amateur human games, not grandmasters, and there was no blinded expert assessment. No scripted errors, telemetry or impersonation features exist.
+The bounded-loss human-preference trade-off curve is in `evidence/v9/humanizer_pareto.json`. It plays Maia's predicted move only if V8's own 20k-node search rates it within the margin of V8's best. Stockfish 16 at depth 10 re-scores every chosen move:
+
+| Margin | Human match | Mean SF cp loss | Maia move used |
+|---|---|---|---|
+| 0 | 41.1% | 36.3 | 49.5% |
+| 10 | 43.5% | 38.6 | 57.0% |
+| 25 | 47.0% | 38.2 | 68.6% |
+| **50** | **50.8%** | **39.3** | 81.3% |
+| 100 | 52.6% | 40.8 | 89.8% |
+| 200 | 54.9% | 43.8 | 95.6% |
+
+For reference: pure V8 matches 39.9% (cp loss ≈36); pure Maia3 matches 54.9% with cp loss 58.4.
+
+At a 50cp margin, human-likeness gains about +11 points for about 3cp of extra loss. **This is MEASURED, not a gate pass.** It has not yet been wired into the UCI engine (Maia runs in Python), and the depth-10 cp-loss estimates are noisy.
+
+Two engine bugs were found and fixed during this run; both have regression tests:
+- `searchmoves` swallowed the `nodes N` limit.
+- A forced single move returned with no `info pv` line. These are amateur human games, not grandmasters, and there was no blinded expert assessment. No scripted errors, telemetry or impersonation features exist.
 
 ## P8 Mobile: cross-build and parity only
 

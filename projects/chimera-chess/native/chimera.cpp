@@ -766,7 +766,11 @@ struct Searcher {
     if (root.empty()) return 0;
     Move best = root[0];
     int best_score = 0;
-    if (root.size() == 1 && !lim.infinite && lim.searchmoves.empty()) { root_best = best; return best; }
+    if (root.size() == 1 && !lim.infinite && lim.searchmoves.empty()) {
+      // V9 fix: forced move still reports an info line with pv (UCI analysis clients expect one)
+      if (print) { printf("info depth 1 score cp %d nodes 1 time 0 pv %s\n", evaluate(pos), move_str(best).c_str()); fflush(stdout); }
+      root_best = best; return best;
+    }
     order(root, TT[pos.hash & TT_MASK].key == pos.hash ? TT[pos.hash & TT_MASK].move : 0, 0);
     if (plan_hint) {
       auto it = std::find(root.begin(), root.end(), plan_hint);
@@ -1072,7 +1076,20 @@ int main(int argc, char **argv) {
         else if (t == "winc") is >> l.winc; else if (t == "binc") is >> l.binc; else if (t == "movestogo") is >> l.movestogo;
         else if (t == "depth") is >> l.depth; else if (t == "nodes") is >> l.nodes; else if (t == "infinite") l.infinite = true;
         else if (t == "perft") is >> perft_d;
-        else if (t == "searchmoves") { std::string u; while (is >> u) { Move m = S.pos.parse(u); if (m) l.searchmoves.push_back(m); } }
+        else if (t == "searchmoves") {
+          // V9 fix: stop at the next go keyword (python-chess sends searchmoves before nodes/movetime)
+          std::string u;
+          while (is.peek() != EOF) {
+            std::streampos at = is.tellg();
+            if (!(is >> u)) break;
+            static const char *kw[] = {"wtime", "btime", "winc", "binc", "movestogo", "depth", "nodes", "mate", "movetime", "infinite", "ponder", "perft"};
+            bool key = false;
+            for (auto k : kw) if (u == k) key = true;
+            if (key) { is.clear(); is.seekg(at); break; }
+            Move m = S.pos.parse(u);
+            if (m) l.searchmoves.push_back(m);
+          }
+        }
       }
       if (perft_d >= 0) {
         std::vector<Move> root; S.pos.legal(root); U64 tot = 0;

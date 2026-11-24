@@ -211,3 +211,27 @@ class PlanMemoryTests(unittest.TestCase):
         self.assertEqual(a["status"], "ON_TRACK")
         self.assertIn(c["status"], ("NONE", "RESET"))
         self.assertEqual(int(a["hits"]), 1)
+
+
+class SearchMovesTests(unittest.TestCase):
+    def test_searchmoves_before_limits(self):
+        # regression: V9 parser swallowed 'nodes N' after searchmoves -> unbounded search
+        e = Engine()
+        e.send("position startpos")
+        t0 = time.time()
+        e.send("go searchmoves a2a3 h2h4 nodes 5000")
+        best, _ = e.until("bestmove", 10)
+        self.assertIn(best.split()[1], ("a2a3", "h2h4"))
+        self.assertLess(time.time() - t0, 2.0)
+        e.close()
+
+
+class ForcedMoveTests(unittest.TestCase):
+    def test_single_legal_move_reports_pv(self):
+        e = Engine()
+        e.send("position fen 7k/8/8/8/8/8/6q1/7K w - - 0 1")
+        e.send("go nodes 100")
+        best, lines = e.until("bestmove", 5)
+        self.assertEqual(best.split()[1], "h1g2")
+        self.assertTrue(any(" pv h1g2" in l for l in lines))
+        e.close()

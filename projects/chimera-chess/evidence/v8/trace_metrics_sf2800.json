@@ -1,0 +1,12 @@
+{
+ "games": 48,
+ "engine": "native:2",
+ "moves_with_prediction": 2740,
+ "reply_prediction_rate": 0.395,
+ "plan_continuation_rate_when_predicted": 0.771,
+ "plan_continuation_n": 1069,
+ "surprises": 1659,
+ "mean_abs_score_shift_after_surprise_cp": 76.7,
+ "replan_rate_after_surprise": 0.81,
+ "note": "Search-PV based state, not a learned memory. Baseline for any future learned plan-state head."
+}

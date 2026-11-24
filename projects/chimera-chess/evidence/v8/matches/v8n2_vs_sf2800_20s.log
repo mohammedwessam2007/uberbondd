@@ -1,0 +1,72 @@
+  1               native:2 - sf:2800                1-0     CHECKMATE 103
+  2                sf:2800 - native:2               1/2-1/2 THREEFOLD_REPETITION 226
+  3               native:2 - sf:2800                1/2-1/2 THREEFOLD_REPETITION 115
+  4                sf:2800 - native:2               1/2-1/2 THREEFOLD_REPETITION 138
+  5               native:2 - sf:2800                1/2-1/2 THREEFOLD_REPETITION 75
+  6                sf:2800 - native:2               1/2-1/2 THREEFOLD_REPETITION 226
+  7               native:2 - sf:2800                0-1     CHECKMATE 268
+  8                sf:2800 - native:2               1-0     CHECKMATE 81
+  9               native:2 - sf:2800                1/2-1/2 THREEFOLD_REPETITION 41
+ 10                sf:2800 - native:2               1-0     CHECKMATE 185
+ 11               native:2 - sf:2800                1/2-1/2 INSUFFICIENT_MATERIAL 162
+ 12                sf:2800 - native:2               1-0     CHECKMATE 115
+ 13               native:2 - sf:2800                1/2-1/2 THREEFOLD_REPETITION 121
+ 14                sf:2800 - native:2               1-0     CHECKMATE 97
+ 15               native:2 - sf:2800                0-1     CHECKMATE 98
+ 16                sf:2800 - native:2               1/2-1/2 THREEFOLD_REPETITION 88
+ 17               native:2 - sf:2800                0-1     CHECKMATE 72
+ 18                sf:2800 - native:2               1/2-1/2 THREEFOLD_REPETITION 88
+ 19               native:2 - sf:2800                0-1     CHECKMATE 232
+ 20                sf:2800 - native:2               1/2-1/2 THREEFOLD_REPETITION 88
+ 21               native:2 - sf:2800                1/2-1/2 THREEFOLD_REPETITION 187
+ 22                sf:2800 - native:2               1-0     CHECKMATE 75
+ 23               native:2 - sf:2800                0-1     CHECKMATE 76
+ 24                sf:2800 - native:2               1/2-1/2 THREEFOLD_REPETITION 194
+ 25               native:2 - sf:2800                1/2-1/2 THREEFOLD_REPETITION 127
+ 26                sf:2800 - native:2               1-0     CHECKMATE 79
+ 27               native:2 - sf:2800                0-1     CHECKMATE 130
+ 28                sf:2800 - native:2               1-0     CHECKMATE 177
+ 29               native:2 - sf:2800                1-0     CHECKMATE 143
+ 30                sf:2800 - native:2               1-0     CHECKMATE 83
+ 31               native:2 - sf:2800                1/2-1/2 ply cap 300 300
+ 32                sf:2800 - native:2               1-0     CHECKMATE 57
+ 33               native:2 - sf:2800                1/2-1/2 THREEFOLD_REPETITION 127
+ 34                sf:2800 - native:2               1/2-1/2 THREEFOLD_REPETITION 108
+ 35               native:2 - sf:2800                1-0     CHECKMATE 185
+ 36                sf:2800 - native:2               1-0     CHECKMATE 97
+ 37               native:2 - sf:2800                0-1     CHECKMATE 168
+ 38                sf:2800 - native:2               1-0     CHECKMATE 135
+ 39               native:2 - sf:2800                1/2-1/2 THREEFOLD_REPETITION 83
+ 40                sf:2800 - native:2               1/2-1/2 INSUFFICIENT_MATERIAL 211
+ 41               native:2 - sf:2800                0-1     CHECKMATE 134
+ 42                sf:2800 - native:2               1/2-1/2 THREEFOLD_REPETITION 200
+ 43               native:2 - sf:2800                1/2-1/2 THREEFOLD_REPETITION 85
+ 44                sf:2800 - native:2               1/2-1/2 THREEFOLD_REPETITION 66
+ 45               native:2 - sf:2800                0-1     CHECKMATE 54
+ 46                sf:2800 - native:2               1-0     CHECKMATE 83
+ 47               native:2 - sf:2800                0-1     CHECKMATE 250
+ 48                sf:2800 - native:2               1/2-1/2 THREEFOLD_REPETITION 140
+/home/user/uberbondd/projects/chimera-chess/tools/match.py:212: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  "date_utc": datetime.datetime.utcnow().isoformat(timespec="seconds")}
+{
+  "a": "native:2",
+  "b": "sf:2800",
+  "tc": "20+0.2",
+  "games": 48,
+  "a_wins": 3,
+  "draws": 23,
+  "a_losses": 22,
+  "a_score": 14.5,
+  "a_pct": 0.3021,
+  "elo_diff_a_minus_b_95ci": [
+    -145,
+    -273,
+    -48
+  ],
+  "time_forfeits": 0,
+  "illegal_or_failure": 0,
+  "stockfish": "/usr/games/stockfish",
+  "python": "3.13.18",
+  "chess": "1.11.2",
+  "date_utc": "2026-11-23T23:57:41"
+}

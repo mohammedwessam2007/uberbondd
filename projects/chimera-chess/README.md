@@ -1,6 +1,6 @@
-# CHIMERA V7 — the offline chess engine (successor work after the Codex V6 handoff)
+# CHIMERA (V8 research milestone) — offline chess engine
 
-Read `RECOVERY_RECEIPT_2026-11-23.md` and `STATUS.md` first.
+**Start with `RESUME_HERE.md` and `STATUS_V8.md`.** The default engine is now the V8 native C++ core (`./run-uci.sh`, source `native/chimera.cpp`). Everything below documents V7, which remains runnable and unchanged as the baseline. Read `RECOVERY_RECEIPT_2026-11-23.md` and `STATUS.md` for V7 history.
 
 **What V7 is.** V7 is new code. It is **not** the Codex V6 runtime, which was not recovered.
 It has four parts:

@@ -1,0 +1,42 @@
+{
+ "host": "Linux-6.18.44-fc-v726-x86_64-with-glibc2.39",
+ "cpu_count": 4,
+ "positions": 120,
+ "note": "HOST ONLY. PHONE NOT TESTED. Other processes may share the CPU (see 'concurrent_load').",
+ "concurrent_load": [
+  1.7109375,
+  2.71875,
+  2.88134765625
+ ],
+ "cold_load_ms": {
+  "p50": 21.8,
+  "max": 25.5
+ },
+ "movetime_80": {
+  "requested_ms": 80,
+  "n": 120,
+  "p50": 48.04,
+  "p95": 70.43,
+  "p99": 70.62,
+  "max": 70.79,
+  "violations_over_request": 0
+ },
+ "movetime_250": {
+  "requested_ms": 250,
+  "n": 120,
+  "p50": 175.27,
+  "p95": 240.47,
+  "p99": 240.61,
+  "max": 240.75,
+  "violations_over_request": 0
+ },
+ "movetime_1000": {
+  "requested_ms": 1000,
+  "n": 120,
+  "p50": 713.74,
+  "p95": 990.51,
+  "p99": 992.45,
+  "max": 993.05,
+  "violations_over_request": 0
+ }
+}

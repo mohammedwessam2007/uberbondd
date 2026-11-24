@@ -1,0 +1,11 @@
+{
+ "method": "1-parameter logistic MLE, 96 games vs SF16 UCI_LimitStrength 2400 and 2800 at 20s+0.2s; 95% profile likelihood",
+ "estimate": 2585.0,
+ "ci95": [
+  2504.0,
+  2666.0
+ ],
+ "games": 96,
+ "scale": "Stockfish 16 UCI_Elo scale at 20s+0.2s, Threads 1, this host. NOT FIDE, NOT human-equivalent, NOT CCRL.",
+ "comparison_v7": "V7 Python pooled 1880 [1765,1996] at 40s+0.4s vs anchors 1600/2000 (different TC; not directly comparable)"
+}

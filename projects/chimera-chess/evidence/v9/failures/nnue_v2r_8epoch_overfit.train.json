@@ -1,0 +1,69 @@
+{
+ "data": "nnue/dataset_v2_selfplay.tsv.gz",
+ "data_sha256": "fd4e322a56744a8c29274a9ff7c67fba837865ec64c5b033b5f13b5c9b0430f8",
+ "train_positions": 63110,
+ "val_positions": 6212,
+ "hidden": 64,
+ "epochs": 8,
+ "seed": 1,
+ "residual_on_evalv2": true,
+ "optimizer": "Adam(0.9,0.999) lr 1e-3 then 3e-4 (last 30%), batch 512",
+ "params": 49281,
+ "curve": [
+  {
+   "epoch": 1,
+   "train_loss": 0.007428,
+   "val_loss": 0.007521,
+   "elapsed_s": 1.4
+  },
+  {
+   "epoch": 2,
+   "train_loss": 0.00637,
+   "val_loss": 0.007422,
+   "elapsed_s": 2.4
+  },
+  {
+   "epoch": 3,
+   "train_loss": 0.005804,
+   "val_loss": 0.007503,
+   "elapsed_s": 3.5
+  },
+  {
+   "epoch": 4,
+   "train_loss": 0.005293,
+   "val_loss": 0.007517,
+   "elapsed_s": 4.8
+  },
+  {
+   "epoch": 5,
+   "train_loss": 0.004812,
+   "val_loss": 0.007543,
+   "elapsed_s": 6.1
+  },
+  {
+   "epoch": 6,
+   "train_loss": 0.004395,
+   "val_loss": 0.007619,
+   "elapsed_s": 7.5
+  },
+  {
+   "epoch": 7,
+   "train_loss": 0.003937,
+   "val_loss": 0.007585,
+   "elapsed_s": 8.6
+  },
+  {
+   "epoch": 8,
+   "train_loss": 0.003804,
+   "val_loss": 0.007622,
+   "elapsed_s": 9.6
+  }
+ ],
+ "val_loss_trained": 0.007622,
+ "val_loss_baselines": {
+  "EvalV1_static": 0.00884360633790493,
+  "EvalV2_static": 0.008281288668513298
+ },
+ "weights": "nnue/chimera-nnue-v2r.bin",
+ "weights_sha256": "fc44934d0329b7dd7420280635235f1bf7a566db61c5986ff231d34dfb89b298"
+}

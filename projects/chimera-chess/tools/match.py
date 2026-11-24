@@ -66,13 +66,24 @@ def open_player(spec: str):
             opts["Style"] = rest[1]
         eng.configure(opts)
         return eng
-    if kind == "native":
-        eng = chess.engine.SimpleEngine.popen_uci(os.path.join(ROOT, "native", "chimera"))
+    if kind in ("native", "ref"):
+        # ref = frozen V8 reference build native/ref/chimera-v8-ref (source native/ref/chimera_v8_996f592.cpp)
+        binp = os.path.join(ROOT, "native", "ref", "chimera-v8-ref") if kind == "ref" else os.path.join(ROOT, "native", "chimera")
+        eng = chess.engine.SimpleEngine.popen_uci(binp)
         opts = {"Hash": 64, "MoveOverheadMs": 20}
         if rest:
             opts["EvalVersion"] = int(rest[0])
         if "art" in rest:
             opts["ArtistExtension"] = True
+        if "skeptic" in rest:
+            opts["Skeptic"] = True
+        if "plan" in rest:
+            opts["PlanMemory"] = True
+        for t in rest:
+            if t.startswith("file="):
+                opts["EvalFile"] = os.path.join(ROOT, t[5:])
+        if "EvalFile" in opts:
+            eng.configure({"EvalFile": opts.pop("EvalFile")})
         eng.configure(opts)
         eng.chimera_nodes = int(rest[1].split("=")[1]) if len(rest) > 1 and rest[1].startswith("nodes=") else None
         return eng

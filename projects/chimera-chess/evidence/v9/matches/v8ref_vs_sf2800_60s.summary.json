@@ -1,0 +1,22 @@
+{
+  "a": "ref:2",
+  "b": "sf:2800",
+  "tc": "60+0.6",
+  "games": 48,
+  "a_wins": 4,
+  "draws": 25,
+  "a_losses": 19,
+  "a_score": 16.5,
+  "a_pct": 0.3438,
+  "elo_diff_a_minus_b_95ci": [
+    -112,
+    -231,
+    -15
+  ],
+  "time_forfeits": 0,
+  "illegal_or_failure": 0,
+  "stockfish": "/usr/games/stockfish",
+  "python": "3.13.18",
+  "chess": "1.11.2",
+  "date_utc": "2026-11-24T00:58:15"
+}

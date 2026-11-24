@@ -1,0 +1,86 @@
+002e5 hard_sacrifice native:2:skeptic=g4c4* native:2=g4c4*
+00KYC hard_sacrifice native:2:skeptic=f8f7 native:2=f8f7
+00KgF hard_sacrifice native:2:skeptic=g5h5* native:2=g5h5*
+00OKo hard_sacrifice native:2:skeptic=a1f1* native:2=a1f1*
+00P81 hard_sacrifice native:2:skeptic=b4b8* native:2=b4b8*
+00Pms hard_sacrifice native:2:skeptic=g7f8* native:2=g7f8*
+00QjF hard_sacrifice native:2:skeptic=a2a4 native:2=a2a4
+00UJP hard_sacrifice native:2:skeptic=h4g3* native:2=h4g3*
+00WoW hard_sacrifice native:2:skeptic=a5a4* native:2=a5a4*
+00YYk hard_sacrifice native:2:skeptic=f3f8* native:2=f3f8*
+00ZEW hard_sacrifice native:2:skeptic=e2h5* native:2=e2h5*
+00eYd hard_sacrifice native:2:skeptic=g3g1 native:2=g3g1
+00gpa hard_sacrifice native:2:skeptic=d2e3* native:2=d2e3*
+00hCU hard_sacrifice native:2:skeptic=f4g3* native:2=f4g3*
+00nsa hard_sacrifice native:2:skeptic=e4g4* native:2=e4g4*
+00rjB hard_sacrifice native:2:skeptic=f7g7 native:2=f7g7
+00sJ9 hard_sacrifice native:2:skeptic=e8e1* native:2=e8e1*
+00sKJ hard_sacrifice native:2:skeptic=a6d6* native:2=a6d6*
+00uL7 hard_sacrifice native:2:skeptic=b6f2* native:2=b6f2*
+00vf5 hard_sacrifice native:2:skeptic=d4b5* native:2=d4b5*
+00vuv hard_sacrifice native:2:skeptic=g6f8* native:2=g6f8*
+0122Z hard_sacrifice native:2:skeptic=f5f4* native:2=f5f4*
+013U2 hard_sacrifice native:2:skeptic=e1e7* native:2=e1e7*
+015zy hard_sacrifice native:2:skeptic=h7f7* native:2=h7f7*
+018Cs hard_sacrifice native:2:skeptic=c3d5* native:2=c3d5*
+018eM hard_sacrifice native:2:skeptic=e2e7* native:2=e2e7*
+019PB hard_sacrifice native:2:skeptic=e2e5* native:2=e2e5*
+019gx hard_sacrifice native:2:skeptic=c4a4* native:2=c4a4*
+01A5W hard_sacrifice native:2:skeptic=g3g6* native:2=g3g6*
+01B5q hard_sacrifice native:2:skeptic=f6g7* native:2=f6g7*
+01BBu hard_sacrifice native:2:skeptic=h4g4* native:2=h4g4*
+01Brx hard_sacrifice native:2:skeptic=f8f6* native:2=f8f6*
+01CmR hard_sacrifice native:2:skeptic=f8f3* native:2=f8f3*
+01Isj hard_sacrifice native:2:skeptic=a2a3 native:2=a2a3
+01JEA hard_sacrifice native:2:skeptic=f8f1* native:2=f8f1*
+01K6c hard_sacrifice native:2:skeptic=g6c6 native:2=d5f3*
+01LQB hard_sacrifice native:2:skeptic=g6f7* native:2=g6f7*
+01M2U hard_sacrifice native:2:skeptic=h6h3* native:2=h6h3*
+01OkZ hard_sacrifice native:2:skeptic=g5g6 native:2=g5g6
+01P1X hard_sacrifice native:2:skeptic=f6e4* native:2=f6e4*
+01PDg hard_sacrifice native:2:skeptic=c7f4* native:2=c7f4*
+01Pkf hard_sacrifice native:2:skeptic=b3e3 native:2=b3e3
+01TxI hard_sacrifice native:2:skeptic=f8f4* native:2=h5h4
+01Xw1 hard_sacrifice native:2:skeptic=g5e6* native:2=g5e6*
+01aM3 hard_sacrifice native:2:skeptic=d2f2* native:2=d2f2*
+01fEB hard_sacrifice native:2:skeptic=a8e8* native:2=a8e8*
+01hzW hard_sacrifice native:2:skeptic=b4a4* native:2=b4a4*
+01kad hard_sacrifice native:2:skeptic=b4b3* native:2=b4b3*
+01lAW hard_sacrifice native:2:skeptic=e4d6* native:2=e4d6*
+01lBC hard_sacrifice native:2:skeptic=e8d8* native:2=e8d8*
+01oma hard_sacrifice native:2:skeptic=f1f8* native:2=f1f8*
+01rCa hard_sacrifice native:2:skeptic=f5h6* native:2=f5h6*
+01uWs hard_sacrifice native:2:skeptic=d6c5 native:2=d6c5
+01v4V hard_sacrifice native:2:skeptic=d6h2* native:2=d6h2*
+01y0W hard_sacrifice native:2:skeptic=h8h2* native:2=h8h2*
+023Uk hard_sacrifice native:2:skeptic=f2e3 native:2=f2e3
+024PS hard_sacrifice native:2:skeptic=c5e3* native:2=c5e3*
+025BR hard_sacrifice native:2:skeptic=g8h8* native:2=g8h8*
+026QC hard_sacrifice native:2:skeptic=a3a4* native:2=a3a4*
+02Chp hard_sacrifice native:2:skeptic=g3g7* native:2=g3g7*
+{
+ "movetime_ms": 300,
+ "positions": 60,
+ "native:2:skeptic": {
+  "solved": "50/60",
+  "by_theme": {
+   "hard_sacrifice": "50/60"
+  },
+  "mean_cp_loss_capped_1000": 59.4,
+  "positives_solved": "50/60",
+  "false_sacrifices": "0/0"
+ },
+ "native:2": {
+  "solved": "50/60",
+  "by_theme": {
+   "hard_sacrifice": "50/60"
+  },
+  "mean_cp_loss_capped_1000": 60.9,
+  "positives_solved": "50/60",
+  "false_sacrifices": "0/0"
+ },
+ "paired": {
+  "only_native:2:skeptic": 1,
+  "only_native:2": 1
+ }
+}

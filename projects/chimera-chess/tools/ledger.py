@@ -116,3 +116,47 @@ def v8():
 
 if __name__ == "__main__":
     v8()
+
+
+# ---------------------------------------------------------------- V9 columns (added 2026-11-24)
+V9 = {
+    "#025": ("VERIFIED_FAIL", "tools/train_nnue.py; native EvalVersion 3", "evidence/v9/PREREG_nnue.md; matches/eval3v1_vs_eval2_10s (0-48); eval3v2r_vs_eval2_10s (10-8-30); eval3v2r_vs_eval2_fixed50k (18-9-21)", "trained evaluator (search-to-instinct distillation from SF16 labels) lost both attempts", "v1 data bias (puzzles, +484cp stm mean); v2 residual: small data (63k), no gain even at equal nodes"),
+    "#053": ("VERIFIED_FAIL_NO_HEADROOM", "native Skeptic option (EvalV3/EvalV1 + separate TT)", "evidence/v9/PREREG_skeptic.md; skeptic_v7bench_1000ms; skeptic_hardsac_300ms; skeptic_hardneg_300ms", "baseline already 0/18 and 0/37 false sacrifices; hard sacs 50/60 both", "V8 search does not produce unsound sacrifices on these suites"),
+    "#118": ("VERIFIED_FAIL", "native ArtistExtension + Skeptic", "V8 prereg + V9 skeptic suites", "no gain", "misses are depth/eval-limited"),
+    "#163": ("VERIFIED_FAIL", "native ArtistExtension + Skeptic", "same", "no gain", ""),
+    "#065": ("BOUNDED_TRIAL_NO_GAIN", "native PlanState (plan_observe/plan_record)", "tests.test_native.PlanMemoryTests; matches/planmemory_vs_none_10s (13-17-18, -36 [-141,62])", "ON_TRACK/SURPRISED/BROKEN with repair time; history-dependent", "no measured strength benefit"),
+    "#073": ("BOUNDED_TRIAL_NO_GAIN", "native PlanState objective/prereq/pred_reply", "PlanMemoryTests; planmemory match", "plan witness carried across real moves", "objective classifier is heuristic"),
+    "#082": ("BOUNDED_TRIAL", "native PlanState.prereq", "PlanMemoryTests", "prerequisite squares checked every move", "shallow dependency model"),
+    "#095": ("BOUNDED_TRIAL_NO_GAIN", "native PlanState", "PlanMemoryTests; planmemory match", "versioned, reset on new game / FEN restore", ""),
+    "#103": ("BOUNDED_TRIAL_NO_GAIN", "native plan_observe -> soft budget x1.35/x1.5", "planmemory match", "surprise -> extra deliberation", "no gain"),
+    "#108": ("BOUNDED_TRIAL_NO_GAIN", "native PlanState", "PlanMemoryTests.test_same_board_two_histories", "same board, different history -> different plan state", ""),
+    "#113": ("BOUNDED_TRIAL_NO_GAIN", "native PlanState (deterministic)", "same", "episodic state across moves", "not learned"),
+    "#063": ("MEASURED_BASELINE", "native pred_reply + tools/trace_analysis.py", "evidence/v8/trace_metrics_sf2800.json", "39.5% reply prediction", ""),
+    "#045": ("MEASURED_BASELINE", "tools/human_match.py", "evidence/v9/human_match_lichess2013.json", "human top-1: Maia3 54.9%, V8 40.3%, SF16 d10 38.5% (800 positions)", "Lichess 2013 amateurs, not grandmasters"),
+    "#013": ("MEASURED_BASELINE", "tools/humanizer_pareto.py", "evidence/v9/humanizer_pareto.json", "bounded-loss human preference curve", "not blinded expert assessment"),
+    "#020": ("BLOCKED", "", "", "", "needs a lawfully licensed historical master PGN corpus (owner decision on source/terms)"),
+    "#059": ("BLOCKED", "", "", "", "same corpus blocker as #020"),
+    "#111": ("BLOCKED", "", "", "", "same corpus blocker as #020"),
+    "#019": ("NOT_ATTEMPTED", "", "", "", "no concept-discovery experiment this session"),
+    "#112": ("NOT_ATTEMPTED", "", "", "", "Searchless-9M needs JAX/Haiku checkpoint conversion; no JAX/torch here; not ported"),
+}
+
+
+def v9():
+    rows = list(csv.DictReader(open("canon/LEDGER_V8_167.csv")))
+    extra = ["v9_status", "v9_source_path", "v9_evidence", "v9_result", "v9_limit"]
+    with open("canon/LEDGER_V9_167.csv", "w", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=list(rows[0].keys()) + extra)
+        w.writeheader()
+        for r in rows:
+            vals = V9.get(r["id"]) or (("ARCHIVE_ONLY", "", "", "preserved; never implemented", "") if r["v8_status"] == "ARCHIVE_ONLY"
+                                       else ("SOURCE_MISSING", "", "", "", "") if r["v8_status"] == "SOURCE_MISSING"
+                                       else ("CARRIED_FROM_V8:" + r["v8_status"], "", "", "", "no V9 experiment"))
+            r.update(dict(zip(extra, vals)))
+            w.writerow(r)
+    from collections import Counter
+    print("V9", dict(Counter(r["v9_status"] for r in csv.DictReader(open("canon/LEDGER_V9_167.csv")))), "fully demonstrated: 0")
+
+
+if __name__ == "__main__":
+    v9()

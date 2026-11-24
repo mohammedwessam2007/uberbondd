@@ -1,0 +1,92 @@
+001Oo quietMove native:2:skeptic=a2a4* native:2=a2a4*
+001XA sacrifice native:2:skeptic=b1b7* native:2=b1b7*
+001aK quietMove native:2:skeptic=f1e2* native:2=f1e2*
+001h8 sacrifice native:2:skeptic=h4h7* native:2=h4h7*
+001h8-neg sacrifice-counterexample native:2:skeptic=c1c5* native:2=c1c5*
+001xO sacrifice native:2:skeptic=b6c5* native:2=b6c5*
+001xO-neg sacrifice-counterexample native:2:skeptic=c8b8* native:2=c8b8*
+002mG quietMove native:2:skeptic=f8e8* native:2=f8e8*
+00347 quietMove native:2:skeptic=h5h4* native:2=h5h4*
+003cs sacrifice native:2:skeptic=f1f8* native:2=f1f8*
+003cs-neg sacrifice-counterexample native:2:skeptic=e3d2* native:2=e3d2*
+004Op sacrifice native:2:skeptic=d8d1* native:2=d8d1*
+004Op-neg sacrifice-counterexample native:2:skeptic=h7g5* native:2=h7g5*
+004RF sacrifice native:2:skeptic=g3g7* native:2=g3g7*
+004RF-neg sacrifice-counterexample native:2:skeptic=g3f3* native:2=g3f3*
+004b0 quietMove native:2:skeptic=e7g5* native:2=e7g5*
+004sg quietMove native:2:skeptic=c4d2* native:2=c4d2*
+005do sacrifice native:2:skeptic=c1c7* native:2=c1c7*
+005do-neg sacrifice-counterexample native:2:skeptic=c1f1* native:2=c1f1*
+005f3 sacrifice native:2:skeptic=g3g6* native:2=g3g6*
+005f3-neg sacrifice-counterexample native:2:skeptic=b2b3* native:2=b2b3*
+005ws quietMove native:2:skeptic=g6g5* native:2=g6g5*
+005wy sacrifice native:2:skeptic=c6b4* native:2=c6b4*
+005wy-neg sacrifice-counterexample native:2:skeptic=e7f8* native:2=e7f8*
+006wz sacrifice native:2:skeptic=b1b2* native:2=b1b2*
+006wz-neg sacrifice-counterexample native:2:skeptic=e3c5* native:2=e3c5*
+0078T sacrifice native:2:skeptic=f7f6 native:2=f7f6
+007en sacrifice native:2:skeptic=c5c2* native:2=c5c2*
+007en-neg sacrifice-counterexample native:2:skeptic=c5d4* native:2=c5d4*
+008LT sacrifice native:2:skeptic=h6f7* native:2=h6f7*
+008LT-neg sacrifice-counterexample native:2:skeptic=h6g4* native:2=h6g4*
+00A5m quietMove native:2:skeptic=d3f5* native:2=d3f5*
+00Bg0 quietMove native:2:skeptic=f4f5* native:2=f4f5*
+00CXr sacrifice native:2:skeptic=a5d5* native:2=a5d5*
+00Cwz sacrifice native:2:skeptic=b8b1* native:2=b8b1*
+00Cwz-neg sacrifice-counterexample native:2:skeptic=f7f5* native:2=f7f5*
+00E4Z quietMove native:2:skeptic=d5d6* native:2=d5d6*
+00FGc sacrifice native:2:skeptic=f7f6 native:2=f7f6
+00GVf sacrifice native:2:skeptic=h1h8* native:2=h1h8*
+00GVf-neg sacrifice-counterexample native:2:skeptic=g2g3* native:2=g2g3*
+00H2L quietMove native:2:skeptic=c6c5* native:2=c6c5*
+00H5n quietMove native:2:skeptic=b2b7* native:2=b2b7*
+00H87 sacrifice native:2:skeptic=g4c8* native:2=g4c8*
+00H87-neg sacrifice-counterexample native:2:skeptic=g4f3* native:2=g4f3*
+00HqY zugzwang native:2:skeptic=f3g2* native:2=f3g2*
+00IKw sacrifice native:2:skeptic=d8d7* native:2=d8d7*
+00IKw-neg sacrifice-counterexample native:2:skeptic=g8g7* native:2=g8g7*
+00IUW sacrifice native:2:skeptic=h3g3* native:2=h3g3*
+00IUW-neg sacrifice-counterexample native:2:skeptic=e7f7* native:2=e7f7*
+00IqI sacrifice native:2:skeptic=d2d8* native:2=d2d8*
+00IqI-neg sacrifice-counterexample native:2:skeptic=d2f4* native:2=d2f4*
+00Kq4 sacrifice native:2:skeptic=d8g5* native:2=d8g5*
+00Kq4-neg sacrifice-counterexample native:2:skeptic=h7h8* native:2=h7h8*
+00LMb sacrifice native:2:skeptic=b6c4* native:2=b6c4*
+00LRq sacrifice native:2:skeptic=a6a7* native:2=a6a7*
+00MHi zugzwang native:2:skeptic=c2c3 native:2=c2c3
+00QyM zugzwang native:2:skeptic=d4e3 native:2=d4e3
+00SiY zugzwang native:2:skeptic=g5e4 native:2=g5e4
+00YbG zugzwang native:2:skeptic=d4c4* native:2=d4c4*
+00gy1 zugzwang native:2:skeptic=b7b5* native:2=b7b5*
+{
+ "movetime_ms": 1000,
+ "positions": 60,
+ "native:2:skeptic": {
+  "solved": "55/60",
+  "by_theme": {
+   "quietMove": "12/12",
+   "sacrifice": "22/24",
+   "sacrifice-counterexample": "18/18",
+   "zugzwang": "3/6"
+  },
+  "mean_cp_loss_capped_1000": 56.8,
+  "positives_solved": "37/42",
+  "false_sacrifices": "0/18"
+ },
+ "native:2": {
+  "solved": "55/60",
+  "by_theme": {
+   "quietMove": "12/12",
+   "sacrifice": "22/24",
+   "sacrifice-counterexample": "18/18",
+   "zugzwang": "3/6"
+  },
+  "mean_cp_loss_capped_1000": 63.5,
+  "positives_solved": "37/42",
+  "false_sacrifices": "0/18"
+ },
+ "paired": {
+  "only_native:2:skeptic": 0,
+  "only_native:2": 0
+ }
+}

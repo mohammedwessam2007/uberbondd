@@ -17,6 +17,7 @@
 #include <string>
 #include <thread>
 #include <vector>
+#include <unistd.h>
 
 using U64 = uint64_t;
 using Clock = std::chrono::steady_clock;
@@ -331,7 +332,9 @@ static const int PHASE_W[6] = {0, 1, 1, 2, 4, 0};
 static int MG_PST[6][64], EG_PST[6][64];
 static const int PASSED_BONUS[8] = {0, 5, 10, 18, 32, 55, 90, 0};
 static int EVAL_VERSION = 2;
-static int ARTIST_EXT = 0;  // root sacrifice extension (#163/#118); off until it passes the pre-registered test
+static int ARTIST_EXT = 0;
+static int SKEPTIC = 0;          // V9 independent Skeptic (different evaluator + separate TT); off until it passes prereg
+static int SKEPTIC_FIRED = 0, SKEPTIC_OVERRULED = 0;  // root sacrifice extension (#163/#118); off until it passes the pre-registered test
 
 static int centre(int s) { int f = file_of(s), r = rank_of(s); return 6 - (std::abs(2 * f - 7) + std::abs(2 * r - 7)) / 2; }
 static void init_pst() {
@@ -357,7 +360,59 @@ static inline int mirror(int s) { return s ^ 56; }
 // floor division matching Python // for the tapered blend
 static inline int fdiv(int a, int b) { int q = a / b; if ((a % b != 0) && ((a < 0) != (b < 0))) q--; return q; }
 
+// ---- EvalVersion 3: trained evaluator (tools/train_nnue.py), float32, side-to-move relative
+static std::vector<float> NN_W1, NN_B1, NN_W2;
+static float NN_B2 = 0;
+static int NN_H = 0;
+static int NN_RESIDUAL = 0;  // CHNNUE2: eval = EvalV2 + net
+static std::string NN_FILE;
+static bool nnue_load(const std::string &path) {
+  FILE *f = fopen(path.c_str(), "rb");
+  if (!f) return false;
+  char magic[8]; int32_t H = 0;
+  bool ok = fread(magic, 1, 8, f) == 8 && (memcmp(magic, "CHNNUE1", 7) == 0 || memcmp(magic, "CHNNUE2", 7) == 0) &&
+            fread(&H, 4, 1, f) == 1 && H > 0 && H <= 4096;
+  int residual = ok && magic[6] == '2';
+  if (ok) {
+    std::vector<float> w1((size_t)768 * H), b1(H), w2(H); float b2;
+    ok = fread(w1.data(), 4, w1.size(), f) == w1.size() && fread(b1.data(), 4, H, f) == (size_t)H &&
+         fread(w2.data(), 4, H, f) == (size_t)H && fread(&b2, 4, 1, f) == 1;
+    if (ok) { NN_W1.swap(w1); NN_B1.swap(b1); NN_W2.swap(w2); NN_B2 = b2; NN_H = H; NN_FILE = path; NN_RESIDUAL = residual; }
+  }
+  fclose(f);
+  return ok;
+}
+static int nnue_eval(const Position &p) {
+  float acc[4096];
+  for (int i = 0; i < NN_H; i++) acc[i] = NN_B1[i];
+  int stm = p.side;
+  for (int c = 0; c < 2; c++) for (int pt = 0; pt < 6; pt++) {
+    U64 b = p.bb[c][pt];
+    while (b) {
+      int s = pop_lsb(b);
+      int own = c == stm;
+      int sq = stm == WHITE ? s : (s ^ 56);
+      const float *w = &NN_W1[(size_t)(((own ? 0 : 6) + pt) * 64 + sq) * NN_H];
+      for (int i = 0; i < NN_H; i++) acc[i] += w[i];
+    }
+  }
+  float out = NN_B2;
+  for (int i = 0; i < NN_H; i++) { float h = acc[i] < 0 ? 0 : (acc[i] > 1 ? 1 : acc[i]); out += h * NN_W2[i]; }
+  int cp = (int)(out * 400.0f);
+  return std::max(-3000, std::min(3000, cp));
+}
+
+static int evaluate_hand(const Position &p);
 static int evaluate(const Position &p) {
+  if (EVAL_VERSION == 3 && NN_H > 0) {
+    if (p.insufficient()) return 0;
+    if (NN_RESIDUAL) { int saved = EVAL_VERSION; EVAL_VERSION = 2; int h = evaluate_hand(p); EVAL_VERSION = saved; return h + nnue_eval(p); }
+    return nnue_eval(p);
+  }
+  return evaluate_hand(p);
+}
+
+static int evaluate_hand(const Position &p) {
   if (p.insufficient()) return 0;
   int mg = 0, eg = 0, phase = 0;
   U64 o = p.all();
@@ -448,12 +503,13 @@ enum { EXACT = 0, LOWER = 1, UPPER = 2 };
 struct TTE { U64 key; Move move; int32_t score; int16_t depth; uint8_t flag; };
 static std::vector<TTE> TT;
 static U64 TT_MASK = 0;
+static std::vector<TTE> TT_SKEPTIC(1 << 16, TTE{0, 0, 0, -1, 0});
 static void tt_resize(int mb) {
   size_t n = 1; while (n * 2 * sizeof(TTE) <= (size_t)mb * 1024 * 1024) n *= 2;
   TT.assign(n, TTE{0, 0, 0, -1, 0}); TT_MASK = n - 1;
 }
 
-struct Limits { long long movetime = -1, wtime = -1, btime = -1, winc = 0, binc = 0, movestogo = 0, nodes = -1; int depth = 64; bool infinite = false; };
+struct Limits { std::vector<Move> searchmoves; long long movetime = -1, wtime = -1, btime = -1, winc = 0, binc = 0, movestogo = 0, nodes = -1; int depth = 64; bool infinite = false; };
 
 struct Searcher {
   Position pos;
@@ -464,6 +520,8 @@ struct Searcher {
   Move killers[128][2];
   int hist[2][64][64];
   Move root_best = 0; int root_score = 0;
+  Move plan_hint = 0;   // Architect: next move of the persisted plan (ordering only, never forced)
+  int stable_iters = 0; // how many final iterations kept the same best move (plan confidence input)
   bool aborted = false;
 
   bool time_up() {
@@ -699,12 +757,22 @@ struct Searcher {
     memset(killers, 0, sizeof killers);
     for (auto &a : hist) for (auto &b : a) for (auto &c : b) c /= 8;
     std::vector<Move> root; pos.legal(root);
+    if (!lim.searchmoves.empty()) {
+      std::vector<Move> r2;
+      for (Move m : root) if (std::find(lim.searchmoves.begin(), lim.searchmoves.end(), m) != lim.searchmoves.end()) r2.push_back(m);
+      if (!r2.empty()) root.swap(r2);
+    }
     out_depth = 0;
     if (root.empty()) return 0;
     Move best = root[0];
     int best_score = 0;
-    if (root.size() == 1 && !lim.infinite) { root_best = best; return best; }
+    if (root.size() == 1 && !lim.infinite && lim.searchmoves.empty()) { root_best = best; return best; }
     order(root, TT[pos.hash & TT_MASK].key == pos.hash ? TT[pos.hash & TT_MASK].move : 0, 0);
+    if (plan_hint) {
+      auto it = std::find(root.begin(), root.end(), plan_hint);
+      if (it != root.end()) std::rotate(root.begin(), it, it + 1);
+    }
+    stable_iters = 0;
     std::vector<int> scores(root.size(), -INF);
     std::vector<char> art(root.size(), 0);
     int n_art = 0;
@@ -745,6 +813,7 @@ struct Searcher {
         if (it_best && it_score > best_score && it_best != best) { best = it_best; best_score = it_score; }
         break;
       }
+      stable_iters = (it_best == best) ? stable_iters + 1 : 1;
       best = it_best; best_score = it_score; out_depth = depth;
       // reorder root by score (stable), best first
       std::vector<std::pair<std::pair<int, int>, Move>> rs;
@@ -765,6 +834,35 @@ struct Searcher {
       if (soft_ms > 0 && el > soft_ms) break;
       if (stop.load()) break;
     }
+    if (SKEPTIC && best && out_depth >= 4 && artistic(best)) {
+      Move alt = 0;
+      for (Move m : root) if (m != best && !artistic(m)) { alt = m; break; }  // root is sorted best-first
+      if (alt) {
+        SKEPTIC_FIRED++;
+        int keep_ev = EVAL_VERSION;
+        int skev = (EVAL_VERSION == 3 || NN_H == 0) ? 1 : 3;
+        U64 keep_mask = TT_MASK;
+        std::swap(TT, TT_SKEPTIC); TT_MASK = TT.size() - 1;
+        EVAL_VERSION = skev;
+        int dd = std::max(4, out_depth - 3);
+        int sc[2] = {0, 0};
+        Move cand[2] = {best, alt};
+        for (int k = 0; k < 2 && !aborted; k++) {
+          pos.make(cand[k]);
+          sc[k] = -negamax(dd - 1, -INF, INF, 1, true);
+          pos.unmake(cand[k]);
+        }
+        EVAL_VERSION = keep_ev;
+        std::swap(TT, TT_SKEPTIC); TT_MASK = keep_mask;
+        bool done = !aborted;
+        aborted = false;
+        if (done && sc[0] < sc[1] - 50) {
+          SKEPTIC_OVERRULED++;
+          if (print) { printf("info string skeptic overrules %s (%d) for %s (%d) eval%d depth %d\n", move_str(best).c_str(), sc[0], move_str(alt).c_str(), sc[1], skev, dd); fflush(stdout); }
+          best = alt;
+        } else if (print) { printf("info string skeptic %s %s (%d vs %d) eval%d depth %d\n", done ? "accepts" : "timed-out", move_str(best).c_str(), sc[0], sc[1], skev, dd); fflush(stdout); }
+      }
+    }
     root_best = best; root_score = best_score;
     return best;
   }
@@ -779,11 +877,116 @@ static U64 perft(Position &p, int d) {
   return n;
 }
 
+// ------------------------------------------------------------------ Architect plan state (V9)
+// Persistent strategic state carried across real moves of one game. Versioned; reset on new game,
+// arbitrary FEN or any history that is not a continuation of the engine's own last move.
+static int PLAN_MEMORY = 0;
+struct PlanState {
+  bool valid = false;
+  int version = 0, plies_alive = 0, hits = 0, surprises = 0, breaks = 0;
+  U64 hash_after_our_move = 0;
+  Move our_move = 0, pred_reply = 0, next_move = 0;
+  int expected = 0, confidence = 0;
+  std::vector<Move> pv;
+  std::vector<std::pair<int, int>> prereq;  // (square, piece code) our plan relies on
+  std::string objective = "none", status = "NONE";
+};
+static PlanState PLAN;
+
+static std::string classify_objective(Position &p, const std::vector<Move> &pv, int score) {
+  if (score >= MATE_BOUND) return "forced-mate";
+  int us = p.side, ek = p.king_sq(us ^ 1);
+  U64 ezone = ek >= 0 ? (KG[ek] | bit(ek)) : 0;
+  int caps = 0, zone_moves = 0, pawn_moves = 0, pawn_file = -1;
+  std::vector<Move> made;
+  for (size_t i = 0; i < pv.size() && i < 8; i++) {
+    Move m = pv[i];
+    bool ours = (i % 2) == 0;
+    int pc = p.board[mfrom(m)];
+    if (ours) {
+      if (p.board[mto(m)] != NONE) caps++;
+      if (bit(mto(m)) & ezone) zone_moves++;
+      if (pc % 6 == PAWN) { pawn_moves++; pawn_file = file_of(mto(m)); }
+    }
+    if (!p.make(m)) break;
+    made.push_back(m);
+  }
+  for (auto it = made.rbegin(); it != made.rend(); ++it) p.unmake(*it);
+  if (zone_moves >= 2) return "king-attack";
+  if (caps >= 2 || score >= 300) return "material-conversion";
+  if (pawn_moves) return std::string("pawn-lever-") + char('a' + pawn_file);
+  if (!pv.empty()) return "piece-to-" + sqname(mto(pv[0]));
+  return "none";
+}
+
+// Called at 'go': validate the stored plan against the game continuation. Returns soft-budget multiplier.
+static double plan_observe(Position &p, const std::vector<Move> &game_moves) {
+  if (!PLAN.valid) { PLAN.status = "NONE"; return 1.0; }
+  bool cont = !game_moves.empty() && !p.history.empty() && p.history.back() == PLAN.hash_after_our_move;
+  if (!cont) { int v = PLAN.version; PLAN = PlanState(); PLAN.version = v + 1; PLAN.status = "RESET"; return 1.0; }
+  Move opp = game_moves.back();
+  std::vector<Move> legal; p.legal(legal);
+  bool next_legal = PLAN.next_move && std::find(legal.begin(), legal.end(), PLAN.next_move) != legal.end();
+  bool prereq_ok = true;
+  for (auto &q : PLAN.prereq) if (p.board[q.first] != q.second) prereq_ok = false;
+  PLAN.plies_alive += 2;
+  if (opp == PLAN.pred_reply && next_legal && prereq_ok) { PLAN.status = "ON_TRACK"; PLAN.hits++; return 0.75; }
+  if (!prereq_ok || !next_legal) { PLAN.status = "BROKEN"; PLAN.breaks++; return 1.5; }
+  PLAN.status = "SURPRISED"; PLAN.surprises++; return 1.35;
+}
+
+static void plan_record(Searcher &S, Move best, int depth) {
+  Position &p = S.pos;
+  std::vector<Move> pv;
+  if (best && p.make(best)) {
+    pv.push_back(best);
+    U64 after = p.hash;
+    std::vector<Move> made{best};
+    for (int i = 1; i < 8; i++) {
+      TTE &e = TT[p.hash & TT_MASK];
+      if (e.key != p.hash || !e.move) break;
+      std::vector<Move> l; p.legal(l);
+      if (std::find(l.begin(), l.end(), e.move) == l.end()) break;
+      p.make(e.move); made.push_back(e.move); pv.push_back(e.move);
+    }
+    for (auto it = made.rbegin(); it != made.rend(); ++it) p.unmake(*it);
+    PLAN.hash_after_our_move = after;
+  } else { PLAN.valid = false; return; }
+  PLAN.valid = true;
+  PLAN.our_move = best;
+  PLAN.pred_reply = pv.size() > 1 ? pv[1] : 0;
+  PLAN.next_move = pv.size() > 2 ? pv[2] : 0;
+  PLAN.pv = pv;
+  PLAN.expected = S.root_score;
+  PLAN.confidence = std::min(100, S.stable_iters * 100 / std::max(1, depth));
+  PLAN.prereq.clear();
+  for (size_t i = 2; i < pv.size() && i < 7; i += 2) PLAN.prereq.push_back({mfrom(pv[i]), p.board[mfrom(pv[i])]});
+  // prerequisites are the origin squares of our later plan moves, valid after our move + predicted reply
+  PLAN.prereq.erase(std::remove_if(PLAN.prereq.begin(), PLAN.prereq.end(), [&](auto &q) { return q.second == NONE; }), PLAN.prereq.end());
+  PLAN.objective = classify_objective(p, pv, S.root_score);
+}
+
+static void plan_print() {
+  std::string pv;
+  for (Move m : PLAN.pv) pv += (pv.empty() ? "" : " ") + move_str(m);
+  printf("info string plan v%d status=%s objective=%s expect=%d conf=%d pred_reply=%s next=%s alive=%d hits=%d surprises=%d breaks=%d prereq=%zu line=%s\n",
+         PLAN.version, PLAN.status.c_str(), PLAN.objective.c_str(), PLAN.expected, PLAN.confidence, move_str(PLAN.pred_reply).c_str(),
+         move_str(PLAN.next_move).c_str(), PLAN.plies_alive, PLAN.hits, PLAN.surprises, PLAN.breaks, PLAN.prereq.size(), pv.c_str());
+  fflush(stdout);
+}
+
 // ------------------------------------------------------------------ UCI
 static const char *START = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 
 int main(int argc, char **argv) {
   init_tables(); init_zobrist(); init_pst();
+  {
+    char buf[4096]; ssize_t n = readlink("/proc/self/exe", buf, sizeof buf - 1);
+    if (n > 0) {
+      buf[n] = 0; std::string d(buf); d = d.substr(0, d.rfind('/'));
+      if (!nnue_load(d + "/../nnue/chimera-nnue.bin")) nnue_load(d + "/chimera-nnue.bin");  // no default net ships (V9: both trained nets failed)
+    }
+  }
   tt_resize(64);
   Searcher S;
   S.pos.set_fen(START);
@@ -804,6 +1007,7 @@ int main(int argc, char **argv) {
     return 0;
   }
   std::string line;
+  std::vector<Move> game_moves;
   auto join = [&]() { if (worker.joinable()) worker.join(); };
   while (std::getline(std::cin, line)) {
     std::istringstream is(line);
@@ -812,8 +1016,11 @@ int main(int argc, char **argv) {
       printf("id name CHIMERA V8 native\nid author CHIMERA project\n");
       printf("option name Hash type spin default 64 min 1 max 1024\n");
       printf("option name MoveOverheadMs type spin default 10 min 0 max 5000\n");
-      printf("option name EvalVersion type spin default 2 min 1 max 2\n");
+      printf("option name EvalVersion type spin default 2 min 1 max 3\n");
+      printf("option name EvalFile type string default <exe>/../nnue/chimera-nnue.bin\n");
       printf("option name ArtistExtension type check default false\n");
+      printf("option name PlanMemory type check default false\n");
+      printf("option name Skeptic type check default false\n");
       printf("uciok\n"); fflush(stdout);
     } else if (cmd == "isready") { join(); printf("readyok\n"); fflush(stdout); }
     else if (cmd == "setoption") {
@@ -828,12 +1035,19 @@ int main(int argc, char **argv) {
       }
       if (name == "Hash") tt_resize(std::max(1, atoi(value.c_str())));
       else if (name == "MoveOverheadMs") overhead_ms = atof(value.c_str());
-      else if (name == "EvalVersion") EVAL_VERSION = std::max(1, std::min(2, atoi(value.c_str())));
+      else if (name == "EvalVersion") {
+        EVAL_VERSION = std::max(1, std::min(3, atoi(value.c_str())));
+        if (EVAL_VERSION == 3 && NN_H == 0) { printf("info string EvalVersion 3 requested but no EvalFile loaded; using EvalVersion 2\n"); fflush(stdout); EVAL_VERSION = 2; }
+      }
+      else if (name == "EvalFile") { if (nnue_load(value)) printf("info string loaded %s H=%d\n", value.c_str(), NN_H); else printf("info string failed to load %s\n", value.c_str()); fflush(stdout); }
       else if (name == "ArtistExtension") ARTIST_EXT = value == "true" ? 1 : 0;
-    } else if (cmd == "ucinewgame") { join(); tt_resize((int)((TT.size() * sizeof(TTE)) >> 20)); memset(S.hist, 0, sizeof S.hist); S.pos.set_fen(START); }
+      else if (name == "PlanMemory") PLAN_MEMORY = value == "true" ? 1 : 0;
+      else if (name == "Skeptic") SKEPTIC = value == "true" ? 1 : 0;
+    } else if (cmd == "ucinewgame") { join(); { int v = PLAN.version; PLAN = PlanState(); PLAN.version = v + 1; } tt_resize((int)((TT.size() * sizeof(TTE)) >> 20)); memset(S.hist, 0, sizeof S.hist); S.pos.set_fen(START); }
     else if (cmd == "position") {
       join();
       std::string t; is >> t;
+      game_moves.clear();
       if (t == "startpos") { S.pos.set_fen(START); is >> t; }
       else if (t == "fen") {
         std::string fen, x; int n = 0;
@@ -846,6 +1060,7 @@ int main(int argc, char **argv) {
           Move m = S.pos.parse(u);
           if (!m) { printf("info string illegal move %s ignored\n", u.c_str()); fflush(stdout); break; }
           S.pos.make(m);
+          game_moves.push_back(m);
         }
       }
     } else if (cmd == "go") {
@@ -857,6 +1072,7 @@ int main(int argc, char **argv) {
         else if (t == "winc") is >> l.winc; else if (t == "binc") is >> l.binc; else if (t == "movestogo") is >> l.movestogo;
         else if (t == "depth") is >> l.depth; else if (t == "nodes") is >> l.nodes; else if (t == "infinite") l.infinite = true;
         else if (t == "perft") is >> perft_d;
+        else if (t == "searchmoves") { std::string u; while (is >> u) { Move m = S.pos.parse(u); if (m) l.searchmoves.push_back(m); } }
       }
       if (perft_d >= 0) {
         std::vector<Move> root; S.pos.legal(root); U64 tot = 0;
@@ -873,10 +1089,18 @@ int main(int argc, char **argv) {
         hard = std::max(1.0, std::min(base * 2.5, t_left * 0.25) - overhead_ms);
         soft = std::max(1.0, std::min(base, t_left * 0.25) - overhead_ms) * 0.6;
       }
+      double mult = plan_observe(S.pos, game_moves);
+      S.plan_hint = 0;
+      if (PLAN_MEMORY) {
+        if (PLAN.status == "ON_TRACK") S.plan_hint = PLAN.next_move;
+        if (soft > 0) soft = std::min(soft * mult, hard > 0 ? hard * 0.8 : soft * mult);  // hard deadline never extended
+      }
       S.stop = false;
       worker = std::thread([&S, l, soft, hard, &out_mu]() {
         int d;
         Move m = S.think(l, soft, hard, true, d);
+        plan_record(S, m, d);
+        plan_print();
         std::lock_guard<std::mutex> g(out_mu);
         if (getenv("CHIMERA_TRACE")) fprintf(stderr, "trace internal_ms %.2f nodes %lld depth %d\n", std::chrono::duration<double, std::milli>(Clock::now() - S.start).count(), S.nodes, d);
         printf("bestmove %s\n", move_str(m).c_str()); fflush(stdout);

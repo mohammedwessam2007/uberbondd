@@ -2,6 +2,6 @@ rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 d2d4 93746
 r1bqkb1r/pppp1ppp/2n2n2/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4 f3g5 83478
 r2q1rk1/pp2bppp/2n1pn2/3p4/2PP4/2N1PN2/PP2BPPP/R2Q1RK1 w - - 0 10 a2a3 343214
 8/5pk1/6p1/3P4/5P2/6P1/5K2/8 w - - 0 40 f2e3 15917
-x86-64 vs arm64 (qemu-aarch64-static) fixed-depth-8 bench: identical moves and node counts, 2026-11-23T23:43:11Z
-6d336a518ae902baab097bb1821e8decbc0b07831b8d6680a94e4acb0668215c  native/dist/chimera-linux-arm64-static
-source sha256 b0d1aa37781563169b644e43af766634b68ddde1fa3e4c94a69cb439d4dbb5e4
+x86-64 == arm64 (qemu-aarch64-static) == frozen V8 ref, fixed-depth-8 bench, 2026-11-24T01:31:34Z
+89fb12b38270306d4dbaffff660ad772b5edeb529760df9c1b08e66f1f8c7335  native/dist/chimera-linux-arm64-static
+source sha256 a830ebc9266293747282280a8802dece4bc07c52ab191f926437d9a762f4a938

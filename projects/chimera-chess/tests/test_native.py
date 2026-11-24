@@ -158,3 +158,56 @@ class Native(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class PlanMemoryTests(unittest.TestCase):
+    """V9 Architect plan state: persistence, continuation check, reset, history dependence."""
+
+    def setUp(self):
+        self.e = Engine()
+        self.e.send("setoption name PlanMemory value true")
+        self.e.send("ucinewgame")
+
+    def tearDown(self):
+        self.e.close()
+
+    def go(self, pos, ms=300):
+        self.e.send(pos)
+        self.e.send(f"go movetime {ms}")
+        best, lines = self.e.until("bestmove")
+        plan = [l for l in lines if l.startswith("info string plan")][-1]
+        nodes = [int(l.split(" nodes ")[1].split()[0]) for l in lines if " nodes " in l]
+        kv = dict(t.split("=", 1) for t in plan.split() if "=" in t)
+        return best.split()[1], kv, (nodes[-1] if nodes else 0)
+
+    def test_on_track_then_reset_on_new_game(self):
+        mv, kv, _ = self.go("position startpos")
+        pred = kv["pred_reply"]
+        self.assertNotEqual(pred, "0000")
+        _, kv2, _ = self.go(f"position startpos moves {mv} {pred}")
+        self.assertIn("status=ON_TRACK", self.last_plan_line(kv2))
+        self.e.send("ucinewgame")
+        _, kv3, _ = self.go(f"position startpos moves {mv} {pred}")
+        self.assertIn(kv3["status"], ("NONE", "RESET"))
+
+    def last_plan_line(self, kv):
+        return "status=" + kv["status"]
+
+    def test_surprise_detected(self):
+        mv, kv, _ = self.go("position startpos")
+        b = chess.Board(); b.push_uci(mv)
+        other = next(m.uci() for m in b.legal_moves if m.uci() != kv["pred_reply"])
+        _, kv2, _ = self.go(f"position startpos moves {mv} {other}")
+        self.assertIn(kv2["status"], ("SURPRISED", "BROKEN"))
+        self.assertEqual(int(kv2["surprises"]) + int(kv2["breaks"]), 1)
+
+    def test_same_board_two_histories(self):
+        # identical board/castling/ep reached (a) as continuation of the engine's own plan, (b) by FEN restore
+        mv, kv, _ = self.go("position startpos")
+        b = chess.Board(); b.push_uci(mv); b.push_uci(kv["pred_reply"])
+        _, a, _ = self.go(f"position startpos moves {mv} {kv['pred_reply']}")
+        self.e.send("ucinewgame")
+        _, c, _ = self.go(f"position fen {b.fen()}")
+        self.assertEqual(a["status"], "ON_TRACK")
+        self.assertIn(c["status"], ("NONE", "RESET"))
+        self.assertEqual(int(a["hits"]), 1)

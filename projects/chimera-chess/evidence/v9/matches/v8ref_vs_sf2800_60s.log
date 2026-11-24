@@ -1,0 +1,72 @@
+  1                  ref:2 - sf:2800                0-1     CHECKMATE 80
+  2                sf:2800 - ref:2                  1-0     CHECKMATE 97
+  3                  ref:2 - sf:2800                1/2-1/2 THREEFOLD_REPETITION 155
+  4                sf:2800 - ref:2                  1-0     CHECKMATE 139
+  5                  ref:2 - sf:2800                0-1     CHECKMATE 144
+  6                sf:2800 - ref:2                  1/2-1/2 THREEFOLD_REPETITION 108
+  7                  ref:2 - sf:2800                0-1     CHECKMATE 122
+  8                sf:2800 - ref:2                  1-0     CHECKMATE 133
+  9                  ref:2 - sf:2800                1/2-1/2 THREEFOLD_REPETITION 131
+ 10                sf:2800 - ref:2                  1-0     CHECKMATE 69
+ 11                  ref:2 - sf:2800                1-0     CHECKMATE 117
+ 12                sf:2800 - ref:2                  1/2-1/2 THREEFOLD_REPETITION 46
+ 13                  ref:2 - sf:2800                0-1     CHECKMATE 162
+ 14                sf:2800 - ref:2                  1-0     CHECKMATE 81
+ 15                  ref:2 - sf:2800                1-0     CHECKMATE 89
+ 16                sf:2800 - ref:2                  1-0     CHECKMATE 127
+ 17                  ref:2 - sf:2800                1/2-1/2 THREEFOLD_REPETITION 193
+ 18                sf:2800 - ref:2                  1/2-1/2 ply cap 300 300
+ 19                  ref:2 - sf:2800                0-1     CHECKMATE 164
+ 20                sf:2800 - ref:2                  1/2-1/2 THREEFOLD_REPETITION 112
+ 21                  ref:2 - sf:2800                1/2-1/2 THREEFOLD_REPETITION 109
+ 22                sf:2800 - ref:2                  1-0     CHECKMATE 157
+ 23                  ref:2 - sf:2800                1/2-1/2 FIFTY_MOVES 193
+ 24                sf:2800 - ref:2                  1/2-1/2 THREEFOLD_REPETITION 190
+ 25                  ref:2 - sf:2800                1/2-1/2 THREEFOLD_REPETITION 102
+ 26                sf:2800 - ref:2                  1/2-1/2 THREEFOLD_REPETITION 176
+ 27                  ref:2 - sf:2800                1-0     CHECKMATE 161
+ 28                sf:2800 - ref:2                  1-0     CHECKMATE 73
+ 29                  ref:2 - sf:2800                1/2-1/2 FIFTY_MOVES 246
+ 30                sf:2800 - ref:2                  1/2-1/2 THREEFOLD_REPETITION 166
+ 31                  ref:2 - sf:2800                1-0     CHECKMATE 131
+ 32                sf:2800 - ref:2                  1/2-1/2 THREEFOLD_REPETITION 174
+ 33                  ref:2 - sf:2800                1/2-1/2 THREEFOLD_REPETITION 63
+ 34                sf:2800 - ref:2                  1/2-1/2 THREEFOLD_REPETITION 124
+ 35                  ref:2 - sf:2800                0-1     CHECKMATE 94
+ 36                sf:2800 - ref:2                  1-0     CHECKMATE 111
+ 37                  ref:2 - sf:2800                0-1     CHECKMATE 172
+ 38                sf:2800 - ref:2                  1/2-1/2 FIFTY_MOVES 205
+ 39                  ref:2 - sf:2800                1/2-1/2 THREEFOLD_REPETITION 154
+ 40                sf:2800 - ref:2                  1/2-1/2 FIFTY_MOVES 253
+ 41                  ref:2 - sf:2800                1/2-1/2 THREEFOLD_REPETITION 139
+ 42                sf:2800 - ref:2                  1/2-1/2 FIFTY_MOVES 181
+ 43                  ref:2 - sf:2800                0-1     CHECKMATE 96
+ 44                sf:2800 - ref:2                  1-0     CHECKMATE 139
+ 45                  ref:2 - sf:2800                1/2-1/2 FIFTY_MOVES 232
+ 46                sf:2800 - ref:2                  1-0     CHECKMATE 105
+ 47                  ref:2 - sf:2800                1/2-1/2 THREEFOLD_REPETITION 129
+ 48                sf:2800 - ref:2                  1/2-1/2 THREEFOLD_REPETITION 114
+/home/user/uberbondd/projects/chimera-chess/tools/match.py:214: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  s = sum(r["a_score"] for r in rows)
+{
+  "a": "ref:2",
+  "b": "sf:2800",
+  "tc": "60+0.6",
+  "games": 48,
+  "a_wins": 4,
+  "draws": 25,
+  "a_losses": 19,
+  "a_score": 16.5,
+  "a_pct": 0.3438,
+  "elo_diff_a_minus_b_95ci": [
+    -112,
+    -231,
+    -15
+  ],
+  "time_forfeits": 0,
+  "illegal_or_failure": 0,
+  "stockfish": "/usr/games/stockfish",
+  "python": "3.13.18",
+  "chess": "1.11.2",
+  "date_utc": "2026-11-24T00:58:15"
+}

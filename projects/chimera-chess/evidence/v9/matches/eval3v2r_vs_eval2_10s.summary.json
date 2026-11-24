@@ -1,0 +1,22 @@
+{
+  "a": "native:3:file=nnue/chimera-nnue-v2r.bin",
+  "b": "native:2",
+  "tc": "10+0.1",
+  "games": 48,
+  "a_wins": 10,
+  "draws": 8,
+  "a_losses": 30,
+  "a_score": 14.0,
+  "a_pct": 0.2917,
+  "elo_diff_a_minus_b_95ci": [
+    -154,
+    -284,
+    -56
+  ],
+  "time_forfeits": 0,
+  "illegal_or_failure": 0,
+  "stockfish": "/usr/games/stockfish",
+  "python": "3.13.18",
+  "chess": "1.11.2",
+  "date_utc": "2026-11-24T00:56:03"
+}

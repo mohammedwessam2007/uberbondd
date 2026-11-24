@@ -1,0 +1,624 @@
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "1"]
+[White "ref:2"]
+[Black "sf:2800"]
+[Result "0-1"]
+[Opening "Ruy Lopez"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Bxc6 dxc6 5. Nc3 f6 6. h3 b6 7. O-O c5 8. a4 Be6 9. b3 Ne7 10. d3 Qd7 11. a5 Ng6 12. Bb2 b5 13. Bc1 O-O-O 14. Qe2 Be7 15. Be3 Nf8 16. Ra2 Kb8 17. Rd1 g5 18. h4 gxh4 19. Nxh4 Ng6 20. Nf3 Bg4 21. g3 Rhg8 22. Kh2 f5 23. Rb2 Qe8 24. Bh6 Nh4 25. Qe3 f4 26. Bxf4 exf4 27. Qxf4 Nxf3+ 28. Kg2 Nh4+ 29. gxh4 Qh5 30. Kf1 Rdf8 31. Qh2 Bd6 32. f4 Rxf4+ 33. Ke1 Rf1+ 34. Kxf1 Bxh2 35. Re1 Qf7+ 36. Kg2 Bh3+ 37. Kxh3 Bd6 38. e5 Qf3+ 39. Kh2 Qg3+ 40. Kh1 Qg2# 0-1
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "2"]
+[White "sf:2800"]
+[Black "ref:2"]
+[Result "1-0"]
+[Opening "Ruy Lopez"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Ba4 Nf6 5. d3 b5 6. Bb3 d5 7. exd5 Nxd5 8. Nc3 Nxc3 9. bxc3 Be7 10. Qe2 O-O 11. a4 Bb7 12. O-O Bf6 13. Rb1 Re8 14. h4 Na5 15. Ba2 bxa4 16. Nd2 Bxh4 17. Qh5 g6 18. Qg4 Bc6 19. f4 exf4 20. Rb4 Bg5 21. Rbxf4 Bxf4 22. Qxf4 Bd5 23. c4 Be6 24. Bb2 Rb8 25. Bf6 Re7 26. Ne4 Nc6 27. Qh4 h5 28. Qg5 Kh7 29. Bc3 f5 30. Nf6+ Kg7 31. Nxh5+ Kf7 32. c5 Nd4 33. Qf6+ Ke8 34. Bxd4 Kd7 35. Re1 Bxa2 36. c6+ Kc8 37. Rxe7 Rb1+ 38. Kh2 Kb8 39. Nf4 g5 40. Qe5 Rb4 41. c4 Rb6 42. Bxb6 g4 43. Re8 g3+ 44. Kh3 Qc8 45. Bxc7+ Ka8 46. Nd5 a5 47. Rxc8+ Ka7 48. Qe3+ Ka6 49. Ra8# 1-0
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "3"]
+[White "ref:2"]
+[Black "sf:2800"]
+[Result "1/2-1/2"]
+[Opening "Sicilian Najdorf"]
+[TimeControl "60+0.6"]
+[Termination "THREEFOLD_REPETITION"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 a6 6. a4 g6 7. Bc4 Bd7 8. Bg5 Bg7 9. O-O O-O 10. a5 b5 11. axb6 Qxb6 12. Nd5 Nxd5 13. Bxd5 Bc6 14. Be3 Qb7 15. Nxc6 Nxc6 16. c3 Rfc8 17. Qe2 e6 18. Bc4 a5 19. f4 a4 20. Rfd1 Ne7 21. Rxd6 a3 22. Rxa3 Rxa3 23. bxa3 Qb1+ 24. Kf2 Qxe4 25. Bd3 Qa4 26. Ra6 Qb3 27. c4 Rb8 28. Bc2 Qc3 29. Qd3 Qf6 30. Qe4 Bf8 31. Bd4 Qh4+ 32. Kg1 Nf5 33. Bf2 Qd8 34. g4 Nh6 35. g5 Ng4 36. Be1 Bc5+ 37. Kh1 Nf2+ 38. Bxf2 Bxf2 39. Bd3 Bc5 40. Kg2 h6 41. h4 h5 42. a4 Bf8 43. Kf3 Rb3 44. Ke2 Rb2+ 45. Kd1 Qc7 46. Rxe6 fxe6 47. Qxg6+ Qg7 48. Qxe6+ Kh8 49. Qe8 Rh2 50. Qxh5+ Kg8 51. Qg6 Qxg6 52. Bxg6 Rh1+ 53. Ke2 Rxh4 54. Be4 Bb4 55. Ke3 Kg7 56. f5 Rg4 57. g6 Bc5+ 58. Kf3 Rg1 59. Bd5 Ra1 60. Bc6 Rd1 61. Ke2 Rc1 62. Bd5 Rg1 63. Kf3 Bb4 64. Kf4 Kf6 65. Be6 Re1 66. Kf3 Bd2 67. Kg4 Re5 68. Kf3 Bc3 69. Kf4 Be1 70. Kg4 Ba5 71. Kg3 Be1+ 72. Kg4 Bb4 73. Kf4 Bf8 74. Kg4 Ra5 75. Bd7 Rc5 76. Be6 Ra5 77. Bd7 Rc5 78. Be6 1/2-1/2
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "4"]
+[White "sf:2800"]
+[Black "ref:2"]
+[Result "1-0"]
+[Opening "Sicilian Najdorf"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 a6 6. Be2 e5 7. Nb3 Nc6 8. Be3 Be7 9. f3 O-O 10. Qd2 a5 11. Na4 Nd7 12. O-O-O b6 13. Bc4 Ba6 14. Qe2 Bxc4 15. Qxc4 Rc8 16. Qb5 Bg5 17. Bxg5 Qxg5+ 18. Rd2 Qh6 19. Rd1 Rc7 20. Nc3 Na7 21. Qa6 Nc8 22. h3 Nf6 23. a4 Rd8 24. Kb1 Rcd7 25. Nc1 Qg5 26. Qf1 h5 27. g4 h4 28. Qf2 Qh6 29. N1e2 g5 30. f4 exf4 31. Nxf4 Rb7 32. e5 Nd7 33. Qg2 Rb8 34. Nfd5 Nxe5 35. Nb5 Qg6 36. Nd4 Re8 37. Qf2 Kh8 38. Nc7 Re7 39. Ndb5 Rb7 40. Nd5 Re8 41. Ndc7 Re7 42. Nd5 Re8 43. Rf1 Qg7 44. Qe2 Rd8 45. b3 Ng6 46. Qe3 Nf8 47. Nbc7 Rd7 48. Ne8 Qe5 49. Qf3 f5 50. Nef6 Rg7 51. Re2 Qg3 52. Re8 Rbf7 53. Qxf5 Qxh3 54. Rxc8 Qg2 55. Ne3 Qb7 56. Qe6 Rg8 57. Re8 d5 58. Qe5 Qc7 59. Qxc7 Rxc7 60. Nxg8 Ne6 61. Ne7+ Kh7 62. Rf7+ Ng7 63. N3f5 Rxe7 64. Rfxe7 Kg6 65. Rg8 d4 66. Rgxg7+ Kf6 67. Rg8 h3 68. Rf8+ Kg6 69. Re6+ Kh7 70. Rh6# 1-0
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "5"]
+[White "ref:2"]
+[Black "sf:2800"]
+[Result "0-1"]
+[Opening "French Winawer"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. e4 e6 2. d4 d5 3. Nc3 Bb4 4. e5 Ne7 5. Nf3 h6 6. Be2 b6 7. Bd2 Bxc3 8. Bxc3 a5 9. O-O O-O 10. a3 Ba6 11. Bxa6 Nxa6 12. b4 c5 13. Qd2 a4 14. dxc5 bxc5 15. Rfb1 Qc7 16. h4 Nf5 17. h5 Ne7 18. b5 Nb8 19. Qd3 Nd7 20. Re1 Rfb8 21. Rab1 Rb7 22. Bd2 Rab8 23. Qe2 Nb6 24. Ba5 Qc8 25. Nd2 Qd7 26. Red1 Nf5 27. c3 Qe7 28. g4 Qg5 29. Bxb6 Rxb6 30. Kf1 Nh4 31. c4 R6b7 32. Rbc1 dxc4 33. Rxc4 Rxb5 34. Rxa4 R5b7 35. Rc4 Rb2 36. Rxc5 Qf4 37. Qe4 Qh2 38. Rc3 g5 39. Rd3 Rc8 40. a4 Rcb8 41. Rd4 R8b3 42. Rd8+ Kg7 43. Ke2 Ng2 44. Rf1 Nf4+ 45. Kd1 Qh3 46. Qc4 Rc3 47. Qxf4 gxf4 48. Rg1 Ra2 49. Ke1 Ra1+ 50. Nb1 Re3+ 51. fxe3 Rxb1+ 52. Kd2 Qxe3+ 53. Kc2 Qxg1 54. a5 Qc1+ 55. Kd3 Rb3+ 56. Ke2 Rb2+ 57. Kd3 Qd2+ 58. Kc4 Qb4+ 59. Kd3 Qb3+ 60. Kd4 Rd2+ 61. Kc5 Qc2+ 62. Kb6 Qb3+ 63. Kc5 Rc2+ 64. Kd6 Qd3+ 65. Ke7 Rc7+ 66. Ke8 Qe4 67. Rd6 Qb4 68. a6 Qb3 69. a7 Qb5+ 70. Kd8 Rxa7 71. Kc8 Qb7+ 72. Kd8 Ra8# 0-1
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "6"]
+[White "sf:2800"]
+[Black "ref:2"]
+[Result "1/2-1/2"]
+[Opening "French Winawer"]
+[TimeControl "60+0.6"]
+[Termination "THREEFOLD_REPETITION"]
+
+1. e4 e6 2. d4 d5 3. Nc3 Bb4 4. e5 Ne7 5. a3 Bxc3+ 6. bxc3 c5 7. h4 Qa5 8. Bd2 Nbc6 9. Rb1 Qxa3 10. Nh3 cxd4 11. cxd4 Nxd4 12. Bb4 Qa2 13. Bd3 Ndc6 14. Bd6 Ng6 15. f4 Nxh4 16. O-O a6 17. Qg4 Ng6 18. f5 exf5 19. Bxf5 Ncxe5 20. Bxe5 O-O 21. Bd6 Rd8 22. Ng5 Rxd6 23. Bxc8 Qxc2 24. Rbc1 Qd3 25. Rce1 Qb5 26. Nxf7 Rb6 27. Be6 Qc5+ 28. Kh2 Nf8 29. Nh6+ Kh8 30. Nf7+ Kg8 31. Rc1 Qxc1 32. Ng5+ Rxe6 33. Rxc1 Re7 34. Qd4 Rd8 35. Nf3 Re6 36. Qb2 b5 37. Rc7 Rd7 38. Rc2 h6 39. Rc8 Rdd6 40. Qb4 h5 41. Qf4 Rf6 42. Qd4 Rfe6 43. Qc5 Rf6 44. Ng5 Rd7 45. Ra8 d4 46. Ne6 Rdf7 47. Nd8 Rd7 48. Ne6 Rdf7 49. Qd5 Rxe6 50. Qxe6 g6 51. Qxg6+ Rg7 52. Qd6 Rf7 53. Qg6+ Rg7 54. Qf5 Rf7 1/2-1/2
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "7"]
+[White "ref:2"]
+[Black "sf:2800"]
+[Result "0-1"]
+[Opening "Caro-Kann"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. e4 c6 2. d4 d5 3. Nc3 dxe4 4. Nxe4 Bf5 5. Ng3 Bg6 6. Nf3 e6 7. h4 h6 8. Bd3 Bb4+ 9. Bd2 Bxd2+ 10. Qxd2 Bxd3 11. Qxd3 Nf6 12. O-O Qa5 13. a4 Qc7 14. Ne5 Nbd7 15. f4 Rc8 16. b4 O-O 17. c4 a5 18. bxa5 Rcd8 19. Rab1 Qxa5 20. Qa3 Qd2 21. Qb2 Qa5 22. Qxb7 Qc3 23. Nxc6 Qxg3 24. Rb3 Qxh4 25. Nxd8 Ng4 26. Rh3 Qxd8 27. Rd1 Ndf6 28. Rb3 h5 29. g3 h4 30. Qc6 h3 31. Kf1 Qa5 32. Ke2 Qh5 33. Qf3 Qa5 34. Qc6 Qf5 35. Rc1 Rd8 36. Qh1 h2 37. Rb5 e5 38. Qg2 Rxd4 39. Qf3 Ne4 40. Rh1 Nxg3+ 41. Ke1 Nxh1 42. Rb8+ Kh7 43. Qh3+ Kg6 44. Qf3 Nhf2 45. Rb6+ Kh5 46. Rb3 h1=R+ 47. Qxh1+ Nxh1 48. Rh3+ Kg6 49. Kf1 Rd1+ 50. Ke2 Qc2+ 51. Kf3 Qb3+ 52. Ke2 Qb1 53. f5+ Kxf5 54. Rh5+ Kg6 55. Rh3 Re1+ 56. Kd2 Qb4+ 57. Rc3 Ra1 58. Kd3 Nhf2+ 59. Kd2 Qb2+ 60. Rc2 Qd4+ 61. Ke2 Qd1# 0-1
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "8"]
+[White "sf:2800"]
+[Black "ref:2"]
+[Result "1-0"]
+[Opening "Caro-Kann"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. e4 c6 2. d4 d5 3. Nc3 dxe4 4. Nxe4 Bf5 5. Nc3 Nf6 6. a3 e6 7. Be2 c5 8. Nf3 Nc6 9. dxc5 Bxc5 10. Bd3 Bxd3 11. Qxd3 Qxd3 12. cxd3 O-O-O 13. Ke2 Bd4 14. Nb5 e5 15. Rd1 h6 16. Nbxd4 exd4 17. b4 g5 18. b5 Rhe8+ 19. Kf1 Ne5 20. Bd2 Nxf3 21. gxf3 Nd5 22. Rac1+ Kb8 23. Re1 Rxe1+ 24. Kxe1 f5 25. Kd1 Rc8 26. Rc4 Rxc4 27. dxc4 Nb6 28. f4 Nxc4 29. fxg5 hxg5 30. Bc1 Kc7 31. Bxg5 Nxa3 32. b6+ Kxb6 33. h4 Nc4 34. Bf4 Na5 35. Bg5 Kc5 36. h5 Nc4 37. Bf4 Nb6 38. h6 Nd5 39. h7 Nxf4 40. h8=Q Nd5 41. Qc8+ Kb6 42. Kc1 Nc3 43. Qxf5 Na2+ 44. Kd2 Nb4 45. Qg6+ Nc6 46. Qd6 Kb5 47. f4 a5 48. f5 Ka4 49. Qc5 d3 50. f6 Nb4 51. Qc4 b5 52. Qe4 Kb3 53. Qd4 Na2 54. Qd5+ Ka3 55. Qxb5 Nb4 56. Kc3 Na2+ 57. Kd2 Nb4 58. Qd7 Kb3 59. f7 Kc4 60. Qc8+ Kb5 61. Qb8+ Kc4 62. f8=Q Nd5 63. Qbc8+ Kb3 64. Qb7+ Nb4 65. Qc5 Ka4 66. Qc3 Na2 67. Qd7# 1-0
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "9"]
+[White "ref:2"]
+[Black "sf:2800"]
+[Result "1/2-1/2"]
+[Opening "QGD"]
+[TimeControl "60+0.6"]
+[Termination "THREEFOLD_REPETITION"]
+
+1. d4 d5 2. c4 e6 3. Nc3 Nf6 4. Bg5 Be7 5. e3 h6 6. Bxf6 Bxf6 7. Qb3 c5 8. dxc5 O-O 9. cxd5 exd5 10. O-O-O Be6 11. Qxb7 Bxc3 12. Qxa8 Qa5 13. Qb7 Nd7 14. Qb3 Bf6 15. Qa3 Bxb2+ 16. Qxb2 Rb8 17. Qxb8+ Nxb8 18. Rd2 Qc3+ 19. Kd1 Qa1+ 20. Ke2 d4 21. Rxd4 Nc6 22. Rd1 Bc4+ 23. Ke1 Qc3+ 24. Rd2 Qa1+ 25. Rd1 Qc3+ 26. Rd2 Bxf1 27. Ne2 Bxe2 28. Kxe2 Qc4+ 29. Kd1 Qb5 30. Re1 a5 31. f3 Kh7 32. h3 Kh8 33. e4 Qxc5 34. Ke2 Kh7 35. Red1 Ne7 36. Kf1 f6 37. Rd7 Nc6 38. R7d2 Nb4 39. Re2 Nc6 40. Red2 Ne7 41. Rd7 f5 42. R7d2 fxe4 43. fxe4 Ng6 44. Rd4 Nf4 45. R1d2 Qg5 46. e5 Qxe5 47. Kf2 Qg5 48. Kf3 Nh5 49. g4 Nf6 50. Re2 Qc1 51. Kg2 Qc5 52. Rd3 Qb5 53. Rde3 Qc4 54. Rb2 Nd5 55. Rf3 Nf4+ 56. Kh2 Qe4 57. Rbf2 Ng6 58. Rf5 Qb4 59. Kh1 Nh4 60. R5f4 Qc3 61. Kh2 Qe3 62. a4 Qe5 63. Kh1 Qd5+ 64. Kh2 Qe5 65. Kh1 Qd5+ 66. Kh2 1/2-1/2
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "10"]
+[White "sf:2800"]
+[Black "ref:2"]
+[Result "1-0"]
+[Opening "QGD"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. d4 d5 2. c4 e6 3. Nc3 Nf6 4. Bg5 Be7 5. Nf3 O-O 6. e3 h6 7. Bxf6 Bxf6 8. Rc1 a5 9. h4 b6 10. g4 c6 11. g5 hxg5 12. hxg5 Bxg5 13. Ne5 Bh6 14. f4 f5 15. Rc2 Rf6 16. Rch2 Ra7 17. Qf3 Kh8 18. Qg3 Qe8 19. Rg1 dxc4 20. Bxc4 b5 21. Be2 Qd8 22. Rh3 Rc7 23. Bf3 Ba6 24. Qg5 Kh7 25. Ne4 fxe4 26. Bxe4+ Kh8 27. Ng4 Nd7 28. Rxh6+ Kg8 29. Qxg7+ Kxg7 30. Nxf6+ Kf8 31. Rg8+ Ke7 32. Rh7+ Kd6 33. Rxd8 e5 34. fxe5+ Ke6 35. Re8# 1-0
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "11"]
+[White "ref:2"]
+[Black "sf:2800"]
+[Result "1-0"]
+[Opening "Slav"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. d4 d5 2. c4 c6 3. Nf3 Nf6 4. Nc3 dxc4 5. a4 e6 6. e3 c5 7. Bxc4 a6 8. O-O cxd4 9. exd4 Nbd7 10. Re1 Be7 11. Qd3 h6 12. Bf4 O-O 13. Rac1 Re8 14. h3 b6 15. d5 Nc5 16. Qd4 exd5 17. Nxd5 Nxd5 18. Bxd5 Bb7 19. Bxb7 Qxd4 20. Nxd4 Nxb7 21. Nf5 Bc5 22. g4 Rad8 23. h4 Na5 24. Kg2 Kh7 25. f3 Nb3 26. Rb1 Nd2 27. Rbd1 Nc4 28. Rxd8 Rxe1 29. Rd7 Re2+ 30. Kh3 Kg6 31. b3 Ne5 32. Bxe5 Rxe5 33. Kg3 Re2 34. Nd6 Re7 35. Rd8 Re3 36. Ne4 Ba3 37. Ra8 Bb2 38. Rh8 f6 39. h5+ Kf7 40. Nd6+ Ke6 41. Re8+ Kxd6 42. Rxe3 a5 43. f4 Bd4 44. Re8 Bb2 45. Kf3 Kc5 46. Rb8 Ba3 47. Rb7 Bb4 48. Rxg7 Kd5 49. Rg6 Ke6 50. Rxh6 Be7 51. f5+ Ke5 52. Rg6 Ba3 53. h6 Kd4 54. h7 Bd6 55. h8=Q Bc7 56. Qxf6+ Be5 57. Qc6 Bf6 58. Rxf6 Kd3 59. Rd6# 1-0
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "12"]
+[White "sf:2800"]
+[Black "ref:2"]
+[Result "1/2-1/2"]
+[Opening "Slav"]
+[TimeControl "60+0.6"]
+[Termination "THREEFOLD_REPETITION"]
+
+1. d4 d5 2. c4 c6 3. Nf3 Nf6 4. Nc3 dxc4 5. Ne5 Nbd7 6. Nxd7 Bxd7 7. g3 h5 8. h4 Qa5 9. Bg2 O-O-O 10. Bd2 e5 11. dxe5 Ng4 12. Qc2 Nxe5 13. O-O b5 14. Ne4 Qb6 15. b4 Ng4 16. a4 f5 17. Nc5 Bxc5 18. bxc5 Qxc5 19. axb5 cxb5 20. Qa2 Qb6 21. Ba5 Qc5 22. Bd2 Qb6 23. Ba5 Qc5 1/2-1/2
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "13"]
+[White "ref:2"]
+[Black "sf:2800"]
+[Result "0-1"]
+[Opening "King's Indian"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. d4 Nf6 2. c4 g6 3. Nc3 Bg7 4. e4 d6 5. Nf3 O-O 6. Bf4 Nc6 7. d5 Nb4 8. h3 e6 9. a3 Na6 10. Qc2 Nh5 11. Bg5 Nf6 12. O-O-O Nc5 13. e5 dxe5 14. dxe6 Qe7 15. Nd5 Qxe6 16. Nxc7 Qc6 17. Nxa8 b6 18. Nxb6 Bf5 19. Nxe5 Qxb6 20. Nd3 Nd5 21. b4 Ne6 22. c5 Qa6 23. Qb3 Nd4 24. Qxd5 Be6 25. Qe4 Qxa3+ 26. Kd2 Re8 27. Rc1 Nb3+ 28. Ke1 Bd7 29. Qxe8+ Bxe8 30. f3 h6 31. Bf4 Nxc1 32. Bxc1 Qc3+ 33. Bd2 Qb3 34. Nc1 Qb2 35. Ne2 Qa1+ 36. Kf2 Qb2 37. Ke1 Bb5 38. g3 Qa1+ 39. Kf2 Qa2 40. Be3 Bf6 41. h4 Bc3 42. Bxh6 Qc2 43. g4 Bxb4 44. Be3 a5 45. h5 a4 46. hxg6 fxg6 47. c6 Bc5 48. Bxc5 Qxc5+ 49. Kg2 a3 50. c7 Qxc7 51. Nd4 Bxf1+ 52. Rxf1 Qc3 53. Rd1 Kf7 54. f4 Qe3 55. Kh2 Qxf4+ 56. Kh1 a2 57. Ra1 Qh6+ 58. Kg1 Qe3+ 59. Kh2 Qd2+ 60. Kh1 Qf2 61. Rxa2 Qxa2 62. Nf3 Ke6 63. Kg1 Kd5 64. Nh2 Ke5 65. Nf1 Qe2 66. Ng3 Qe1+ 67. Kg2 Kf4 68. Nh1 Qd1 69. Nf2 Qd2 70. Kh1 Kf3 71. g5 Qxg5 72. Ng4 Qc1+ 73. Kh2 Qc2+ 74. Kh3 Qf5 75. Kh2 Qh5+ 76. Kg1 Qg5 77. Kh1 Qxg4 78. Kh2 g5 79. Kh1 Kg3 80. Kg1 Qd4+ 81. Kf1 Qf2# 0-1
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "14"]
+[White "sf:2800"]
+[Black "ref:2"]
+[Result "1-0"]
+[Opening "King's Indian"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. d4 Nf6 2. c4 g6 3. Nc3 Bg7 4. e4 d6 5. Nf3 O-O 6. Be2 e5 7. O-O exd4 8. Nxd4 Re8 9. f3 a6 10. Bg5 h6 11. Be3 c5 12. Nc2 Nc6 13. Qc1 g5 14. Qd2 Re6 15. a3 Bd7 16. Rad1 a5 17. b3 b6 18. f4 gxf4 19. Bxf4 Nd4 20. Nxd4 cxd4 21. Nd5 Nxe4 22. Qd3 Nc5 23. Qc2 Rb8 24. Bh5 Be8 25. Bg4 Kh8 26. Qf2 Nxb3 27. Bf5 b5 28. Rd3 bxc4 29. Rh3 Rf6 30. Bg5 Rxf5 31. Qxf5 Bd7 32. Rxh6+ Bxh6 33. Bf6+ Kg8 34. Qh5 Qf8 35. Ne7+ Qxe7 36. Bxe7 Be3+ 37. Kh1 Bf5 38. Rxf5 Bh6 39. Qxf7+ Kh8 40. Bf6+ Bg7 41. Rh5# 1-0
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "15"]
+[White "ref:2"]
+[Black "sf:2800"]
+[Result "1-0"]
+[Opening "Nimzo-Indian"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. d4 Nf6 2. c4 e6 3. Nc3 Bb4 4. e3 O-O 5. Nf3 d5 6. Bd3 c5 7. O-O Nbd7 8. Qb3 Bxc3 9. bxc3 dxc4 10. Qxc4 b6 11. Ne5 Bb7 12. Nxd7 Qxd7 13. a4 Rfd8 14. a5 Rac8 15. Qa2 cxd4 16. cxd4 e5 17. axb6 axb6 18. Bb2 Bxg2 19. Kxg2 Qg4+ 20. Kh1 Qf3+ 21. Kg1 h5 22. Rfe1 Qg4+ 23. Kf1 Rc6 24. Red1 Qh3+ 25. Ke1 Qxh2 26. dxe5 Ng4 27. Bd4 Qg1+ 28. Bf1 Rdc8 29. Qe2 Nh2 30. Ra2 g6 31. Kd2 Qh1 32. e4 Nf3+ 33. Ke3 Ng1 34. Qd3 h4 35. Kf4 Qh2+ 36. Kg4 Rd8 37. Qe3 g5 38. Kh5 Kh7 39. Qxg5 Nf3 40. Qf5+ Rg6 41. Ra7 Qg3 42. fxg3 Rf8 43. Rxf7+ Kh8 44. Rxf8+ Kg7 45. Qf7# 1-0
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "16"]
+[White "sf:2800"]
+[Black "ref:2"]
+[Result "1-0"]
+[Opening "Nimzo-Indian"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. d4 Nf6 2. c4 e6 3. Nc3 Bb4 4. e3 d5 5. Nf3 Nc6 6. h3 a5 7. Bd3 Ne4 8. O-O Nxc3 9. bxc3 Bxc3 10. Rb1 dxc4 11. Bxc4 Bb4 12. Qd3 Be7 13. Qc3 f5 14. Rd1 Nb4 15. d5 Rg8 16. e4 fxe4 17. Qe5 exf3 18. Qh5+ Kf8 19. Rb3 Bf6 20. Rxf3 Qe7 21. dxe6 Bxe6 22. Re1 Ra6 23. Rfe3 Bxc4 24. Rxe7 Bxe7 25. Qf5+ Ke8 26. Bg5 Nd5 27. Qe4 b5 28. Bxe7 Kf7 29. Qf3+ Nf6 30. Qb7 Re6 31. Rxe6 Kxe6 32. Bxf6 Kxf6 33. Qa6+ Kf7 34. a4 Rb8 35. Qa7 Rc8 36. Qxa5 c6 37. Qb6 Kg8 38. Qb7 Be6 39. a5 Rd8 40. Qe7 Rd1+ 41. Kh2 Bf7 42. a6 h6 43. a7 Ra1 44. Qd8+ Kh7 45. a8=Q Rxa8 46. Qxa8 Bd5 47. Qa3 Kg8 48. g4 Kf7 49. Kg3 Be4 50. Qa7+ Kg8 51. h4 Bd5 52. Kf4 Kh8 53. Ke5 Bg2 54. Ke6 Kg8 55. Ke7 Bf3 56. Qb8+ Kh7 57. Qa7 Kg8 58. Qd7 Bd5 59. Qc8+ Kh7 60. Kf8 Kh8 61. Qb8 b4 62. Qe5 Kh7 63. Qa1 g5 64. Qg7# 1-0
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "17"]
+[White "ref:2"]
+[Black "sf:2800"]
+[Result "1/2-1/2"]
+[Opening "English"]
+[TimeControl "60+0.6"]
+[Termination "THREEFOLD_REPETITION"]
+
+1. c4 e5 2. Nc3 Nf6 3. g3 d5 4. cxd5 Nxd5 5. e4 Nf6 6. Nf3 Nc6 7. Bb5 Bc5 8. Nxe5 O-O 9. Nxc6 bxc6 10. Bxc6 Rb8 11. f3 Ba6 12. Na4 Qd4 13. Nxc5 Qxc5 14. Ba4 Bd3 15. a3 Nxe4 16. fxe4 Rbe8 17. Bxe8 Rxe8 18. Qf3 Rxe4+ 19. Qxe4 Bxe4 20. d4 Qc2 21. Rf1 Qg2 22. Be3 Qxh2 23. Bf2 Bd3 24. Rd1 Bxf1 25. Kxf1 h5 26. Ke2 Qg2 27. Rd3 Qd5 28. b4 Qa2+ 29. Kf3 Qd5+ 30. Ke2 Qe6+ 31. Be3 Qh3 32. Bf2 Qe6+ 33. Be3 Qa2+ 34. Kd1 Qd5 35. Bd2 f6 36. Kc2 Qg2 37. Kc1 g5 38. d5 h4 39. gxh4 gxh4 40. Kd1 Qf1+ 41. Kc2 h3 42. Bf4 Qf2+ 43. Kc3 Qxf4 44. Rxh3 Qe4 45. Rd3 Qe5+ 46. Kc2 Qe2+ 47. Kc3 Qe5+ 48. Kc2 f5 49. Kc1 Qe1+ 50. Kc2 Kf7 51. Rc3 Qe2+ 52. Kb3 Qd1+ 53. Kc4 Qd2 54. Rh3 Qf4+ 55. Kb3 Qd2 56. Kc4 f4 57. Rc3 Qe1 58. Kd4 Qd2+ 59. Kc4 Qe2+ 60. Kb3 Qe5 61. Kc2 Qxd5 62. Rxc7+ Ke6 63. Kc1 Qd3 64. Rc6+ Kd5 65. Rc5+ Ke4 66. Rc8 Qxa3+ 67. Kc2 Qxb4 68. Re8+ Kf3 69. Rc8 Ke4 70. Re8+ Kf5 71. Rd8 Qc4+ 72. Kd1 Qb5 73. Rd2 f3 74. Kc2 Qc4+ 75. Kb2 Ke4 76. Rc2 Qd4+ 77. Kb3 f2 78. Rc1 Qe3+ 79. Kb2 Qd4+ 80. Kb3 Qd5+ 81. Ka3 Qd6+ 82. Ka4 Qd7+ 83. Kb3 Qf7+ 84. Kb4 f1=Q 85. Rxf1 Qxf1 86. Kc5 Qa6 87. Kb4 Kd4 88. Kb3 Kd3 89. Kb2 Qf6+ 90. Ka3 Kc3 91. Ka2 Qa6+ 92. Kb1 Qb7+ 93. Kc1 Kd3 94. Kd1 Qf3+ 95. Kc1 Qb7 96. Kd1 Qf3+ 97. Kc1 1/2-1/2
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "18"]
+[White "sf:2800"]
+[Black "ref:2"]
+[Result "1/2-1/2"]
+[Opening "English"]
+[TimeControl "60+0.6"]
+[Termination "ply cap 300"]
+
+1. c4 e5 2. Nc3 Nf6 3. g3 d5 4. cxd5 Nxd5 5. Nf3 Nc6 6. Bg2 Nxc3 7. bxc3 e4 8. Ng1 f5 9. d3 Qf6 10. dxe4 Bb4 11. Bd2 Bxc3 12. Rc1 Bxd2+ 13. Qxd2 Bd7 14. Qe3 O-O-O 15. exf5 Qxf5 16. Nf3 Rhe8 17. Qa3 Qb5 18. O-O Rxe2 19. h4 Be6 20. Rcd1 Bd5 21. Nd4 Nxd4 22. Rxd4 Bxg2 23. Rxd8+ Kxd8 24. Kxg2 Ke8 25. Rc1 Qd5+ 26. Kg1 a6 27. Qa4+ c6 28. Rd1 b5 29. Rxd5 bxa4 30. Rd6 Rc2 31. a3 Rc3 32. h5 Ke7 33. h6 gxh6 34. Rxh6 c5 35. g4 Rxa3 36. Rxh7+ Kd6 37. Rh6+ Kd5 38. Kg2 c4 39. g5 c3 40. g6 Ke6 41. Rh4 Kf6 42. Rg4 Kg7 43. Rc4 Kxg6 44. Kf1 Kf5 45. Ke2 Ke5 46. Rh4 c2 47. Rc4 a5 48. f3 Kd5 49. Rc7 Rb3 50. Kd2 Rxf3 51. Ra7 Rc3 52. Rxa5+ Kc4 53. Kc1 a3 54. Ra6 Kc5 55. Ra5+ Kb4 56. Ra8 Kb3 57. Rd8 Ka4 58. Rd4+ Kb5 59. Rd7 Rc4 60. Ra7 Kb4 61. Rb7+ Kc3 62. Ra7 Kb3 63. Rb7+ Ka2 64. Re7 Rc8 65. Rh7 Rc6 66. Re7 Ka1 67. Ra7 a2 68. Ra8 Rc3 69. Ra4 Rc7 70. Ra3 Rc4 71. Re3 Rc5 72. Re1 Rc3 73. Re4 Rc8 74. Re5 Rh8 75. Kxc2 Rb8 76. Rf5 Rb7 77. Rd5 Rb2+ 78. Kc3 Rb1 79. Rd2 Rb7 80. Rd6 Rc7+ 81. Kd2 Kb2 82. Rb6+ Ka3 83. Ra6+ Kb3 84. Rb6+ Kc4 85. Ra6 Rh7 86. Kc2 Rh2+ 87. Kc1 Kc3 88. Ra3+ Kd4 89. Ra4+ Kc5 90. Ra8 Rf2 91. Ra3 Kc4 92. Ra8 Kc3 93. Rc8+ Kd4 94. Ra8 Kc4 95. Ra6 Kb3 96. Rb6+ Kc3 97. Rc6+ Kd4 98. Rd6+ Ke5 99. Ra6 Ke4 100. Ra4+ Ke3 101. Ra7 Rh2 102. Re7+ Kd4 103. Rd7+ Kc5 104. Ra7 Kd5 105. Ra4 Re2 106. Ra3 Kc5 107. Ra5+ Kb4 108. Ra7 Rg2 109. Rb7+ Kc5 110. Ra7 Kb5 111. Ra3 Re2 112. Ra7 Rh2 113. Ra8 Kb4 114. Ra6 Kb3 115. Rb6+ Ka3 116. Ra6+ Kb4 117. Ra8 Kb3 118. Rb8+ Ka4 119. Ra8+ Kb5 120. Rb8+ Ka5 121. Ra8+ Kb6 122. Ra3 Re2 123. Ra4 Kc6 124. Ra3 a1=B 125. Rxa1 Kd5 126. Ra8 Rg2 127. Ra3 Kc4 128. Ra1 Rf2 129. Ra4+ Kd3 130. Ra5 Rc2+ 131. Kd1 Rh2 132. Rd5+ Ke4 133. Rd6 Rf2 134. Re6+ Kd4 135. Ra6 Rg2 136. Ra3 Rh2 137. Ra6 Kd5 138. Ra5+ Ke4 139. Ra8 Kf5 140. Ra5+ Ke6 141. Ra7 Ke5 142. Ra5+ Kd6 143. Ra8 Rg2 144. Ra4 Ke5 145. Ra7 Kd5 146. Rd7+ Ke6 147. Ra7 Rb2 148. Ra4 Ke5 149. Ke1 Rh2 150. Kf1 Kd5 1/2-1/2
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "19"]
+[White "ref:2"]
+[Black "sf:2800"]
+[Result "0-1"]
+[Opening "Italian"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. c3 Nf6 5. b4 Bb6 6. Qe2 O-O 7. O-O Re8 8. a4 a5 9. b5 Nb8 10. d3 d6 11. Ng5 Re7 12. Be3 Bxe3 13. Qxe3 c6 14. Nxf7 Rxf7 15. Bxf7+ Kxf7 16. Nd2 cxb5 17. axb5 Be6 18. h3 Nbd7 19. d4 Kg8 20. g4 a4 21. d5 Bf7 22. f4 exf4 23. Rxf4 Bg6 24. g5 Nh5 25. Rf2 Qc8 26. c4 Qc7 27. h4 Nc5 28. Qh3 Qe7 29. Qf3 Qe5 30. Ra3 Qd4 31. Qe2 Nf4 32. Qe3 Qxe3 33. Rxe3 a3 34. Rf1 Nfd3 35. Ra1 a2 36. h5 Bxh5 37. Kg2 Nb4 38. Rc3 Be2 39. Rcc1 Bd3 40. Kf3 b6 41. Rh1 Ra3 42. Kf4 Nc2 43. e5 Nxa1 44. Rxa1 Kf8 45. exd6 Ra4 46. Ke5 Ke8 47. g6 Bxg6 48. Kd4 Ra3 49. Ke5 Bd3 50. d7+ Kxd7 51. Kd4 Kd6 52. Ke3 Bxc4+ 53. Kd4 Bxb5 54. Ne4+ Nxe4 55. Kxe4 Bc4 56. Kf4 Bxd5 57. Kf5 b5 58. Kg5 Bc6 59. Kf5 Bd5 60. Kg5 Ra5 61. Kf4 b4 62. Ke3 h5 63. Rg1 a1=Q 64. Rxa1 Rxa1 65. Kd3 Ra6 66. Kd4 Ra2 67. Ke3 Rg2 68. Kd3 Rg1 69. Kd4 b3 70. Kd3 Rg6 71. Ke3 Rg4 72. Kd2 Rg2+ 73. Kd3 Rg6 74. Ke3 b2 75. Kd4 Rg2 76. Kd3 Ke5 77. Ke3 Kd6 78. Kd3 h4 79. Kc3 g6 80. Kd4 b1=Q 81. Kc3 Qb2+ 82. Kd3 Qd2# 0-1
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "20"]
+[White "sf:2800"]
+[Black "ref:2"]
+[Result "1/2-1/2"]
+[Opening "Italian"]
+[TimeControl "60+0.6"]
+[Termination "THREEFOLD_REPETITION"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. c3 Nf6 5. d4 exd4 6. e5 d5 7. Bb5 Ne4 8. Bxc6+ bxc6 9. cxd4 Be7 10. O-O O-O 11. Qc2 c5 12. Be3 Bf5 13. Qc1 c4 14. h3 Qd7 15. Nbd2 a5 16. b3 cxb3 17. Nxb3 Ra6 18. Kh2 Rb8 19. Re1 a4 20. Nc5 Nxc5 21. dxc5 Be4 22. Nd4 Ra5 23. Ne2 c6 24. Qa3 f6 25. Ng3 fxe5 26. Qc3 Raa8 27. Nxe4 dxe4 28. Rab1 Rxb1 29. Rxb1 Qd3 30. Qb4 Bf8 31. a3 g6 32. Rb2 Qd7 33. Qxe4 Qd5 34. Qb4 Qf7 35. g3 Qf3 36. Qc4+ Qd5 37. Qh4 Ra7 38. Rd2 Qf3 39. Qd8 Qe4 40. Qc8 Kg7 41. Rd6 Qf5 42. Qb8 Rd7 43. Rxd7+ Qxd7 44. Qxe5+ Kg8 45. Qe4 Kf7 46. Qf4+ Ke8 47. Qxa4 Qd5 48. Qa8+ Kf7 49. Qb7+ Kg8 50. Qb8 Kf7 51. Qf4+ Ke8 52. Qb4 h6 53. Qb8+ Kf7 54. Qf4+ Ke8 55. Qb8+ Kf7 56. Qf4+ Ke8 1/2-1/2
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "21"]
+[White "ref:2"]
+[Black "sf:2800"]
+[Result "1/2-1/2"]
+[Opening "Scandinavian"]
+[TimeControl "60+0.6"]
+[Termination "THREEFOLD_REPETITION"]
+
+1. e4 d5 2. exd5 Qxd5 3. Nc3 Qa5 4. Nf3 Bg4 5. h3 Bxf3 6. Qxf3 c6 7. d4 Nd7 8. Bf4 e6 9. Qg3 Ne7 10. O-O-O Nb6 11. Bd2 Nf5 12. Qc7 Rd8 13. Qxb7 Nxd4 14. Be3 Rd7 15. Qb8+ Rd8 16. Qg3 Nf5 17. Qc7 Rxd1+ 18. Kxd1 Nxe3+ 19. fxe3 f6 20. Qxc6+ Kf7 21. Bd3 Be7 22. Rf1 Rd8 23. Kc1 Bb4 24. Bxh7 Bxc3 25. Qc7+ Rd7 26. Qxc3 Qxa2 27. Qa3 Qxa3 28. bxa3 g6 29. Bg8+ Kxg8 30. Rxf6 Re7 31. Rxg6+ Kh7 32. Rg4 Rc7 33. Rb4 Nc4 34. Rb3 Kg6 35. Kd1 Nd6 36. Rd3 Nf5 37. e4 Ng7 38. Kd2 Kf6 39. Rg3 Nh5 40. Rg4 Rc5 41. h4 Ra5 42. c3 e5 43. Rg5 Ng7 44. Rg3 Rxa3 45. Rf3+ Ke7 46. g3 Ne8 47. Kd3 Nf6 48. Rf5 Ke6 49. Rf1 Ra4 50. Re1 Kf7 51. Re2 Nd7 52. Ke3 Rc4 53. Kd3 Ra4 54. Ke3 Nf6 55. Kd3 1/2-1/2
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "22"]
+[White "sf:2800"]
+[Black "ref:2"]
+[Result "1-0"]
+[Opening "Scandinavian"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. e4 d5 2. exd5 Qxd5 3. Nc3 Qa5 4. d4 Nf6 5. Bd2 Nc6 6. Bb5 Qb4 7. Nf3 Qd6 8. Qc1 Bg4 9. Bf4 Qe6+ 10. Ne5 O-O-O 11. Bc4 Qf5 12. Nxc6 bxc6 13. h3 Bh5 14. g4 Nxg4 15. Ba6+ Kb8 16. hxg4 Bxg4 17. Bd3 Qe6+ 18. Qe3 Rxd4 19. Be2 Rd8 20. Ne4 Qc8 21. Qb3+ Ka8 22. f3 Bf5 23. Qa4 Qb7 24. Be3 e5 25. Nd2 Bb4 26. O-O-O Bxd2+ 27. Bxd2 Rd6 28. Qa5 f6 29. Be3 Rd5 30. Qa3 Rhd8 31. b3 R5d6 32. Ba6 Qb8 33. Rdg1 g5 34. Rd1 Bg6 35. Rde1 h5 36. Qa4 Be8 37. Qa5 h4 38. a4 Bh5 39. Rhf1 Bg6 40. Rf2 Bf5 41. Rh2 h3 42. Bc5 R6d7 43. Be3 Rd6 44. Bc4 R6d7 45. Bc5 Qb7 46. Reh1 Rh7 47. Kb2 Qb8 48. Bf2 Rhd7 49. Bg1 Rd1 50. Bf2 R1d7 51. Bc5 Rh7 52. Ba6 Rdh8 53. Bf2 Bd7 54. Rg1 Rd8 55. Qc3 Rhh8 56. Rd1 Be8 57. Rxd8 Qxd8 58. Qc5 Qb8 59. Qe7 Rh6 60. Bd3 a6 61. Bxa6 Rh5 62. Qc5 Qb6 63. Qf8 Qb8 64. Qxf6 Bd7 65. Qe7 Be8 66. Qc5 Rh4 67. Qa5 Qb4 68. Qxe5 Qb8 69. Bc8 Rxa4 70. Qxe8 Ra6 71. Rxh3 c5 72. Rh8 Ka7 73. Bxc5+ Qb6 74. Qc6 Ra2+ 75. Kb1 Ra1+ 76. Kb2 Ra2+ 77. Kxa2 Kb8 78. Ba6+ Ka7 79. Qa8# 1-0
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "23"]
+[White "ref:2"]
+[Black "sf:2800"]
+[Result "1/2-1/2"]
+[Opening "London"]
+[TimeControl "60+0.6"]
+[Termination "FIFTY_MOVES"]
+
+1. d4 d5 2. Bf4 Nf6 3. e3 e6 4. Nf3 c5 5. Nc3 Bd6 6. dxc5 Bc7 7. Bb5+ Bd7 8. b4 O-O 9. Bxd7 Nbxd7 10. Bxc7 Qxc7 11. Nb5 Qc6 12. Nfd4 Qc8 13. Nd6 Qc7 14. N4b5 Qb8 15. c4 a5 16. a3 axb4 17. axb4 dxc4 18. Nxc4 Rxa1 19. Qxa1 Nd5 20. Qd4 Qa8 21. O-O Qa4 22. Ncd6 Qxb4 23. Qxb4 Nxb4 24. Nxb7 Rb8 25. N5d6 Nc6 26. Ra1 h6 27. f4 g5 28. h3 Nb4 29. Ra4 Nc6 30. g4 Kf8 31. Ra6 Nb4 32. Ra1 gxf4 33. exf4 Nf6 34. f5 Nc6 35. fxe6 fxe6 36. Na5 Nxa5 37. Rxa5 Rb3 38. Ra8+ Kg7 39. Ra7+ Kg6 40. Re7 Rg3+ 41. Kf2 Rxh3 42. c6 Nd5 43. Rxe6+ Kg7 44. c7 Nxc7 45. Re7+ Kg6 46. Rxc7 h5 47. gxh5+ Kxh5 48. Rg7 Rb3 49. Ke2 Kh4 50. Kd2 Rb4 51. Ke3 Kh5 52. Ne4 Rb3+ 53. Kf4 Kh6 54. Rg2 Rb6 55. Ke5 Rb4 56. Ng5 Kg6 57. Ne6+ Kh5 58. Nd4 Rb1 59. Kf6 Kh4 60. Nf5+ Kh3 61. Rg3+ Kh2 62. Ra3 Rf1 63. Ke5 Re1+ 64. Kd4 Rb1 65. Nd6 Re1 66. Ne4 Rb1 67. Ke5 Rb5+ 68. Kf4 Kg2 69. Ra7 Rb2 70. Rg7+ Kh1 71. Kf3 Kh2 72. Ng3 Rb3+ 73. Kf4 Rb1 74. Ne2 Rb4+ 75. Kf5 Rb2 76. Nf4 Kh1 77. Ke4 Kh2 78. Kd4 Rb3 79. Rg2+ Kh1 80. Ra2 Rb7 81. Nd5 Rf7 82. Ne3 Rb7 83. Rf2 Rb6 84. Nd5 Rb3 85. Rc2 Rb5 86. Ke4 Kg1 87. Ne3 Rb7 88. Rg2+ Kh1 89. Rd2 Rb4+ 90. Kf3 Rb1 91. Ra2 Rb3 92. Kf4 Rb1 93. Kg3 Kg1 94. Rg2+ Kh1 95. Rh2+ Kg1 96. Rh7 Rb4 97. Kf3 1/2-1/2
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "24"]
+[White "sf:2800"]
+[Black "ref:2"]
+[Result "1/2-1/2"]
+[Opening "London"]
+[TimeControl "60+0.6"]
+[Termination "THREEFOLD_REPETITION"]
+
+1. d4 d5 2. Bf4 Nf6 3. e3 e6 4. Nf3 c5 5. c3 Nc6 6. Nbd2 Nh5 7. Bg3 Nxg3 8. hxg3 a6 9. Rc1 c4 10. g4 b5 11. g3 Be7 12. a3 O-O 13. Bg2 Bd7 14. Ra1 h6 15. Ng1 Re8 16. f4 Ra7 17. g5 Bf8 18. Kf2 a5 19. Ndf3 f5 20. gxh6 gxh6 21. Ne5 Nxe5 22. dxe5 Qe7 23. Bf3 Qg7 24. Ne2 a4 25. Nd4 Kh8 26. g4 fxg4 27. Bxg4 Qh7 28. Rh2 Ra6 29. Bh5 Re7 30. Rh3 Rg7 31. Qh1 Rg8 32. Rg1 Rxg1 33. Qxg1 Bg7 34. Bg6 Qg8 35. Qg4 Bf8 36. Qg1 Bg7 37. Qg5 Qf8 38. Bb1 Qf7 39. Bg6 Qf8 40. Qh5 Kg8 41. Rh1 Rb6 42. Ke2 Qe7 43. Rh3 Ra6 44. Kd2 Ra8 45. Rg3 Rd8 46. Rg1 Rb8 47. Ke2 Rd8 48. Kd2 Rb8 49. Bc2 Kf8 50. Kc1 Rc8 51. Kb1 Ra8 52. Bh7 Ra7 53. Bg6 Ra5 54. Ka2 Ra6 55. Qf3 Bc8 56. e4 Qb7 57. Bh7 Rb6 58. exd5 Qxd5 59. Qg3 Rb7 60. Qe1 Qc5 61. Qg3 Qd5 62. Bg6 Re7 63. Ka1 Bd7 64. Bh5 Qe4 65. Ka2 Qd5 66. Bf3 Qc5 67. Qg6 Qc8 68. Qh7 Qd8 69. f5 Rf7 70. Rxg7 Rxg7 71. Qh8+ Rg8 72. Qxh6+ Rg7 73. f6 Qe7 74. Qh8+ Rg8 75. fxe7+ Kxe7 76. Qh4+ Rg5 77. Qxg5+ Kf8 78. Qh6+ Kf7 79. Bh5+ Kg8 80. Qg5+ Kh7 81. Qg6+ Kh8 82. Nxe6 Bxe6 83. Qxe6 b4 84. Qe8+ Kh7 85. axb4 a3 86. Qf7+ Kh8 87. Qf6+ Kg8 88. Bf7+ Kh7 89. b5 axb2 90. Bg6+ Kg8 91. Bh5 Kh7 92. Qf7+ Kh8 93. Qf8+ Kh7 94. Qf7+ Kh8 95. Qf6+ Kh7 1/2-1/2
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "25"]
+[White "ref:2"]
+[Black "sf:2800"]
+[Result "1/2-1/2"]
+[Opening "Grunfeld"]
+[TimeControl "60+0.6"]
+[Termination "THREEFOLD_REPETITION"]
+
+1. d4 Nf6 2. c4 g6 3. Nc3 d5 4. cxd5 Nxd5 5. e4 Nxc3 6. bxc3 c5 7. Nf3 Qa5 8. Bd2 Bg7 9. Bc4 Qc7 10. Qa4+ Bd7 11. Qb3 O-O 12. Rb1 Nc6 13. Qxb7 Qd8 14. O-O cxd4 15. cxd4 Rb8 16. Qa6 Nxd4 17. Qxa7 Rxb1 18. Rxb1 Bg4 19. Ba5 Qd6 20. Ng5 Qf6 21. Qc5 Rc8 22. Bc7 Be6 23. Nxe6 Nxe6 24. Bxe6 Qxe6 25. e5 Qd7 26. Rc1 h6 27. h4 h5 28. a3 Kh7 29. a4 Qf5 30. Rd1 Bf6 31. g3 g5 32. Qc3 Bg7 33. hxg5 h4 34. Rd4 Qb1+ 35. Kh2 hxg3+ 36. fxg3 Kg8 37. Rf4 Qh7+ 38. Rh4 Qg6 39. a5 Qf5 40. Qd2 Rxc7 41. Qd8+ Bf8 42. Qxc7 Qf2+ 43. Kh3 Qf1+ 44. Kh2 Qe2+ 45. Kh1 Qf1+ 46. Kh2 Qe2+ 47. Kg1 Qd1+ 48. Kf2 Qd2+ 49. Kf1 Qd3+ 50. Kg2 Qe2+ 51. Kh3 Qf1+ 1/2-1/2
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "26"]
+[White "sf:2800"]
+[Black "ref:2"]
+[Result "1/2-1/2"]
+[Opening "Grunfeld"]
+[TimeControl "60+0.6"]
+[Termination "THREEFOLD_REPETITION"]
+
+1. d4 Nf6 2. c4 g6 3. Nc3 d5 4. cxd5 Nxd5 5. e4 Nxc3 6. bxc3 Bg7 7. Qa4+ Nd7 8. Be2 c5 9. Nf3 O-O 10. Qa3 e5 11. dxc5 Qc7 12. Be3 b6 13. cxb6 axb6 14. Qb4 Ra4 15. Qb2 Rxe4 16. O-O Nc5 17. Bb5 Bf6 18. h3 Be6 19. Ng5 Bxg5 20. Bxg5 Na4 21. Qc2 Nxc3 22. Rac1 Rb4 23. Qd2 Qc5 24. Rxc3 Qxb5 25. Be7 Re8 26. Bxb4 Qxb4 27. Rd1 b5 28. Rc8 Qe7 29. Rxe8+ Qxe8 30. Qd6 f6 31. a3 Kf7 32. Rc1 Bc4 33. Qd2 Qa8 34. a4 Qxa4 35. Qd7+ Kf8 36. Qxh7 Qa3 37. Rd1 Bd3 38. h4 e4 39. Qh6+ Kf7 40. Qh7+ Kf8 41. Qxg6 Qb2 42. Qh6+ Kg8 43. h5 Qe5 44. Rc1 Bc4 45. Rd1 Bd3 46. Qg6+ Kh8 47. Rc1 Bc4 48. Qh6+ Kg8 49. Qg6+ Kh8 50. h6 f5 51. Rd1 Bd3 52. h7 Qg7 53. Qxf5 Qxh7 54. Qc8+ Qg8 55. Qc7 Qg7 56. Qf4 Qd4 57. Rc1 Bc4 58. Qf8+ Kh7 59. Qe8 Kg7 60. Rb1 Bd3 61. Qe7+ Kg8 62. Rd1 Qg7 63. Qe6+ Qf7 64. Qb6 Qg7 65. Rc1 Bc4 66. Re1 Bd3 67. Rc1 Bc4 68. Qb8+ Kh7 69. Qf4 Qd4 70. Qg4 Kh6 71. Rb1 Qe5 72. Re1 Qg5 73. Rxe4 Qxg4 74. Rxg4 Bf7 75. Rf4 Be8 76. Re4 Bd7 77. Rd4 Be8 78. Rf4 Kg7 79. f3 Bf7 80. Kf2 Bc4 81. Ke3 Bf7 82. g4 Kg6 83. Rb4 Bc4 84. Rxc4 bxc4 85. Kd4 Kg5 86. Ke4 Kg6 87. Kd4 Kg5 88. Ke3 Kg6 1/2-1/2
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "27"]
+[White "ref:2"]
+[Black "sf:2800"]
+[Result "1-0"]
+[Opening "Dutch Leningrad"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. d4 f5 2. g3 Nf6 3. Bg2 g6 4. Nf3 Bg7 5. c4 c6 6. a4 d6 7. Nc3 a5 8. O-O Qc7 9. Re1 O-O 10. Qb3 Na6 11. Bf4 h6 12. c5+ Kh8 13. h4 Qd8 14. cxd6 exd6 15. e4 Nxe4 16. Nxe4 fxe4 17. Rxe4 Bf5 18. Re3 Nb4 19. Re2 Qc7 20. Bd2 Qf7 21. Qxf7 Rxf7 22. Ra3 Raf8 23. Bf4 Rd7 24. Ne1 Rff7 25. Rd2 c5 26. d5 Kh7 27. Re3 Rf8 28. Nf3 Bf6 29. Bf1 Rdd8 30. Bc4 Rg8 31. Nh2 g5 32. Bxg5 hxg5 33. Rf3 gxh4 34. Rxf5 Kg6 35. Rf4 Rde8 36. Nf3 hxg3 37. fxg3 Bg5 38. Nxg5 Kxg5 39. Rf7 Re1+ 40. Kg2 Rc1 41. b3 Rc3 42. Rdf2 Nc2 43. R2f5+ Kg6 44. R5f6+ Kg5 45. Rxd6 Rh8 46. Rg7+ Kf5 47. g4+ Ke5 48. Re6+ Kd4 49. Rxb7 Rch3 50. d6 Ne3+ 51. Rxe3 Kxe3 52. Re7+ Kf4 53. Rf7+ Ke4 54. d7 Rh2+ 55. Kf1 Rd2 56. Ke1 Rd6 57. Kf2 Rh3 58. Bb5 Ke5 59. Rf5+ Ke6 60. Rxc5 Ke7 61. Re5+ Kf6 62. Re8 Rh2+ 63. Kg3 Rhd2 64. Ra8 R2d5 65. Kh4 Rd1 66. Rxa5 Rh1+ 67. Kg3 Rh8 68. Ra7 Rd8 69. Rc7 Rd1 70. Rc3 Ke6 71. Re3+ Kd6 72. Kf4 Rf8+ 73. Ke4 Rg1 74. Kd3 Rh8 75. Re8 Rh3+ 76. Ke2 Rh2+ 77. Kf3 Rd2 78. d8=Q+ Kc5 79. b4+ Kxb4 80. Qxd2+ Ka3 81. Re3# 1-0
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "28"]
+[White "sf:2800"]
+[Black "ref:2"]
+[Result "1-0"]
+[Opening "Dutch Leningrad"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. d4 f5 2. g3 Nf6 3. Bg2 g6 4. Nf3 Bg7 5. c4 e6 6. Qc2 Nc6 7. b3 d5 8. e3 Ne4 9. Ba3 e5 10. Nc3 exd4 11. exd4 Nxd4 12. Nxd4 Bxd4 13. O-O-O Bxc3 14. Bxe4 d4 15. Bd5 Qd7 16. Qe2+ Kd8 17. Qe5 c6 18. Qxh8+ Kc7 19. Qe5+ Kb6 20. Bc5+ Ka6 21. Bxd4 Bb4 22. Bc3 Bd6 23. Qe2 cxd5 24. Rxd5 b5 25. Rhd1 Ba3+ 26. Kb1 Qe7 27. Re5 Qc7 28. cxb5+ Kb7 29. Qf3+ Kb8 30. Red5 Bd6 31. Rxd6 h6 32. Rc6 f4 33. Rxc7 Bf5+ 34. Kc1 Be4 35. Re7 Kc8 36. Qxf4 Bf5 37. Qc7# 1-0
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "29"]
+[White "ref:2"]
+[Black "sf:2800"]
+[Result "1/2-1/2"]
+[Opening "Pirc"]
+[TimeControl "60+0.6"]
+[Termination "FIFTY_MOVES"]
+
+1. e4 d6 2. d4 Nf6 3. Nc3 g6 4. f4 Bg7 5. e5 Nfd7 6. Nf3 O-O 7. Bc4 Nb6 8. Bb3 dxe5 9. fxe5 Bg4 10. Be3 Nc6 11. O-O Na5 12. h3 Nbc4 13. Qe2 Bxf3 14. Rxf3 Nxe3 15. Qxe3 c6 16. Ne4 Nxb3 17. axb3 b6 18. b4 Qd5 19. Nc3 Qe6 20. Ne2 a5 21. bxa5 Rxa5 22. Rxa5 bxa5 23. Nf4 Qc4 24. c3 Rb8 25. Nd3 c5 26. dxc5 Rd8 27. g4 Bh6 28. Qe2 Rd5 29. e6 f6 30. Kf2 Bg5 31. Ke1 Kg7 32. Kf1 Rd8 33. Kg2 Bh4 34. Kh1 a4 35. Kh2 Kg8 36. Kg2 a3 37. bxa3 Qxc3 38. a4 Kh8 39. Qd1 Rc8 40. Qc1 Qb3 41. Nf4 Qxa4 42. Nxg6+ hxg6 43. Qh6+ Kg8 44. Qxg6+ Kh8 45. Qh6+ Kg8 46. Qxh4 Rxc5 47. Qe1 Qc6 48. Kg3 Kg7 49. Rd3 Rc4 50. Kh4 Re4 51. Re3 Rd4 52. Qa5 Rd5 53. Qb4 Qc7 54. Rc3 Qd6 55. Qxd6 Rxd6 56. Re3 Kh7 57. Kg3 Rd1 58. h4 Rg1+ 59. Kf3 Kh6 60. Ra3 Re1 61. Ra6 Kh7 62. Kf4 Kg6 63. h5+ Kh7 64. Rb6 Rf1+ 65. Kg3 Kh6 66. Rb7 f5 67. gxf5 Kxh5 68. f6 exf6 69. Rb2 Re1 70. Kf4 Kh6 71. Kf5 Kg7 72. Rb7+ Kf8 73. Rd7 Rh1 74. Kxf6 Ke8 75. Rd5 Rg1 76. Rc5 Rf1+ 77. Rf5 Rb1 78. Rf2 Rg1 79. Rd2 Rg3 80. Rd4 Rh3 81. Ra4 Rh6+ 82. Ke5 Rh2 83. Rf4 Rh1 84. Kd5 Rg1 85. Rf2 Re1 86. Rf5 Rb1 87. Rf3 Ra1 88. Ke5 Kd8 89. Kf6 Ke8 90. Rf4 Rg1 91. Rd4 Re1 92. Kf5 Ra1 93. Rd2 Rh1 94. Kf6 Rc1 95. Ke5 Ke7 96. Rd7+ Kf8 97. Rh7 Rc3 98. Kf5 Rc1 99. Kf6 Rf1+ 100. Ke5 Rg1 101. Rf7+ Ke8 102. Rb7 Ra1 103. Kd6 Ra6+ 104. Kd5 Ra2 105. Rh7 Re2 106. Ra7 Re1 107. Kd6 Rd1+ 108. Ke5 Re1+ 109. Kf6 Rf1+ 110. Kg5 Rf2 111. Kg6 Rh2 112. Kf6 Rf2+ 113. Ke5 Kf8 114. Ra5 Ke8 115. Kd6 Rd2+ 116. Rd5 Rg2 117. Rd4 Rg3 118. Rd2 Re3 119. Rd5 Re2 120. Rd4 Ra2 121. Rd3 Ra6+ 122. Kd5 Ra1 123. Ke5 Rc1 1/2-1/2
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "30"]
+[White "sf:2800"]
+[Black "ref:2"]
+[Result "1/2-1/2"]
+[Opening "Pirc"]
+[TimeControl "60+0.6"]
+[Termination "THREEFOLD_REPETITION"]
+
+1. e4 d6 2. d4 Nf6 3. Nc3 g6 4. f4 Bg7 5. e5 dxe5 6. dxe5 Qxd1+ 7. Kxd1 Ng4 8. Nd5 Kd8 9. Ke1 Nc6 10. Nf3 e6 11. Ne3 Nb4 12. Nxg4 Nxc2+ 13. Kf2 Nxa1 14. Bd3 c5 15. Bd2 Ke7 16. Rxa1 h5 17. Ne3 Bh6 18. g3 b6 19. Be4 Rb8 20. Nc4 Bb7 21. Bxb7 Rxb7 22. a4 Rd8 23. Ke2 a5 24. Be3 Ke8 25. Nd6+ Rxd6 26. exd6 Bf8 27. Rd1 Rd7 28. Ne5 Rxd6 29. Nc4 Rc6 30. Rd3 Be7 31. Bd2 h4 32. Rb3 hxg3 33. hxg3 Bd8 34. g4 f6 35. g5 fxg5 36. fxg5 Bc7 37. Rh3 Kd8 38. b3 Kd7 39. Rh6 e5 40. Kf3 Re6 41. Rh4 Kc6 42. Ke4 Bd6 43. Rh8 Bc7 44. Rh6 Kb7 45. Rh7 Kc6 46. Rg7 Bd6 47. Rf7 Bc7 48. Rh7 Bb8 49. Rf7 Bc7 50. Be3 Re8 51. Rg7 Re6 52. Rf7 Re8 53. Rf6+ Kb7 54. Rxg6 Re7 55. Na3 Ka7 56. Rh6 Rg7 57. Nb5+ Kb7 58. Rh8 Bb8 59. Bc1 Ka8 60. Bd2 Kb7 61. Rh6 Rf7 62. Be3 Rg7 63. Bc1 Rg8 64. Rf6 Rh8 65. g6 Rh1 66. Be3 Rh4+ 67. Kf5 Rh8 68. g7 Rg8 69. Rf7+ Ka8 70. Ke4 c4 71. bxc4 Ba7 72. Rf8+ Kb7 73. Rxg8 Bb8 74. Rxb8+ Kxb8 75. g8=R+ Kb7 76. Rg7+ Ka8 77. Bxb6 Kb8 78. Kxe5 Kc8 79. Bxa5 Kb8 80. Na7 Ka8 81. Kd6 Kb8 82. Ke5 Ka8 83. Kd6 Kb8 1/2-1/2
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "31"]
+[White "ref:2"]
+[Black "sf:2800"]
+[Result "1-0"]
+[Opening "Alekhine"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. e4 Nf6 2. e5 Nd5 3. d4 d6 4. Nf3 dxe5 5. Nxe5 g6 6. c4 Nb6 7. Nc3 N6d7 8. Be3 Nxe5 9. dxe5 Qxd1+ 10. Rxd1 Na6 11. h4 c6 12. f4 h5 13. a3 Bf5 14. Bd3 e6 15. g3 Nc5 16. Bxf5 gxf5 17. b4 Ne4 18. Nxe4 fxe4 19. Kf2 a5 20. c5 Be7 21. Rhe1 Rg8 22. Bd2 O-O-O 23. Rxe4 Rd5 24. Kf3 Rdd8 25. Ree1 Rd3+ 26. Re3 Rd4 27. Rb3 Rgd8 28. Ke2 axb4 29. axb4 R8d7 30. Ra3 Kc7 31. Ke1 Rd3 32. Rxd3 Rxd3 33. f5 Rxg3 34. f6 Bd8 35. b5 Kc8 36. b6 Rd3 37. Bg5 Rc3 38. Rc1 Rh3 39. Ke2 Rb3 40. Ra1 Rc3 41. Ra8+ Kd7 42. Be3 Ke8 43. Ra7 Rc4 44. Rxb7 Rxh4 45. Ra7 Rb4 46. Kf3 h4 47. Ra1 h3 48. Rh1 Rh4 49. Bf4 h2 50. Rxh2 Rxh2 51. Bxh2 Kd7 52. Kg4 Bxb6 53. cxb6 c5 54. Kh5 c4 55. Kh6 c3 56. Kg7 c2 57. Bf4 c1=B 58. Bxc1 Kc8 59. Kxf7 Kd7 60. Be3 Kc6 61. Kxe6 Kb7 62. f7 Ka6 63. f8=Q Kb5 64. Kd5 Ka5 65. Kc4 Ka6 66. Qa8# 1-0
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "32"]
+[White "sf:2800"]
+[Black "ref:2"]
+[Result "1/2-1/2"]
+[Opening "Alekhine"]
+[TimeControl "60+0.6"]
+[Termination "THREEFOLD_REPETITION"]
+
+1. e4 Nf6 2. e5 Nd5 3. d4 d6 4. Nf3 dxe5 5. Nxe5 c6 6. Bc4 Nd7 7. Nf3 e6 8. O-O Bd6 9. Re1 O-O 10. Bb3 b5 11. Bg5 f6 12. Bh4 N7b6 13. Nbd2 g5 14. Bg3 Bxg3 15. hxg3 g4 16. Bxd5 exd5 17. Nh4 Re8 18. Nb3 Nc4 19. Rxe8+ Qxe8 20. Nc5 Nxb2 21. Qd2 Qf7 22. Re1 Nc4 23. Qc1 a5 24. Qf4 a4 25. Re2 Kg7 26. Kh2 h5 27. Qc1 Ra7 28. Qe1 Nd6 29. Nd3 a3 30. Qc3 Nc4 31. Qe1 Kh7 32. Nf4 f5 33. Nhg6 Nd6 34. Re3 Qf6 35. Re5 Rg7 36. Nh4 Qf7 37. Qb4 Nc4 38. Re2 Kh6 39. Kg1 Bd7 40. Qc5 Qf6 41. Nd3 Qd6 42. Qa7 Be6 43. Qa6 Kh7 44. Nf4 Bd7 45. Qa7 Bc8 46. Qa8 Nb6 47. Qa5 Rb7 48. Re8 Bd7 49. Re5 Nc4 50. Qa8 Rb8 51. Qa7 Nxe5 52. dxe5 Ra8 53. Qxa8 Qxe5 54. Qxa3 Kg8 55. Nhg6 Qe1+ 56. Kh2 b4 57. Qa7 Qe8 58. Nh4 Qf7 59. a4 bxa3 60. Qxa3 Kh7 61. Qe3 Kg8 62. Qe5 Qe8 63. Qf6 Qf7 64. Qg5+ Kf8 65. Qd8+ Qe8 66. Qf6+ Kg8 67. Qh6 Qf8 68. Qg5+ Kf7 69. Nhg6 Qe8 70. c3 c5 71. Nh4 Qe4 72. Qd8 Qe8 73. Qa5 Qc8 74. Qa7 Ke8 75. Nxd5 Qc6 76. Qb8+ Kf7 77. Nf4 Qa6 78. Qh8 Qf6 79. Qa8 Qe7 80. Qd5+ Be6 81. Nxe6 Qxe6 82. Qxc5 Kg8 83. Nxf5 Kh7 84. Nh4 Kh6 85. Qd4 Kh7 86. Qc5 Kh6 87. Qf8+ Kh7 1/2-1/2
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "33"]
+[White "ref:2"]
+[Black "sf:2800"]
+[Result "1/2-1/2"]
+[Opening "King's Gambit"]
+[TimeControl "60+0.6"]
+[Termination "THREEFOLD_REPETITION"]
+
+1. e4 e5 2. f4 exf4 3. Nf3 g5 4. h4 g4 5. Ne5 Nf6 6. Bc4 d5 7. exd5 Bg7 8. Nc3 Nh5 9. Bb5+ c6 10. dxc6 O-O 11. cxb7 Bxb7 12. Qxg4 Ng3 13. Rf1 Kh8 14. Qxf4 Nxf1 15. Nxf7+ Rxf7 16. Qxf7 Qxh4+ 17. Kd1 Nc6 18. Qxf1 Rf8 19. Qg1 Nd4 20. Be2 Rf2 21. d3 Rxg2 22. Qe1 Qh2 23. Bd2 Nf3 24. Bxf3 Bxf3+ 25. Kc1 Bh6 26. Kb1 Rg1 27. a3 Bxd2 28. Qxg1 Qxg1+ 29. Ka2 Qg8+ 30. Kb1 Qg1+ 31. Ka2 Qg8+ 32. Kb1 1/2-1/2
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "34"]
+[White "sf:2800"]
+[Black "ref:2"]
+[Result "1/2-1/2"]
+[Opening "King's Gambit"]
+[TimeControl "60+0.6"]
+[Termination "THREEFOLD_REPETITION"]
+
+1. e4 e5 2. f4 exf4 3. Nf3 g5 4. h4 g4 5. Ng5 d5 6. Nc3 h6 7. Nxf7 Kxf7 8. Nxd5 Nf6 9. d4 Nxd5 10. Bc4 Bb4+ 11. c3 Re8 12. O-O Rxe4 13. Qd3 Bf5 14. Bxf4 Qd7 15. Bxh6 Kg6 16. Rxf5 Qxf5 17. Rf1 Qe6 18. Re1 Kxh6 19. Rxe4 Qf5 20. Bxd5 Qxd5 21. Qe3+ Kh7 22. Re5 Qf7 23. Qe4+ Kh6 24. cxb4 Nc6 25. Re6+ Kg7 26. Qxg4+ Kh7 27. Qe4+ Kg8 28. Qg4+ Kh7 29. Qe4+ Kg8 30. d5 Rd8 31. Rg6+ Kf8 32. dxc6 Re8 33. Qg4 Re1+ 34. Kh2 bxc6 35. Qg5 Re6 36. Qd8+ Re8 37. Qf6 Qxf6 38. Rxf6+ Ke7 39. Rxc6 Kd7 40. Rc2 Re4 41. g3 Rxb4 42. Kh3 Ra4 43. b3 Rb4 44. Rd2+ Ke7 45. Re2+ Kd7 46. Rc2 a5 47. Rc4 Rxc4 48. bxc4 a4 49. h5 Ke6 50. Kg4 Kf6 51. c5 c6 52. Kf3 Kg5 53. g4 a3 54. Ke4 Kf6 55. Kd4 Kg5 56. Ke4 Kf6 57. h6 Kg6 58. g5 Kh7 59. Ke5 Kg6 60. Kf4 Kh7 61. Ke5 Kg6 62. Kf4 Kh7 1/2-1/2
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "35"]
+[White "ref:2"]
+[Black "sf:2800"]
+[Result "0-1"]
+[Opening "Benoni"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. d4 Nf6 2. c4 c5 3. d5 e6 4. Nc3 exd5 5. cxd5 d6 6. e4 Qe7 7. Nf3 Nbd7 8. Qa4 a6 9. a3 Rb8 10. Qc2 b5 11. b4 g6 12. Bf4 Bb7 13. Be2 h6 14. O-O Bg7 15. Nd2 O-O 16. Rac1 Rfc8 17. Qb3 Re8 18. Be3 Ne5 19. h3 c4 20. Qc2 g5 21. a4 g4 22. axb5 gxh3 23. Nxc4 hxg2 24. Kxg2 Nfg4 25. bxa6 Nxe3+ 26. Nxe3 Qg5+ 27. Kh1 Bc8 28. Qd1 Qh4+ 29. Kg1 Bh3 30. b5 Kh7 31. a7 Ra8 32. f4 Rg8 33. Ng2 Bxg2 34. fxe5 Bh3 35. Rf2 Bxe5+ 36. Bg4 Qg3+ 37. Kh1 Bxg4 38. Rxf7+ Kh8 39. Qd2 Qh4+ 40. Kg1 Bh5+ 41. Rg7 Bh2+ 42. Qxh2 Rxg7+ 43. Qg2 Rxg2+ 44. Kxg2 Rg8+ 45. Kf1 Rf8+ 46. Kg2 Rf2+ 47. Kg1 Qh2# 0-1
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "36"]
+[White "sf:2800"]
+[Black "ref:2"]
+[Result "1-0"]
+[Opening "Benoni"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. d4 Nf6 2. c4 c5 3. d5 e6 4. Nc3 exd5 5. cxd5 d6 6. e4 Be7 7. Nf3 O-O 8. Qc2 Nbd7 9. Nd2 Ne5 10. a4 Nh5 11. g3 f5 12. Be2 fxe4 13. Ncxe4 Nf6 14. Nc3 Bh3 15. f3 a6 16. a5 Re8 17. Ra4 Qc7 18. Rh4 Bd7 19. O-O Qxa5 20. Nc4 Nxc4 21. Bxc4 b5 22. Bd3 h5 23. b3 b4 24. Nd1 Bb5 25. Ne3 Bxd3 26. Qxd3 Ra7 27. Bb2 Kf7 28. g4 Ng8 29. Nc4 Qd8 30. Qf5+ Bf6 31. g5 g6 32. Qf4 Rd7 33. gxf6 Re2 34. Ba1 Qf8 35. Kh1 Nh6 36. Qg5 Qh8 37. Rg1 Qh7 38. Re4 Rxe4 39. fxe4 Ng4 40. e5 dxe5 41. Nxe5+ Kf8 42. Re1 Nf2+ 43. Kg2 Rf7 44. Nxg6+ Qxg6 45. Qxg6 Ng4 46. Kh1 Nf2+ 47. Kg2 Ng4 48. Qf5 Rc7 49. f7 Ne3+ 50. Rxe3 Re7 51. Qf6 Re5 52. Qd6+ Kxf7 53. Rf3+ Kg8 54. Qf8+ Kh7 55. Rf7+ Kg6 56. Qg7# 1-0
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "37"]
+[White "ref:2"]
+[Black "sf:2800"]
+[Result "0-1"]
+[Opening "Sicilian Dragon"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 g6 6. Nf3 Nc6 7. Bc4 a6 8. a4 Bg4 9. O-O Rc8 10. Be3 Bxf3 11. gxf3 Bg7 12. Re1 Ne5 13. Bf1 Nh5 14. Ra3 O-O 15. Rb3 Rc6 16. Rxb7 e6 17. Ra7 Qh4 18. Rxa6 Rxa6 19. Bxa6 Qh3 20. Be2 Ng4 21. fxg4 Be5 22. Bf3 f5 23. Bg2 Qxh2+ 24. Kf1 fxg4 25. Ne2 Bg3 26. Qd4 Bxf2 27. Bxf2 g3 28. Rb1 Rxf2+ 29. Qxf2 gxf2 30. Kxf2 Nf6 31. Nc3 Ng4+ 32. Kf3 h5 33. a5 Qe5 34. Nd1 Qxa5 35. b4 Qa3+ 36. c3 Qa2 37. Rb2 Qa6 38. b5 Ne5+ 39. Ke2 Qa4 40. Ne3 Qa1 41. Rc2 g5 42. c4 Qb1 43. Kd2 g4 44. Rc3 Kf7 45. Nd1 Kg6 46. Ke1 Qb4 47. Bf1 Kf6 48. Be2 h4 49. Kf1 Qb1 50. Re3 Kg5 51. Ke1 Qb4+ 52. Rc3 g3 53. Kf1 Qb1 54. Re3 Qc1 55. c5 dxc5 56. Ke1 Qc2 57. Kf1 Qd2 58. Rc3 Qf4+ 59. Bf3 Nxf3 60. Ne3 h3 61. Ke2 h2 62. Rc1 Qxe4 63. Rc4 Nd4+ 64. Kd2 Nb3+ 65. Ke2 Qxc4+ 66. Nxc4 Nd4+ 67. Kd3 h1=Q 68. Ne3 Qb1+ 69. Kd2 Qb4+ 70. Kd3 Qb1+ 71. Kd2 Qxb5 72. Kc1 g2 73. Nxg2 Qc4+ 74. Kb1 Qc2+ 75. Ka1 Qa4+ 76. Kb1 Qb5+ 77. Kc1 Qe2 78. Ne1 Qxe1+ 79. Kb2 Qe2+ 80. Ka1 c4 81. Kb1 Qd2 82. Ka1 Qe2 83. Kb1 e5 84. Ka1 c3 85. Kb1 Qc2+ 86. Ka1 Nb3# 0-1
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "38"]
+[White "sf:2800"]
+[Black "ref:2"]
+[Result "1/2-1/2"]
+[Opening "Sicilian Dragon"]
+[TimeControl "60+0.6"]
+[Termination "FIFTY_MOVES"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 g6 6. Be3 e5 7. Ndb5 a6 8. Na3 b5 9. Nd5 Nbd7 10. c4 b4 11. Nc2 a5 12. Bg5 Bg7 13. Nce3 h6 14. Bh4 g5 15. Bg3 Nxe4 16. a3 bxa3 17. Rxa3 Rb8 18. Bd3 Nxg3 19. hxg3 Nc5 20. Bc2 Rxb2 21. Qa1 Rb7 22. O-O Ra7 23. Rb1 O-O 24. Qa2 e4 25. g4 f5 26. gxf5 Bxf5 27. Nb6 Raf7 28. Rxa5 Be6 29. Ra8 Qf6 30. Rf1 Qb2 31. Qxb2 Bxb2 32. Rxf8+ Kxf8 33. Rd1 Ke7 34. Na4 Nxa4 35. Bxa4 Ba3 36. Bc6 Bc5 37. Bxe4 Bxe3 38. fxe3 Bxc4 39. Ra1 g4 40. g3 Ke6 41. Ra5 d5 42. Bg2 Rb7 43. Rc5 Rb1+ 44. Kf2 Kd6 45. Rc8 Rb2+ 46. Kg1 Rb3 47. Rh8 Rxe3 48. Rxh6+ Ke5 49. Rh5+ Kf6 50. Bxd5 Kg6 51. Rh4 Bxd5 52. Rxg4+ Kh5 53. Ra4 Rxg3+ 54. Kf1 Kg6 55. Rd4 Be6 56. Re4 Kf5 57. Rb4 Ra3 58. Ke1 Ra2 59. Rb8 Ke4 60. Kd1 Bd5 61. Rd8 Kd4 62. Rh8 Be4 63. Rh3 Ke5 64. Rc3 Kd6 65. Re3 Kd5 66. Rc3 Ke5 67. Rg3 Kf6 68. Re3 Kf5 69. Rh3 Kf4 70. Rc3 Rh2 71. Ke1 Ke5 72. Ra3 Kd5 73. Re3 Rc2 74. Rg3 Kd4 75. Kd1 Rb2 76. Ke1 Ke5 77. Re3 Ra2 78. Re2 Ra1+ 79. Kd2 Rh1 80. Rf2 Kd4 81. Ke2 Ra1 82. Kd2 Rg1 83. Ke2 Rb1 84. Kd2 Ra1 85. Rf8 Ra2+ 86. Kd1 Kd3 87. Kc1 Rc2+ 88. Kb1 Ke3 89. Ka1 Rd2 90. Re8 Rf2 91. Rc8 Bf5 92. Rc4 Rh2 93. Rc3+ Bd3 94. Rb3 Kd4 95. Ra3 Be4 96. Ra4+ Ke5 97. Ra7 Rc2 98. Ra4 Bd5 99. Rg4 Rh2 100. Rg3 Kf4 101. Rg7 Ke5 102. Re7+ Be6 103. Re8 1/2-1/2
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "39"]
+[White "ref:2"]
+[Black "sf:2800"]
+[Result "1/2-1/2"]
+[Opening "Petroff"]
+[TimeControl "60+0.6"]
+[Termination "THREEFOLD_REPETITION"]
+
+1. e4 e5 2. Nf3 Nf6 3. Nxe5 d6 4. Nf3 Nxe4 5. Nc3 Nxc3 6. dxc3 Nd7 7. Bc4 Nb6 8. Bd3 d5 9. O-O Be7 10. Ne5 O-O 11. Re1 Bf6 12. Ng4 Bd7 13. Nxf6+ Qxf6 14. Qh5 h6 15. Be3 Rae8 16. Bxb6 Qxb6 17. Qxd5 Rxe1+ 18. Rxe1 Be6 19. Qe4 g6 20. b3 Re8 21. Qf4 Qc6 22. c4 Bf5 23. Re3 Rxe3 24. fxe3 Bxd3 25. cxd3 Qa6 26. Qf2 Qa5 27. g4 Qe5 28. d4 Qe7 29. Qf3 a5 30. Kf1 a4 31. c5 axb3 32. axb3 Qe8 33. Kg2 Qb5 34. e4 Kg7 35. e5 c6 36. h4 Qa5 37. Qe3 Qa2+ 38. Kg3 Qb1 39. g5 hxg5 40. hxg5 Kh7 41. Kh2 Qc2+ 42. Kh3 Qd1 43. b4 Qh5+ 44. Kg3 Qh1 45. Kf2 Qd5 46. e6 fxe6 47. Qf4 e5 48. Qxe5 Qxe5 49. dxe5 Kg7 50. Ke3 Kf8 51. Kd4 Kf7 52. Kd3 Ke7 53. Kc4 Ke6 54. Kd4 Kf7 55. Ke4 Ke6 56. Kf4 Kf7 57. Kf3 Ke8 58. Ke2 Ke7 59. Kd3 Ke6 60. Ke4 Kd7 61. b5 Ke7 62. bxc6 bxc6 63. Kd4 Ke6 64. Ke4 Kf7 65. Kd3 Ke7 66. Ke4 Ke8 67. e6 Kf8 68. Kd4 Ke8 69. Ke5 Ke7 70. Kd4 Kf8 71. Ke5 Ke7 72. Kf4 Kxe6 73. Ke4 Kf7 74. Kd4 Ke6 75. Ke4 Kf7 76. Ke5 Ke7 77. Kd4 Ke6 1/2-1/2
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "40"]
+[White "sf:2800"]
+[Black "ref:2"]
+[Result "1/2-1/2"]
+[Opening "Petroff"]
+[TimeControl "60+0.6"]
+[Termination "FIFTY_MOVES"]
+
+1. e4 e5 2. Nf3 Nf6 3. Nxe5 d6 4. Nf3 Nxe4 5. Nc3 Nxc3 6. dxc3 Be7 7. Bd3 Na6 8. h4 Nc5 9. Be3 O-O 10. a3 h6 11. Be2 Re8 12. Bxc5 dxc5 13. Qxd8 Bxd8 14. Kf1 a5 15. a4 c6 16. Rd1 Bg4 17. Nd4 Bxe2+ 18. Nxe2 Re4 19. b3 Rxh4 20. Rxh4 Bxh4 21. Nf4 Bg5 22. Ne2 f5 23. Rd7 Rd8 24. Rxd8+ Bxd8 25. c4 Kf7 26. Nf4 Bf6 27. Nd3 b6 28. Ke2 g5 29. g3 Ke6 30. f3 h5 31. f4 g4 32. Kf1 Kd6 33. Kg2 Kd7 34. Kh1 Bd4 35. Kg2 Ke6 36. Kf1 Bf6 37. Kg1 h4 38. Nc1 Bb2 39. Nd3 Bd4+ 40. Kg2 h3+ 41. Kh1 Kf6 42. Kh2 Kg6 43. c3 Bxc3 44. Nc1 Bd4 45. Ne2 Kh5 46. Nc1 Bf6 47. Nd3 Bg7 48. Nc1 Kh6 49. Kg1 Bf6 50. Nd3 Bd4+ 51. Kh2 Kg6 52. Kh1 Kf6 53. Kh2 Ke6 54. Kh1 Ke7 55. Nc1 Kd6 56. Nd3 Ke6 57. Kh2 Kf7 58. Ne1 Bf6 59. Kh1 Kg6 60. Kg1 Bd4+ 61. Kh2 Bc3 62. Nd3 Kf6 63. Nf2 Ke7 64. Nd3 Kd6 65. Kg1 Bf6 66. Ne1 Ke6 67. Kh2 Bc3 68. Nd3 Kd7 69. Nf2 Kd6 70. Nd3 Bf6 71. Kh1 Kd7 72. Nc1 Bd4 73. Nd3 Kd6 74. Nc1 Bc3 75. Ne2 Bb2 76. Kh2 b5 77. Kh1 b4 78. Ng1 Bd4 79. Ne2 Be3 80. Ng1 Ke7 81. Kh2 Ke6 82. Ne2 Kd6 83. Ng1 Bd4 84. Kh1 Ke6 85. Ne2 Kd7 86. Nc1 Ke7 87. Kh2 Kf6 88. Kh1 Kg6 89. Kh2 Kg7 90. Nd3 Kh6 91. Nc1 Kh7 92. Ne2 Bc3 93. Ng1 Kg6 94. Ne2 Bb2 95. Kh1 Bd4 96. Nc1 Kf6 97. Kh2 Ke6 98. Ne2 Bc3 99. Nc1 Kd7 100. Nd3 Kd6 101. Nf2 Bd4 102. Nd1 Ke6 103. Kh1 Kf6 104. Kh2 Kg6 105. Kh1 Kh6 106. Kh2 Kh5 107. Kh1 Kg6 108. Kh2 Kf6 109. Kh1 Ke6 110. Kh2 Kd7 111. Kh1 Ke7 112. Kh2 Kf7 113. Kh1 Kg7 114. Kh2 Kg8 115. Kh1 Kf7 116. Kh2 Ke8 117. Kh1 Kd7 118. Kh2 Bg7 119. Nf2 Bf6 120. Nd3 Kd6 121. Nf2 Bc3 122. Nd1 Bd4 123. Kh1 Bf6 124. Kh2 Kd7 125. Ne3 Ke6 126. Nd1 Kd6 127. Nf2 1/2-1/2
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "41"]
+[White "ref:2"]
+[Black "sf:2800"]
+[Result "1/2-1/2"]
+[Opening "Catalan"]
+[TimeControl "60+0.6"]
+[Termination "THREEFOLD_REPETITION"]
+
+1. d4 Nf6 2. c4 e6 3. g3 d5 4. Bg2 Be7 5. Nf3 O-O 6. Nc3 Nbd7 7. cxd5 exd5 8. O-O a5 9. Bf4 c6 10. Qc2 Nh5 11. Bd2 f5 12. a3 Nhf6 13. Qxf5 Ne4 14. Qe6+ Kh8 15. Nxd5 cxd5 16. Qxd5 Ndf6 17. Qxd8 Bxd8 18. Be3 Kg8 19. Rfc1 Bb6 20. Ne5 Be6 21. Nc4 Bxc4 22. Rxc4 Rae8 23. Rac1 Ng4 24. Bf3 Nxe3 25. fxe3 Nd6 26. R4c3 Rxe3 27. Rd1 Re7 28. Bd5+ Kh8 29. e3 g6 30. g4 Kg7 31. Rf1 Rfe8 32. Rb3 Ba7 33. Rf3 Rc8 34. a4 Rc1+ 35. Rf1 Rc8 36. Rf3 Rh8 37. h3 h6 38. Kg2 Rd8 39. Rf1 Rdd7 40. Rd3 Ne8 41. Bc4 Rc7 42. Bb3 Nd6 43. Rf2 Bb8 44. Bd5 Ba7 45. Bb3 h5 46. Bd5 hxg4 47. hxg4 Rcd7 48. Rf1 Bb8 49. Rb3 Ne8 50. Bf3 Bd6 51. g5 Bb4 52. Kf2 Rd8 53. Rg1 Rc8 54. Bd5 Rd8 55. Bf3 Rc7 56. Kg3 Nd6 57. Rd1 Re8 58. Kg4 b6 59. Bg2 Rce7 60. Bc6 Rf8 61. Kh3 Rf5 62. Rg1 Rf2 63. Rg2 Rf8 64. Rd3 Ne4 65. Bxe4 Rxe4 66. Rg4 Rf3+ 67. Rg3 Rf8 68. Rg4 Rf3+ 69. Rg3 Rf5 70. Rg4 1/2-1/2
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "42"]
+[White "sf:2800"]
+[Black "ref:2"]
+[Result "1/2-1/2"]
+[Opening "Catalan"]
+[TimeControl "60+0.6"]
+[Termination "FIFTY_MOVES"]
+
+1. d4 Nf6 2. c4 e6 3. g3 d5 4. Bg2 Be7 5. Nf3 O-O 6. Qd3 c5 7. Nc3 cxd4 8. Nxd4 dxc4 9. Qxc4 e5 10. Nf3 Nc6 11. Qa4 Qb6 12. O-O a5 13. Qb5 Qxb5 14. Nxb5 Bf5 15. Be3 Rac8 16. Rfd1 Rfd8 17. Rxd8+ Rxd8 18. Na7 Nxa7 19. Bxa7 e4 20. Nd4 Bd7 21. Rc1 Ra8 22. Bb6 a4 23. Bc7 Rc8 24. Rc2 b5 25. Ba5 Rxc2 26. Nxc2 h5 27. Nd4 b4 28. b3 g6 29. Nc2 axb3 30. axb3 Be6 31. Nd4 Bd5 32. Nc2 Bxb3 33. Bxb4 Bxb4 34. Nxb4 Nd5 35. Nxd5 Bxd5 36. f3 e3 37. f4 Bc4 38. Kf1 Kf8 39. Bf3 Ke7 40. Ke1 Kd6 41. Kd1 f5 42. Ke1 Be6 43. Kf1 Kc5 44. Ba8 Bb3 45. Kg2 Ba4 46. Bb7 Bb5 47. Bf3 Kd4 48. Kf1 Ba4 49. Ba8 Bd7 50. Bf3 Bb5 51. Bb7 Kc5 52. Bg2 Bc4 53. Ke1 Bb3 54. Bh1 Kd6 55. Bg2 Kd7 56. Bf3 Kc7 57. Bg2 Kb6 58. Bh1 Kc5 59. Bg2 Ba2 60. Bh1 Be6 61. Bg2 Bd7 62. Bf3 Bb5 63. Ba8 Kd6 64. Bh1 Bd7 65. Bg2 Be6 66. Kf1 Bc4 67. Ba8 Kc5 68. Bf3 Ba6 69. Bg2 Bb5 70. Ke1 Kd4 71. Bb7 Ba4 72. Ba8 Kc5 73. Bh1 Kd6 74. Bf3 Bc2 75. Bg2 Bb3 76. Bf3 Bc4 77. Bh1 Be6 78. Ba8 Bf7 79. Bg2 Kc5 80. Kf1 Kb5 81. Bb7 Be6 82. Ke1 Bc4 83. Ba8 Kb6 84. Bg2 Kc5 85. Kf1 Bf7 86. Bf3 Be8 87. Ba8 Kc4 88. Bb7 Kd4 89. Ba8 Bf7 90. Bh1 Kc3 91. Ke1 1/2-1/2
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "43"]
+[White "ref:2"]
+[Black "sf:2800"]
+[Result "0-1"]
+[Opening "Bird"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. f4 d5 2. Nf3 Nf6 3. e3 g6 4. Nc3 Bg7 5. a3 c5 6. d4 Nc6 7. dxc5 O-O 8. Rb1 b6 9. cxb6 Qxb6 10. Nxd5 Qa5+ 11. Nc3 Nd5 12. Bd2 Rd8 13. Nxd5 Qxd5 14. c4 Qd6 15. Qc2 e5 16. c5 Qe7 17. fxe5 Nxe5 18. Be2 Nxf3+ 19. Bxf3 Bf5 20. e4 Bd4 21. b4 Qe5 22. Kf1 Bd7 23. a4 Rac8 24. a5 Qf6 25. Qc4 Rb8 26. Ke1 Qh4+ 27. g3 Qf6 28. Qb3 Ba4 29. Qa3 Bf2+ 30. Kxf2 Rxd2+ 31. Ke1 Qd4 32. Be2 Rxe2+ 33. Kxe2 Qxe4+ 34. Qe3 Qg2+ 35. Ke1 Qxh1+ 36. Kf2 Qxb1 37. b5 Bxb5 38. g4 Qf1+ 39. Kg3 Bc6 40. h3 Rb2 41. a6 h6 42. Kh4 Qf6+ 43. g5 Qf1 44. gxh6 Qf6+ 45. Qg5 Qd4+ 46. Qg4 Qf2+ 47. Qg3 Rb4+ 48. Kg5 Qf5# 0-1
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "44"]
+[White "sf:2800"]
+[Black "ref:2"]
+[Result "1-0"]
+[Opening "Bird"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. f4 d5 2. Nf3 Nf6 3. e3 g6 4. Be2 Bg7 5. Ne5 O-O 6. O-O c5 7. d4 cxd4 8. exd4 Nc6 9. c3 h5 10. Bd3 a5 11. h3 Ne4 12. Nd2 Nd6 13. g4 a4 14. a3 Bf6 15. Qc2 Qe8 16. Ndf3 b6 17. Be3 Ba6 18. gxh5 Bxd3 19. Qxd3 gxh5 20. Kh2 e6 21. Rg1+ Bg7 22. Rg2 Nf5 23. Rag1 Nce7 24. Ng5 h4 25. Bf2 Ng6 26. Ngxf7 Nxf4 27. Nh6+ Kh8 28. Qxf5 Rxf5 29. Rxg7 Ng6 30. Nxf5 Nxe5 31. dxe5 exf5 32. Bd4 Qb8 33. Kh1 Ra7 34. e6 Rxg7 35. Rxg7 Qf8 36. Rf7+ Kg8 37. Rxf8+ Kxf8 38. Bf6 b5 39. Kg2 Ke8 40. Kf3 Kf8 41. Bxh4 Kg7 42. e7 Kf7 43. Kf4 Ke8 44. Kxf5 b4 45. axb4 Kd7 46. Bg5 Ke8 47. Kg6 d4 48. cxd4 a3 49. bxa3 Kd7 50. Bh4 Kd6 51. e8=Q Kd5 52. b5 Kc4 53. Bf6 Kb3 54. b6 Kxa3 55. Qb5 Ka2 56. h4 Ka3 57. Kf5 Ka2 58. h5 Ka3 59. b7 Ka2 60. Qa4+ Kb2 61. Qb5+ Ka2 62. b8=B Ka3 63. Be7+ Ka2 64. d5 Ka1 65. Bf6+ Ka2 66. Bf4 Ka3 67. Ke4 Ka2 68. h6 Ka3 69. Kf5 Ka2 70. Qb2# 1-0
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "45"]
+[White "ref:2"]
+[Black "sf:2800"]
+[Result "1/2-1/2"]
+[Opening "Evans Gambit"]
+[TimeControl "60+0.6"]
+[Termination "FIFTY_MOVES"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. b4 Bxb4 5. c3 Ba5 6. Qb3 Nh6 7. O-O Bb6 8. d4 Na5 9. Qb5 Nxc4 10. Qxc4 d6 11. Bxh6 gxh6 12. dxe5 Qe7 13. exd6 Qxd6 14. Nbd2 Be6 15. Qa4+ Bd7 16. Qb4 Qxb4 17. cxb4 Be6 18. Nb3 Rg8 19. g3 O-O-O 20. Rfd1 Rxd1+ 21. Rxd1 Rg4 22. Nfd2 h5 23. Kg2 f5 24. f3 Rg8 25. exf5 Bxf5 26. Nc4 Bg6 27. h3 Re8 28. Nxb6+ axb6 29. Kf2 Rg8 30. h4 c6 31. f4 Kc7 32. Nd4 Bf7 33. Re1 Re8 34. Rxe8 Bxe8 35. Ne2 Bg6 36. Ke3 b5 37. Nd4 Kd6 38. a3 Bb1 39. Ne2 Ke6 40. Nc3 Bg6 41. Kd4 Bc2 42. Kc5 Kf5 43. Kb6 Kg4 44. Kxb7 Kxg3 45. Kxc6 Kxh4 46. Kxb5 Kg4 47. Ka5 h4 48. b5 h3 49. b6 h2 50. b7 Bf5 51. Nd1 Kg3 52. Ne3 Bh3 53. b8=Q h1=Q 54. f5+ Kh4 55. Qd8+ Kh5 56. Qe8+ Kh6 57. Qe6+ Kh5 58. Qe5 Qa8+ 59. Kb4 Qb7+ 60. Kc3 Qa7 61. f6+ Kg6 62. Qg3+ Kxf6 63. Qxh3 Qxa3+ 64. Kd2 Qb4+ 65. Ke2 Qb2+ 66. Kf3 Qc3 67. Qxh7 Qc6+ 68. Kg3 Qd6+ 69. Kg2 Qe6 70. Kf2 Ke5 71. Ke1 Kf4 72. Qh2+ Kg5 73. Qg3+ Kf6 74. Qf3+ Ke7 75. Qf4 Kd8 76. Qf8+ Kc7 77. Qc5+ Kb8 78. Qb4+ Kc7 79. Qd4 Kc6 80. Qa7 Kd6 81. Kd2 Ke5 82. Ke2 Kd6 83. Qb7 Qe5 84. Qb8+ Ke6 85. Qe8+ Kd6 86. Qf7 Qe4 87. Qf8+ Qe7 88. Qb8+ Kd7 89. Qb5+ Kd8 90. Qd5+ Ke8 91. Qf5 Qd6 92. Nd5 Qc6 93. Kd2 Qh6+ 94. Kd1 Qd6 95. Kc1 Qa3+ 96. Kd2 Qa5+ 97. Ke2 Qb5+ 98. Kf2 Qc6 99. Qe4+ Kd7 100. Qe7+ Kc8 101. Qf8+ Kb7 102. Qg7+ Ka8 103. Qh8+ Kb7 104. Qb2+ Ka8 105. Qa1+ Kb7 106. Qb1+ Ka7 107. Qb3 Qd6 108. Qa4+ Qa6 109. Qd4+ Kb7 110. Qe4 Ka7 111. Kg3 Qa3+ 112. Kg4 Kb7 113. Nb4+ Kb8 114. Qd4 Ka8 115. Na2 Qb3 116. Kh4 Qb5 1/2-1/2
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "46"]
+[White "sf:2800"]
+[Black "ref:2"]
+[Result "1-0"]
+[Opening "Evans Gambit"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. b4 Bxb4 5. c3 Ba5 6. d4 exd4 7. Qb3 Qe7 8. O-O Nf6 9. cxd4 Nxe4 10. Ba3 Nd6 11. Bxd6 cxd6 12. Nc3 O-O 13. Rfe1 Qf6 14. Nd5 Qh6 15. Re4 Bd8 16. Ne3 Qh5 17. Bd5 Qg6 18. h4 h5 19. Re1 Rb8 20. Rf4 a5 21. g3 Ra8 22. Be4 Qh6 23. Nf5 Qe6 24. d5 Qf6 25. Ng5 Ne5 26. Qd1 g6 27. Nh6+ Kg7 28. Rxf6 Bxf6 29. Nhxf7 Nxf7 30. Bxg6 Bxg5 31. Bxf7 Rxf7 32. hxg5 b6 33. Qa1+ Kh7 34. Qb1+ Kg7 35. Qa1+ Kh7 36. Re8 Bb7 37. Qh8+ Kg6 38. Qh6+ Kf5 39. Qxh5 Rxe8 40. Qxf7+ Kxg5 41. f4+ Kg4 42. Kf2 Re2+ 43. Kxe2 Kxg3 44. Ke3 Kh4 45. Qf6+ Kh3 46. Qh8+ Kg3 47. Qg8+ Kh4 48. Qg5+ Kh3 49. Qg7 Bxd5 50. Qh6+ Kg2 51. Qg5+ Kh3 52. Kf2 Bxa2 53. Qg3# 1-0
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "47"]
+[White "ref:2"]
+[Black "sf:2800"]
+[Result "1/2-1/2"]
+[Opening "Philidor"]
+[TimeControl "60+0.6"]
+[Termination "THREEFOLD_REPETITION"]
+
+1. e4 e5 2. Nf3 d6 3. d4 Nf6 4. Nc3 Nbd7 5. a4 exd4 6. Qxd4 a6 7. Be3 Be7 8. h3 Rb8 9. O-O-O c5 10. Qd3 Qa5 11. Bf4 c4 12. Qxc4 b5 13. axb5 axb5 14. Nxb5 O-O 15. Bxd6 Bxd6 16. Nxd6 Nc5 17. Bd3 Ba6 18. Qc3 Nxd3+ 19. cxd3 Rfc8 20. Nxc8 Rxc8 21. Kd2 Rxc3 22. bxc3 Qc5 23. Rhf1 Nd7 24. Kc2 Qd6 25. c4 Nc5 26. Rd2 h6 27. Rb1 Kh7 28. Ne1 f5 29. exf5 Bc8 30. g4 Qc7 31. Kd1 Bb7 32. Re2 Qf4 33. Kc2 Qd4 34. f6 Qxf6 35. Rb5 Qd4 36. Ra5 Qd6 37. Ra2 Qf6 38. Ra3 Bc6 39. Kc1 Qg5+ 40. Kb1 Qf6 41. Rea2 Qe7 42. Nc2 Qe2 43. Nd4 Qf1+ 44. Kc2 Qxf2+ 45. Kc3 Qe1+ 46. Kc2 Bd7 47. Ra5 Qf2+ 48. Kc3 Qe1+ 49. Kc2 Ne4 50. dxe4 Qxe4+ 51. Kc3 Qe3+ 52. Kb4 Qe1+ 53. Kb3 Qe3+ 54. Kb4 Qxd4 55. Rd5 Qb6+ 56. Kc3 Qf6+ 57. Rd4 Qf3+ 58. Rd3 Qf7 59. Re2 Bc6 60. Kb4 Qa7 61. Kc3 Qa3+ 62. Kd4 Qd6+ 63. Kc3 Qa3+ 64. Kd4 Qa7+ 65. Kc3 1/2-1/2
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "48"]
+[White "sf:2800"]
+[Black "ref:2"]
+[Result "1/2-1/2"]
+[Opening "Philidor"]
+[TimeControl "60+0.6"]
+[Termination "THREEFOLD_REPETITION"]
+
+1. e4 e5 2. Nf3 d6 3. d4 Nf6 4. Nc3 Nbd7 5. Bc4 Nb6 6. Be2 exd4 7. Qxd4 c5 8. Qd3 Be7 9. a4 a5 10. Bf4 Nh5 11. Bg3 g5 12. h4 Nxg3 13. fxg3 g4 14. Nh2 h5 15. O-O Bf6 16. Rxf6 Qxf6 17. Qb5+ Nd7 18. Rd1 Qg6 19. Rd5 Kf8 20. Nf1 Qe6 21. Rf5 Nf6 22. Bc4 Qe7 23. Rf4 Rh6 24. Kh2 Be6 25. Bb3 Kg8 26. Ne3 Qd7 27. Qf1 Ne8 28. Ncd5 Rb8 29. Nf5 Rh7 30. Nb6 Qc7 31. Nd5 Qd8 32. Nfe7+ Kh8 33. Qd3 Ng7 34. Bc4 Bxd5 35. Nxd5 Ne6 36. Rf6 Nd4 37. e5 Qe8 38. c3 Nc6 39. exd6 Ne5 40. Qe4 Nxc4 41. Qxc4 b6 42. Qf4 Qf8 43. d7 Rd8 44. Qe5 Qg7 45. Ne7 b5 46. axb5 c4 47. b6 Qf8 48. b7 Qxe7 49. Qxe7 Rg8 50. d8=R Rxd8 51. Rc6 Rg8 52. Qe5+ f6 53. Qxf6+ Rhg7 54. Rc8 Kh7 55. Qf5+ Kh8 56. Qf6 Kh7 57. Qf5+ Kh8 1/2-1/2
+

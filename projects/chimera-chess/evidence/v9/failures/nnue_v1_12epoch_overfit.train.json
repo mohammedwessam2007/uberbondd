@@ -1,0 +1,92 @@
+{
+ "data": "nnue/dataset_v1.tsv.gz",
+ "data_sha256": "eb204970a53e7feee614737de1b3f588927f5ad3f9aa354363c904bc8dfad618",
+ "train_positions": 115233,
+ "val_positions": 13444,
+ "hidden": 128,
+ "epochs": 12,
+ "seed": 1,
+ "optimizer": "Adam(0.9,0.999) lr 1e-3 then 3e-4 (last 30%), batch 512",
+ "params": 98561,
+ "curve": [
+  {
+   "epoch": 1,
+   "train_loss": 0.035164,
+   "val_loss": 0.033453,
+   "elapsed_s": 4.4
+  },
+  {
+   "epoch": 2,
+   "train_loss": 0.032626,
+   "val_loss": 0.03291,
+   "elapsed_s": 8.4
+  },
+  {
+   "epoch": 3,
+   "train_loss": 0.031429,
+   "val_loss": 0.032455,
+   "elapsed_s": 12.6
+  },
+  {
+   "epoch": 4,
+   "train_loss": 0.030047,
+   "val_loss": 0.03184,
+   "elapsed_s": 17.0
+  },
+  {
+   "epoch": 5,
+   "train_loss": 0.028453,
+   "val_loss": 0.031605,
+   "elapsed_s": 21.5
+  },
+  {
+   "epoch": 6,
+   "train_loss": 0.026807,
+   "val_loss": 0.031851,
+   "elapsed_s": 25.9
+  },
+  {
+   "epoch": 7,
+   "train_loss": 0.025205,
+   "val_loss": 0.031956,
+   "elapsed_s": 30.4
+  },
+  {
+   "epoch": 8,
+   "train_loss": 0.02369,
+   "val_loss": 0.032295,
+   "elapsed_s": 35.1
+  },
+  {
+   "epoch": 9,
+   "train_loss": 0.02239,
+   "val_loss": 0.032354,
+   "elapsed_s": 39.7
+  },
+  {
+   "epoch": 10,
+   "train_loss": 0.020311,
+   "val_loss": 0.032347,
+   "elapsed_s": 44.1
+  },
+  {
+   "epoch": 11,
+   "train_loss": 0.019722,
+   "val_loss": 0.032785,
+   "elapsed_s": 48.8
+  },
+  {
+   "epoch": 12,
+   "train_loss": 0.019284,
+   "val_loss": 0.032746,
+   "elapsed_s": 53.1
+  }
+ ],
+ "val_loss_trained": 0.032746,
+ "val_loss_baselines": {
+  "EvalV1_static": 0.10312864184379578,
+  "EvalV2_static": 0.10129078477621078
+ },
+ "weights": "nnue/chimera-nnue-v1.bin",
+ "weights_sha256": "38a80550aded22c671645c9520542165f327cda10858d9dc76f8ad6ee87cb082"
+}

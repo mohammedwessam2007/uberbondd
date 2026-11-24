@@ -1,0 +1,733 @@
+{
+ "summary": {
+  "movetime_ms": 300,
+  "positions": 37,
+  "native:2:skeptic": {
+   "solved": "37/37",
+   "by_theme": {
+    "hard_sacrifice_counterexample": "37/37"
+   },
+   "mean_cp_loss_capped_1000": 132.4,
+   "positives_solved": "0/0",
+   "false_sacrifices": "0/37"
+  },
+  "native:2": {
+   "solved": "37/37",
+   "by_theme": {
+    "hard_sacrifice_counterexample": "37/37"
+   },
+   "mean_cp_loss_capped_1000": 152.9,
+   "positives_solved": "0/0",
+   "false_sacrifices": "0/37"
+  },
+  "paired": {
+   "only_native:2:skeptic": 0,
+   "only_native:2": 0
+  }
+ },
+ "rows": [
+  {
+   "id": "00KYC-neg",
+   "theme": "hard_sacrifice_counterexample",
+   "kind": "negative",
+   "solution": null,
+   "forbidden": "f8f6",
+   "native:2:skeptic": {
+    "move": "f8f7",
+    "solved": true,
+    "cp_loss": 29,
+    "false_sacrifice": false
+   },
+   "native:2": {
+    "move": "f8f7",
+    "solved": true,
+    "cp_loss": 52,
+    "false_sacrifice": false
+   }
+  },
+  {
+   "id": "00KgF-neg",
+   "theme": "hard_sacrifice_counterexample",
+   "kind": "negative",
+   "solution": null,
+   "forbidden": "g5h5",
+   "native:2:skeptic": {
+    "move": "g5f6",
+    "solved": true,
+    "cp_loss": 22,
+    "false_sacrifice": false
+   },
+   "native:2": {
+    "move": "g5f6",
+    "solved": true,
+    "cp_loss": 46,
+    "false_sacrifice": false
+   }
+  },
+  {
+   "id": "00Pms-neg",
+   "theme": "hard_sacrifice_counterexample",
+   "kind": "negative",
+   "solution": null,
+   "forbidden": "g7f8",
+   "native:2:skeptic": {
+    "move": "e2f4",
+    "solved": true,
+    "cp_loss": 109,
+    "false_sacrifice": false
+   },
+   "native:2": {
+    "move": "e2f4",
+    "solved": true,
+    "cp_loss": 118,
+    "false_sacrifice": false
+   }
+  },
+  {
+   "id": "00UJP-neg",
+   "theme": "hard_sacrifice_counterexample",
+   "kind": "negative",
+   "solution": null,
+   "forbidden": "h4g3",
+   "native:2:skeptic": {
+    "move": "e8h5",
+    "solved": true,
+    "cp_loss": 112,
+    "false_sacrifice": false
+   },
+   "native:2": {
+    "move": "e8h5",
+    "solved": true,
+    "cp_loss": 184,
+    "false_sacrifice": false
+   }
+  },
+  {
+   "id": "00ZEW-neg",
+   "theme": "hard_sacrifice_counterexample",
+   "kind": "negative",
+   "solution": null,
+   "forbidden": "e2h5",
+   "native:2:skeptic": {
+    "move": "e2d3",
+    "solved": true,
+    "cp_loss": 25,
+    "false_sacrifice": false
+   },
+   "native:2": {
+    "move": "e2d3",
+    "solved": true,
+    "cp_loss": 11,
+    "false_sacrifice": false
+   }
+  },
+  {
+   "id": "00gpa-neg",
+   "theme": "hard_sacrifice_counterexample",
+   "kind": "negative",
+   "solution": null,
+   "forbidden": "d2e3",
+   "native:2:skeptic": {
+    "move": "d1e2",
+    "solved": true,
+    "cp_loss": 15,
+    "false_sacrifice": false
+   },
+   "native:2": {
+    "move": "d1e2",
+    "solved": true,
+    "cp_loss": 20,
+    "false_sacrifice": false
+   }
+  },
+  {
+   "id": "00nsa-neg",
+   "theme": "hard_sacrifice_counterexample",
+   "kind": "negative",
+   "solution": null,
+   "forbidden": "e4g4",
+   "native:2:skeptic": {
+    "move": "e4e5",
+    "solved": true,
+    "cp_loss": 3119,
+    "false_sacrifice": false
+   },
+   "native:2": {
+    "move": "e4e5",
+    "solved": true,
+    "cp_loss": 3119,
+    "false_sacrifice": false
+   }
+  },
+  {
+   "id": "00rjB-neg",
+   "theme": "hard_sacrifice_counterexample",
+   "kind": "negative",
+   "solution": null,
+   "forbidden": "c5f2",
+   "native:2:skeptic": {
+    "move": "g4f2",
+    "solved": true,
+    "cp_loss": 84,
+    "false_sacrifice": false
+   },
+   "native:2": {
+    "move": "g4f2",
+    "solved": true,
+    "cp_loss": 39,
+    "false_sacrifice": false
+   }
+  },
+  {
+   "id": "00sKJ-neg",
+   "theme": "hard_sacrifice_counterexample",
+   "kind": "negative",
+   "solution": null,
+   "forbidden": "a6d6",
+   "native:2:skeptic": {
+    "move": "g3g4",
+    "solved": true,
+    "cp_loss": 57,
+    "false_sacrifice": false
+   },
+   "native:2": {
+    "move": "g3g4",
+    "solved": true,
+    "cp_loss": 52,
+    "false_sacrifice": false
+   }
+  },
+  {
+   "id": "00uL7-neg",
+   "theme": "hard_sacrifice_counterexample",
+   "kind": "negative",
+   "solution": null,
+   "forbidden": "b6f2",
+   "native:2:skeptic": {
+    "move": "e8f8",
+    "solved": true,
+    "cp_loss": 3703,
+    "false_sacrifice": false
+   },
+   "native:2": {
+    "move": "e8f8",
+    "solved": true,
+    "cp_loss": 3703,
+    "false_sacrifice": false
+   }
+  },
+  {
+   "id": "00vf5-neg",
+   "theme": "hard_sacrifice_counterexample",
+   "kind": "negative",
+   "solution": null,
+   "forbidden": "d4b5",
+   "native:2:skeptic": {
+    "move": "e1g1",
+    "solved": true,
+    "cp_loss": 26,
+    "false_sacrifice": false
+   },
+   "native:2": {
+    "move": "e1g1",
+    "solved": true,
+    "cp_loss": 17,
+    "false_sacrifice": false
+   }
+  },
+  {
+   "id": "00vuv-neg",
+   "theme": "hard_sacrifice_counterexample",
+   "kind": "negative",
+   "solution": null,
+   "forbidden": "g6f8",
+   "native:2:skeptic": {
+    "move": "e1f1",
+    "solved": true,
+    "cp_loss": 1974,
+    "false_sacrifice": false
+   },
+   "native:2": {
+    "move": "e1f1",
+    "solved": true,
+    "cp_loss": 4434,
+    "false_sacrifice": false
+   }
+  },
+  {
+   "id": "0122Z-neg",
+   "theme": "hard_sacrifice_counterexample",
+   "kind": "negative",
+   "solution": null,
+   "forbidden": "f5f4",
+   "native:2:skeptic": {
+    "move": "d8h4",
+    "solved": true,
+    "cp_loss": 21,
+    "false_sacrifice": false
+   },
+   "native:2": {
+    "move": "d8h4",
+    "solved": true,
+    "cp_loss": 39,
+    "false_sacrifice": false
+   }
+  },
+  {
+   "id": "013U2-neg",
+   "theme": "hard_sacrifice_counterexample",
+   "kind": "negative",
+   "solution": null,
+   "forbidden": "e1e7",
+   "native:2:skeptic": {
+    "move": "g3e4",
+    "solved": true,
+    "cp_loss": 28,
+    "false_sacrifice": false
+   },
+   "native:2": {
+    "move": "g3e4",
+    "solved": true,
+    "cp_loss": 35,
+    "false_sacrifice": false
+   }
+  },
+  {
+   "id": "018Cs-neg",
+   "theme": "hard_sacrifice_counterexample",
+   "kind": "negative",
+   "solution": null,
+   "forbidden": "c3d5",
+   "native:2:skeptic": {
+    "move": "g1e2",
+    "solved": true,
+    "cp_loss": 10,
+    "false_sacrifice": false
+   },
+   "native:2": {
+    "move": "g1e2",
+    "solved": true,
+    "cp_loss": 5,
+    "false_sacrifice": false
+   }
+  },
+  {
+   "id": "018eM-neg",
+   "theme": "hard_sacrifice_counterexample",
+   "kind": "negative",
+   "solution": null,
+   "forbidden": "e2e7",
+   "native:2:skeptic": {
+    "move": "e1c1",
+    "solved": true,
+    "cp_loss": 6,
+    "false_sacrifice": false
+   },
+   "native:2": {
+    "move": "e1c1",
+    "solved": true,
+    "cp_loss": 7,
+    "false_sacrifice": false
+   }
+  },
+  {
+   "id": "019PB-neg",
+   "theme": "hard_sacrifice_counterexample",
+   "kind": "negative",
+   "solution": null,
+   "forbidden": "e2e5",
+   "native:2:skeptic": {
+    "move": "f1h2",
+    "solved": true,
+    "cp_loss": 23,
+    "false_sacrifice": false
+   },
+   "native:2": {
+    "move": "f1h2",
+    "solved": true,
+    "cp_loss": 19,
+    "false_sacrifice": false
+   }
+  },
+  {
+   "id": "019gx-neg",
+   "theme": "hard_sacrifice_counterexample",
+   "kind": "negative",
+   "solution": null,
+   "forbidden": "c4a4",
+   "native:2:skeptic": {
+    "move": "c3b3",
+    "solved": true,
+    "cp_loss": 66,
+    "false_sacrifice": false
+   },
+   "native:2": {
+    "move": "c3b3",
+    "solved": true,
+    "cp_loss": 92,
+    "false_sacrifice": false
+   }
+  },
+  {
+   "id": "01B5q-neg",
+   "theme": "hard_sacrifice_counterexample",
+   "kind": "negative",
+   "solution": null,
+   "forbidden": "f6g7",
+   "native:2:skeptic": {
+    "move": "f6f2",
+    "solved": true,
+    "cp_loss": 66,
+    "false_sacrifice": false
+   },
+   "native:2": {
+    "move": "f6f2",
+    "solved": true,
+    "cp_loss": 72,
+    "false_sacrifice": false
+   }
+  },
+  {
+   "id": "01CmR-neg",
+   "theme": "hard_sacrifice_counterexample",
+   "kind": "negative",
+   "solution": null,
+   "forbidden": "f8f3",
+   "native:2:skeptic": {
+    "move": "c6c5",
+    "solved": true,
+    "cp_loss": 40,
+    "false_sacrifice": false
+   },
+   "native:2": {
+    "move": "c6c5",
+    "solved": true,
+    "cp_loss": 58,
+    "false_sacrifice": false
+   }
+  },
+  {
+   "id": "01JEA-neg",
+   "theme": "hard_sacrifice_counterexample",
+   "kind": "negative",
+   "solution": null,
+   "forbidden": "f8f1",
+   "native:2:skeptic": {
+    "move": "d3f1",
+    "solved": true,
+    "cp_loss": 61,
+    "false_sacrifice": false
+   },
+   "native:2": {
+    "move": "d3f1",
+    "solved": true,
+    "cp_loss": 77,
+    "false_sacrifice": false
+   }
+  },
+  {
+   "id": "01K6c-neg",
+   "theme": "hard_sacrifice_counterexample",
+   "kind": "negative",
+   "solution": null,
+   "forbidden": "d5f3",
+   "native:2:skeptic": {
+    "move": "g6c2",
+    "solved": true,
+    "cp_loss": 158,
+    "false_sacrifice": false
+   },
+   "native:2": {
+    "move": "g6c2",
+    "solved": true,
+    "cp_loss": 122,
+    "false_sacrifice": false
+   }
+  },
+  {
+   "id": "01LQB-neg",
+   "theme": "hard_sacrifice_counterexample",
+   "kind": "negative",
+   "solution": null,
+   "forbidden": "g6f7",
+   "native:2:skeptic": {
+    "move": "g2g3",
+    "solved": true,
+    "cp_loss": 59,
+    "false_sacrifice": false
+   },
+   "native:2": {
+    "move": "g2g3",
+    "solved": true,
+    "cp_loss": 108,
+    "false_sacrifice": false
+   }
+  },
+  {
+   "id": "01M2U-neg",
+   "theme": "hard_sacrifice_counterexample",
+   "kind": "negative",
+   "solution": null,
+   "forbidden": "h6h3",
+   "native:2:skeptic": {
+    "move": "h6e6",
+    "solved": true,
+    "cp_loss": 25,
+    "false_sacrifice": false
+   },
+   "native:2": {
+    "move": "h6e6",
+    "solved": true,
+    "cp_loss": 0,
+    "false_sacrifice": false
+   }
+  },
+  {
+   "id": "01Xw1-neg",
+   "theme": "hard_sacrifice_counterexample",
+   "kind": "negative",
+   "solution": null,
+   "forbidden": "g5e6",
+   "native:2:skeptic": {
+    "move": "g5f7",
+    "solved": true,
+    "cp_loss": 11,
+    "false_sacrifice": false
+   },
+   "native:2": {
+    "move": "g5f7",
+    "solved": true,
+    "cp_loss": 43,
+    "false_sacrifice": false
+   }
+  },
+  {
+   "id": "01aM3-neg",
+   "theme": "hard_sacrifice_counterexample",
+   "kind": "negative",
+   "solution": null,
+   "forbidden": "d2f2",
+   "native:2:skeptic": {
+    "move": "d6e5",
+    "solved": true,
+    "cp_loss": 0,
+    "false_sacrifice": false
+   },
+   "native:2": {
+    "move": "d6e5",
+    "solved": true,
+    "cp_loss": 0,
+    "false_sacrifice": false
+   }
+  },
+  {
+   "id": "01fEB-neg",
+   "theme": "hard_sacrifice_counterexample",
+   "kind": "negative",
+   "solution": null,
+   "forbidden": "a8e8",
+   "native:2:skeptic": {
+    "move": "d7f5",
+    "solved": true,
+    "cp_loss": 25,
+    "false_sacrifice": false
+   },
+   "native:2": {
+    "move": "d7f5",
+    "solved": true,
+    "cp_loss": 48,
+    "false_sacrifice": false
+   }
+  },
+  {
+   "id": "01hzW-neg",
+   "theme": "hard_sacrifice_counterexample",
+   "kind": "negative",
+   "solution": null,
+   "forbidden": "b4a4",
+   "native:2:skeptic": {
+    "move": "b4b3",
+    "solved": true,
+    "cp_loss": 132,
+    "false_sacrifice": false
+   },
+   "native:2": {
+    "move": "b4b3",
+    "solved": true,
+    "cp_loss": 127,
+    "false_sacrifice": false
+   }
+  },
+  {
+   "id": "01kad-neg",
+   "theme": "hard_sacrifice_counterexample",
+   "kind": "negative",
+   "solution": null,
+   "forbidden": "b4b3",
+   "native:2:skeptic": {
+    "move": "f7f8",
+    "solved": true,
+    "cp_loss": 0,
+    "false_sacrifice": false
+   },
+   "native:2": {
+    "move": "f7f8",
+    "solved": true,
+    "cp_loss": 45,
+    "false_sacrifice": false
+   }
+  },
+  {
+   "id": "01lAW-neg",
+   "theme": "hard_sacrifice_counterexample",
+   "kind": "negative",
+   "solution": null,
+   "forbidden": "e4d6",
+   "native:2:skeptic": {
+    "move": "e4c5",
+    "solved": true,
+    "cp_loss": 58,
+    "false_sacrifice": false
+   },
+   "native:2": {
+    "move": "e4c5",
+    "solved": true,
+    "cp_loss": 76,
+    "false_sacrifice": false
+   }
+  },
+  {
+   "id": "01rCa-neg",
+   "theme": "hard_sacrifice_counterexample",
+   "kind": "negative",
+   "solution": null,
+   "forbidden": "f5h6",
+   "native:2:skeptic": {
+    "move": "f5e3",
+    "solved": true,
+    "cp_loss": 118,
+    "false_sacrifice": false
+   },
+   "native:2": {
+    "move": "f5e3",
+    "solved": true,
+    "cp_loss": 243,
+    "false_sacrifice": false
+   }
+  },
+  {
+   "id": "01uWs-neg",
+   "theme": "hard_sacrifice_counterexample",
+   "kind": "negative",
+   "solution": null,
+   "forbidden": "f6e4",
+   "native:2:skeptic": {
+    "move": "c6c5",
+    "solved": true,
+    "cp_loss": 30,
+    "false_sacrifice": false
+   },
+   "native:2": {
+    "move": "c6c5",
+    "solved": true,
+    "cp_loss": 17,
+    "false_sacrifice": false
+   }
+  },
+  {
+   "id": "01y0W-neg",
+   "theme": "hard_sacrifice_counterexample",
+   "kind": "negative",
+   "solution": null,
+   "forbidden": "h8h2",
+   "native:2:skeptic": {
+    "move": "b8a7",
+    "solved": true,
+    "cp_loss": 0,
+    "false_sacrifice": false
+   },
+   "native:2": {
+    "move": "b8a7",
+    "solved": true,
+    "cp_loss": 0,
+    "false_sacrifice": false
+   }
+  },
+  {
+   "id": "023Uk-neg",
+   "theme": "hard_sacrifice_counterexample",
+   "kind": "negative",
+   "solution": null,
+   "forbidden": "b6g6",
+   "native:2:skeptic": {
+    "move": "f2e3",
+    "solved": true,
+    "cp_loss": 252,
+    "false_sacrifice": false
+   },
+   "native:2": {
+    "move": "f2e3",
+    "solved": true,
+    "cp_loss": 484,
+    "false_sacrifice": false
+   }
+  },
+  {
+   "id": "025BR-neg",
+   "theme": "hard_sacrifice_counterexample",
+   "kind": "negative",
+   "solution": null,
+   "forbidden": "g8h8",
+   "native:2:skeptic": {
+    "move": "g8f8",
+    "solved": true,
+    "cp_loss": 30,
+    "false_sacrifice": false
+   },
+   "native:2": {
+    "move": "g8f8",
+    "solved": true,
+    "cp_loss": 31,
+    "false_sacrifice": false
+   }
+  },
+  {
+   "id": "026QC-neg",
+   "theme": "hard_sacrifice_counterexample",
+   "kind": "negative",
+   "solution": null,
+   "forbidden": "a3a4",
+   "native:2:skeptic": {
+    "move": "f1f2",
+    "solved": true,
+    "cp_loss": 134,
+    "false_sacrifice": false
+   },
+   "native:2": {
+    "move": "h2h3",
+    "solved": true,
+    "cp_loss": 317,
+    "false_sacrifice": false
+   }
+  },
+  {
+   "id": "02Chp-neg",
+   "theme": "hard_sacrifice_counterexample",
+   "kind": "negative",
+   "solution": null,
+   "forbidden": "g3g7",
+   "native:2:skeptic": {
+    "move": "h4h6",
+    "solved": true,
+    "cp_loss": 66,
+    "false_sacrifice": false
+   },
+   "native:2": {
+    "move": "h4h6",
+    "solved": true,
+    "cp_loss": 52,
+    "false_sacrifice": false
+   }
+  }
+ ]
+}

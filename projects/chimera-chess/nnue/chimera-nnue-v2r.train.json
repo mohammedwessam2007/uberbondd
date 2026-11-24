@@ -1,0 +1,33 @@
+{
+ "data": "nnue/dataset_v2_selfplay.tsv.gz",
+ "data_sha256": "fd4e322a56744a8c29274a9ff7c67fba837865ec64c5b033b5f13b5c9b0430f8",
+ "train_positions": 63110,
+ "val_positions": 6212,
+ "hidden": 64,
+ "epochs": 2,
+ "seed": 1,
+ "residual_on_evalv2": true,
+ "optimizer": "Adam(0.9,0.999) lr 1e-3 then 3e-4 (last 30%), batch 512",
+ "params": 49281,
+ "curve": [
+  {
+   "epoch": 1,
+   "train_loss": 0.007428,
+   "val_loss": 0.007521,
+   "elapsed_s": 1.2
+  },
+  {
+   "epoch": 2,
+   "train_loss": 0.00637,
+   "val_loss": 0.007422,
+   "elapsed_s": 2.4
+  }
+ ],
+ "val_loss_trained": 0.007422,
+ "val_loss_baselines": {
+  "EvalV1_static": 0.00884360633790493,
+  "EvalV2_static": 0.008281288668513298
+ },
+ "weights": "nnue/chimera-nnue-v2r.bin",
+ "weights_sha256": "c8c6cc0d32ca1a3fa2e89c91c349f4ed92fbb6c10050a1c7d324580ef3ded820"
+}

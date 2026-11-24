@@ -1,0 +1,3 @@
+match_pgn n 1221 label_mean 50.9 | eval3 mean 190.9 eval2 mean -4.2 | corr(label,eval3) 0.317 corr(label,eval2) 0.642 | MAE<1000 eval3 268.5 eval2 192.5
+lichess_puzzle n 3000 label_mean 484.4 | eval3 mean 268.7 eval2 mean -59.7 | corr(label,eval3) 0.145 corr(label,eval2) 0.192 | MAE<1000 eval3 199.1 eval2 247.8
+startpos eval3 [209.] after e4 (black to move) [80.]

@@ -1,0 +1,50 @@
+{
+ "data": "nnue/dataset_v1.tsv.gz",
+ "data_sha256": "eb204970a53e7feee614737de1b3f588927f5ad3f9aa354363c904bc8dfad618",
+ "train_positions": 115233,
+ "val_positions": 13444,
+ "hidden": 128,
+ "epochs": 5,
+ "seed": 1,
+ "optimizer": "Adam(0.9,0.999) lr 1e-3 then 3e-4 (last 30%), batch 512",
+ "params": 98561,
+ "curve": [
+  {
+   "epoch": 1,
+   "train_loss": 0.035164,
+   "val_loss": 0.033453,
+   "elapsed_s": 4.3
+  },
+  {
+   "epoch": 2,
+   "train_loss": 0.032626,
+   "val_loss": 0.03291,
+   "elapsed_s": 8.8
+  },
+  {
+   "epoch": 3,
+   "train_loss": 0.031429,
+   "val_loss": 0.032455,
+   "elapsed_s": 13.4
+  },
+  {
+   "epoch": 4,
+   "train_loss": 0.030047,
+   "val_loss": 0.03184,
+   "elapsed_s": 17.5
+  },
+  {
+   "epoch": 5,
+   "train_loss": 0.028156,
+   "val_loss": 0.031526,
+   "elapsed_s": 21.8
+  }
+ ],
+ "val_loss_trained": 0.031526,
+ "val_loss_baselines": {
+  "EvalV1_static": 0.10312864184379578,
+  "EvalV2_static": 0.10129078477621078
+ },
+ "weights": "nnue/chimera-nnue-v1.bin",
+ "weights_sha256": "590aba5c709c4e539c55b9b4c4bfd4dec1b056a1cb4ed07fdd4da8519d5c2cf6"
+}

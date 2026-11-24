@@ -22,13 +22,18 @@ def main(suite, out, ms, specs):
         b = chess.Board(it["fen"])
         best = sf.analyse(b, chess.engine.Limit(depth=16))
         bs = best["score"].pov(b.turn).score(mate_score=100000)
-        row = {"id": it["id"], "theme": it["theme"], "solution": it["solution"]}
+        neg = it.get("kind") == "negative"
+        row = {"id": it["id"], "theme": it["theme"], "kind": "negative" if neg else "positive",
+               "solution": it.get("solution"), "forbidden": it.get("forbidden")}
         for s, e in engines.items():
             e.protocol.send_line("ucinewgame")
             mv = e.play(b, chess.engine.Limit(time=ms / 1000)).move
             sc = sf.analyse(b, chess.engine.Limit(depth=16), root_moves=[mv])["score"].pov(b.turn).score(mate_score=100000)
             loss = max(0, bs - sc) if abs(bs) < 90000 else (0 if sc >= 90000 else 9999)
-            row[s] = {"move": mv.uci(), "solved": mv.uci() == it["solution"], "cp_loss": loss}
+            ok = (mv.uci() != it["forbidden"]) if neg else (mv.uci() == it["solution"])
+            row[s] = {"move": mv.uci(), "solved": ok, "cp_loss": loss}
+            if neg:
+                row[s]["false_sacrifice"] = mv.uci() == it["forbidden"]
         rows.append(row)
         print(it["id"], it["theme"], *[f"{s}={row[s]['move']}{'*' if row[s]['solved'] else ''}" for s in specs], flush=True)
     for e in engines.values():
@@ -42,7 +47,9 @@ def main(suite, out, ms, specs):
             by[r["theme"]][1] += 1
         summary[s] = {"solved": f"{sum(r[s]['solved'] for r in rows)}/{len(rows)}",
                       "by_theme": {k: f"{a}/{n}" for k, (a, n) in by.items()},
-                      "mean_cp_loss_capped_1000": round(sum(min(r[s]["cp_loss"], 1000) for r in rows) / len(rows), 1)}
+                      "mean_cp_loss_capped_1000": round(sum(min(r[s]["cp_loss"], 1000) for r in rows) / len(rows), 1),
+                      "positives_solved": f"{sum(r[s]['solved'] for r in rows if r['kind'] == 'positive')}/{sum(r['kind'] == 'positive' for r in rows)}",
+                      "false_sacrifices": f"{sum(r[s].get('false_sacrifice', False) for r in rows)}/{sum(r['kind'] == 'negative' for r in rows)}"}
     # paired comparison of first two engines
     if len(specs) >= 2:
         a, b2 = specs[0], specs[1]

@@ -1,0 +1,22 @@
+{
+  "a": "native:3",
+  "b": "native:2",
+  "tc": "10+0.1",
+  "games": 48,
+  "a_wins": 0,
+  "draws": 0,
+  "a_losses": 48,
+  "a_score": 0.0,
+  "a_pct": 0.0,
+  "elo_diff_a_minus_b_95ci": [
+    -791,
+    -791,
+    -556
+  ],
+  "time_forfeits": 0,
+  "illegal_or_failure": 0,
+  "stockfish": "/usr/games/stockfish",
+  "python": "3.13.18",
+  "chess": "1.11.2",
+  "date_utc": "2026-11-24T00:24:39"
+}

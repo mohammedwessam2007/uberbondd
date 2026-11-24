@@ -3,3 +3,4 @@ __pycache__/
 *.pyc
 checkpoints/*.zip.tmp
 native/chimera
+native/ref/chimera-v8-ref

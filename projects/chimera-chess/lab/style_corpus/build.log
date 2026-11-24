@@ -1,0 +1,79 @@
+lichess_db_broadcast_2021-01.pgn.zst {'Dubov': 12}
+lichess_db_broadcast_2021-02.pgn.zst {'Shirov': 7, 'Dubov': 26, 'Petrosian': 11}
+lichess_db_broadcast_2021-03.pgn.zst {'Dubov': 15}
+lichess_db_broadcast_2021-04.pgn.zst {}
+lichess_db_broadcast_2021-05.pgn.zst {'Dubov': 53, 'Shirov': 13}
+lichess_db_broadcast_2021-06.pgn.zst {'Petrosian': 2, 'Dubov': 15}
+lichess_db_broadcast_2021-07.pgn.zst {'Dubov': 12, 'Shirov': 8}
+lichess_db_broadcast_2021-08.pgn.zst {'Karpov': 14, 'Shirov': 9, 'Basman': 9}
+lichess_db_broadcast_2021-09.pgn.zst {'Dubov': 16, 'Ivanchuk': 9, 'Shirov': 7}
+lichess_db_broadcast_2021-10.pgn.zst {'Petrosian': 7, 'Shirov': 10, 'Dubov': 5}
+lichess_db_broadcast_2021-11.pgn.zst {'Shirov': 14, 'Dubov': 32}
+lichess_db_broadcast_2021-12.pgn.zst {'Dubov': 30, 'Shirov': 13, 'Petrosian': 30}
+lichess_db_broadcast_2022-01.pgn.zst {'Petrosian': 11, 'Dubov': 13}
+lichess_db_broadcast_2022-02.pgn.zst {'Dubov': 34, 'Shirov': 6, 'Ivanchuk': 16}
+lichess_db_broadcast_2022-03.pgn.zst {'Shirov': 8, 'Dubov': 36}
+lichess_db_broadcast_2022-04.pgn.zst {'Dubov': 50, 'Ivanchuk': 4, 'Shirov': 1}
+lichess_db_broadcast_2022-05.pgn.zst {'Shirov': 10, 'Dubov': 33}
+lichess_db_broadcast_2022-06.pgn.zst {'Dubov': 16, 'Petrosian': 7, 'Shirov': 2}
+lichess_db_broadcast_2022-07.pgn.zst {'Dubov': 28, 'Shirov': 9}
+lichess_db_broadcast_2022-08.pgn.zst {'Shirov': 16, 'Dubov': 8}
+lichess_db_broadcast_2022-09.pgn.zst {'Shirov': 7, 'Ivanchuk': 18, 'Petrosian': 1}
+lichess_db_broadcast_2022-10.pgn.zst {'Petrosian': 8, 'Shirov': 2, 'Ivanchuk': 2}
+lichess_db_broadcast_2022-11.pgn.zst {'Shirov': 12, 'Ivanchuk': 8}
+lichess_db_broadcast_2022-12.pgn.zst {'Shirov': 1, 'Ivanchuk': 4, 'Dubov': 46, 'Petrosian': 45}
+lichess_db_broadcast_2023-01.pgn.zst {'Shirov': 2, 'Petrosian': 9}
+lichess_db_broadcast_2023-02.pgn.zst {'Dubov': 23, 'Ivanchuk': 5, 'Shirov': 2}
+lichess_db_broadcast_2023-03.pgn.zst {'Ivanchuk': 15, 'Shirov': 2}
+lichess_db_broadcast_2023-04.pgn.zst {'Ivanchuk': 5, 'Shirov': 4, 'Dubov': 11}
+lichess_db_broadcast_2023-05.pgn.zst {'Shirov': 1}
+lichess_db_broadcast_2023-06.pgn.zst {'Ivanchuk': 18, 'Dubov': 15}
+lichess_db_broadcast_2023-07.pgn.zst {'Dubov': 11, 'Ivanchuk': 10, 'Shirov': 10}
+lichess_db_broadcast_2023-08.pgn.zst {'Dubov': 16, 'Ivanchuk': 18, 'Shirov': 9}
+lichess_db_broadcast_2023-09.pgn.zst {'Shirov': 7, 'Ivanchuk': 9, 'Dubov': 18, 'Petrosian': 9}
+lichess_db_broadcast_2023-10.pgn.zst {'Shirov': 9, 'Ivanchuk': 6}
+lichess_db_broadcast_2023-11.pgn.zst {'Shirov': 13, 'Ivanchuk': 14}
+lichess_db_broadcast_2023-12.pgn.zst {'Shirov': 9, 'Ivanchuk': 22, 'Dubov': 34, 'Petrosian': 34}
+lichess_db_broadcast_2024-01.pgn.zst {'Shirov': 2}
+lichess_db_broadcast_2024-02.pgn.zst {'Dubov': 8, 'Shirov': 4, 'Ivanchuk': 16}
+lichess_db_broadcast_2024-03.pgn.zst {'Dubov': 6, 'Ivanchuk': 17}
+lichess_db_broadcast_2024-04.pgn.zst {'Ivanchuk': 15, 'Morozevich': 14, 'Shirov': 2}
+lichess_db_broadcast_2024-05.pgn.zst {'Ivanchuk': 19, 'Shirov': 3, 'Karpov': 2}
+lichess_db_broadcast_2024-06.pgn.zst {'Ivanchuk': 8, 'Shirov': 8}
+lichess_db_broadcast_2024-07.pgn.zst {'Ivanchuk': 8, 'Shirov': 25}
+lichess_db_broadcast_2024-08.pgn.zst {'Dubov': 26, 'Ivanchuk': 9, 'Shirov': 17}
+lichess_db_broadcast_2024-09.pgn.zst {'Ivanchuk': 19, 'Shirov': 8, 'Dubov': 9}
+lichess_db_broadcast_2024-10.pgn.zst {'Shirov': 2, 'Ivanchuk': 12}
+lichess_db_broadcast_2024-11.pgn.zst {'Ivanchuk': 13, 'Dubov': 27, 'Morozevich': 11, 'Shirov': 1}
+lichess_db_broadcast_2024-12.pgn.zst {'Shirov': 10, 'Ivanchuk': 44, 'Dubov': 26, 'Petrosian': 26}
+lichess_db_broadcast_2025-01.pgn.zst {}
+lichess_db_broadcast_2025-02.pgn.zst {'Ivanchuk': 9, 'Dubov': 9, 'Shirov': 1}
+lichess_db_broadcast_2025-03.pgn.zst {'Dubov': 18, 'Ivanchuk': 14, 'Shirov': 4}
+lichess_db_broadcast_2025-04.pgn.zst {'Ivanchuk': 27, 'Shirov': 12}
+lichess_db_broadcast_2025-05.pgn.zst {'Dubov': 11, 'Ivanchuk': 10}
+lichess_db_broadcast_2025-06.pgn.zst {'Ivanchuk': 10, 'Shirov': 15}
+lichess_db_broadcast_2025-07.pgn.zst {'Ivanchuk': 8, 'Dubov': 7}
+lichess_db_broadcast_2025-08.pgn.zst {'Shirov': 7, 'Ivanchuk': 15}
+lichess_db_broadcast_2025-09.pgn.zst {'Ivanchuk': 19, 'Dubov': 11, 'Shirov': 20}
+lichess_db_broadcast_2025-10.pgn.zst {'Shirov': 12, 'Morozevich': 1}
+lichess_db_broadcast_2025-11.pgn.zst {'Ivanchuk': 27, 'Shirov': 13, 'Dubov': 20}
+lichess_db_broadcast_2025-12.pgn.zst {'Shirov': 19, 'Ivanchuk': 34, 'Dubov': 32}
+lichess_db_broadcast_2026-01.pgn.zst {'Ivanchuk': 14, 'Shirov': 2}
+lichess_db_broadcast_2026-02.pgn.zst {'Ivanchuk': 3, 'Shirov': 24}
+lichess_db_broadcast_2026-03.pgn.zst {'Shirov': 5, 'Dubov': 20, 'Ivanchuk': 9}
+lichess_db_broadcast_2026-04.pgn.zst {'Ivanchuk': 25, 'Shirov': 9, 'Morozevich': 5, 'Dubov': 16}
+lichess_db_broadcast_2026-05.pgn.zst {'Dubov': 6, 'Ivanchuk': 14, 'Petrosian': 6, 'Shirov': 11}
+lichess_db_broadcast_2026-06.pgn.zst {'Dubov': 9, 'Ivanchuk': 32, 'Shirov': 29}
+lichess_db_broadcast_2026-07.pgn.zst {'Ivanchuk': 23, 'Shirov': 9}
+lichess_db_broadcast_2026-08.pgn.zst {'Ivanchuk': 36, 'Dubov': 23, 'Shirov': 24}
+lichess_db_broadcast_2026-09.pgn.zst {'Ivanchuk': 18, 'Dubov': 12, 'Shirov': 7}
+lichess_db_broadcast_2026-10.pgn.zst {'Ivanchuk': 10, 'Shirov': 9, 'Dubov': 6}
+{
+ "Dubov": 910,
+ "Shirov": 537,
+ "Petrosian": 206,
+ "Karpov": 16,
+ "Basman": 9,
+ "Ivanchuk": 720,
+ "Morozevich": 31
+}

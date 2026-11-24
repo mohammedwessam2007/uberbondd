@@ -1,0 +1,45 @@
+00KYC-neg preps 0 restoring 0 pick None False
+00KgF-neg preps 1 restoring 0 pick e5e6 False
+00Pms-neg preps 4 restoring 0 pick e2d4 False
+00UJP-neg preps 23 restoring 0 pick e8h5 False
+00ZEW-neg preps 1 restoring 0 pick f1f4 False
+00gpa-neg preps 17 restoring 0 pick d1e2 False
+00nsa-neg preps 5 restoring 0 pick h7h6 False
+00rjB-neg preps 26 restoring 0 pick g4f2 False
+00sKJ-neg preps 9 restoring 0 pick d3d4 False
+00uL7-neg preps 7 restoring 0 pick e8f8 False
+00vf5-neg preps 11 restoring 0 pick c3b5 False
+00vuv-neg preps 2 restoring 0 pick e1f1 False
+0122Z-neg preps 13 restoring 0 pick d8h4 False
+013U2-neg preps 16 restoring 0 pick c4d5 False
+018Cs-neg preps 15 restoring 0 pick a2a3 False
+018eM-neg preps 18 restoring 0 pick e1g1 False
+019PB-neg preps 9 restoring 0 pick f1d2 False
+019gx-neg preps 3 restoring 0 pick c3b3 False
+01B5q-neg preps 0 restoring 0 pick None False
+01CmR-neg preps 13 restoring 0 pick b4a5 False
+01JEA-neg preps 4 restoring 0 pick d3b3 False
+01K6c-neg preps 34 restoring 0 pick g6c2 False
+01LQB-neg preps 5 restoring 0 pick f1f2 False
+01M2U-neg preps 15 restoring 0 pick e3e2 False
+01Xw1-neg preps 24 restoring 0 pick b3f7 False
+01aM3-neg preps 7 restoring 0 pick h8h6 False
+01fEB-neg preps 8 restoring 0 pick h7h6 False
+01hzW-neg preps 2 restoring 0 pick c6b6 False
+01kad-neg preps 16 restoring 0 pick b8b7 False
+01lAW-neg preps 15 restoring 0 pick f1e1 False
+01rCa-neg preps 9 restoring 0 pick h3h6 False
+01uWs-neg preps 37 restoring 0 pick d6e5 False
+01y0W-neg preps 5 restoring 0 pick b8a8 False
+023Uk-neg preps 7 restoring 0 pick f2e3 False
+025BR-neg preps 2 restoring 0 pick b4d5 False
+026QC-neg preps 18 restoring 0 pick h2h3 False
+02Chp-neg preps 16 restoring 0 pick h4h6 False
+{
+ "positions": 37,
+ "oracle_any_restoring": 0,
+ "blacksmith_pick_restores": 0,
+ "expected_random_pick_restores": 0.0,
+ "touch_missing_rate_among_restoring": 0.0,
+ "touch_missing_rate_among_nonrestoring": 0.139
+}

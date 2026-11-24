@@ -82,6 +82,8 @@ def open_player(spec: str):
         if "stateless" in rest:
             opts["ClearStateEachMove"] = True
         for t in rest:
+            if t.startswith("rscale="):
+                opts["NNResidualScale"] = int(t[7:])
             if t.startswith("mpv="):
                 opts["ForceMultiPV"] = int(t[4:])
             if t.startswith("style="):

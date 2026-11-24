@@ -1,0 +1,57 @@
+illegal san: 'Ke4' in 8/7p/p4p2/1p1k4/1P6/4K1P1/P6P/8 w - - 5 40 while parsing <Game at 0x7fbc031d3800 ('Dubov, Daniil' vs. 'Kuzubov, Yuriy', '2021.11.19' at 'Terme Catez, Slovenia')>
+illegal san: 'Kd4' in 4R3/5pk1/2p1n3/2Pp4/5p2/3Kp3/8/8 w - - 0 61 while parsing <Game at 0x7fbc031d3800 ('Niemann, Hans Moke' vs. 'Dubov, Daniil', '2021.12.27' at 'Warsaw, Poland')>
+illegal san: 'Ke5' in 8/8/2pK1k2/p4p1R/8/4r1P1/8/8 w - - 1 68 while parsing <Game at 0x7fbc056d9c70 ('Timofeev, Artyom' vs. 'Dubov, Daniil', '2021.12.28' at 'Warsaw, Poland')>
+Dubov 2100
+illegal san: 'Ke5' in 8/1b6/2pkpp2/p5r1/P1RPK1P1/2P2B2/8/8 b - - 7 36 while parsing <Game at 0x7fbc031d05f0 ('Korobov, Anton' vs. 'Shirov, Alexei', '2021.11.15' at 'Terme Catez, Slovenia')>
+illegal san: 'Ke5' in 8/Pb6/6p1/8/2NK1k2/8/8/8 b - - 5 75 while parsing <Game at 0x7fbc031d34a0 ('Maghsoodloo, Parham' vs. 'Shirov, Alexei', '2021.12.28' at 'Warsaw, Poland')>
+Shirov 2138
+illegal san: 'Ke4' in 8/2n1nk2/1p1b1p1p/p2p1Pp1/P2P2P1/1PNK1B1P/8/4B3 w - - 13 57 while parsing <Game at 0x7fbc031d0e60 ('Ivanchuk, Vasyl' vs. 'Saydaliev, Saidakbar', '2022.12.16' at 'Sitges, Spain')>
+Ivanchuk 2148
+{
+ "positions": {
+  "Dubov": 2100,
+  "Shirov": 2138,
+  "Ivanchuk": 2148
+ },
+ "heldout": {
+  "Dubov": {
+   "n": 383,
+   "own_head_top1": 0.546,
+   "pooled_head_top1": 0.543,
+   "maia_top1": 0.546
+  },
+  "Shirov": {
+   "n": 529,
+   "own_head_top1": 0.541,
+   "pooled_head_top1": 0.537,
+   "maia_top1": 0.541
+  },
+  "Ivanchuk": {
+   "n": 469,
+   "own_head_top1": 0.569,
+   "pooled_head_top1": 0.55,
+   "maia_top1": 0.561
+  }
+ },
+ "attribution_accuracy": 0.3621,
+ "attribution_chance": 0.3333,
+ "attribution_n": 1381,
+ "confusion": {
+  "Dubov": {
+   "Dubov": 118,
+   "Shirov": 150,
+   "Ivanchuk": 115
+  },
+  "Shirov": {
+   "Dubov": 160,
+   "Shirov": 217,
+   "Ivanchuk": 152
+  },
+  "Ivanchuk": {
+   "Dubov": 124,
+   "Shirov": 180,
+   "Ivanchuk": 165
+  }
+ },
+ "attribution_z_vs_chance": 2.26
+}

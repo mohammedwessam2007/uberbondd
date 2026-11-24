@@ -360,7 +360,8 @@ static int SKEPTIC = 0;
 static int MULTIPV = 1;            // V11: exact scores for the top-k root moves
 static int STYLE_PROFILE = 0;      // V11: 0 none, 1 attack, 2 restraint (trait-conditioned choice among near-best moves)
 static int STYLE_MARGIN = 30;
-static int CLEAR_STATE = 0;              // V11 memory ablation: wipe TT/history/plan before every move (memoryless control)
+static int CLEAR_STATE = 0;
+static std::string ROOT_HINT;  // V12: single externally proposed candidate (e.g. Maia3 top-1): searched first + 1 ply deeper              // V11 memory ablation: wipe TT/history/plan before every move (memoryless control)
 static int GOV_TRACE = 0, GOVERNOR = 0;   // V11 value-of-computation governor
 static double GOV_W[7] = {0, 0, 0, 0, 0, 0, 0};  // bias + 6 features; set by GovernorWeights option
 static double GOV_HI = 0.5, GOV_LO = 0.15;      // cp window below the best move inside which a trait may decide          // V9 independent Skeptic (different evaluator + separate TT); off until it passes prereg
@@ -394,6 +395,7 @@ static inline int fdiv(int a, int b) { int q = a / b; if ((a % b != 0) && ((a < 
 static std::vector<float> NN_W1, NN_B1, NN_W2;
 static float NN_B2 = 0;
 static int NN_RESIDUAL = 0;  // CHNNUE2: eval = EvalV2 + net
+static int NN_RES_SCALE = 100;  // V12: residual correction scale in percent (damping test)
 static std::string NN_FILE;
 static bool nnue_load(const std::string &path) {
   FILE *f = fopen(path.c_str(), "rb");
@@ -444,7 +446,7 @@ static int evaluate_hand(const Position &p);
 static int evaluate(const Position &p) {
   if (EVAL_VERSION == 3 && NN_H > 0) {
     if (p.insufficient()) return 0;
-    if (NN_RESIDUAL) { int saved = EVAL_VERSION; EVAL_VERSION = 2; int h = evaluate_hand(p); EVAL_VERSION = saved; return h + nnue_eval(p); }
+    if (NN_RESIDUAL) { int saved = EVAL_VERSION; EVAL_VERSION = 2; int h = evaluate_hand(p); EVAL_VERSION = saved; return h + nnue_eval(p) * NN_RES_SCALE / 100; }
     return nnue_eval(p);
   }
   return evaluate_hand(p);
@@ -560,6 +562,7 @@ struct Searcher {
   Move root_best = 0; int root_score = 0;
   std::vector<std::pair<Move, int>> last_mpv;  // last fully completed MultiPV set (move, exact score)
   int style_changed = 0;
+  Move root_hint = 0;   // V12 single-candidate focused deepening (ordering + extension; never forced)
   Move plan_hint = 0;   // Architect: next move of the persisted plan (ordering only, never forced)
   int stable_iters = 0; // how many final iterations kept the same best move (plan confidence input)
   bool aborted = false;
@@ -847,6 +850,10 @@ struct Searcher {
       auto it = std::find(root.begin(), root.end(), plan_hint);
       if (it != root.end()) std::rotate(root.begin(), it, it + 1);
     }
+    if (root_hint) {
+      auto it = std::find(root.begin(), root.end(), root_hint);
+      if (it != root.end()) std::rotate(root.begin(), it, it + 1);
+    }
     stable_iters = 0;
     int changes_total = 0; Move prev_best_iter = 0; int prev_score_iter = 0;
     last_mpv.clear();
@@ -856,6 +863,7 @@ struct Searcher {
     std::vector<char> art(root.size(), 0);
     int n_art = 0;
     if (ARTIST_EXT) for (size_t i = 0; i < root.size(); i++) { art[i] = artistic(root[i]); n_art += art[i]; }
+    if (root_hint) for (size_t i = 0; i < root.size(); i++) if (root[i] == root_hint) art[i] = 2;  // hint: extended regardless of ARTIST_EXT
     (void)n_art;
     for (int depth = 1; depth <= lim.depth; depth++) {
       int alpha = -INF, beta = INF;
@@ -867,7 +875,7 @@ struct Searcher {
         int a = alpha;
         for (size_t i = 0; i < root.size(); i++) {
           Move m = root[i];
-          int ext = (ARTIST_EXT && art[i] && depth >= 3) ? 1 : 0;
+          int ext = (((ARTIST_EXT && art[i]) || art[i] == 2) && depth >= 3) ? 1 : 0;
           pos.make(m);
           int s;
           if (i == 0) s = -negamax(depth - 1 + ext, -beta, -a, 1, true);
@@ -1200,6 +1208,8 @@ int main(int argc, char **argv) {
       printf("option name StyleMarginCp type spin default 30 min 0 max 300\n");
       printf("option name GovernorTrace type check default false\n");
       printf("option name ClearStateEachMove type check default false\n");
+      printf("option name RootHint type string default <empty>\n");
+      printf("option name NNResidualScale type spin default 100 min 0 max 200\n");
       printf("option name Governor type check default false\n");
       printf("option name GovernorWeights type string default 0,0,0,0,0,0,0\n");
       printf("uciok\n"); fflush(stdout);
@@ -1228,6 +1238,8 @@ int main(int argc, char **argv) {
       else if (name == "StyleProfile") STYLE_PROFILE = value == "attack" ? 1 : value == "restraint" ? 2 : 0;
       else if (name == "GovernorTrace") GOV_TRACE = value == "true";
       else if (name == "ClearStateEachMove") CLEAR_STATE = value == "true";
+      else if (name == "NNResidualScale") NN_RES_SCALE = std::max(0, std::min(200, atoi(value.c_str())));
+      else if (name == "RootHint") ROOT_HINT = (value == "<empty>" ? "" : value);
       else if (name == "Governor") GOVERNOR = value == "true";
       else if (name == "GovernorWeights") { std::stringstream ss(value); std::string x; int q = 0; while (std::getline(ss, x, ',') && q < 9) { if (q < 7) GOV_W[q] = atof(x.c_str()); else if (q == 7) GOV_HI = atof(x.c_str()); else GOV_LO = atof(x.c_str()); q++; } }
       else if (name == "StyleMarginCp") STYLE_MARGIN = std::max(0, std::min(300, atoi(value.c_str())));
@@ -1295,6 +1307,8 @@ int main(int argc, char **argv) {
         memset(S.hist, 0, sizeof S.hist);
         int v = PLAN.version; PLAN = PlanState(); PLAN.version = v + 1;
       }
+      S.root_hint = ROOT_HINT.empty() ? 0 : S.pos.parse(ROOT_HINT);
+      ROOT_HINT.clear();  // a hint applies to exactly one go
       double mult = plan_observe(S.pos, game_moves);
       S.plan_hint = 0;
       if (PLAN_MEMORY) {

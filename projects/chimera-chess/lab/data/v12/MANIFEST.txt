@@ -1,0 +1,6 @@
+# lab/data/v12 manifest. eval_v4_merged.tsv.gz removed from git (regenerable: dedupe-by-position over sp2_s21..23 in order; see STATUS_V12)
+4cd7434193ff354473230022d4e19f3a1404008c072ec4362997a82b411ed8cc  lab/data/v12/eval_v4_merged.tsv.gz
+cf666f3f24c7647058ac841710de184fbd1a2eb9b4e1c1cc0f5023b74bad2122  lab/data/v12/sp2_s21.tsv.gz
+c6f6447865af23ab2ec07a1545e5d1a869ed6ad5cdf3733f8735ca5ebdfd61dd  lab/data/v12/sp2_s22.tsv.gz
+bea4bf0af51922b4dcbc8604039f2fc7b989a63b8b2948f557094e1e8f9a8b69  lab/data/v12/sp2_s23.tsv.gz
+merged data_sha256 (train.json): 4cd7434193ff354473230022d4e19f3a1404008c072ec4362997a82b411ed8cc

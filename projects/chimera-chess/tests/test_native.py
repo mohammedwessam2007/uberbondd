@@ -299,3 +299,35 @@ class V11FeatureTests(unittest.TestCase):
         self.assertEqual(data[:4], b"\x7fELF")
         self.assertEqual(data[18], 0xB7)               # e_machine EM_AARCH64
         self.assertIn(b"/system/bin/linker64", open(p, "rb").read(1 << 16))
+
+
+class V12FeatureTests(unittest.TestCase):
+    def test_root_hint_never_overrides_refutation(self):
+        e = Engine()
+        e.send("position fen 5r1k/6pp/p5BN/8/2Q5/8/8/K7 w - - 0 2")
+        e.send("setoption name RootHint value h6f7")   # wrong hint; c4g8 mates in 2
+        e.send("go depth 7")
+        best, _ = e.until("bestmove")
+        self.assertEqual(best.split()[1], "c4g8")
+        e.send("position startpos")                       # hint applies to exactly one go
+        e.send("go depth 5")
+        best2, _ = e.until("bestmove")
+        self.assertIn(chess.Move.from_uci(best2.split()[1]), chess.Board().legal_moves)
+        e.close()
+
+    def test_residual_scale_zero_equals_handcrafted(self):
+        nn = os.path.join(ROOT, "nnue", "v12", "eval_v4_residual.bin")
+        if not os.path.exists(nn):
+            self.skipTest("no v12 net")
+        vals = []
+        for ev, sc in ((2, 100), (3, 0)):
+            e = Engine()
+            e.send(f"setoption name EvalFile value {nn}")
+            e.send(f"setoption name EvalVersion value {ev}")
+            e.send(f"setoption name NNResidualScale value {sc}")
+            e.send(f"position fen {PERFT[1][0]}")
+            e.send("eval")
+            l, _ = e.until("eval ")
+            vals.append(int(l.split()[1]))
+            e.close()
+        self.assertEqual(vals[0], vals[1])

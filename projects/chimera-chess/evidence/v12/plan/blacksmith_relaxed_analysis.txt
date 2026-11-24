@@ -1,0 +1,13 @@
+positions with any prep keeping S legal after best reply: 35 /37; preparations evaluated: 417
+preps where S becomes (near-)best (relaxed, not necessarily winning): 57
+   ('00UJP-neg', 'e8c8', -99994, -99991)
+   ('00UJP-neg', 'e8f7', -99994, -99994)
+   ('00UJP-neg', 'e8e7', -99994, -99994)
+   ('00UJP-neg', 'e8d7', -99994, -99994)
+   ('00UJP-neg', 'e8c6', -99994, -99994)
+   ('00UJP-neg', 'e8b5', -99996, -99996)
+   ('00UJP-neg', 'e8a4', -99996, -99995)
+   ('00UJP-neg', 'b8b6', -99993, -99993)
+   ('00UJP-neg', 'b8b5', -99993, -99993)
+   ('00UJP-neg', 'f4f3', -99992, -99992)
+median SF gap best-S over all preps: 185

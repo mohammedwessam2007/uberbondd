@@ -1,0 +1,37 @@
+{
+ "files": [
+  "lab/data/v12/eval_v4_merged.tsv.gz"
+ ],
+ "rows": 304129,
+ "stm": {
+  "w": 153781,
+  "b": 150348
+ },
+ "white_share": 0.5056,
+ "label_mean": 59.8,
+ "label_mean_by_stm": {
+  "w": 125.3,
+  "b": -7.3
+ },
+ "splits": {
+  "train": 274702,
+  "val": 29427
+ },
+ "games": 8938,
+ "game_split_leaks": 0,
+ "position_split_leaks": 0,
+ "duplicate_rows": 0,
+ "phase": {
+  "opening/middle": 130316,
+  "middlegame": 62140,
+  "late-middle": 72527,
+  "endgame": 39146
+ },
+ "extreme_label_rate": 0.0648,
+ "notes": [
+  "corr(label, EvalV2 static | stm=w) = 0.883 (n=141229)",
+  "corr(label, EvalV2 static | stm=b) = 0.886 (n=138732)"
+ ],
+ "FAILS": [],
+ "verdict": "PASS"
+}

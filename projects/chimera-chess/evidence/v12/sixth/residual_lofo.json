@@ -1,0 +1,47 @@
+{
+ "pool": 448,
+ "lofo": {
+  "capture": {
+   "n": 79,
+   "l2": 1.0,
+   "residual_top1": 0.43,
+   "residual_top3": 0.823,
+   "maia_top1": 0.405,
+   "maia_top3": 0.797
+  },
+  "check": {
+   "n": 97,
+   "l2": 1.0,
+   "residual_top1": 0.392,
+   "residual_top3": 0.825,
+   "maia_top1": 0.402,
+   "maia_top3": 0.773
+  },
+  "king-move": {
+   "n": 50,
+   "l2": 1.0,
+   "residual_top1": 0.54,
+   "residual_top3": 0.9,
+   "maia_top1": 0.54,
+   "maia_top3": 0.9
+  },
+  "quiet": {
+   "n": 92,
+   "l2": 0.1,
+   "residual_top1": 0.185,
+   "residual_top3": 0.663,
+   "maia_top1": 0.435,
+   "maia_top3": 0.783
+  },
+  "quiet-offer": {
+   "n": 129,
+   "l2": 1.0,
+   "residual_top1": 0.341,
+   "residual_top3": 0.659,
+   "maia_top1": 0.31,
+   "maia_top3": 0.659
+  }
+ },
+ "families_beats_maia_top1": "2/5",
+ "ties": 1
+}

@@ -1,0 +1,110 @@
+{
+ "positions": {
+  "Dubov": 2100,
+  "Shirov": 2138,
+  "Ivanchuk": 2148
+ },
+ "heldout": {
+  "Dubov": {
+   "n": 383,
+   "own_head_top1": 0.546,
+   "pooled_head_top1": 0.543,
+   "maia_top1": 0.546
+  },
+  "Shirov": {
+   "n": 529,
+   "own_head_top1": 0.541,
+   "pooled_head_top1": 0.537,
+   "maia_top1": 0.541
+  },
+  "Ivanchuk": {
+   "n": 469,
+   "own_head_top1": 0.569,
+   "pooled_head_top1": 0.55,
+   "maia_top1": 0.561
+  }
+ },
+ "weights": {
+  "Dubov": {
+   "P": -0.082,
+   "N": 0.053,
+   "B": -0.088,
+   "R": 0.214,
+   "Q": -0.239,
+   "K": 0.142,
+   "capture_value": 0.526,
+   "promotion": -0.002,
+   "check": 0.464,
+   "dest_attacked": 0.247,
+   "dest_hanging": -0.025,
+   "offer_value": -0.341,
+   "dist_enemy_king": -0.293,
+   "dest_rank": -0.516,
+   "king_zone_pressure": 0.035,
+   "log_opp_moves": 0.327,
+   "quiet": 0.366,
+   "maia_logp": 8.541
+  },
+  "Shirov": {
+   "P": -0.058,
+   "N": 0.144,
+   "B": 0.049,
+   "R": 0.232,
+   "Q": -0.103,
+   "K": -0.264,
+   "capture_value": -0.634,
+   "promotion": -0.024,
+   "check": -0.072,
+   "dest_attacked": 0.116,
+   "dest_hanging": 0.077,
+   "offer_value": -0.144,
+   "dist_enemy_king": -0.092,
+   "dest_rank": 0.125,
+   "king_zone_pressure": -0.01,
+   "log_opp_moves": 0.108,
+   "quiet": -0.182,
+   "maia_logp": 8.443
+  },
+  "Ivanchuk": {
+   "P": -0.03,
+   "N": -0.062,
+   "B": 0.104,
+   "R": 0.253,
+   "Q": -0.025,
+   "K": -0.241,
+   "capture_value": 0.468,
+   "promotion": 0.0,
+   "check": 0.123,
+   "dest_attacked": -0.146,
+   "dest_hanging": 0.127,
+   "offer_value": 0.228,
+   "dist_enemy_king": 0.53,
+   "dest_rank": -0.38,
+   "king_zone_pressure": -0.613,
+   "log_opp_moves": -0.216,
+   "quiet": 0.254,
+   "maia_logp": 8.041
+  }
+ },
+ "attribution_accuracy": 0.3621,
+ "attribution_chance": 0.3333,
+ "attribution_n": 1381,
+ "confusion": {
+  "Dubov": {
+   "Dubov": 118,
+   "Shirov": 150,
+   "Ivanchuk": 115
+  },
+  "Shirov": {
+   "Dubov": 160,
+   "Shirov": 217,
+   "Ivanchuk": 152
+  },
+  "Ivanchuk": {
+   "Dubov": 124,
+   "Shirov": 180,
+   "Ivanchuk": 165
+  }
+ },
+ "attribution_z_vs_chance": 2.26
+}

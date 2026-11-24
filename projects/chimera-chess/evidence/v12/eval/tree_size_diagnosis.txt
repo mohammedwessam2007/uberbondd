@@ -1,0 +1,8 @@
+r2q1rk1/pp2bppp/2n1pn2/3p4/2PP nodes@d10 ev2    986466 ev3    774148 ratio 0.78
+8/5pk1/6p1/3P4/5P2/6P1/5K2/8 w nodes@d10 ev2     42365 ev3     59182 ratio 1.40
+r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p nodes@d10 ev2    996631 ev3    999505 ratio 1.00
+rnbqkbnr/pppppppp/8/8/8/8/PPPP nodes@d10 ev2    446086 ev3    520938 ratio 1.17
+r1bqkb1r/pppp1ppp/2n2n2/4p3/2B nodes@d10 ev2    180647 ev3    382859 ratio 2.12
+ev2 eval std 423.9 mean|eval| 274.2
+ev3 eval std 434.2 mean|eval| 299.8
+label std 384.3 mean|label| 288.2

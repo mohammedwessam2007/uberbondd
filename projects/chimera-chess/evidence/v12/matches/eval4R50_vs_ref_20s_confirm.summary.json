@@ -1,0 +1,22 @@
+{
+  "a": "native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin",
+  "b": "ref:2",
+  "tc": "20+0.2",
+  "games": 48,
+  "a_wins": 21,
+  "draws": 10,
+  "a_losses": 17,
+  "a_score": 26.0,
+  "a_pct": 0.5417,
+  "elo_diff_a_minus_b_95ci": [
+    29,
+    -70,
+    133
+  ],
+  "time_forfeits": 0,
+  "illegal_or_failure": 0,
+  "stockfish": "/usr/games/stockfish",
+  "python": "3.13.18",
+  "chess": "1.11.2",
+  "date_utc": "2026-11-24T11:10:58"
+}

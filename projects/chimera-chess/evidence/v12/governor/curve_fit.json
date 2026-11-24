@@ -1,0 +1,33 @@
+{
+ "positions": 224,
+ "examples": 672,
+ "positive_rate": 0.0699,
+ "holdout_n": 249,
+ "holdout_positives": 12,
+ "weights": [
+  -3.4733,
+  -3.7653,
+  0.1592,
+  -0.413,
+  2.0323,
+  -0.9964,
+  0.29,
+  -1.4923,
+  -0.9964
+ ],
+ "feature_names": [
+  "bias",
+  "stable/depth",
+  "dscore",
+  "changed",
+  "log_root_moves",
+  "abs_score",
+  "changes/depth",
+  "log_budget",
+  "abs_score_last"
+ ],
+ "holdout_auc_logistic": 0.639943741209564,
+ "holdout_auc_changed_flag": 0.22855133614627285,
+ "holdout_auc_dscore": 0.6051336146272855,
+ "holdout_auc_instability(1-stable)": 0.4971870604781997
+}

@@ -1,0 +1,25 @@
+{
+ "schema": "chimera-experiment-queue-1",
+ "updated": "2026-11-24 (V12 session)",
+ "rules": "Items run in order unless blocked. A fresh confirmation set is required after any set informs a redesign. Equal-time matches run only with background jobs suspended (kill -STOP) or none running. cp-loss deltas only from tools/rescore_deterministic.py.",
+ "queue": [
+  {"id": "Q1", "ids": ["#025"], "status": "RUNNING_OR_DONE", "what": "Confirm damped residual x0.5 at 20s+0.2 (pre-registered)", "evidence": "evidence/v12/matches/eval4R50_vs_ref_20s_confirm.summary.json",
+   "next_if_pass": "set as default-candidate; run 96-game paired confirmation at 40s+0.4 and a fixed-node 100k match before changing the default",
+   "next_if_fail": "Q2"},
+  {"id": "Q2", "ids": ["#025", "#036"], "status": "QUEUED", "what": "Retune pruning (RFP/futility margins, LMR) for the net with node-limited SPSA self-play, then re-run Gate2",
+   "command": "implement tools/spsa.py over native setoption knobs; 2000 games at 20k nodes"},
+  {"id": "Q3", "ids": ["#002", "#118", "#163"], "status": "QUEUED", "what": "Single-candidate RootHint test on the fresh v12 headroom suite (pre-registered)",
+   "command": "python tools/hint_verify.py evidence/v12/headroom_suite_v12.json evidence/v12/creative/hint_verify_v12.json 1000 fresh",
+   "blocked_by": "suite build: python tools/build_headroom_suite.py /tmp/puzzles16.csv evidence/v12/headroom_suite_v12.json 80 v12fresh (resumable only by restart)"},
+  {"id": "Q4", "ids": ["#093", "#017", "#099", "#116"], "status": "PARTIAL", "what": "Governor learning curves (deterministic), fit vs changed-flag baseline",
+   "command": "for k in 0 1 2; do python tools/governor_curve.py data lab/governor_v12/curve_s$k.jsonl 700 $k 3 & done; wait; python tools/governor_curve.py fit evidence/v12/governor/curve_fit.json lab/governor_v12/curve_s*.jsonl"},
+  {"id": "Q5", "ids": ["#017", "#099", "#116"], "status": "QUEUED", "what": "Confirm the +22 hand-rule governor with 96 games at 10+0.1 on an idle machine (pre-register first)",
+   "command": "python tools/match.py --a native:2:gov=lab/governor_changed_rule.txt --b ref:2 --tc 10+0.1 --jobs 2 --out evidence/v12/matches/governor_rule_confirm"},
+  {"id": "Q6", "ids": ["#008", "#052", "#027"], "status": "QUEUED", "what": "Blacksmith on NEAR-sound sacrifices (fail by 30-150cp) with 2-ply preparations"},
+  {"id": "Q7", "ids": ["#019", "#030", "#059"], "status": "QUEUED", "what": "Board-encoder student with matched failed ideas; LOFO vs Maia (bar 3/5)"},
+  {"id": "Q8", "ids": ["#111", "#020", "#050"], "status": "QUEUED", "what": "Trajectory-level style features (structure/plan choices over 10+ moves) on lab/style_corpus; attribution z>=3"},
+  {"id": "Q9", "ids": ["#108", "#113", "#065", "#103"], "status": "QUEUED", "what": "Give plan state a causal channel (prerequisite-tied ordering/extensions) and a plan-interruption suite; deterministic scoring"},
+  {"id": "Q10", "ids": ["#001", "#003", "#010", "#031", "#056"], "status": "NOT_STARTED", "what": "Future-sculptor / delayed-revelation dataset from complete trajectories (goal -> prerequisites -> preparation)"},
+  {"id": "Q11", "ids": ["mobile"], "status": "BLOCKED_OWNER", "what": "Run native/dist/device_bench.sh on the OnePlus 15"}
+ ]
+}

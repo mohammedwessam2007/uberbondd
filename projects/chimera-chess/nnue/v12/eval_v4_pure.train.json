@@ -1,0 +1,33 @@
+{
+ "data": "lab/data/v12/eval_v4_merged.tsv.gz",
+ "data_sha256": "4cd7434193ff354473230022d4e19f3a1404008c072ec4362997a82b411ed8cc",
+ "train_positions": 274702,
+ "val_positions": 29427,
+ "hidden": 128,
+ "epochs": 2,
+ "seed": 1,
+ "residual_on_evalv2": false,
+ "optimizer": "Adam(0.9,0.999) lr 1e-3 then 3e-4 (last 30%), batch 512",
+ "params": 98561,
+ "curve": [
+  {
+   "epoch": 1,
+   "train_loss": 0.016579,
+   "val_loss": 0.008735,
+   "elapsed_s": 16.0
+  },
+  {
+   "epoch": 2,
+   "train_loss": 0.007588,
+   "val_loss": 0.008215,
+   "elapsed_s": 32.6
+  }
+ ],
+ "val_loss_trained": 0.008215,
+ "val_loss_baselines": {
+  "EvalV1_static": 0.009169383905827999,
+  "EvalV2_static": 0.008496942929923534
+ },
+ "weights": "nnue/v12/eval_v4_pure.bin",
+ "weights_sha256": "6a707db192a72f73f58d18ce2aff7ee18a4b365b253bb961461cc8484864e55d"
+}

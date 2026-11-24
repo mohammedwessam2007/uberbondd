@@ -211,8 +211,102 @@ def load_student(path):
     return rank
 
 
-if __name__ == "__main__":
+if __name__ == "__main__" and sys.argv[1] not in ("train_mlp", "train_residual"):
     if sys.argv[1] == "mine":
         mine(sys.argv[2], sys.argv[3], int(sys.argv[4]), int(sys.argv[5]) if len(sys.argv) > 5 else 0, int(sys.argv[6]) if len(sys.argv) > 6 else 1)
     else:
         train(sys.argv[2], sys.argv[3], sys.argv[4])
+
+
+# ---------------------------------------------------------------- V12: nonlinear student (F1)
+def mlp_train(data, H=32, epochs=40, lr=0.02, l2=1e-4, seed=0):
+    rng = np.random.default_rng(seed)
+    D = data[0][0].shape[1]
+    W1 = rng.normal(0, 0.3, (D, H)); b1 = np.zeros(H); w2 = rng.normal(0, 0.3, H)
+    for ep in range(epochs):
+        for i in rng.permutation(len(data)):
+            X, y = data[i]
+            Hh = np.tanh(X @ W1 + b1); z = Hh @ w2
+            p = np.exp(z - z.max()); p /= p.sum()
+            g = p.copy(); g[y] -= 1.0                    # dL/dz (listwise softmax)
+            gw2 = Hh.T @ g
+            gH = np.outer(g, w2) * (1 - Hh ** 2)
+            W1 -= lr * (X.T @ gH + l2 * W1); b1 -= lr * gH.sum(0); w2 -= lr * (gw2 + l2 * w2)
+    return W1, b1, w2
+
+
+def mlp_score(m):
+    W1, b1, w2 = m
+    return lambda X: np.tanh(X @ W1 + b1) @ w2
+
+
+def train_mlp(pool_files, report):
+    recs = [json.loads(l) for f in pool_files for l in open(f) if l.strip()]
+    data = [(np.array(r["X"], float), r["legal"].index(r["solution"])) for r in recs]
+    fams = [r["family"] for r in recs]
+    mi = FEATS.index("maia_logp")
+    res = {"pool": len(recs), "lofo": {}}
+    for f in sorted(set(fams)):
+        tr = [d for d, ff in zip(data, fams) if ff != f]; te = [d for d, ff in zip(data, fams) if ff == f]
+        if len(te) < 5:
+            continue
+        lin = softmax_train(tr); mlp = mlp_train(tr)
+        res["lofo"][f] = {"n": len(te), "mlp_top1": round(topk(te, mlp_score(mlp), 1), 3), "mlp_top3": round(topk(te, mlp_score(mlp), 3), 3),
+                          "linear_top1": round(topk(te, lambda X: X @ lin, 1), 3), "maia_top1": round(topk(te, lambda X: X[:, mi], 1), 3),
+                          "maia_top3": round(topk(te, lambda X: X[:, mi], 3), 3)}
+        print(f, res["lofo"][f], flush=True)
+    wins = sum(1 for v in res["lofo"].values() if v["mlp_top1"] > v["maia_top1"])
+    res["families_mlp_beats_maia_top1"] = f"{wins}/{len(res['lofo'])}"
+    json.dump(res, open(report, "w"), indent=1)
+    print(json.dumps(res, indent=1))
+
+
+if __name__ == "__main__" and len(sys.argv) > 1 and sys.argv[1] == "train_mlp":
+    train_mlp(sys.argv[3:], sys.argv[2])
+
+
+def residual_train(data, l2, epochs=40, lr=0.03, seed=0):
+    mi = FEATS.index("maia_logp")
+    rng = np.random.default_rng(seed); w = np.zeros(len(FEATS))
+    for _ in range(epochs):
+        for i in rng.permutation(len(data)):
+            X, y = data[i]
+            z = 10 * X[:, mi] + X @ w
+            p = np.exp(z - z.max()); p /= p.sum()
+            g = X.T @ p - X[y]; g[mi] = 0
+            w -= lr * (g + l2 * w); w[mi] = 0
+    return lambda X, w=w: 10 * X[:, mi] + X @ w
+
+
+def train_residual(pool_files, report):
+    recs = [json.loads(l) for f in pool_files for l in open(f) if l.strip()]
+    data = [(np.array(r["X"], float), r["legal"].index(r["solution"])) for r in recs]
+    fams = [r["family"] for r in recs]
+    mi = FEATS.index("maia_logp")
+    big = sorted(f for f in set(fams) if fams.count(f) >= 5)
+    res = {"pool": len(recs), "lofo": {}}
+    for f in big:
+        trf = [g for g in big if g != f]
+        # inner LOFO over training families to choose l2 (no access to held-out family)
+        best_l2, best_s = None, -1
+        for l2 in (0.01, 0.1, 1.0):
+            s = 0
+            for g in trf:
+                itr = [d for d, ff in zip(data, fams) if ff not in (f, g)]; ite = [d for d, ff in zip(data, fams) if ff == g]
+                s += topk(ite, residual_train(itr, l2, epochs=15), 1)
+            if s > best_s:
+                best_s, best_l2 = s, l2
+        tr = [d for d, ff in zip(data, fams) if ff != f]; te = [d for d, ff in zip(data, fams) if ff == f]
+        sc = residual_train(tr, best_l2)
+        res["lofo"][f] = {"n": len(te), "l2": best_l2, "residual_top1": round(topk(te, sc, 1), 3), "residual_top3": round(topk(te, sc, 3), 3),
+                          "maia_top1": round(topk(te, lambda X: X[:, mi], 1), 3), "maia_top3": round(topk(te, lambda X: X[:, mi], 3), 3)}
+        print(f, res["lofo"][f], flush=True)
+    wins = sum(1 for v in res["lofo"].values() if v["residual_top1"] > v["maia_top1"])
+    ties = sum(1 for v in res["lofo"].values() if v["residual_top1"] == v["maia_top1"])
+    res["families_beats_maia_top1"] = f"{wins}/{len(res['lofo'])}"; res["ties"] = ties
+    json.dump(res, open(report, "w"), indent=1)
+    print(json.dumps({k: v for k, v in res.items() if k != "lofo"}, indent=1))
+
+
+if __name__ == "__main__" and len(sys.argv) > 1 and sys.argv[1] == "train_residual":
+    train_residual(sys.argv[3:], sys.argv[2])

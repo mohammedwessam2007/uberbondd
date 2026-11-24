@@ -1,0 +1,41 @@
+{
+ "files": [
+  "lab/data/v12/sp2_s21.tsv.gz",
+  "lab/data/v12/sp2_s22.tsv.gz",
+  "lab/data/v12/sp2_s23.tsv.gz"
+ ],
+ "rows": 307464,
+ "stm": {
+  "w": 155438,
+  "b": 152026
+ },
+ "white_share": 0.5055,
+ "label_mean": 60.0,
+ "label_mean_by_stm": {
+  "w": 125.4,
+  "b": -6.9
+ },
+ "splits": {
+  "train": 277690,
+  "val": 29774
+ },
+ "games": 8940,
+ "game_split_leaks": 0,
+ "position_split_leaks": 81,
+ "duplicate_rows": 3335,
+ "phase": {
+  "opening/middle": 130882,
+  "middlegame": 62788,
+  "late-middle": 73629,
+  "endgame": 40165
+ },
+ "extreme_label_rate": 0.0651,
+ "notes": [
+  "corr(label, EvalV2 static | stm=w) = 0.883 (n=142701)",
+  "corr(label, EvalV2 static | stm=b) = 0.885 (n=140277)"
+ ],
+ "FAILS": [
+  "81 identical positions appear in more than one split"
+ ],
+ "verdict": "FAIL"
+}

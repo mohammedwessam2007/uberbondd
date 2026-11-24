@@ -1,0 +1,104 @@
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "1"]
+[White "omega:NO_CREATIVE:trace=evidence/omega/gauntlet/trace_NO_CREATIVE.jsonl"]
+[Black "ref:2"]
+[Result "0-1"]
+[Opening "Ruy Lopez"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Bxc6 dxc6 5. d4 exd4 6. Qxd4 Qxd4 7. Nxd4 b5 8. Bg5 h6 9. Bf4 Bb7 10. Nf5 g6 11. Ne3 Bg7 12. e5 f6 13. e6 O-O-O 14. Nc3 f5 15. Rd1 Nf6 16. Ne2 Rxd1+ 17. Kxd1 Re8 18. f3 c5 19. Kc1 Rxe6 20. Rd1 g5 21. Nxf5 Rxe2 22. Rd2 Re1+ 23. Rd1 Rxd1+ 24. Kxd1 Nh5 25. Nxg7 Nxf4 26. Nf5 Nxg2 27. Kd2 h5 28. h4 Nxh4 29. Ng7 Nxf3+ 30. Ke3 h4 31. Ne6 h3 32. Kf2 Nd2 33. Kg3 g4 34. Nxc5 Nf1+ 35. Kf4 h2 36. a4 h1=Q 37. Nxb7 Qf3+ 38. Kg5 Kxb7 39. axb5 g3 40. bxa6+ Ka7 41. c3 g2 42. c4 g1=Q+ 43. Kh6 Qfh1# 0-1
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "2"]
+[White "ref:2"]
+[Black "omega:NO_CREATIVE:trace=evidence/omega/gauntlet/trace_NO_CREATIVE.jsonl"]
+[Result "1-0"]
+[Opening "Ruy Lopez"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Bxc6 dxc6 5. Nc3 Bg4 6. h3 Bxf3 7. Qxf3 Qf6 8. a4 Qxf3 9. gxf3 Rd8 10. d3 Bd6 11. Rg1 g6 12. a5 Kd7 13. Ne2 Bb4+ 14. c3 Bd6 15. f4 exf4 16. Bxf4 Bxf4 17. Nxf4 Nf6 18. f3 h5 19. d4 Rde8 20. Kd2 Nxe4+ 21. fxe4 Rxe4 22. Nd3 Kc8 23. Raf1 Rf8 24. Rxg6 f5 25. Rg5 f4 26. Rxh5 Re3 27. Nxf4 Re4 28. Nd3 Rxf1 29. Rh8+ Kd7 30. Nc5+ Kd6 31. Nxe4+ Kd5 32. Nc5 Rf2+ 33. Kd3 Rf3+ 34. Ke2 Rg3 35. b3 Rg2+ 36. Ke3 Rg3+ 37. Kf4 Rg6 38. Kf5 Rd6 39. Rh4 b5 40. axb6 Rd8 41. c4+ Kd6 42. Rh7 Rf8+ 43. Ke4 Re8+ 44. Kd3 Re3+ 45. Kxe3 cxb6 46. Rd7# 1-0
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "3"]
+[White "omega:NO_CREATIVE:trace=evidence/omega/gauntlet/trace_NO_CREATIVE.jsonl"]
+[Black "ref:2"]
+[Result "0-1"]
+[Opening "Sicilian Najdorf"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 a6 6. Bg5 e5 7. Bxf6 Qxf6 8. Nd5 Qd8 9. Nf5 Nc6 10. a4 Bxf5 11. exf5 Nd4 12. Bc4 Nxf5 13. Qg4 g6 14. Qe4 Bg7 15. Rd1 O-O 16. O-O Nd4 17. f4 b5 18. fxe5 dxe5 19. axb5 axb5 20. Rxd4 exd4 21. Ne7+ Kh8 22. Bxf7 d3 23. Nxg6+ hxg6 24. Qxg6 Qd4+ 25. Kh1 Qd5 26. h4 Ra4 27. b4 Rxb4 28. c4 Rxc4 29. Qg3 Qd8 30. Rf4 Rxf4 31. Qxf4 d2 32. Qe4 d1=Q+ 33. Kh2 Rxf7 34. Qe8+ Qxe8 35. g4 Qee2+ 36. Kg3 Rf3# 0-1
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "4"]
+[White "ref:2"]
+[Black "omega:NO_CREATIVE:trace=evidence/omega/gauntlet/trace_NO_CREATIVE.jsonl"]
+[Result "1-0"]
+[Opening "Sicilian Najdorf"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 a6 6. a4 Bg4 7. f3 Bd7 8. g4 Nc6 9. Be3 Nxd4 10. Qxd4 e5 11. Qd2 Rc8 12. g5 Nh5 13. Nd5 Nf4 14. Nxf4 exf4 15. Bxf4 h6 16. gxh6 Qh4+ 17. Ke2 Rxc2 18. Qxc2 Qxf4 19. Qd2 Qxd2+ 20. Kxd2 Rxh6 21. Bc4 Rh3 22. Ke2 Be7 23. a5 Bg5 24. Rag1 Rh5 25. h4 Bf6 26. b4 Bc3 27. Bd5 Bb5+ 28. Ke3 Bxb4 29. Rxg7 Bc5+ 30. Kf4 Bf2 31. Bxf7+ Kf8 32. Bxh5 Kxg7 33. Bg4 Kf6 34. h5 Bc5 35. h6 Bd4 36. h7 Be5+ 37. Ke3 Kg5 38. Rh5+ Kg6 39. Rxe5 Kxh7 40. Re7+ Kg6 41. Rxb7 Kg5 42. Rxb5+ axb5 43. a6 Kh4 44. Kf4 b4 45. a7 b3 46. a8=Q b2 47. Qh8# 1-0
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "5"]
+[White "omega:NO_CREATIVE:trace=evidence/omega/gauntlet/trace_NO_CREATIVE.jsonl"]
+[Black "ref:2"]
+[Result "0-1"]
+[Opening "French Winawer"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. e4 e6 2. d4 d5 3. Nc3 Bb4 4. Qg4 Nf6 5. Qxg7 Rg8 6. Qh6 Rg6 7. Qh4 Nxe4 8. Qxd8+ Kxd8 9. a3 Bxc3+ 10. bxc3 Nxc3 11. Bf4 Nc6 12. Nf3 a5 13. h4 h5 14. Bg5+ f6 15. Bd2 Ne4 16. Bf4 b6 17. Bb5 Kd7 18. Bxc6+ Kxc6 19. Rb1 Rxg2 20. Rh2 Rg4 21. Be5 Kb7 22. Rh1 fxe5 23. Nxe5 Rg2 24. Rf1 Ka7 25. Nc6+ Ka6 26. Ne5 Bb7 27. a4 Rf8 28. Rb5 Rgxf2 29. Rxf2 Rxf2 30. c4 Rh2 31. cxd5 Bxd5 32. Kf1 Rh1+ 33. Kg2 Rxh4 34. Nf3 Ng5 35. Rxd5 Rg4+ 36. Kf1 exd5 37. Ng1 Rxd4 38. Ne2 Rxa4 39. Nc3 Rf4+ 40. Ke2 h4 41. Nxd5 h3 42. Nxc7+ Kb7 43. Nd5 Rf3 44. Ne3 h2 45. Nc4 h1=Q 46. Nd6+ Kc6 47. Nc4 Qg2+ 48. Ke1 Rf1# 0-1
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "6"]
+[White "ref:2"]
+[Black "omega:NO_CREATIVE:trace=evidence/omega/gauntlet/trace_NO_CREATIVE.jsonl"]
+[Result "1-0"]
+[Opening "French Winawer"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. e4 e6 2. d4 d5 3. Nc3 Bb4 4. e5 Bxc3+ 5. bxc3 f6 6. Bd3 Nc6 7. Qh5+ Kf8 8. Ba3+ Nce7 9. Nf3 Qe8 10. Qh4 Qa4 11. Bxe7+ Kxe7 12. Qg3 Kf8 13. exf6 Nxf6 14. Qxc7 Qa3 15. c4 Qc3+ 16. Ke2 dxc4 17. Qxc4 Nd5 18. Qxc3 Nxc3+ 19. Kd2 Nd5 20. Ne5 Ke7 21. c4 Rf8 22. cxd5 Rxf2+ 23. Ke3 Rxg2 24. d6+ Kxd6 25. Be4 Rg6 26. Bxg6 hxg6 27. Rhg1 Kd5 28. Rxg6 Bd7 29. Nxd7 Rh8 30. Ne5 Rh3+ 31. Nf3 a5 32. Rxg7 Rxf3+ 33. Kxf3 Kxd4 34. Rxb7 Kd3 35. Rd1+ Kc3 36. Ke3 Kc4 37. Ke4 e5 38. Rc1# 1-0
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "7"]
+[White "omega:NO_CREATIVE:trace=evidence/omega/gauntlet/trace_NO_CREATIVE.jsonl"]
+[Black "ref:2"]
+[Result "0-1"]
+[Opening "Caro-Kann"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. e4 c6 2. d4 d5 3. Nc3 dxe4 4. Nxe4 Bf5 5. Nc5 e5 6. Nb3 Nd7 7. g4 Be4 8. Nf3 exd4 9. Qe2 Qe7 10. Nbxd4 c5 11. Ne6 Bxf3 12. Nc7+ Kd8 13. Qxe7+ Nxe7 14. Bf4 Rc8 15. Bb5 Ng6 16. Ne6+ fxe6 17. Bg5+ Ke8 18. Bxd7+ Kxd7 19. Rd1+ Bd6 20. Rxd6+ Kxd6 21. Rg1 h5 22. gxh5 Rxh5 23. c4 Rxh2 24. Bf6 gxf6 25. Rxg6 Ke5 26. Kd2 Be4 27. Rg4 Kf5 28. Rg7 Rxf2+ 29. Ke3 Rxb2 30. Rf7 Rh8 31. Rg7 Rh3+ 32. Rg3 Rxg3# 0-1
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "8"]
+[White "ref:2"]
+[Black "omega:NO_CREATIVE:trace=evidence/omega/gauntlet/trace_NO_CREATIVE.jsonl"]
+[Result "1-0"]
+[Opening "Caro-Kann"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. e4 c6 2. d4 d5 3. Nc3 dxe4 4. Nxe4 Bf5 5. Ng3 e6 6. Nxf5 Qa5+ 7. c3 exf5 8. Bd3 c5 9. Nf3 cxd4 10. Nxd4 Qe5+ 11. Be3 f4 12. Qg4 fxe3 13. Qc8+ Ke7 14. Qxb7+ Ke8 15. Bb5+ Kd8 16. O-O-O Bd6 17. Nf5 Nh6 18. Nxd6 Qxc3+ 19. bxc3 Nc6 20. Nf5+ Ke8 21. Qxa8# 1-0
+

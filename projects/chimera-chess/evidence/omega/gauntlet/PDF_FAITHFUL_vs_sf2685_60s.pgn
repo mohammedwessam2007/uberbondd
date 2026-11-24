@@ -1,0 +1,130 @@
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "1"]
+[White "omega:PDF_FAITHFUL:trace=evidence/omega/gauntlet/trace_PDF_FAITHFUL_sf2685.jsonl"]
+[Black "sf:2685"]
+[Result "0-1"]
+[Opening "Ruy Lopez"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Bxc6 dxc6 5. d3 Qf6 6. Be3 Ne7 7. Nc3 Ng6 8. Qe2 a5 9. d4 a4 10. Nxe5 b5 11. Nd5 cxd5 12. Qxb5+ c6 13. Qxc6+ Qxc6 14. Nxc6 a3 15. b4 Ne7 16. Na5 Bd7 17. Nb7 Nc6 18. Kd2 dxe4 19. b5 Na5 20. Nxa5 Bb4+ 21. c3 Bxa5 22. Rab1 Rb8 23. b6 Rxb6 24. Rxb6 Bxb6 25. Rb1 Bd8 26. c4 Ba5+ 27. Kc2 Ke7 28. Bg5+ f6 29. Bd2 e3 30. Bxa5 Bf5+ 31. Kc3 Bxb1 32. Bb4+ Kf7 33. f4 Re8 34. d5 e2 35. Kd4 Bxa2 36. d6 Bb1 37. d7 Rd8 38. f5 Rxd7+ 39. Ke3 a2 40. Bd6 e1=Q+ 41. Kf4 Qf2+ 42. Kg4 Bxf5+ 43. Kh5 Bg6+ 44. Kg4 Bf5+ 45. Kh5 Qxg2 46. h3 Qxh3# 0-1
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "2"]
+[White "sf:2685"]
+[Black "omega:PDF_FAITHFUL:trace=evidence/omega/gauntlet/trace_PDF_FAITHFUL_sf2685.jsonl"]
+[Result "1-0"]
+[Opening "Ruy Lopez"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Ba4 b5 5. Bb3 Nf6 6. O-O Bc5 7. Nxe5 Nxe5 8. d4 Bxd4 9. Qxd4 d6 10. f4 c5 11. Qd2 Neg4 12. c4 Bb7 13. Qd1 O-O 14. e5 dxe5 15. h3 Qb6 16. hxg4 Rad8 17. Qe2 exf4 18. g5 Rfe8 19. Qf2 Rd3 20. Nc3 Rg3 21. Nd5 Bxd5 22. cxd5 Ne4 23. Qxf4 c4+ 24. Kh2 f6 25. gxf6 Qxf6 26. Bc2 Rxg2+ 27. Kxg2 Qg6+ 28. Kh2 Qh5+ 29. Kg2 Qe2+ 30. Kg1 Nf6 31. Bd2 Qg4+ 32. Qxg4 Nxg4 33. Bf5 c3 34. bxc3 h5 35. Rae1 Rxe1 36. Rxe1 b4 37. c4 a5 38. Bg6 Ne5 39. Rxe5 h4 40. Re8# 1-0
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "3"]
+[White "omega:PDF_FAITHFUL:trace=evidence/omega/gauntlet/trace_PDF_FAITHFUL_sf2685.jsonl"]
+[Black "sf:2685"]
+[Result "1/2-1/2"]
+[Opening "Sicilian Najdorf"]
+[TimeControl "60+0.6"]
+[Termination "THREEFOLD_REPETITION"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 a6 6. Bg5 Nbd7 7. Be3 g6 8. g4 h6 9. Be2 d5 10. Nxd5 Nxe4 11. Nb5 axb5 12. Bxb5 e6 13. Bb6 Qg5 14. Nc7+ Ke7 15. Bd4 Ra5 16. Qe2 Rg8 17. Qxe4 Rxb5 18. f4 Qxg4 19. Nxb5 f5 20. Qe2 Kf7 21. Qxg4 fxg4 22. Rd1 Nc5 23. Na7 e5 24. Bxc5 Bxc5 25. Nxc8 Rxc8 26. fxe5 h5 27. Rd7+ Ke6 28. Rh7 b5 29. Rf1 Kxe5 30. Rd7 b4 31. Kd2 Ra8 32. Re1+ Kf6 33. Rf1+ Ke6 34. Rg7 Bd6 35. Rxg6+ Ke7 36. Re1+ Kd7 37. Rg7+ Kc6 38. Rg6 Ra5 39. Re7 Rc5 40. c3 bxc3+ 41. bxc3 Ra5 42. Ree6 Rd5+ 43. Ke3 h4 44. Rxd6+ Rxd6 45. Rxd6+ Kb5 46. Kd4 Ka5 47. Kc4 g3 48. Kc5 gxh2 49. Rd7 Ka6 50. Rd6+ Kb7 51. Rd7+ Kc8 52. Rd1 h1=Q 53. Rxh1 Kb7 54. Kd6 Kb6 55. a4 h3 56. Ke7 Kc5 57. Kd7 h2 58. a5 Kd5 59. Re1 Kc4 60. Kc6 Kxc3 61. Rd1 Kc2 62. Ra1 Kc3 63. Kc7 Kb3 64. Kd6 Kb2 65. Rd1 Kb3 66. Rc1 Ka3 67. Rb1 h1=Q 68. Rxh1 Kb3 69. Rh4 Ka3 70. Ke5 Kb2 71. Rh3 Kc1 72. Rh2 Kb1 73. Ke6 Ka1 74. Kd7 Kb1 75. Ke6 Kc1 76. Kd7 Kd1 77. Ke6 Ke1 78. Kd7 Kf1 79. a6 Kg1 80. Rd2 Kf1 81. Rh2 Kg1 82. Rd2 Kf1 1/2-1/2
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "4"]
+[White "sf:2685"]
+[Black "omega:PDF_FAITHFUL:trace=evidence/omega/gauntlet/trace_PDF_FAITHFUL_sf2685.jsonl"]
+[Result "1-0"]
+[Opening "Sicilian Najdorf"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 a6 6. Be2 e6 7. Be3 Qc7 8. a3 b5 9. f3 Nbd7 10. Rg1 e5 11. Nb3 Nb6 12. Qd3 Nc4 13. O-O-O Be6 14. f4 Ng4 15. Bxg4 Bxg4 16. Rde1 Be7 17. Nd5 Qb7 18. f5 f6 19. Nd2 Nxe3 20. Nxe3 Bh5 21. g4 Bf7 22. h4 h5 23. Kb1 hxg4 24. Rxg4 Rd8 25. Rxg7 Rxh4 26. Nd5 Bxd5 27. Qg3 b4 28. Qg6+ Kd7 29. Qxf6 Ke8 30. Qg6+ Kd7 31. f6 Ba2+ 32. Kxa2 bxa3 33. b3 Qb4 34. Rxe7+ Kc8 35. Qf5+ Kb8 36. Qf2 Qd4 37. Qxd4 exd4 38. Nc4 d5 39. Ne5 Rh2 40. Nc6+ Kc8 41. Nxd8 Rxc2+ 42. Kxa3 Kxd8 43. Rg1 a5 44. Rg8# 1-0
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "5"]
+[White "omega:PDF_FAITHFUL:trace=evidence/omega/gauntlet/trace_PDF_FAITHFUL_sf2685.jsonl"]
+[Black "sf:2685"]
+[Result "1/2-1/2"]
+[Opening "French Winawer"]
+[TimeControl "60+0.6"]
+[Termination "THREEFOLD_REPETITION"]
+
+1. e4 e6 2. d4 d5 3. Nc3 Bb4 4. Bb5+ Bd7 5. Bxd7+ Qxd7 6. Qg4 Ne7 7. Qxg7 Rg8 8. Qxh7 Nbc6 9. Ne2 O-O-O 10. exd5 Qxd5 11. Be3 Bxc3+ 12. Nxc3 Qxg2 13. O-O-O Rg7 14. Qh5 b6 15. b3 Nxd4 16. Rhg1 Qxg1 17. Rxg1 Rxg1+ 18. Kb2 Nef5 19. Qxf7 Rd7 20. Qe8+ Rd8 21. Qf7 Rd7 22. Qe8+ Rd8 1/2-1/2
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "6"]
+[White "sf:2685"]
+[Black "omega:PDF_FAITHFUL:trace=evidence/omega/gauntlet/trace_PDF_FAITHFUL_sf2685.jsonl"]
+[Result "1/2-1/2"]
+[Opening "French Winawer"]
+[TimeControl "60+0.6"]
+[Termination "THREEFOLD_REPETITION"]
+
+1. e4 e6 2. d4 d5 3. Nc3 Bb4 4. Qg4 Nf6 5. Qg5 Bxc3+ 6. bxc3 dxe4 7. Qxg7 Rg8 8. Qh6 c5 9. dxc5 Rg6 10. Qf4 Qa5 11. Qe3 Nd5 12. Qd2 Qxc3 13. Qxc3 Nxc3 14. h4 Na6 15. Bd2 Nd5 16. h5 Rg4 17. c6 Nab4 18. cxb7 Bxb7 19. Rc1 Ba6 20. f3 exf3 21. gxf3 Rd4 22. Bxa6 Nxa6 23. a3 Rd8 24. Ne2 Rc4 25. Rg1 Ne7 26. Rg4 Rxg4 27. fxg4 Rc8 28. Be3 Rc4 29. g5 Nc6 30. h6 Ra4 31. Nf4 Nc5 32. Rb1 Ne4 33. Nxe6 Rxa3 34. Nc7+ Ke7 35. c3 Ra2 36. Nd5+ Ke6 37. c4 Ne5 38. Rb7 Ra1+ 39. Ke2 Ng3+ 40. Kf2 Ne4+ 41. Ke2 Ng3+ 42. Kf2 Ne4+ 1/2-1/2
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "7"]
+[White "omega:PDF_FAITHFUL:trace=evidence/omega/gauntlet/trace_PDF_FAITHFUL_sf2685.jsonl"]
+[Black "sf:2685"]
+[Result "1/2-1/2"]
+[Opening "Caro-Kann"]
+[TimeControl "60+0.6"]
+[Termination "THREEFOLD_REPETITION"]
+
+1. e4 c6 2. d4 d5 3. Nc3 dxe4 4. Nxe4 Bf5 5. Ng3 g6 6. Bc4 Nd7 7. Nxf5 Qa5+ 8. Bd2 Qxf5 9. Qe2 Qxc2 10. Rc1 Qxb2 11. Nf3 Bh6 12. Bxh6 Qxe2+ 13. Kxe2 Nxh6 14. d5 c5 15. Bb5 O-O-O 16. Bxd7+ Rxd7 17. Rxc5+ Kb8 18. Ne5 Rc7 19. Rhc1 Rxc5 20. Nd7+ Kc8 21. Nxc5 b6 22. Ne6+ Kb8 23. Ng5 Re8 24. Rc6 Nf5 25. Kd3 Rd8 26. Ke4 Nd6+ 27. Ke5 h6 28. Nxf7 Nxf7+ 29. Ke6 Nh8 30. h4 h5 31. g3 Rf8 32. Kd7 Kb7 33. Rc7+ Kb8 34. Rc4 b5 35. Rc5 a6 36. f4 Kb7 37. Rc7+ Kb8 38. Rc6 Kb7 39. Rc7+ Ka8 40. Rc8+ Rxc8 41. Kxc8 a5 42. Kd7 b4 43. Kxe7 Kb7 44. d6 Kc6 45. d7 Nf7 46. Kf6 Nd8 47. Ke5 a4 48. f5 gxf5 49. Kd4 Kxd7 50. Kd5 f4 51. gxf4 b3 52. axb3 axb3 53. Ke4 Ke6 54. Ke3 b2 55. Kd4 b1=Q 56. f5+ Qxf5 57. Kc3 Kd7 58. Kc4 Qf6 59. Kd5 Qf4 60. Kc5 Ke6 61. Kb5 Qxh4 62. Kc5 Kd7 63. Kd5 Nf7 64. Kc5 Nd8 65. Kd5 Nc6 66. Kc5 1/2-1/2
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "8"]
+[White "sf:2685"]
+[Black "omega:PDF_FAITHFUL:trace=evidence/omega/gauntlet/trace_PDF_FAITHFUL_sf2685.jsonl"]
+[Result "1-0"]
+[Opening "Caro-Kann"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. e4 c6 2. d4 d5 3. Nc3 dxe4 4. Nxe4 Bf5 5. Bd3 Bxe4 6. Bxe4 Nf6 7. Qd3 Nxe4 8. Qxe4 Qa5+ 9. Ke2 Qb5+ 10. Qd3 Qxd3+ 11. Kxd3 e6 12. c3 h5 13. Nf3 Bd6 14. h4 b5 15. a4 a5 16. Re1 Nd7 17. Nd2 Nf6 18. Re2 Bf4 19. g3 Bd6 20. axb5 cxb5 21. Nf1 Nd5 22. b3 Kd7 23. Rea2 Bc7 24. Ba3 Rhd8 25. Nd2 Kc6 26. c4 bxc4+ 27. bxc4 Nf6 28. Be7 Rdb8 29. f3 Ng8 30. Bg5 Rb4 31. Kc3 Nh6 32. Bf4 Nf5 33. Bxc7 Kxc7 34. Rxa5 Rab8 35. g4 Ne3 36. Rxh5 Rb2 37. Rha5 Rc2+ 38. Kd3 Rxd2+ 39. Kxe3 Rb3+ 40. Kxd2 Rb2+ 41. Ke1 Kc6 42. Ra6+ Kc7 43. R6a5 f5 44. Ra7+ Kc8 45. Rxg7 Kb8 46. Rg8+ Kb7 47. Rg7+ Kb6 48. c5+ Kc6 49. Ra6+ Kd5 50. Rd7+ Kc4 51. Rxe6 Rb1+ 52. Kf2 f4 53. h5 Kd3 54. d5 Rb2+ 55. Kf1 Rb1+ 56. Re1 Rb2 57. c6 Rh2 58. Re6 Rb2 59. h6 Rb1+ 60. Re1 Rb2 61. c7 Rh2 62. h7 Rh6 63. Kg2 Rh2+ 64. Kxh2 Kc3 65. c8=Q+ Kd3 66. h8=Q Kd2 67. Qhc3# 1-0
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "9"]
+[White "omega:PDF_FAITHFUL:trace=evidence/omega/gauntlet/trace_PDF_FAITHFUL_sf2685.jsonl"]
+[Black "sf:2685"]
+[Result "1/2-1/2"]
+[Opening "QGD"]
+[TimeControl "60+0.6"]
+[Termination "THREEFOLD_REPETITION"]
+
+1. d4 d5 2. c4 e6 3. Nc3 Nf6 4. Bg5 Be7 5. Bxf6 Bxf6 6. cxd5 exd5 7. Qa4+ c6 8. Rc1 Qb6 9. Nxd5 Qxb2 10. Nxf6+ Kf8 11. Nxh7+ Rxh7 12. Qc2 Qxc2 13. Rxc2 Bf5 14. Rb2 c5 15. Rxb7 Rh5 16. g4 Bxg4 17. Bg2 Be6 18. Bf3 Bd5 19. Rxf7+ Bxf7 20. Bxa8 cxd4 21. Nf3 d3 22. h4 dxe2 23. Ng5 Bxa2 24. Be4 Rh6 25. Nh7+ Kf7 26. Ng5+ Ke7 27. Bf5 Nc6 28. Bg4 Bd5 29. Rh3 Kd6 30. Kxe2 Kc5 31. Ke3 a6 32. Ne4+ Kb4 33. Rh1 Na5 34. Rb1+ Ka3 35. Nc3 Bb3 36. Ra1+ Kb2 37. Rxa5 Kxc3 38. Rc5+ Bc4 39. Rc7 Rxh4 40. Be6 g5 41. Bxc4 Rxc4 42. Ra7 Ra4 43. Rc7+ Kb2 44. Rb7+ Kc1 45. Rc7+ Kb1 46. Rb7+ Kc2 47. Rc7+ Kb2 48. Rb7+ Kc2 49. Rc7+ 1/2-1/2
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "10"]
+[White "sf:2685"]
+[Black "omega:PDF_FAITHFUL:trace=evidence/omega/gauntlet/trace_PDF_FAITHFUL_sf2685.jsonl"]
+[Result "1/2-1/2"]
+[Opening "QGD"]
+[TimeControl "60+0.6"]
+[Termination "THREEFOLD_REPETITION"]
+
+1. d4 d5 2. c4 e6 3. Nc3 Nf6 4. Bg5 Be7 5. e3 Ne4 6. Nxe4 dxe4 7. h4 Bb4+ 8. Ke2 Be7 9. Bxe7 Qxe7 10. Qc2 f5 11. Qc3 e5 12. Ke1 exd4 13. Qxd4 Qb4+ 14. Qd2 Qxd2+ 15. Kxd2 Ke7 16. Kc3 Rd8 17. Be2 Nc6 18. Nh3 Be6 19. f3 exf3 20. gxf3 a5 21. f4 b5 22. Rhg1 b4+ 23. Kc2 g6 24. h5 Rd6 25. hxg6 Rad8 26. Bf3 hxg6 27. Bxc6 Rxc6 28. b3 Bxc4 29. bxc4 Rxc4+ 30. Kb2 Rd2+ 31. Kb3 Rc3+ 32. Ka4 Rd5 33. a3 bxa3 34. Ng5 Rc4+ 35. Kb3 Rb4+ 36. Ka2 Rd3 37. Rad1 Rb2+ 38. Ka1 Rxd1+ 39. Rxd1 Rb3 40. e4 Rb4 41. e5 Rxf4 42. e6 Kf6 43. Re1 Rb4 44. Nh7+ Ke7 45. Rc1 Rb2 46. Rxc7+ Kd6 47. Rg7 Rb4 48. Rxg6 Rg4 49. Rf6 Rg1+ 50. Ka2 Rg2+ 51. Kxa3 Rg3+ 52. Ka4 Rg4+ 53. Kxa5 Ke7 54. Rh6 Rg2 55. Kb4 Rg1 56. Kb5 Re1 57. Ng5 Re5+ 58. Kc6 f4 59. Rh5 f3 60. Rh7+ Kf6 61. Kd6 Re3 62. Ne4+ Rxe4 63. Rf7+ Kg6 64. Rf8 Rd4+ 65. Kc6 Kg7 66. e7 Re4 67. Kd6 Re3 68. Rxf3 Rxf3 69. e8=Q Rd3+ 70. Kc7 Rc3+ 71. Kd7 Rd3+ 72. Kc7 Rc3+ 73. Kd7 Rd3+ 1/2-1/2
+

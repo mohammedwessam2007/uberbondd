@@ -1,0 +1,32 @@
+  1 omega:WHOLE_MIND:trace=evidence/omega/gauntlet/trace_WM_sf2000.jsonl - sf:2000                1/2-1/2 THREEFOLD_REPETITION 107
+  2                sf:2000 - omega:WHOLE_MIND:trace=evidence/omega/gauntlet/trace_WM_sf2000.jsonl 1-0     CHECKMATE 79
+  3 omega:WHOLE_MIND:trace=evidence/omega/gauntlet/trace_WM_sf2000.jsonl - sf:2000                0-1     CHECKMATE 112
+  4                sf:2000 - omega:WHOLE_MIND:trace=evidence/omega/gauntlet/trace_WM_sf2000.jsonl 1/2-1/2 INSUFFICIENT_MATERIAL 137
+  5 omega:WHOLE_MIND:trace=evidence/omega/gauntlet/trace_WM_sf2000.jsonl - sf:2000                1-0     CHECKMATE 123
+  6                sf:2000 - omega:WHOLE_MIND:trace=evidence/omega/gauntlet/trace_WM_sf2000.jsonl 1-0     CHECKMATE 109
+  7 omega:WHOLE_MIND:trace=evidence/omega/gauntlet/trace_WM_sf2000.jsonl - sf:2000                0-1     CHECKMATE 82
+  8                sf:2000 - omega:WHOLE_MIND:trace=evidence/omega/gauntlet/trace_WM_sf2000.jsonl 1/2-1/2 THREEFOLD_REPETITION 140
+/home/user/uberbondd/projects/chimera-chess/tools/match.py:250: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  "date_utc": datetime.datetime.utcnow().isoformat(timespec="seconds")}
+{
+  "a": "omega:WHOLE_MIND:trace=evidence/omega/gauntlet/trace_WM_sf2000.jsonl",
+  "b": "sf:2000",
+  "tc": "60+0.6",
+  "games": 8,
+  "a_wins": 1,
+  "draws": 3,
+  "a_losses": 4,
+  "a_score": 2.5,
+  "a_pct": 0.3125,
+  "elo_diff_a_minus_b_95ci": [
+    -137,
+    -470,
+    95
+  ],
+  "time_forfeits": 0,
+  "illegal_or_failure": 0,
+  "stockfish": "/usr/games/stockfish",
+  "python": "3.13.18",
+  "chess": "1.11.2",
+  "date_utc": "2026-11-24T20:21:01"
+}

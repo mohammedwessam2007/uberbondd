@@ -1,0 +1,104 @@
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "1"]
+[White "omega:NO_MEMORY:trace=evidence/omega/gauntlet/trace_NO_MEMORY.jsonl"]
+[Black "ref:2"]
+[Result "0-1"]
+[Opening "Ruy Lopez"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Bxc6 dxc6 5. d4 exd4 6. Qxd4 Qxd4 7. Nxd4 b5 8. Bg5 h6 9. Bf4 Bb7 10. Nf5 g6 11. Ne3 Bg7 12. e5 f6 13. e6 O-O-O 14. Nc3 f5 15. Rd1 Nf6 16. Ne2 Rxd1+ 17. Kxd1 Re8 18. h4 c5 19. e7 Rxe7 20. Re1 Ng4 21. Nxg4 fxg4 22. g3 Bxb2 23. Kd2 Rd7+ 24. Ke3 h5 25. Bg5 c4 26. Rb1 Bg7 27. Nf4 Bf3 28. Ne6 Bc3 29. Nxc7 Bd2# 0-1
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "2"]
+[White "ref:2"]
+[Black "omega:NO_MEMORY:trace=evidence/omega/gauntlet/trace_NO_MEMORY.jsonl"]
+[Result "1-0"]
+[Opening "Ruy Lopez"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Bxc6 dxc6 5. Nc3 Bg4 6. h3 Bxf3 7. Qxf3 Qf6 8. a4 Qxf3 9. gxf3 Rd8 10. d3 Bd6 11. Rg1 g6 12. a5 Kd7 13. Be3 f5 14. f4 Nf6 15. fxe5 Bxe5 16. d4 Nxe4 17. dxe5 Ke6 18. Nxe4 fxe4 19. Rg4 Kxe5 20. Ra4 Rhf8 21. Rb4 Rf3 22. Rbxe4+ Kf5 23. Re7 h5 24. Rge4 Rxe3+ 25. fxe3 g5 26. R7e6 Rd5 27. c4 Rc5 28. b4 g4 29. bxc5 Kg5 30. R4e5+ Kh4 31. Kf2 g3+ 32. Kg2 b6 33. Rh6 bxc5 34. Rexh5# 1-0
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "3"]
+[White "omega:NO_MEMORY:trace=evidence/omega/gauntlet/trace_NO_MEMORY.jsonl"]
+[Black "ref:2"]
+[Result "0-1"]
+[Opening "Sicilian Najdorf"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 a6 6. Bg5 e5 7. Bxf6 Qxf6 8. Nd5 Qd8 9. Nf5 Nc6 10. a4 Bxf5 11. exf5 Nd4 12. Bc4 Nxf5 13. Qg4 g6 14. Qe4 Bg7 15. Rd1 O-O 16. O-O Nd4 17. f4 b5 18. fxe5 dxe5 19. axb5 axb5 20. Rxd4 exd4 21. Ne7+ Kh8 22. Bxf7 d3 23. Nd5 dxc2 24. Qe6 Qg5 25. Ne3 Bd4 26. Qc6 Rac8 27. Qb7 Qxe3+ 28. Kh1 c1=Q 29. Bc4 Rxf1+ 30. Bxf1 Qxf1# 0-1
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "4"]
+[White "ref:2"]
+[Black "omega:NO_MEMORY:trace=evidence/omega/gauntlet/trace_NO_MEMORY.jsonl"]
+[Result "1-0"]
+[Opening "Sicilian Najdorf"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 a6 6. a4 Bg4 7. f3 Bd7 8. g4 Nc6 9. Be3 Nxd4 10. Qxd4 e5 11. Qd2 Nxg4 12. fxg4 Qh4+ 13. Bf2 Qxg4 14. Rg1 Qf3 15. Be2 Qh3 16. Nd5 Rc8 17. Nb6 Rc6 18. Nxd7 Qxd7 19. b4 Qh3 20. b5 Qc3 21. Ra2 Rc4 22. Bxc4 Qxc4 23. Qd5 Qc3+ 24. Ke2 h5 25. bxa6 bxa6 26. Qa8+ Ke7 27. Qxa6 Rh6 28. Qb7+ Ke8 29. Rb2 Qc4+ 30. Kd1 Be7 31. Qb8+ Bd8 32. Bb6 Qd4+ 33. Bxd4 exd4 34. Qc8 d5 35. Rb7 Rd6 36. Rxg7 Kf8 37. Rgxf7+ Kg8 38. Qf5 Rc6 39. Qh7# 1-0
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "5"]
+[White "omega:NO_MEMORY:trace=evidence/omega/gauntlet/trace_NO_MEMORY.jsonl"]
+[Black "ref:2"]
+[Result "0-1"]
+[Opening "French Winawer"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. e4 e6 2. d4 d5 3. Nc3 Bb4 4. Qg4 Nf6 5. Qxg7 Rg8 6. Qh6 Rg6 7. Qh4 Nxe4 8. Qxd8+ Kxd8 9. a3 Bxc3+ 10. bxc3 Nxc3 11. Bf4 Nc6 12. Nf3 a5 13. h4 h5 14. Bg5+ f6 15. Bd2 Ne4 16. Bf4 b6 17. Bb5 Kd7 18. Bxc6+ Kxc6 19. Rb1 Rxg2 20. a4 Rxf2 21. Rf1 Rxc2 22. Nd2 Ba6 23. Nxe4 Re2+ 24. Kd1 Rxe4 25. Rc1+ Kd7 26. Rxc7+ Kd8 27. Rf2 Rxd4+ 28. Kc2 Rxa4 29. Rg7 Ra2+ 30. Kc3 Rc8+ 31. Bc7+ Rxc7+ 32. Rxc7 Rxf2 33. Rc6 Bc8 34. Rxb6 Rf4 35. Rc6 Kd7 36. Rc5 a4 37. Rb5 Rxh4 38. Rc5 Rc4+ 39. Rxc4 dxc4 40. Kb4 c3 41. Kxc3 Kd6 42. Kd4 h4 43. Ke3 a3 44. Kf4 a2 45. Ke4 Ba6 46. Kd4 a1=Q+ 47. Ke3 Qc3+ 48. Ke4 Bb7+ 49. Kf4 Qg3# 0-1
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "6"]
+[White "ref:2"]
+[Black "omega:NO_MEMORY:trace=evidence/omega/gauntlet/trace_NO_MEMORY.jsonl"]
+[Result "1-0"]
+[Opening "French Winawer"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. e4 e6 2. d4 d5 3. Nc3 Bb4 4. e5 Bxc3+ 5. bxc3 Qh4 6. Nf3 Qe4+ 7. Be3 Qg6 8. h4 h5 9. Bd3 Qxg2 10. Rg1 Qh3 11. Kd2 Nc6 12. Rxg7 a5 13. Rg3 Qg4 14. Rxg4 hxg4 15. Qg1 gxf3 16. Qg7 Rh5 17. Qxg8+ Ke7 18. Bg5+ Rxg5 19. hxg5 a4 20. g6 Rb8 21. Qxf7+ Kd8 22. Rh1 Bd7 23. Rh8+ Be8 24. Rxe8# 1-0
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "7"]
+[White "omega:NO_MEMORY:trace=evidence/omega/gauntlet/trace_NO_MEMORY.jsonl"]
+[Black "ref:2"]
+[Result "0-1"]
+[Opening "Caro-Kann"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. e4 c6 2. d4 d5 3. Nc3 dxe4 4. Nxe4 Bf5 5. Nc5 e5 6. Nb3 Nd7 7. g4 Be4 8. Nf3 exd4 9. Qe2 Qe7 10. Nbxd4 c5 11. Ne6 Bxf3 12. Nc7+ Kd8 13. Qxe7+ Nxe7 14. Bf4 Rc8 15. Bb5 Ng6 16. Ne6+ fxe6 17. Rd1 Bxd1 18. Bg5+ Be7 19. Bxe7+ Kxe7 20. Bxd7 Bf3 21. Bxc8 Bxh1 22. Bxe6 Kxe6 23. Ke2 Rf8 24. f4 Rxf4 25. g5 Kf5 26. Ke3 Be4 27. h4 Rxh4 28. c4 Rh2 29. b4 Ke5 30. bxc5 Nf4 31. a4 Re2# 0-1
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.24"]
+[Round "8"]
+[White "ref:2"]
+[Black "omega:NO_MEMORY:trace=evidence/omega/gauntlet/trace_NO_MEMORY.jsonl"]
+[Result "1-0"]
+[Opening "Caro-Kann"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. e4 c6 2. d4 d5 3. Nc3 dxe4 4. Nxe4 Bf5 5. Ng3 Qa5+ 6. Bd2 Qd5 7. Nxf5 Qxf5 8. Bd3 Qe6+ 9. Qe2 Qxe2+ 10. Kxe2 e6 11. Nf3 Nh6 12. h3 f6 13. g4 Na6 14. c3 Bd6 15. b4 Kf7 16. a4 Rac8 17. Kf1 f5 18. Ng5+ Kf6 19. Nxe6 fxg4 20. Bxh6 gxh6 21. hxg4 Kxe6 22. Rxh6+ Kd5 23. Rh5+ Ke6 24. Bf5+ Kf6 25. Bxc8 Rxc8 26. Rh6+ Kg5 27. Rxd6 Re8 28. Rd7 Kxg4 29. Rxb7 Kf3 30. Rxa7 h5 31. Rxa6 Re6 32. Re1 Rxe1+ 33. Kxe1 h4 34. Rxc6 h3 35. a5 Ke4 36. Rh6 Kf5 37. a6 Kg5 38. Rxh3 Kf4 39. a7 Kg4 40. a8=Q Kxh3 41. Qg8 Kh4 42. Qg6 Kh3 43. Qg3# 1-0
+

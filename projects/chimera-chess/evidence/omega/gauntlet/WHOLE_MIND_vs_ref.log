@@ -1,0 +1,40 @@
+  1 omega:WHOLE_MIND:trace=evidence/omega/gauntlet/trace_WHOLE_MIND.jsonl - ref:2                  0-1     CHECKMATE 66
+  2                  ref:2 - omega:WHOLE_MIND:trace=evidence/omega/gauntlet/trace_WHOLE_MIND.jsonl 1-0     CHECKMATE 95
+  3 omega:WHOLE_MIND:trace=evidence/omega/gauntlet/trace_WHOLE_MIND.jsonl - ref:2                  0-1     CHECKMATE 60
+  4                  ref:2 - omega:WHOLE_MIND:trace=evidence/omega/gauntlet/trace_WHOLE_MIND.jsonl 1-0     CHECKMATE 65
+  5 omega:WHOLE_MIND:trace=evidence/omega/gauntlet/trace_WHOLE_MIND.jsonl - ref:2                  0-1     CHECKMATE 84
+  6                  ref:2 - omega:WHOLE_MIND:trace=evidence/omega/gauntlet/trace_WHOLE_MIND.jsonl 1-0     CHECKMATE 61
+  7 omega:WHOLE_MIND:trace=evidence/omega/gauntlet/trace_WHOLE_MIND.jsonl - ref:2                  0-1     CHECKMATE 64
+  8                  ref:2 - omega:WHOLE_MIND:trace=evidence/omega/gauntlet/trace_WHOLE_MIND.jsonl 1-0     CHECKMATE 89
+  9 omega:WHOLE_MIND:trace=evidence/omega/gauntlet/trace_WHOLE_MIND.jsonl - ref:2                  0-1     CHECKMATE 60
+ 10                  ref:2 - omega:WHOLE_MIND:trace=evidence/omega/gauntlet/trace_WHOLE_MIND.jsonl 1-0     CHECKMATE 99
+ 11 omega:WHOLE_MIND:trace=evidence/omega/gauntlet/trace_WHOLE_MIND.jsonl - ref:2                  0-1     CHECKMATE 88
+ 12                  ref:2 - omega:WHOLE_MIND:trace=evidence/omega/gauntlet/trace_WHOLE_MIND.jsonl 1-0     CHECKMATE 47
+ 13 omega:WHOLE_MIND:trace=evidence/omega/gauntlet/trace_WHOLE_MIND.jsonl - ref:2                  0-1     CHECKMATE 56
+ 14                  ref:2 - omega:WHOLE_MIND:trace=evidence/omega/gauntlet/trace_WHOLE_MIND.jsonl 1-0     CHECKMATE 71
+ 15 omega:WHOLE_MIND:trace=evidence/omega/gauntlet/trace_WHOLE_MIND.jsonl - ref:2                  0-1     CHECKMATE 86
+ 16                  ref:2 - omega:WHOLE_MIND:trace=evidence/omega/gauntlet/trace_WHOLE_MIND.jsonl 1-0     CHECKMATE 73
+/home/user/uberbondd/projects/chimera-chess/tools/match.py:250: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  "date_utc": datetime.datetime.utcnow().isoformat(timespec="seconds")}
+{
+  "a": "omega:WHOLE_MIND:trace=evidence/omega/gauntlet/trace_WHOLE_MIND.jsonl",
+  "b": "ref:2",
+  "tc": "60+0.6",
+  "games": 16,
+  "a_wins": 0,
+  "draws": 0,
+  "a_losses": 16,
+  "a_score": 0.0,
+  "a_pct": 0.0,
+  "elo_diff_a_minus_b_95ci": [
+    -597,
+    -597,
+    -352
+  ],
+  "time_forfeits": 0,
+  "illegal_or_failure": 0,
+  "stockfish": "/usr/games/stockfish",
+  "python": "3.13.18",
+  "chess": "1.11.2",
+  "date_utc": "2026-11-24T19:49:03"
+}

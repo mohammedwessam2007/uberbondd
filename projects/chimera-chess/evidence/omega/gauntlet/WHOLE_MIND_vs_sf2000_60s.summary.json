@@ -1,0 +1,22 @@
+{
+  "a": "omega:WHOLE_MIND:trace=evidence/omega/gauntlet/trace_WM_sf2000.jsonl",
+  "b": "sf:2000",
+  "tc": "60+0.6",
+  "games": 8,
+  "a_wins": 1,
+  "draws": 3,
+  "a_losses": 4,
+  "a_score": 2.5,
+  "a_pct": 0.3125,
+  "elo_diff_a_minus_b_95ci": [
+    -137,
+    -470,
+    95
+  ],
+  "time_forfeits": 0,
+  "illegal_or_failure": 0,
+  "stockfish": "/usr/games/stockfish",
+  "python": "3.13.18",
+  "chess": "1.11.2",
+  "date_utc": "2026-11-24T20:21:01"
+}

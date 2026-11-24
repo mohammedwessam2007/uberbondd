@@ -1,0 +1,22 @@
+{
+  "a": "omega:WHOLE_MIND:trace=evidence/omega/gauntlet/trace_WHOLE_MIND.jsonl",
+  "b": "ref:2",
+  "tc": "60+0.6",
+  "games": 16,
+  "a_wins": 0,
+  "draws": 0,
+  "a_losses": 16,
+  "a_score": 0.0,
+  "a_pct": 0.0,
+  "elo_diff_a_minus_b_95ci": [
+    -597,
+    -597,
+    -352
+  ],
+  "time_forfeits": 0,
+  "illegal_or_failure": 0,
+  "stockfish": "/usr/games/stockfish",
+  "python": "3.13.18",
+  "chess": "1.11.2",
+  "date_utc": "2026-11-24T19:49:03"
+}

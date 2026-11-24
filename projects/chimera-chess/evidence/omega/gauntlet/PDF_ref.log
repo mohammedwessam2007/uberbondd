@@ -1,0 +1,32 @@
+  1 omega:PDF_FAITHFUL:trace=evidence/omega/gauntlet/trace_PDF_FAITHFUL_ref.jsonl - ref:2                  1/2-1/2 THREEFOLD_REPETITION 94
+  2                  ref:2 - omega:PDF_FAITHFUL:trace=evidence/omega/gauntlet/trace_PDF_FAITHFUL_ref.jsonl 1-0     CHECKMATE 75
+  3 omega:PDF_FAITHFUL:trace=evidence/omega/gauntlet/trace_PDF_FAITHFUL_ref.jsonl - ref:2                  0-1     CHECKMATE 90
+  4                  ref:2 - omega:PDF_FAITHFUL:trace=evidence/omega/gauntlet/trace_PDF_FAITHFUL_ref.jsonl 1-0     CHECKMATE 77
+  5 omega:PDF_FAITHFUL:trace=evidence/omega/gauntlet/trace_PDF_FAITHFUL_ref.jsonl - ref:2                  0-1     CHECKMATE 106
+  6                  ref:2 - omega:PDF_FAITHFUL:trace=evidence/omega/gauntlet/trace_PDF_FAITHFUL_ref.jsonl 1-0     CHECKMATE 95
+  7 omega:PDF_FAITHFUL:trace=evidence/omega/gauntlet/trace_PDF_FAITHFUL_ref.jsonl - ref:2                  1/2-1/2 STALEMATE 194
+  8                  ref:2 - omega:PDF_FAITHFUL:trace=evidence/omega/gauntlet/trace_PDF_FAITHFUL_ref.jsonl 1/2-1/2 THREEFOLD_REPETITION 225
+/home/user/uberbondd/projects/chimera-chess/tools/match.py:250: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  "date_utc": datetime.datetime.utcnow().isoformat(timespec="seconds")}
+{
+  "a": "omega:PDF_FAITHFUL:trace=evidence/omega/gauntlet/trace_PDF_FAITHFUL_ref.jsonl",
+  "b": "ref:2",
+  "tc": "60+0.6",
+  "games": 8,
+  "a_wins": 0,
+  "draws": 3,
+  "a_losses": 5,
+  "a_score": 1.5,
+  "a_pct": 0.1875,
+  "elo_diff_a_minus_b_95ci": [
+    -255,
+    -470,
+    -29
+  ],
+  "time_forfeits": 0,
+  "illegal_or_failure": 0,
+  "stockfish": "/usr/games/stockfish",
+  "python": "3.13.18",
+  "chess": "1.11.2",
+  "date_utc": "2026-11-24T20:46:03"
+}

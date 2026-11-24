@@ -485,3 +485,22 @@
 {"id": "1TRNu", "rating": 709, "themes": "advantage endgame short skewer", "eligible": false, "reason": "rating<1800"}
 {"id": "0VfNq", "rating": 1026, "themes": "endgame master mate mateIn1 oneMove", "eligible": false, "reason": "rating<1800"}
 {"id": "2W2k7", "rating": 2327, "themes": "crushing endgame long quietMove", "eligible": false, "fen": "2r5/5kpR/p2rp3/PbPp1p2/8/6R1/5PPP/6K1 w - - 0 36", "v8": "h7g7", "v8_top3": ["h7g7", "f2f4", "g3g7"], "oracle_best": "h7g7", "oracle_score": 519, "v8_loss": -19, "baseline": "native V8 600000 nodes", "oracle": "id name Stockfish 16|00628bd9c9855c1b|T1H32fresh 1500000 nodes", "reason": "oracle-best-in-V8-top3"}
+{"id": "0CA8H", "rating": 1886, "themes": "crushing endgame short", "eligible": false, "fen": "2r3k1/R1p2pp1/1Q1p3p/3Pp3/4P3/2P4q/5PP1/6K1 w - - 0 32", "v8": "a7c7", "v8_top3": ["a7c7", "b6c6", "b6a5"], "oracle_best": "a7c7", "oracle_score": 465, "v8_loss": -6, "baseline": "native V8 600000 nodes", "oracle": "id name Stockfish 16|00628bd9c9855c1b|T1H32fresh 1500000 nodes", "reason": "oracle-best-in-V8-top3"}
+{"id": "1AA4F", "rating": 1578, "themes": "bishopEndgame crushing endgame master short", "eligible": false, "reason": "rating<1800"}
+{"id": "1gMSw", "rating": 522, "themes": "mate mateIn1 middlegame oneMove", "eligible": false, "reason": "rating<1800"}
+{"id": "1ts3c", "rating": 1742, "themes": "endgame", "eligible": false, "reason": "rating<1800"}
+{"id": "15cRz", "rating": 974, "themes": "endgame mate mateIn1 oneMove", "eligible": false, "reason": "rating<1800"}
+{"id": "0oBpt", "rating": 1426, "themes": "advantage middlegame short", "eligible": false, "reason": "rating<1800"}
+{"id": "020Jm", "rating": 1052, "themes": "mate mateIn2 middlegame short", "eligible": false, "reason": "rating<1800"}
+{"id": "1Jy85", "rating": 840, "themes": "crushing endgame fork short", "eligible": false, "reason": "rating<1800"}
+{"id": "2DfPr", "rating": 1167, "themes": "crushing endgame exposedKing fork long", "eligible": false, "reason": "rating<1800"}
+{"id": "0M2ul", "rating": 1509, "themes": "crushing long middlegame", "eligible": false, "reason": "rating<1800"}
+{"id": "22RJa", "rating": 689, "themes": "master mate mateIn1 middlegame oneMove", "eligible": false, "reason": "rating<1800"}
+{"id": "2wS8P", "rating": 1357, "themes": "crushing endgame short", "eligible": false, "reason": "rating<1800"}
+{"id": "1JqWE", "rating": 965, "themes": "advantage master middlegame pin short", "eligible": false, "reason": "rating<1800"}
+{"id": "1dJvq", "rating": 1223, "themes": "endgame master mate mateIn2 short", "eligible": false, "reason": "rating<1800"}
+{"id": "17qca", "rating": 1313, "themes": "endgame mate mateIn2 short", "eligible": false, "reason": "rating<1800"}
+{"id": "2warR", "rating": 1373, "themes": "advancedPawn advantage deflection endgame master pin promotion rookEndgame short", "eligible": false, "reason": "rating<1800"}
+{"id": "0Xnnb", "rating": 844, "themes": "kingsideAttack mate mateIn2 middlegame short", "eligible": false, "reason": "rating<1800"}
+{"id": "2s5NS", "rating": 2414, "themes": "crushing middlegame short", "eligible": false, "fen": "2rr2k1/pp2qp2/2nbb2Q/3p4/4n3/P1NBPN2/1P3PPP/2RR2K1 w - - 1 20", "v8": "d3e4", "v8_top3": ["d3e4", "c3e4", "h6h5"], "oracle_best": "d3e4", "oracle_score": 482, "v8_loss": -34, "baseline": "native V8 600000 nodes", "oracle": "id name Stockfish 16|00628bd9c9855c1b|T1H32fresh 1500000 nodes", "reason": "oracle-best-in-V8-top3"}
+{"id": "05mKc", "rating": 1189, "themes": "advantage middlegame short skewer", "eligible": false, "reason": "rating<1800"}

@@ -32,3 +32,41 @@
  32                  ref:2 - native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin 1-0     CHECKMATE 193
  33 native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin - ref:2                  0-1     CHECKMATE 140
  34                  ref:2 - native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin 0-1     CHECKMATE 142
+ 35 native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin - ref:2                  0-1     CHECKMATE 238
+ 36                  ref:2 - native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin 0-1     CHECKMATE 198
+ 37 native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin - ref:2                  1/2-1/2 FIFTY_MOVES 253
+ 38                  ref:2 - native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin 1/2-1/2 THREEFOLD_REPETITION 80
+ 39 native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin - ref:2                  1/2-1/2 ply cap 300 300
+ 40                  ref:2 - native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin 0-1     CHECKMATE 128
+ 41 native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin - ref:2                  1/2-1/2 THREEFOLD_REPETITION 211
+ 42                  ref:2 - native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin 1/2-1/2 THREEFOLD_REPETITION 102
+ 43 native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin - ref:2                  1-0     CHECKMATE 119
+ 44                  ref:2 - native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin 1-0     CHECKMATE 157
+ 45 native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin - ref:2                  1/2-1/2 INSUFFICIENT_MATERIAL 149
+ 46                  ref:2 - native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin 0-1     CHECKMATE 84
+ 47 native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin - ref:2                  1-0     CHECKMATE 101
+ 48                  ref:2 - native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin 1-0     CHECKMATE 265
+/home/user/uberbondd/projects/chimera-chess/tools/match.py:236: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  "date_utc": datetime.datetime.utcnow().isoformat(timespec="seconds")}
+{
+  "a": "native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin",
+  "b": "ref:2",
+  "tc": "40+0.4",
+  "games": 48,
+  "a_wins": 21,
+  "draws": 10,
+  "a_losses": 17,
+  "a_score": 26.0,
+  "a_pct": 0.5417,
+  "elo_diff_a_minus_b_95ci": [
+    29,
+    -70,
+    133
+  ],
+  "time_forfeits": 0,
+  "illegal_or_failure": 0,
+  "stockfish": "/usr/games/stockfish",
+  "python": "3.13.18",
+  "chess": "1.11.2",
+  "date_utc": "2026-11-24T12:44:02"
+}

@@ -26,7 +26,7 @@ from typing import Dict, List, Optional
 import chess
 
 from chimera.omega import motifs as M
-from chimera.omega.backend import NativeBackend, StockfishVerifier, EngineError, MATE
+from chimera.omega.backend import NativeBackend, StockfishTactical, StockfishVerifier, EngineError, MATE
 
 MATE_T = MATE - 1000
 CAPS = {"style-extreme": 12.0, "mate": 40.0, "sacrifice": 10.0, "human": 8.0, "opening": 5.0}
@@ -36,7 +36,7 @@ SAC_GROUPS = {"sacrifice"}
 class WholeMind:
     def __init__(self, cfg, trace_path: Optional[str] = None):
         self.cfg = cfg
-        self.backend = NativeBackend(cfg)
+        self.backend = StockfishTactical(cfg) if cfg.tactical == "stockfish" else NativeBackend(cfg)
         self.verifier = StockfishVerifier(cfg) if cfg.verifier == "stockfish" else None
         self.maia = None
         if cfg.use_maia:
@@ -96,6 +96,8 @@ class WholeMind:
         rnn = max(2000, int(cfg.reply_nodes * budget_scale))
         # 2 ROOT SEARCH
         secs = budget_s * cfg.root_time_frac if (budget_s and cfg.root_time_frac > 0) else None
+        if cfg.tactical == "stockfish":   # PDF: sf_time_sec = 0.12 s per root analysis, scaled with the available clock
+            secs = max(0.05, min(cfg.sf_time_sec * max(1.0, budget_scale), (budget_s or 1.0) * 0.5))
         cand = self.backend.analyse_root(board, rn, min(cfg.root_multipv, len(legal)), seconds=secs)
         tr["root"] = dict(sorted(cand.items(), key=lambda kv: -kv[1]))
         self.partial = max(cand, key=cand.get)

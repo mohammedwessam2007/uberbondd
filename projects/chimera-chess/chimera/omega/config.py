@@ -46,6 +46,8 @@ class ChimeraConfig:
     verify_nodes: int = 300000
     reply_k: int = 4
     root_multipv: int = 16               # PDF sf_multipv; V2 runtime uses 4 (see PROFILES WHOLE_MIND_V2)
+    tactical: str = "native"             # native (CHIMERA C++ search) | stockfish (PDF-faithful tactical ground truth)
+    sf_threads: int = 1
     root_time_frac: float = 0.0          # >0: root search gets this fraction of the move's time budget (V2 budget fix)
 
 
@@ -68,6 +70,9 @@ PROFILES = {  # gauntlet ablations (section 16 of the mandate)
     "WHOLE_MIND_SOUND": {"max_cp_drop": 40.0},
     # V2 budget fix (gauntlet diagnosis: NO_MOTIFS also lost 0-1-7 -> search starvation, not motifs): every motif active,
     # native root search owns 60% of the clock with MultiPV 4; Artist/motif evidence/Skeptic share the rest.
+    # PDF-faithful architecture: Stockfish MultiPV=16 at sf_time_sec (0.12 s, scaled by the clock) as tactical truth,
+    # Maia3 human policy, all motifs + arbitration + Skeptic deciding the move (document A §1, manual §1).
+    "PDF_FAITHFUL": {"tactical": "stockfish", "root_multipv": 16, "root_time_frac": 0.0, "reply_k": 4, "reply_nodes": 40000, "verify_nodes": 300000},
     "WHOLE_MIND_V2": {"root_multipv": 4, "root_time_frac": 0.6, "reply_k": 3, "reply_nodes": 15000, "verify_nodes": 150000},
 }
 

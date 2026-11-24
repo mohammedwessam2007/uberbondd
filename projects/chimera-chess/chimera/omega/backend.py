@@ -140,3 +140,15 @@ class StockfishVerifier:
 
     def close(self):
         self.p.close()
+
+
+class StockfishTactical(NativeBackend):
+    """PDF-faithful tactical layer (document A §1/§5, manual §1.1): Stockfish MultiPV=16 at sf_time_sec per move as tactical
+    ground truth for every candidate; replies / depth probes also on Stockfish. Stockfish 16 stands in for the unavailable 19
+    (C-DEP-SF19). CHIMERA's decision is still made by the motif arbitration layer (mind.py) -- this is the evaluator, not the
+    move selector."""
+
+    def __init__(self, cfg):
+        self.root = Proc([cfg.stockfish_path], {"Threads": cfg.sf_threads, "Hash": 128})
+        self.aux = Proc([cfg.stockfish_path], {"Threads": 1, "Hash": 32})
+        self.nodes_used = 0

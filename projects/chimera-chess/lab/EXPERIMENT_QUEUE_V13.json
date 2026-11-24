@@ -1,0 +1,16 @@
+{
+ "schema": "chimera-experiment-queue-1",
+ "updated": "2026-11-24 (V13 session)",
+ "rules": "Run in order unless blocked. Fresh confirmation set after any redesign. Equal-time matches only with all other jobs SIGSTOPped. All cp losses via lab/oracle.py (deterministic). Pre-register before running.",
+ "queue": [
+  {"id": "Q1", "ids": ["#025"], "what": "Null-move tuning for the residual net (null cut 0.46 vs 0.57): condition null move on static eval margin / R=3+depth/4 for EvalVersion 3; factorial at depth 10, then isolated 20s+0.2 match", "why": "A1 factorial mechanism"},
+  {"id": "Q2", "ids": ["#002", "#118"], "what": "Verification-budget experiment: oracle-hint upper bound solves 4/51 at 200k nodes; measure oracle-hint solve rate at 1M/5M nodes and with hint-only deep extension (+3 plies) to locate the verification horizon", "why": "B controls"},
+  {"id": "Q3", "ids": ["#108"], "what": "Re-run causal memory with history table cleared in all conditions (fix H3 confound); plan-interruption suite; benefit test at 10s games", "why": "D intervention"},
+  {"id": "Q4", "ids": ["#050", "#020"], "what": "Fix style probes aborting under node limits (reserve a probe budget); re-test transform in games vs attack-only", "why": "engine limitation found in V13"},
+  {"id": "Q5", "ids": ["#032"], "what": "Confirm quiet-move head on a fresh discovery pool (new mining seed); integrate as root candidate head and test at equal nodes on headroom suite", "why": "5/5 folds, seen pre-prereg"},
+  {"id": "Q6", "ids": ["#009", "#012", "#037", "#005", "#038", "#104", "#011", "#167", "#007"], "what": "Fresh confirmation of the 9 V13 passes: new Lichess month (2017+, with clocks) for human probes; larger headroom suite (shards 2-3) for #038; human raters needed for #167 usefulness", "why": "BOUNDED_TRIAL -> VERIFIED needs fresh data"},
+  {"id": "Q7", "ids": ["#127", "#014"], "what": "Clock-annotated months enable time-scramble (#127) and the atlas clock axis", "why": "2013-01 has no %clk"},
+  {"id": "Q8", "ids": ["#007"], "what": "Train a student on the 75 disagreement records vs equal random sample", "why": "missing half of #007"},
+  {"id": "Q9", "ids": ["MOBILE"], "what": "OnePlus 15: run native/dist/device_bench.sh (owner); no emulator possible here (no /dev/kvm)", "why": "owner-only"}
+ ]
+}

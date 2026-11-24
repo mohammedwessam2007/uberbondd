@@ -1,10 +1,10 @@
-# RESUME HERE (CHIMERA): mission INCOMPLETE, frontier as of V12
+# RESUME HERE (CHIMERA): mission INCOMPLETE, frontier as of V13
 
 1. `git fetch origin ccr-9399d410-lphg3o && git checkout ccr-9399d410-lphg3o && cd projects/chimera-chess`
 2. `sh native/build.sh && g++ -std=c++17 -O2 -DNDEBUG -pthread native/ref/chimera_v8_996f592.cpp -o native/ref/chimera-v8-ref`
-3. `python -m unittest tests.test_v7 tests.test_native`. Expect 34 OK.
-4. `python tools/build_v12_ledger.py && python lab/04_check_completion.py canon/LEDGER_V12_167.json --root .`. Expect 167 accounted and 0 errors; the release check exits 2 by design (0 validated).
-5. Read `STATUS_V12.md`, then the queue `lab/EXPERIMENT_QUEUE_V12.json` (Q1–Q11, exact commands) and the pre-registrations in `evidence/v12/PREREG_*.md`.
+3. `python -m unittest tests.test_v7 tests.test_native tests.test_oracle`. Expect 37 OK.
+4. `python tools/build_v13_ledger.py && python lab/04_check_completion.py canon/LEDGER_V13_167.json --root .`. Expect 167 accounted and 0 errors (0 validated; 20 newly attempted, 9 passed).
+5. Read `STATUS_V13.md` (then `CHIMERA_FULL_REPORT.md` for V7-V13), the queue `lab/EXPERIMENT_QUEUE_V13.json` and `evidence/v13/PREREG_*.md`. The deterministic oracle cache `lab/oracle_cache.sqlite` is regenerable (gitignored).
 
 ## External data (regenerable, not in git)
 
@@ -14,10 +14,12 @@
 | Broadcasts | `/tmp/bc` | `https://database.lichess.org/broadcast/lichess_db_broadcast_YYYY-MM.pgn.zst`, 2021-01..2026-11 (CC0); then `python tools/build_named_corpus.py /tmp/bc lab/style_corpus` |
 | NDK | `/tmp/ndk` | `https://dl.google.com/android/repository/android-ndk-r27c-linux.zip` (local build use only) |
 
-## Next command (Q2: the evaluator's remaining bottleneck is search-tree growth, not evaluation quality)
+## Next command (Q1: null-move behaviour under the residual net is the measured mechanism of the equal-time gap)
+
+Implement a null-move variant for EvalVersion 3, then:
 
 ```sh
-python tools/match.py --a native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin --b ref:2 --tc 40+0.4 --jobs 2 --out evidence/v13/matches/eval4R50_vs_ref_40s
+python tools/eval_search_factorial.py evidence/v14/eval/factorial_null.json 40 10 200000
 ```
 
-Run it with nothing else running, under a new pre-registration. In parallel, implement node-limited SPSA retuning of the RFP/futility/LMR margins for EvalVersion 3.
+Then pre-register and run an isolated 20s+0.2 match. Second (Q2), find the verification horizon: oracle-best hints solve only 4/51 at 200k nodes.

@@ -1,4 +1,4 @@
-# CHIMERA: the full report of everything done (V7 → V13 in progress)
+# CHIMERA: the full report of everything done (V7 → V13)
 
 Written 2026-11-24. Branch `ccr-9399d410-lphg3o`. All work is confined to `projects/chimera-chess/`.
 
@@ -183,23 +183,27 @@ CHIMERA is a real, fast, tested native C++ chess engine.
 - **Discovery learners** (smoke, seen before pre-registration, so bounded only):
   - Quiet-move head: 0.873 vs 0.732 top-3 recall on quiet moves.
   - Failure augmentation: 0.829 vs 0.825 (no effect).
-- **A4 isolated 40+0.4 match** (net ×0.5 vs frozen V8, all other jobs suspended): **10–3–9 after 22/48 games.** Running; no conclusion yet.
+- **A4 isolated 40+0.4 match** (net ×0.5 vs frozen V8): **21–10–17, +29 [−70, +133]**. FAIL. Pooled over 3 equal-time runs: 62–34–48 (55.6%), never significant.
+- **RootHint controls** (51 frozen hard positions, 200k nodes):
+  - Solved: none 1, Maia 2, random 3, learned 3, **oracle-best hint 4**.
+  - Even the correct answer is rarely accepted, so **verification depth is the creative bottleneck**.
+- **#038 sparse gate:** expected loss 512.9 vs 539.7 for random routing at the same rate. Passes, but with no CI.
+- **#050 transform:** found that style never acts under node limits (engine limitation). The valid depth-8 run failed on soundness (32.1 vs 29.4cp).
+- **#167 highlights:** 93/112 claims survived 1M-node re-verification (83%).
+- **119-idea offensive:** 20 previously unattempted IDs attempted.
+  - 9 met their bar: #005 #007 #009 #011 #012 #037 #038 #104 #167.
+  - 11 failed: #003 #013 #014 #022 #081 #086 #120 #123 #131 #137 #154.
+  - 0 validated.
+- **Ledger V13:** 167/167, 0 checker errors. RESEARCH_INCOMPLETE 100, VERIFIED_FAIL_VARIANT 24, BOUNDED_TRIAL 23.
+- **Tests and binaries:** 37 tests pass. ARM64 and Android rebuilt with parity OK. No emulator is possible here (no KVM).
 
 ### Integrity correction made this session
-- When the probes were checked against each ID's registered method, several first drafts tested the wrong thing.
-  - #154 must measure engine quality.
-  - #013 forbids move-agreement proxies.
-- They were rewritten, and the change is logged in `evidence/v13/PREREG_probes_human.md` before the final data.
-- #029 and #127 were dropped from the count rather than relabelled.
+- When the probes were checked against each ID's registered method, several first drafts tested the wrong thing (e.g. #154 must measure engine quality; #013 forbids move-agreement proxies). They were rewritten before the final data, with the change logged.
+- #029 and #127 were dropped rather than relabelled.
+- #003 was corrected for mate-score inflation.
+- The #050 node-limited run was invalid and is kept as such.
 
-### Queued, with code written
-- Human-cognition probes: #005, #007, #009, #012, #013, #014, #037, #081, #086, #120, #123, #131, #137, #154.
-- Discovery probes: #003, #011, #022, #104.
-- RootHint controls on the frozen suite (none / Maia / random / learned / oracle-best upper bound) plus #038 sparse activation.
-- #167 highlight generator with 1M-node fact verification.
-- #050 transform test.
-- V13 ledger builder.
-- **Target: 20 newly attempted IDs.**
+Full V13 detail: `STATUS_V13.md`.
 
 ---
 
@@ -226,6 +230,10 @@ CHIMERA is a real, fast, tested native C++ chess engine.
 19. V13 wrong-memory: no measurable harm.
 20. V13 cache confound in the irrelevant-memory control.
 21. V13 first-draft probes misaligned with canon (corrected).
+22. A4 40+0.4: +29, not significant.
+23. Oracle-best RootHint solves only 4/51.
+24. Style inactive under node limits (engine bug); transform unsound vs attack-only.
+25. 11 of the 20 new ID probes failed their bar.
 
 ## 9. Bugs found and fixed
 - Board corruption on Python timeout.

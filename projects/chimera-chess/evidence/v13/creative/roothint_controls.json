@@ -1,0 +1,2102 @@
+{
+ "suite": "evidence/v13/headroom_v13.json",
+ "nodes": 200000,
+ "oracle_nodes": 1500000,
+ "all": {
+  "none": {
+   "solved": 1,
+   "mean_loss": 552.7
+  },
+  "maia": {
+   "solved": 2,
+   "mean_loss": 530.6
+  },
+  "random": {
+   "solved": 3,
+   "mean_loss": 514.3
+  },
+  "learned": {
+   "solved": 3,
+   "mean_loss": 540.4
+  },
+  "oracle": {
+   "solved": 4,
+   "mean_loss": 525.0
+  },
+  "gate038": {
+   "solved": 3,
+   "mean_loss": 512.9
+  },
+  "n": 51,
+  "hint_recall": {
+   "maia": 15,
+   "random": 2,
+   "learned": 20
+  },
+  "gate_fire_rate": 0.588
+ },
+ "dev": {
+  "none": {
+   "solved": 0,
+   "mean_loss": 567.2
+  },
+  "maia": {
+   "solved": 1,
+   "mean_loss": 534.5
+  },
+  "random": {
+   "solved": 0,
+   "mean_loss": 525.0
+  },
+  "learned": {
+   "solved": 1,
+   "mean_loss": 572.6
+  },
+  "oracle": {
+   "solved": 1,
+   "mean_loss": 575.4
+  },
+  "gate038": {
+   "solved": 1,
+   "mean_loss": 514.0
+  },
+  "n": 25,
+  "hint_recall": {
+   "maia": 9,
+   "random": 1,
+   "learned": 11
+  },
+  "gate_fire_rate": 0.56
+ },
+ "confirm": {
+  "none": {
+   "solved": 1,
+   "mean_loss": 538.8
+  },
+  "maia": {
+   "solved": 1,
+   "mean_loss": 527.0
+  },
+  "random": {
+   "solved": 3,
+   "mean_loss": 504.0
+  },
+  "learned": {
+   "solved": 2,
+   "mean_loss": 509.4
+  },
+  "oracle": {
+   "solved": 3,
+   "mean_loss": 476.5
+  },
+  "gate038": {
+   "solved": 2,
+   "mean_loss": 511.7
+  },
+  "n": 26,
+  "hint_recall": {
+   "maia": 6,
+   "random": 1,
+   "learned": 9
+  },
+  "gate_fire_rate": 0.615
+ },
+ "rows": [
+  {
+   "id": "2WIR7",
+   "split": "confirm",
+   "solution": "a8a2",
+   "maia_top1": "a8a2",
+   "learned_top1": "a8a2",
+   "v8_2k": "h7h6",
+   "none": {
+    "move": "d6d5",
+    "loss": 614,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "d6d5",
+    "loss": 614,
+    "hint_is_solution": true
+   },
+   "random": {
+    "move": "d6d5",
+    "loss": 614,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "d6d5",
+    "loss": 614,
+    "hint_is_solution": true
+   },
+   "oracle": {
+    "move": "d6d5",
+    "loss": 614,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "d6d5",
+    "loss": 614,
+    "hint_is_solution": true,
+    "fired": true
+   }
+  },
+  {
+   "id": "2ayHi",
+   "split": "confirm",
+   "solution": "e6g4",
+   "maia_top1": "e6f5",
+   "learned_top1": "e6f5",
+   "v8_2k": "e6g4",
+   "none": {
+    "move": "e6f5",
+    "loss": 657,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "e6f5",
+    "loss": 657,
+    "hint_is_solution": false
+   },
+   "random": {
+    "move": "e6f5",
+    "loss": 657,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "e6f5",
+    "loss": 657,
+    "hint_is_solution": false
+   },
+   "oracle": {
+    "move": "e6f5",
+    "loss": 657,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "e6f5",
+    "loss": 657,
+    "hint_is_solution": false,
+    "fired": true
+   }
+  },
+  {
+   "id": "0WzSE",
+   "split": "confirm",
+   "solution": "f5g4",
+   "maia_top1": "g6g5",
+   "learned_top1": "g6g5",
+   "v8_2k": "g6g5",
+   "none": {
+    "move": "g6g5",
+    "loss": 462,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "g6g5",
+    "loss": 462,
+    "hint_is_solution": false
+   },
+   "random": {
+    "move": "g6g5",
+    "loss": 462,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "g6g5",
+    "loss": 462,
+    "hint_is_solution": false
+   },
+   "oracle": {
+    "move": "g6g5",
+    "loss": 462,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "g6g5",
+    "loss": 462,
+    "hint_is_solution": null,
+    "fired": false
+   }
+  },
+  {
+   "id": "2jlHc",
+   "split": "confirm",
+   "solution": "e5e4",
+   "maia_top1": "e5e4",
+   "learned_top1": "e5e4",
+   "v8_2k": "f4a4",
+   "none": {
+    "move": "f4a4",
+    "loss": 710,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "e5e4",
+    "loss": 4,
+    "hint_is_solution": true
+   },
+   "random": {
+    "move": "e5e4",
+    "loss": 4,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "e5e4",
+    "loss": 4,
+    "hint_is_solution": true
+   },
+   "oracle": {
+    "move": "e5e4",
+    "loss": 4,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "e5e4",
+    "loss": 4,
+    "hint_is_solution": true,
+    "fired": true
+   }
+  },
+  {
+   "id": "1D0Z3",
+   "split": "dev",
+   "solution": "c3e4",
+   "maia_top1": "c3e4",
+   "learned_top1": "g2g4",
+   "v8_2k": "d2e3",
+   "none": {
+    "move": "g2g4",
+    "loss": 392,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "c3e4",
+    "loss": 18,
+    "hint_is_solution": true
+   },
+   "random": {
+    "move": "g2g4",
+    "loss": 392,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "c3e4",
+    "loss": 18,
+    "hint_is_solution": false
+   },
+   "oracle": {
+    "move": "c3e4",
+    "loss": 18,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "c3e4",
+    "loss": 18,
+    "hint_is_solution": true,
+    "fired": true
+   }
+  },
+  {
+   "id": "1Z4da",
+   "split": "confirm",
+   "solution": "g3g4",
+   "maia_top1": "g3g4",
+   "learned_top1": "g3g4",
+   "v8_2k": "g3h4",
+   "none": {
+    "move": "h2h3",
+    "loss": 775,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "h2h3",
+    "loss": 775,
+    "hint_is_solution": true
+   },
+   "random": {
+    "move": "h2h3",
+    "loss": 775,
+    "hint_is_solution": true
+   },
+   "learned": {
+    "move": "h2h3",
+    "loss": 775,
+    "hint_is_solution": true
+   },
+   "oracle": {
+    "move": "h2h3",
+    "loss": 775,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "h2h3",
+    "loss": 775,
+    "hint_is_solution": true,
+    "fired": true
+   }
+  },
+  {
+   "id": "2odPl",
+   "split": "dev",
+   "solution": "g5g4",
+   "maia_top1": "c8h3",
+   "learned_top1": "c8h3",
+   "v8_2k": "c8h3",
+   "none": {
+    "move": "e3f4",
+    "loss": 402,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "c8d7",
+    "loss": 982,
+    "hint_is_solution": false
+   },
+   "random": {
+    "move": "e3f4",
+    "loss": 402,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "c8d7",
+    "loss": 982,
+    "hint_is_solution": false
+   },
+   "oracle": {
+    "move": "c8d7",
+    "loss": 982,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "e3f4",
+    "loss": 402,
+    "hint_is_solution": null,
+    "fired": false
+   }
+  },
+  {
+   "id": "1SPgW",
+   "split": "dev",
+   "solution": "e5e4",
+   "maia_top1": "a4a3",
+   "learned_top1": "c2c1q",
+   "v8_2k": "a4a3",
+   "none": {
+    "move": "a4a3",
+    "loss": 489,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "a4a3",
+    "loss": 489,
+    "hint_is_solution": false
+   },
+   "random": {
+    "move": "a4a3",
+    "loss": 489,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "a4a3",
+    "loss": 489,
+    "hint_is_solution": false
+   },
+   "oracle": {
+    "move": "a4a3",
+    "loss": 489,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "a4a3",
+    "loss": 489,
+    "hint_is_solution": null,
+    "fired": false
+   }
+  },
+  {
+   "id": "2c9R6",
+   "split": "dev",
+   "solution": "d7d2",
+   "maia_top1": "f4h6",
+   "learned_top1": "f4h6",
+   "v8_2k": "f4h6",
+   "none": {
+    "move": "f4h6",
+    "loss": 372,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "f4h6",
+    "loss": 372,
+    "hint_is_solution": false
+   },
+   "random": {
+    "move": "f4h6",
+    "loss": 372,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "f4h6",
+    "loss": 372,
+    "hint_is_solution": false
+   },
+   "oracle": {
+    "move": "f4h6",
+    "loss": 372,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "f4h6",
+    "loss": 372,
+    "hint_is_solution": null,
+    "fired": false
+   }
+  },
+  {
+   "id": "37PYr",
+   "split": "dev",
+   "solution": "e2e4",
+   "maia_top1": "e1f2",
+   "learned_top1": "e2e4",
+   "v8_2k": "e2e4",
+   "none": {
+    "move": "c2c4",
+    "loss": 1000,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "e2e4",
+    "loss": 46,
+    "hint_is_solution": false
+   },
+   "random": {
+    "move": "e2e4",
+    "loss": 46,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "c2c3",
+    "loss": 1000,
+    "hint_is_solution": true
+   },
+   "oracle": {
+    "move": "c2c3",
+    "loss": 1000,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "e2e4",
+    "loss": 46,
+    "hint_is_solution": false,
+    "fired": true
+   }
+  },
+  {
+   "id": "2bea7",
+   "split": "dev",
+   "solution": "g4g3",
+   "maia_top1": "g4g3",
+   "learned_top1": "g4g3",
+   "v8_2k": "e2f2",
+   "none": {
+    "move": "g8e8",
+    "loss": 1000,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "g8e8",
+    "loss": 1000,
+    "hint_is_solution": true
+   },
+   "random": {
+    "move": "g8e8",
+    "loss": 1000,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "g8e8",
+    "loss": 1000,
+    "hint_is_solution": true
+   },
+   "oracle": {
+    "move": "g8e8",
+    "loss": 1000,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "g8e8",
+    "loss": 1000,
+    "hint_is_solution": true,
+    "fired": true
+   }
+  },
+  {
+   "id": "2PqR6",
+   "split": "confirm",
+   "solution": "c5b4",
+   "maia_top1": "a5a6",
+   "learned_top1": "c5d4",
+   "v8_2k": "f2f4",
+   "none": {
+    "move": "c3c4",
+    "loss": 200,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "c3c4",
+    "loss": 200,
+    "hint_is_solution": false
+   },
+   "random": {
+    "move": "c5b4",
+    "loss": 0,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "c3c4",
+    "loss": 200,
+    "hint_is_solution": false
+   },
+   "oracle": {
+    "move": "c3c4",
+    "loss": 200,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "c3c4",
+    "loss": 200,
+    "hint_is_solution": false,
+    "fired": true
+   }
+  },
+  {
+   "id": "06smt",
+   "split": "dev",
+   "solution": "d8e8",
+   "maia_top1": "h4h3",
+   "learned_top1": "h4h3",
+   "v8_2k": "h4h3",
+   "none": {
+    "move": "h4h3",
+    "loss": 376,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "h4h3",
+    "loss": 376,
+    "hint_is_solution": false
+   },
+   "random": {
+    "move": "h4h3",
+    "loss": 376,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "h4h3",
+    "loss": 376,
+    "hint_is_solution": false
+   },
+   "oracle": {
+    "move": "h4h3",
+    "loss": 376,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "h4h3",
+    "loss": 376,
+    "hint_is_solution": null,
+    "fired": false
+   }
+  },
+  {
+   "id": "1n6Y3",
+   "split": "confirm",
+   "solution": "c5b6",
+   "maia_top1": "c5d4",
+   "learned_top1": "c5d4",
+   "v8_2k": "c5d4",
+   "none": {
+    "move": "c5d4",
+    "loss": 441,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "c5d4",
+    "loss": 441,
+    "hint_is_solution": false
+   },
+   "random": {
+    "move": "c5d4",
+    "loss": 441,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "c5d4",
+    "loss": 441,
+    "hint_is_solution": false
+   },
+   "oracle": {
+    "move": "c5d4",
+    "loss": 441,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "c5d4",
+    "loss": 441,
+    "hint_is_solution": null,
+    "fired": false
+   }
+  },
+  {
+   "id": "1cV8Q",
+   "split": "dev",
+   "solution": "b4b3",
+   "maia_top1": "b4b3",
+   "learned_top1": "b4b3",
+   "v8_2k": "d6e6",
+   "none": {
+    "move": "d6e6",
+    "loss": 826,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "d6e6",
+    "loss": 826,
+    "hint_is_solution": true
+   },
+   "random": {
+    "move": "d6e6",
+    "loss": 826,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "d6e6",
+    "loss": 826,
+    "hint_is_solution": true
+   },
+   "oracle": {
+    "move": "d6e6",
+    "loss": 826,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "d6e6",
+    "loss": 826,
+    "hint_is_solution": true,
+    "fired": true
+   }
+  },
+  {
+   "id": "1q11u",
+   "split": "confirm",
+   "solution": "e4h4",
+   "maia_top1": "d4c5",
+   "learned_top1": "d4c5",
+   "v8_2k": "d4c5",
+   "none": {
+    "move": "d4c5",
+    "loss": 555,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "d4c5",
+    "loss": 555,
+    "hint_is_solution": false
+   },
+   "random": {
+    "move": "d4c5",
+    "loss": 555,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "d4c5",
+    "loss": 555,
+    "hint_is_solution": false
+   },
+   "oracle": {
+    "move": "d4c5",
+    "loss": 555,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "d4c5",
+    "loss": 555,
+    "hint_is_solution": null,
+    "fired": false
+   }
+  },
+  {
+   "id": "1bi5F",
+   "split": "dev",
+   "solution": "a6b7",
+   "maia_top1": "d2e3",
+   "learned_top1": "a6a8",
+   "v8_2k": "a6a8",
+   "none": {
+    "move": "a6a8",
+    "loss": 202,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "a6a8",
+    "loss": 202,
+    "hint_is_solution": false
+   },
+   "random": {
+    "move": "a6a8",
+    "loss": 202,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "a6a8",
+    "loss": 202,
+    "hint_is_solution": false
+   },
+   "oracle": {
+    "move": "a6a8",
+    "loss": 202,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "a6a8",
+    "loss": 202,
+    "hint_is_solution": false,
+    "fired": true
+   }
+  },
+  {
+   "id": "2Jwzz",
+   "split": "dev",
+   "solution": "g6g3",
+   "maia_top1": "g6g3",
+   "learned_top1": "g6g3",
+   "v8_2k": "g6g3",
+   "none": {
+    "move": "a7a5",
+    "loss": 650,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "a7a5",
+    "loss": 650,
+    "hint_is_solution": true
+   },
+   "random": {
+    "move": "a7a5",
+    "loss": 650,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "a7a5",
+    "loss": 650,
+    "hint_is_solution": true
+   },
+   "oracle": {
+    "move": "a7a5",
+    "loss": 650,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "a7a5",
+    "loss": 650,
+    "hint_is_solution": null,
+    "fired": false
+   }
+  },
+  {
+   "id": "2zUNE",
+   "split": "dev",
+   "solution": "e7d8",
+   "maia_top1": "h6g5",
+   "learned_top1": "e7d8",
+   "v8_2k": "e7d8",
+   "none": {
+    "move": "e7e3",
+    "loss": 712,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "e7e3",
+    "loss": 712,
+    "hint_is_solution": false
+   },
+   "random": {
+    "move": "e7e3",
+    "loss": 712,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "e7e3",
+    "loss": 712,
+    "hint_is_solution": true
+   },
+   "oracle": {
+    "move": "e7e3",
+    "loss": 712,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "e7e3",
+    "loss": 712,
+    "hint_is_solution": false,
+    "fired": true
+   }
+  },
+  {
+   "id": "2eDhK",
+   "split": "dev",
+   "solution": "e6e5",
+   "maia_top1": "b1g1",
+   "learned_top1": "b1g1",
+   "v8_2k": "b1g1",
+   "none": {
+    "move": "b1h1",
+    "loss": 591,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "b1h1",
+    "loss": 591,
+    "hint_is_solution": false
+   },
+   "random": {
+    "move": "b1h1",
+    "loss": 591,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "b1h1",
+    "loss": 591,
+    "hint_is_solution": false
+   },
+   "oracle": {
+    "move": "b1h1",
+    "loss": 591,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "b1h1",
+    "loss": 591,
+    "hint_is_solution": null,
+    "fired": false
+   }
+  },
+  {
+   "id": "2n2Qk",
+   "split": "confirm",
+   "solution": "c5c4",
+   "maia_top1": "h7g7",
+   "learned_top1": "h6h5",
+   "v8_2k": "a7a5",
+   "none": {
+    "move": "h6h5",
+    "loss": 467,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "h7g7",
+    "loss": 468,
+    "hint_is_solution": false
+   },
+   "random": {
+    "move": "h6h5",
+    "loss": 467,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "c5c4",
+    "loss": 12,
+    "hint_is_solution": false
+   },
+   "oracle": {
+    "move": "c5c4",
+    "loss": 12,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "h7g7",
+    "loss": 468,
+    "hint_is_solution": false,
+    "fired": true
+   }
+  },
+  {
+   "id": "1WBV2",
+   "split": "confirm",
+   "solution": "h2h4",
+   "maia_top1": "f4f5",
+   "learned_top1": "f4f5",
+   "v8_2k": "h2h4",
+   "none": {
+    "move": "g4g5",
+    "loss": 436,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "g4g5",
+    "loss": 436,
+    "hint_is_solution": false
+   },
+   "random": {
+    "move": "g4g5",
+    "loss": 436,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "g4g5",
+    "loss": 436,
+    "hint_is_solution": false
+   },
+   "oracle": {
+    "move": "g4g5",
+    "loss": 436,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "g4g5",
+    "loss": 436,
+    "hint_is_solution": false,
+    "fired": true
+   }
+  },
+  {
+   "id": "1KpSC",
+   "split": "dev",
+   "solution": "c4b6",
+   "maia_top1": "c4b6",
+   "learned_top1": "c4b6",
+   "v8_2k": "h2h4",
+   "none": {
+    "move": "h2h3",
+    "loss": 545,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "h2h3",
+    "loss": 545,
+    "hint_is_solution": true
+   },
+   "random": {
+    "move": "c4e3",
+    "loss": 515,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "h2h3",
+    "loss": 545,
+    "hint_is_solution": true
+   },
+   "oracle": {
+    "move": "h2h3",
+    "loss": 545,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "h2h3",
+    "loss": 545,
+    "hint_is_solution": true,
+    "fired": true
+   }
+  },
+  {
+   "id": "22myy",
+   "split": "dev",
+   "solution": "e7f6",
+   "maia_top1": "c1f1",
+   "learned_top1": "c1f1",
+   "v8_2k": "c1f1",
+   "none": {
+    "move": "c1f1",
+    "loss": 534,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "c1f1",
+    "loss": 534,
+    "hint_is_solution": false
+   },
+   "random": {
+    "move": "c1f1",
+    "loss": 534,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "c1f1",
+    "loss": 534,
+    "hint_is_solution": false
+   },
+   "oracle": {
+    "move": "c1f1",
+    "loss": 534,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "c1f1",
+    "loss": 534,
+    "hint_is_solution": null,
+    "fired": false
+   }
+  },
+  {
+   "id": "1pkce",
+   "split": "confirm",
+   "solution": "d3a6",
+   "maia_top1": "d3a6",
+   "learned_top1": "d3a6",
+   "v8_2k": "f2f4",
+   "none": {
+    "move": "d3f5",
+    "loss": 590,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "d3f5",
+    "loss": 590,
+    "hint_is_solution": true
+   },
+   "random": {
+    "move": "d3f5",
+    "loss": 590,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "d3f5",
+    "loss": 590,
+    "hint_is_solution": true
+   },
+   "oracle": {
+    "move": "d3f5",
+    "loss": 590,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "d3f5",
+    "loss": 590,
+    "hint_is_solution": true,
+    "fired": true
+   }
+  },
+  {
+   "id": "1sPrk",
+   "split": "confirm",
+   "solution": "d7g4",
+   "maia_top1": "h8g8",
+   "learned_top1": "c8c1",
+   "v8_2k": "h8g8",
+   "none": {
+    "move": "h8g8",
+    "loss": 1000,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "h8g8",
+    "loss": 1000,
+    "hint_is_solution": false
+   },
+   "random": {
+    "move": "h8g8",
+    "loss": 1000,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "h8g8",
+    "loss": 1000,
+    "hint_is_solution": false
+   },
+   "oracle": {
+    "move": "h8g8",
+    "loss": 1000,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "h8g8",
+    "loss": 1000,
+    "hint_is_solution": null,
+    "fired": false
+   }
+  },
+  {
+   "id": "2CRh9",
+   "split": "dev",
+   "solution": "e2g2",
+   "maia_top1": "e2g2",
+   "learned_top1": "e2g2",
+   "v8_2k": "f6e7",
+   "none": {
+    "move": "g7g5",
+    "loss": 700,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "g7g5",
+    "loss": 700,
+    "hint_is_solution": true
+   },
+   "random": {
+    "move": "g7g5",
+    "loss": 700,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "g7g5",
+    "loss": 700,
+    "hint_is_solution": true
+   },
+   "oracle": {
+    "move": "g7g5",
+    "loss": 700,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "g7g5",
+    "loss": 700,
+    "hint_is_solution": true,
+    "fired": true
+   }
+  },
+  {
+   "id": "00cZE",
+   "split": "confirm",
+   "solution": "e4e3",
+   "maia_top1": "d6e6",
+   "learned_top1": "d6e6",
+   "v8_2k": "d6b6",
+   "none": {
+    "move": "a5a4",
+    "loss": 423,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "a5a4",
+    "loss": 423,
+    "hint_is_solution": false
+   },
+   "random": {
+    "move": "a5a4",
+    "loss": 423,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "a5a4",
+    "loss": 423,
+    "hint_is_solution": false
+   },
+   "oracle": {
+    "move": "a5a4",
+    "loss": 423,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "a5a4",
+    "loss": 423,
+    "hint_is_solution": false,
+    "fired": true
+   }
+  },
+  {
+   "id": "3AaMj",
+   "split": "dev",
+   "solution": "g1g7",
+   "maia_top1": "d7d3",
+   "learned_top1": "g1g7",
+   "v8_2k": "d7d3",
+   "none": {
+    "move": "d7d3",
+    "loss": 599,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "d7d3",
+    "loss": 599,
+    "hint_is_solution": false
+   },
+   "random": {
+    "move": "d7d3",
+    "loss": 599,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "d7d3",
+    "loss": 599,
+    "hint_is_solution": true
+   },
+   "oracle": {
+    "move": "d7d3",
+    "loss": 599,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "d7d3",
+    "loss": 599,
+    "hint_is_solution": null,
+    "fired": false
+   }
+  },
+  {
+   "id": "278wi",
+   "split": "confirm",
+   "solution": "g7e5",
+   "maia_top1": "g7e5",
+   "learned_top1": "g7e5",
+   "v8_2k": "f7f6",
+   "none": {
+    "move": "f7f6",
+    "loss": 350,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "f7f6",
+    "loss": 350,
+    "hint_is_solution": true
+   },
+   "random": {
+    "move": "f7f6",
+    "loss": 350,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "f7f6",
+    "loss": 350,
+    "hint_is_solution": true
+   },
+   "oracle": {
+    "move": "f7f6",
+    "loss": 350,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "f7f6",
+    "loss": 350,
+    "hint_is_solution": true,
+    "fired": true
+   }
+  },
+  {
+   "id": "02FTV",
+   "split": "dev",
+   "solution": "d3f5",
+   "maia_top1": "d3f5",
+   "learned_top1": "d3f5",
+   "v8_2k": "e3e2",
+   "none": {
+    "move": "e3e2",
+    "loss": 528,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "e3e2",
+    "loss": 528,
+    "hint_is_solution": true
+   },
+   "random": {
+    "move": "e3e2",
+    "loss": 528,
+    "hint_is_solution": true
+   },
+   "learned": {
+    "move": "e3e2",
+    "loss": 528,
+    "hint_is_solution": true
+   },
+   "oracle": {
+    "move": "e3e2",
+    "loss": 528,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "e3e2",
+    "loss": 528,
+    "hint_is_solution": true,
+    "fired": true
+   }
+  },
+  {
+   "id": "2vCPs",
+   "split": "dev",
+   "solution": "b4d3",
+   "maia_top1": "b4d3",
+   "learned_top1": "b4a6",
+   "v8_2k": "b4d3",
+   "none": {
+    "move": "b4c2",
+    "loss": 534,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "b4c2",
+    "loss": 534,
+    "hint_is_solution": true
+   },
+   "random": {
+    "move": "b4c2",
+    "loss": 534,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "b4c2",
+    "loss": 534,
+    "hint_is_solution": false
+   },
+   "oracle": {
+    "move": "b4c2",
+    "loss": 534,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "b4c2",
+    "loss": 534,
+    "hint_is_solution": null,
+    "fired": false
+   }
+  },
+  {
+   "id": "0tFKh",
+   "split": "confirm",
+   "solution": "f4g4",
+   "maia_top1": "e4f2",
+   "learned_top1": "f4f2",
+   "v8_2k": "e4f2",
+   "none": {
+    "move": "e4f2",
+    "loss": 1000,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "e4f2",
+    "loss": 1000,
+    "hint_is_solution": false
+   },
+   "random": {
+    "move": "e4f2",
+    "loss": 1000,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "e4f2",
+    "loss": 1000,
+    "hint_is_solution": false
+   },
+   "oracle": {
+    "move": "e4f2",
+    "loss": 1000,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "e4f2",
+    "loss": 1000,
+    "hint_is_solution": null,
+    "fired": false
+   }
+  },
+  {
+   "id": "1R1Ho",
+   "split": "confirm",
+   "solution": "d5d4",
+   "maia_top1": "g8h7",
+   "learned_top1": "d5d4",
+   "v8_2k": "g8h7",
+   "none": {
+    "move": "g8h7",
+    "loss": 515,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "g8h7",
+    "loss": 515,
+    "hint_is_solution": false
+   },
+   "random": {
+    "move": "g8h7",
+    "loss": 515,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "g8h7",
+    "loss": 515,
+    "hint_is_solution": true
+   },
+   "oracle": {
+    "move": "g8h7",
+    "loss": 515,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "g8h7",
+    "loss": 515,
+    "hint_is_solution": null,
+    "fired": false
+   }
+  },
+  {
+   "id": "1KKck",
+   "split": "dev",
+   "solution": "d3h7",
+   "maia_top1": "d1h5",
+   "learned_top1": "d3h7",
+   "v8_2k": "d1h5",
+   "none": {
+    "move": "d1g4",
+    "loss": 695,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "d1g4",
+    "loss": 695,
+    "hint_is_solution": false
+   },
+   "random": {
+    "move": "d1g4",
+    "loss": 695,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "d1g4",
+    "loss": 695,
+    "hint_is_solution": true
+   },
+   "oracle": {
+    "move": "d1g4",
+    "loss": 695,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "d1g4",
+    "loss": 695,
+    "hint_is_solution": null,
+    "fired": false
+   }
+  },
+  {
+   "id": "2b3GN",
+   "split": "dev",
+   "solution": "c1f4",
+   "maia_top1": "b7c6",
+   "learned_top1": "b7c6",
+   "v8_2k": "b7c6",
+   "none": {
+    "move": "b7a6",
+    "loss": 545,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "c3e4",
+    "loss": 476,
+    "hint_is_solution": false
+   },
+   "random": {
+    "move": "c3e4",
+    "loss": 476,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "c3e4",
+    "loss": 476,
+    "hint_is_solution": false
+   },
+   "oracle": {
+    "move": "b7a6",
+    "loss": 545,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "b7a6",
+    "loss": 545,
+    "hint_is_solution": null,
+    "fired": false
+   }
+  },
+  {
+   "id": "1409j",
+   "split": "confirm",
+   "solution": "d2g5",
+   "maia_top1": "d2g5",
+   "learned_top1": "d2g5",
+   "v8_2k": "a8b8",
+   "none": {
+    "move": "d2b2",
+    "loss": 788,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "d2b2",
+    "loss": 788,
+    "hint_is_solution": true
+   },
+   "random": {
+    "move": "d2b2",
+    "loss": 788,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "d2b2",
+    "loss": 788,
+    "hint_is_solution": true
+   },
+   "oracle": {
+    "move": "d2b2",
+    "loss": 788,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "d2b2",
+    "loss": 788,
+    "hint_is_solution": true,
+    "fired": true
+   }
+  },
+  {
+   "id": "27WOY",
+   "split": "dev",
+   "solution": "b7d5",
+   "maia_top1": "e1c1",
+   "learned_top1": "b7a8",
+   "v8_2k": "b7a8",
+   "none": {
+    "move": "b7a8",
+    "loss": 727,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "b7a8",
+    "loss": 727,
+    "hint_is_solution": false
+   },
+   "random": {
+    "move": "b7a8",
+    "loss": 727,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "b7a8",
+    "loss": 727,
+    "hint_is_solution": false
+   },
+   "oracle": {
+    "move": "b7a8",
+    "loss": 727,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "b7a8",
+    "loss": 727,
+    "hint_is_solution": false,
+    "fired": true
+   }
+  },
+  {
+   "id": "1K4EW",
+   "split": "confirm",
+   "solution": "e1e5",
+   "maia_top1": "h6g5",
+   "learned_top1": "h6g5",
+   "v8_2k": "h6g5",
+   "none": {
+    "move": "g1h1",
+    "loss": 341,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "g1h1",
+    "loss": 341,
+    "hint_is_solution": false
+   },
+   "random": {
+    "move": "g1h1",
+    "loss": 341,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "g1h1",
+    "loss": 341,
+    "hint_is_solution": false
+   },
+   "oracle": {
+    "move": "g1h1",
+    "loss": 341,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "g1h1",
+    "loss": 341,
+    "hint_is_solution": null,
+    "fired": false
+   }
+  },
+  {
+   "id": "2hJlJ",
+   "split": "confirm",
+   "solution": "e4e3",
+   "maia_top1": "h5h4",
+   "learned_top1": "e4e3",
+   "v8_2k": "f4f3",
+   "none": {
+    "move": "h5h4",
+    "loss": 425,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "h5h4",
+    "loss": 425,
+    "hint_is_solution": false
+   },
+   "random": {
+    "move": "h5h4",
+    "loss": 425,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "h5h4",
+    "loss": 425,
+    "hint_is_solution": true
+   },
+   "oracle": {
+    "move": "h5h4",
+    "loss": 425,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "h5h4",
+    "loss": 425,
+    "hint_is_solution": false,
+    "fired": true
+   }
+  },
+  {
+   "id": "2A6M9",
+   "split": "confirm",
+   "solution": "b8b5",
+   "maia_top1": "b3b2",
+   "learned_top1": "b3b2",
+   "v8_2k": "b3b2",
+   "none": {
+    "move": "b3b2",
+    "loss": 922,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "b3b2",
+    "loss": 922,
+    "hint_is_solution": false
+   },
+   "random": {
+    "move": "b3b2",
+    "loss": 922,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "b3b2",
+    "loss": 922,
+    "hint_is_solution": false
+   },
+   "oracle": {
+    "move": "b8b5",
+    "loss": 23,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "b3b2",
+    "loss": 922,
+    "hint_is_solution": null,
+    "fired": false
+   }
+  },
+  {
+   "id": "0LobT",
+   "split": "dev",
+   "solution": "g6g5",
+   "maia_top1": "e3e2",
+   "learned_top1": "e3e2",
+   "v8_2k": "d2d5",
+   "none": {
+    "move": "d2d5",
+    "loss": 405,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "d2d5",
+    "loss": 405,
+    "hint_is_solution": false
+   },
+   "random": {
+    "move": "d2d5",
+    "loss": 405,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "d2d5",
+    "loss": 405,
+    "hint_is_solution": false
+   },
+   "oracle": {
+    "move": "d2d5",
+    "loss": 405,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "d2d5",
+    "loss": 405,
+    "hint_is_solution": false,
+    "fired": true
+   }
+  },
+  {
+   "id": "1QHfP",
+   "split": "dev",
+   "solution": "b8b5",
+   "maia_top1": "b8b5",
+   "learned_top1": "b8b5",
+   "v8_2k": "e4f2",
+   "none": {
+    "move": "e4f2",
+    "loss": 260,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "e4f2",
+    "loss": 260,
+    "hint_is_solution": true
+   },
+   "random": {
+    "move": "e4f2",
+    "loss": 260,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "e4f2",
+    "loss": 260,
+    "hint_is_solution": true
+   },
+   "oracle": {
+    "move": "e4f2",
+    "loss": 260,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "e4f2",
+    "loss": 260,
+    "hint_is_solution": true,
+    "fired": true
+   }
+  },
+  {
+   "id": "1bUH2",
+   "split": "confirm",
+   "solution": "d8d2",
+   "maia_top1": "e7f5",
+   "learned_top1": "f4e3",
+   "v8_2k": "f4e3",
+   "none": {
+    "move": "a7a5",
+    "loss": 495,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "a7a5",
+    "loss": 495,
+    "hint_is_solution": false
+   },
+   "random": {
+    "move": "a7a5",
+    "loss": 495,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "a7a5",
+    "loss": 495,
+    "hint_is_solution": false
+   },
+   "oracle": {
+    "move": "a7a5",
+    "loss": 495,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "a7a5",
+    "loss": 495,
+    "hint_is_solution": false,
+    "fired": true
+   }
+  },
+  {
+   "id": "0QNTd",
+   "split": "confirm",
+   "solution": "g3g4",
+   "maia_top1": "e3f3",
+   "learned_top1": "e4e5",
+   "v8_2k": "e3d2",
+   "none": {
+    "move": "e3d3",
+    "loss": 453,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "e3f3",
+    "loss": 453,
+    "hint_is_solution": false
+   },
+   "random": {
+    "move": "e3f3",
+    "loss": 453,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "e3d3",
+    "loss": 453,
+    "hint_is_solution": false
+   },
+   "oracle": {
+    "move": "e3d3",
+    "loss": 453,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "e3f3",
+    "loss": 453,
+    "hint_is_solution": false,
+    "fired": true
+   }
+  },
+  {
+   "id": "0tLQw",
+   "split": "confirm",
+   "solution": "e5f3",
+   "maia_top1": "a8e8",
+   "learned_top1": "e5f3",
+   "v8_2k": "e7h4",
+   "none": {
+    "move": "a8e8",
+    "loss": 399,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "a8e8",
+    "loss": 399,
+    "hint_is_solution": false
+   },
+   "random": {
+    "move": "a8e8",
+    "loss": 399,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "a8e8",
+    "loss": 399,
+    "hint_is_solution": true
+   },
+   "oracle": {
+    "move": "a8e8",
+    "loss": 399,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "a8e8",
+    "loss": 399,
+    "hint_is_solution": false,
+    "fired": true
+   }
+  },
+  {
+   "id": "0bD8k",
+   "split": "confirm",
+   "solution": "f3f5",
+   "maia_top1": "e3d4",
+   "learned_top1": "e3d4",
+   "v8_2k": "c3d4",
+   "none": {
+    "move": "c3d4",
+    "loss": 400,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "c3d4",
+    "loss": 400,
+    "hint_is_solution": false
+   },
+   "random": {
+    "move": "c3d4",
+    "loss": 400,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "c3d4",
+    "loss": 400,
+    "hint_is_solution": false
+   },
+   "oracle": {
+    "move": "c3d4",
+    "loss": 400,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "c3d4",
+    "loss": 400,
+    "hint_is_solution": false,
+    "fired": true
+   }
+  },
+  {
+   "id": "0Yesd",
+   "split": "dev",
+   "solution": "f6f5",
+   "maia_top1": "d5d4",
+   "learned_top1": "c5c4",
+   "v8_2k": "c5c4",
+   "none": {
+    "move": "c5c4",
+    "loss": 544,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "c5c4",
+    "loss": 544,
+    "hint_is_solution": false
+   },
+   "random": {
+    "move": "c5c4",
+    "loss": 544,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "c5c4",
+    "loss": 544,
+    "hint_is_solution": false
+   },
+   "oracle": {
+    "move": "c5c4",
+    "loss": 544,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "c5c4",
+    "loss": 544,
+    "hint_is_solution": false,
+    "fired": true
+   }
+  },
+  {
+   "id": "36E33",
+   "split": "confirm",
+   "solution": "g4g5",
+   "maia_top1": "g2g3",
+   "learned_top1": "f4f5",
+   "v8_2k": "g2g3",
+   "none": {
+    "move": "g4g5",
+    "loss": 0,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "d4e3",
+    "loss": 396,
+    "hint_is_solution": false
+   },
+   "random": {
+    "move": "g4g5",
+    "loss": 0,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "g2g3",
+    "loss": 396,
+    "hint_is_solution": false
+   },
+   "oracle": {
+    "move": "f4f5",
+    "loss": 438,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "g4g5",
+    "loss": 0,
+    "hint_is_solution": null,
+    "fired": false
+   }
+  },
+  {
+   "id": "30hkq",
+   "split": "confirm",
+   "solution": "f3f6",
+   "maia_top1": "e6f7",
+   "learned_top1": "e6f7",
+   "v8_2k": "e6f7",
+   "none": {
+    "move": "e6f7",
+    "loss": 592,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "e6f7",
+    "loss": 592,
+    "hint_is_solution": false
+   },
+   "random": {
+    "move": "e6f7",
+    "loss": 592,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "e6f7",
+    "loss": 592,
+    "hint_is_solution": false
+   },
+   "oracle": {
+    "move": "e6f7",
+    "loss": 592,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "e6f7",
+    "loss": 592,
+    "hint_is_solution": null,
+    "fired": false
+   }
+  },
+  {
+   "id": "27xwC",
+   "split": "dev",
+   "solution": "g2g6",
+   "maia_top1": "h4h5",
+   "learned_top1": "h4h5",
+   "v8_2k": "d2h6",
+   "none": {
+    "move": "h4h5",
+    "loss": 551,
+    "hint_is_solution": null
+   },
+   "maia": {
+    "move": "h4h5",
+    "loss": 551,
+    "hint_is_solution": false
+   },
+   "random": {
+    "move": "h4h5",
+    "loss": 551,
+    "hint_is_solution": false
+   },
+   "learned": {
+    "move": "h4h5",
+    "loss": 551,
+    "hint_is_solution": false
+   },
+   "oracle": {
+    "move": "h4h5",
+    "loss": 551,
+    "hint_is_solution": true
+   },
+   "gate038": {
+    "move": "h4h5",
+    "loss": 551,
+    "hint_is_solution": false,
+    "fired": true
+   }
+  }
+ ],
+ "gate038_vs_random_routing_expected_loss": {
+  "gate": 512.9,
+  "random_same_rate": 539.7,
+  "always_on": 530.6,
+  "always_off": 552.7,
+  "extra_compute": "gate: +2k-node probe per position; hint search itself is equal-node"
+ }
+}

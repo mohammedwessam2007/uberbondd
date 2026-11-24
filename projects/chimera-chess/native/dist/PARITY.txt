@@ -2,8 +2,9 @@ rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 d2d4 93746
 r1bqkb1r/pppp1ppp/2n2n2/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4 f3g5 83478
 r2q1rk1/pp2bppp/2n1pn2/3p4/2PP4/2N1PN2/PP2BPPP/R2Q1RK1 w - - 0 10 a2a3 343214
 8/5pk1/6p1/3P4/5P2/6P1/5K2/8 w - - 0 40 f2e3 15917
-x86-64 == linux-arm64 (qemu-aarch64-static) == frozen V8 ref, fixed-depth-8 bench, 2026-11-24T11:12:58Z
+bench nodes 536355
+x86-64 == linux-arm64 (qemu-aarch64-static) == frozen V8 ref, fixed-depth-8 bench, 2026-11-24T13:32:37Z (V13 source)
 android-arm64 (NDK r27c, API 28, 16KB pages) built from the same source; NOT EXECUTED (no Android device/emulator)
-42a172df545825cb5023df6ef5b18d8d54dd3eb205bc601fd197aed1d77648f9  native/dist/chimera-linux-arm64-static
-eb3e2b053708d0b647b33324a79f9c7e46142964d7fb17f114e587bf8591383d  native/dist/chimera-android-arm64
-source sha256 3ff57b9db0b08d8e9d56605577a36568dec724a79ea4c84c62e804948b3a06af
+58fc5fb22adf94029d0f6b6b5eddfaba639f229565e83f065770c5c35fa23ada  native/dist/chimera-linux-arm64-static
+4edf48c894937c2372055f0743f78258215bfc9bc0bb9b892c2ded0acf7d2d1e  native/dist/chimera-android-arm64
+source sha256 ed21745d29178195f30a5b77b1962d4aba1f02c1d31682640c6bb66d5b4feddf

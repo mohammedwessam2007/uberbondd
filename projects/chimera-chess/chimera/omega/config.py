@@ -61,6 +61,9 @@ PROFILES = {  # gauntlet ablations (section 16 of the mandate)
     "NO_CREATIVE": {"use_creative": False},
     "NO_MOTIFS": {"use_motifs": False},
     "NO_NEURAL": {"use_neural": False, "use_maia": False},
+    # engineering correction (not a PDF preset): same motifs, max_cp_drop 40 instead of 135 -- tests the flaw found in the
+    # gauntlet (motif arbitration overrode the objective best on 130/250 moves). Pre-registered in evidence/omega/PREREG_sound.md
+    "WHOLE_MIND_SOUND": {"max_cp_drop": 40.0},
 }
 
 

@@ -151,4 +151,34 @@ class StockfishTactical(NativeBackend):
     def __init__(self, cfg):
         self.root = Proc([cfg.stockfish_path], {"Threads": cfg.sf_threads, "Hash": 128})
         self.aux = Proc([cfg.stockfish_path], {"Threads": 1, "Hash": 32})
+        self.pool = [Proc([cfg.stockfish_path], {"Threads": 1, "Hash": 16}) for _ in range(max(1, cfg.reply_k))]   # #159 parallel reply workers
+        for p in self.pool:   # start in the main thread: SimpleEngine instances must not be created lazily from worker threads
+            p.eng()
         self.nodes_used = 0
+
+    def replies_parallel(self, jobs, us, nodes, probes=False):
+        """jobs: list of (next_board, extra_moves). Runs each on its own Stockfish worker concurrently (#159)."""
+        from concurrent.futures import ThreadPoolExecutor
+
+        def one(i_job):
+            i, (nb, extra) = i_job
+            p = self.pool[i % len(self.pool)]
+            if nb.is_game_over():
+                return {}
+            top = p.call(lambda e: e.analyse(nb, chess.engine.Limit(nodes=nodes), multipv=min(6, nb.legal_moves.count()), game=object()))
+            out = {it["pv"][0].uci(): _cp(it["score"], us) for it in top if it.get("pv")}
+            miss = [u for u in extra if u not in out and chess.Move.from_uci(u) in nb.legal_moves]
+            if miss:
+                info = p.call(lambda e: e.analyse(nb, chess.engine.Limit(nodes=nodes), multipv=len(miss), root_moves=[chess.Move.from_uci(u) for u in miss], game=object()))
+                out.update({it["pv"][0].uci(): _cp(it["score"], us) for it in info if it.get("pv")})
+            if probes:   # #32/#41 depth probes on the same worker
+                d = {k: _cp(p.call(lambda e, k=k: e.analyse(nb, chess.engine.Limit(depth=k), game=object()))["score"], us) for k in (1, 3, 5)}
+                out = (out, d)
+            return out
+        with ThreadPoolExecutor(max_workers=len(self.pool)) as ex:
+            return list(ex.map(one, enumerate(jobs)))
+
+    def close(self):
+        self.root.close(); self.aux.close()
+        for p in self.pool:
+            p.close()

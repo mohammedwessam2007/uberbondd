@@ -97,28 +97,32 @@ class WholeMind:
         # 2 ROOT SEARCH
         secs = budget_s * cfg.root_time_frac if (budget_s and cfg.root_time_frac > 0) else None
         if cfg.tactical == "stockfish":   # PDF: sf_time_sec = 0.12 s per root analysis, scaled with the available clock
-            secs = max(0.05, min(cfg.sf_time_sec * max(1.0, budget_scale), (budget_s or 1.0) * 0.5))
-        cand = self.backend.analyse_root(board, rn, min(cfg.root_multipv, len(legal)), seconds=secs)
+            secs = max(0.05, min(cfg.sf_time_sec * (max(1.0, budget_scale) if cfg.root_time_frac >= 0 else 1.0), (budget_s or 1.0) * 0.5))
+        from concurrent.futures import ThreadPoolExecutor
+        with ThreadPoolExecutor(max_workers=1) as ex:           # root search runs while Maia + Artist scan work (#159)
+            fut = ex.submit(lambda: self.backend.analyse_root(board, rn, min(cfg.root_multipv, len(legal)), seconds=secs))
+            extra = []
+            if cfg.use_creative:
+                if self.maia is not None:
+                    extra += list(self._maia(board, cfg.maia_elo, cfg.maia_elo))[:3]
+                if cfg.use_motifs:
+                    cheap = []
+                    pool = list(legal)
+                    pool.sort(key=lambda m: -(board.is_capture(m) * 2 + board.gives_check(m) * 3 + (m.promotion is not None) * 4))
+                    for m in pool[: cfg.artist_scan + 8]:
+                        nb = board.copy(); nb.push(m)
+                        sc, _ = M.score_move(M.Ctx(board, m, nb, state=self.state), self.enabled, have=set())
+                        cheap.append((sc, m.uci()))
+                    extra += [u for sc, u in sorted(cheap, reverse=True)[:3] if sc > 0]
+            cand = fut.result()
         tr["root"] = dict(sorted(cand.items(), key=lambda kv: -kv[1]))
         self.partial = max(cand, key=cand.get)
         self.note_root_eval(max(cand.values()))
         # 3 ARTIST
-        extra = []
         if cfg.use_creative:
-            if self.maia is not None:
-                extra += list(self._maia(board, cfg.maia_elo, cfg.maia_elo))[:3]
-            if cfg.use_motifs:
-                cheap = []
-                for m in legal:
-                    if m.uci() in cand:
-                        continue
-                    nb = board.copy(); nb.push(m)
-                    s, _ = M.score_move(M.Ctx(board, m, nb, state=self.state), self.enabled, have=set())
-                    cheap.append((s, m.uci()))
-                extra += [u for s, u in sorted(cheap, reverse=True)[:3] if s > 0]
             extra = [u for u in dict.fromkeys(extra) if u not in cand]
             if extra:
-                cand.update(self.backend.eval_moves(board, extra, rn // 2))
+                cand.update(self.backend.eval_moves(board, extra, cfg.artist_nodes))
             tr["artist_extra"] = extra
         best = max(cand.values())
         # 4 GATE
@@ -129,6 +133,17 @@ class WholeMind:
             thr = max(cfg.soundness_floor_cp, best - cfg.max_cp_drop) if best >= cfg.soundness_floor_cp else best - cfg.max_cp_drop
             gate = {u: v for u, v in cand.items() if v >= thr}
             tr["gate_rule"] = f"eval >= {thr:.0f}"
+        # #1/#177 vs #151 conflict (V4): if every gated move walks into a draw, the gate widens to non-drawing moves down to the
+        # anti-draw contempt value (-120 cp; -250 cp after move 30) while the position is not worse than -80 cp.
+        def drawish(u):
+            x = board.copy(); x.push(chess.Move.from_uci(u))
+            return x.is_repetition(2) or x.is_stalemate() or x.can_claim_fifty_moves() or x.is_insufficient_material()
+        if best < MATE_T and best >= -80 and gate and all(drawish(u) for u in gate):
+            contempt = cfg.anti_draw_contempt_cp if board.fullmove_number <= 30 else -250.0
+            extra = {u: v for u, v in cand.items() if v >= contempt and not drawish(u)}
+            if extra:
+                gate.update(extra)
+                tr["conflict"] = {"rule": "#1/#177 anti-draw contempt over #151 soundness floor", "contempt_cp": contempt, "admitted": sorted(extra)}
         tr["gated_out"] = sorted(set(cand) - set(gate))
         # 5 ROUTING (#180 + #29)
         top5 = sorted(cand.values(), reverse=True)[:5]
@@ -143,6 +158,16 @@ class WholeMind:
         tr["routing"] = {"leverage": leverage, "critical_extension": swing, "deep_candidates": sorted(deep)}
         # 6 MOTIFS + 7 ARBITRATION
         scored = []
+        prior = None
+        pre = {}
+        if deep and hasattr(self.backend, "replies_parallel"):   # #159: Maia first (cheap), then all reply searches concurrently
+            dl = [u for u in order if u in deep]
+            nbs = {}
+            for u in dl:
+                x = board.copy(); x.push(chess.Move.from_uci(u)); nbs[u] = x
+            mz = {u: (self._maia(nbs[u], cfg.maia_elo, cfg.maia_elo) if self.maia is not None else {}) for u in dl}
+            res = self.backend.replies_parallel([(nbs[u], list(mz[u])[:6]) for u in dl], board.turn, rnn, probes=False)
+            pre = {u: (mz[u], r) for u, r in zip(dl, res)}
         for u in order:
             m = chess.Move.from_uci(u)
             nb = board.copy(); nb.push(m)
@@ -151,14 +176,19 @@ class WholeMind:
             if u in deep and not nb.is_game_over():
                 reply = M.ReplyInfo()
                 if self.maia is not None:
-                    reply.maia = self._maia(nb, cfg.maia_elo, cfg.maia_elo)
-                    if not board.is_check():
+                    reply.maia = pre[u][0] if u in pre else self._maia(nb, cfg.maia_elo, cfg.maia_elo)
+                    if prior is None and not board.is_check():
                         pb = board.copy(); pb.push(chess.Move.null())
-                        if pb.is_valid():
-                            reply.maia_prior = self._maia(pb, cfg.maia_elo, cfg.maia_elo)
+                        prior = self._maia(pb, cfg.maia_elo, cfg.maia_elo) if pb.is_valid() else {}
+                    reply.maia_prior = prior or {}
                     have.add("maia")
-                reply.evals = self.backend.replies(nb, board.turn, rnn, extra=list(reply.maia)[:6])
-                if leverage:
+                probes = None
+                if u in pre and isinstance(pre[u][1], tuple):
+                    reply.evals, probes = pre[u][1]
+                    reply.static, reply.shallow_d3, reply.deep_d5 = probes[1], probes[3], probes[5]
+                else:
+                    reply.evals = pre[u][1] if u in pre else self.backend.replies(nb, board.turn, rnn, extra=list(reply.maia)[:6])
+                if leverage and probes is None:
                     reply.static = self.backend.depth_eval(nb, 1, board.turn)
                     reply.shallow_d3 = self.backend.depth_eval(nb, 3, board.turn)
                     reply.deep_d5 = self.backend.depth_eval(nb, 5, board.turn)

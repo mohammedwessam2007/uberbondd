@@ -46,6 +46,8 @@ class ChimeraConfig:
     verify_nodes: int = 300000
     reply_k: int = 4
     root_multipv: int = 16               # PDF sf_multipv; V2 runtime uses 4 (see PROFILES WHOLE_MIND_V2)
+    artist_scan: int = 999               # how many non-root legal moves the Artist scans for motif-constructive candidates
+    artist_nodes: int = 60000
     tactical: str = "native"             # native (CHIMERA C++ search) | stockfish (PDF-faithful tactical ground truth)
     sf_threads: int = 1
     root_time_frac: float = 0.0          # >0: root search gets this fraction of the move's time budget (V2 budget fix)
@@ -76,6 +78,9 @@ PROFILES = {  # gauntlet ablations (section 16 of the mandate)
     # V3 iteration after the PDF_FAITHFUL benchmark (0-6-4 vs sf2685, 6/6 draws by repetition, overrides on 52% of moves):
     # anti-draw fixed (repetition entry, cp units) and motif scale 0.35 -> 0.15 so motifs arbitrate among near-equal sound moves.
     "PDF_FAITHFUL_V3": {"tactical": "stockfish", "root_multipv": 16, "root_time_frac": 0.0, "reply_k": 3, "reply_nodes": 30000, "verify_nodes": 300000, "motif_scale": 0.15},
+    # V4: contempt/gate arbitration + latency (root fixed at the PDF's 0.12 s, Maia prior once per move, lighter replies/Skeptic)
+    "PDF_FAITHFUL_V4": {"tactical": "stockfish", "root_multipv": 16, "root_time_frac": -1.0, "reply_k": 2, "reply_nodes": 6000, "verify_nodes": 100000,
+                        "motif_scale": 0.15, "artist_scan": 12, "artist_nodes": 15000},
     "WHOLE_MIND_V2": {"root_multipv": 4, "root_time_frac": 0.6, "reply_k": 3, "reply_nodes": 15000, "verify_nodes": 150000},
 }
 

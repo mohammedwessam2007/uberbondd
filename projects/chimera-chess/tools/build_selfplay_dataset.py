@@ -45,7 +45,7 @@ def main(out, n_games, seed):
                 if not ms: break
                 b.push(rng.choice(ms))
             while not b.is_game_over(claim_draw=True) and b.ply() < 160:
-                if b.ply() >= 8 and b.ply() % 2 == 0 and not b.is_check():
+                if b.ply() >= 8 and (b.ply() + g) % 2 == 0 and not b.is_check():  # V11 fix: both sides to move (was white-only)
                     bm, info = sf.go(b.fen(), "depth 7")
                     if info and not b.is_capture(chess.Move.from_uci(bm)):
                         ev.stdin.write(f"position fen {b.fen()}\neval\n"); ev.stdin.flush()

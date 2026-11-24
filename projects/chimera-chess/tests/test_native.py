@@ -235,3 +235,67 @@ class ForcedMoveTests(unittest.TestCase):
         self.assertEqual(best.split()[1], "h1g2")
         self.assertTrue(any(" pv h1g2" in l for l in lines))
         e.close()
+
+
+class V11FeatureTests(unittest.TestCase):
+    def setUp(self):
+        self.e = Engine()
+
+    def tearDown(self):
+        self.e.close()
+
+    def test_incremental_accumulator_exact(self):
+        nn = os.path.join(ROOT, "nnue", "chimera-nnue-v2r.bin")
+        if not os.path.exists(nn):
+            self.skipTest("no trained net present")
+        self.e.send(f"setoption name EvalFile value {nn}")
+        for fen, d in [(PERFT[1][0], 3), (PERFT[4][0], 3), ("8/P7/8/3pP3/8/8/8/k6K w - d6 0 1", 3)]:
+            self.e.send(f"position fen {fen}")
+            self.e.send(f"nncheck {d}")
+            l, _ = self.e.until("nncheck")
+            t = l.split()
+            self.assertEqual(int(t[4]), 0, l)          # incremental == full refresh at every node
+            self.assertLess(float(t[6]), 5.0, l)       # quantization error vs float reference (cp)
+
+    def test_multipv_ordered(self):
+        self.e.send("setoption name MultiPV value 3")
+        self.e.send("position startpos")
+        self.e.send("go depth 7")
+        _, lines = self.e.until("bestmove")
+        d7 = [l for l in lines if l.startswith("info depth 7")]
+        main = [int(l.split(" cp ")[1].split()[0]) for l in d7 if "multipv" not in l and " cp " in l]
+        extra = [int(l.split(" cp ")[1].split()[0]) for l in d7 if "multipv" in l]
+        self.assertEqual(len(extra), 2)
+        self.assertTrue(main and all(x <= main[0] for x in extra))
+
+    def test_style_respects_margin(self):
+        fen = "r1bq1rk1/pppp1ppp/2n2n2/2b1p3/2B1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6"
+        for prof in ("attack", "restraint"):
+            self.e.send(f"setoption name StyleProfile value {prof}")
+            self.e.send("setoption name StyleMarginCp value 30")
+            self.e.send(f"position fen {fen}")
+            self.e.send("go depth 8")
+            _, lines = self.e.until("bestmove")
+            for l in lines:
+                if l.startswith("info string style"):
+                    t = l.split()
+                    chosen, top = int(t[6].strip("()")), int(t[9].strip("()"))
+                    self.assertLessEqual(top - chosen, 30, l)
+
+    def test_stateless_and_governor_options(self):
+        self.e.send("setoption name ClearStateEachMove value true")
+        self.e.send("setoption name Governor value true")
+        self.e.send("setoption name GovernorWeights value -2,0,0,1,0,0,0,0.5,0.15")
+        self.e.send("position startpos")
+        self.e.send("go movetime 150")
+        best, _ = self.e.until("bestmove", 5)
+        self.assertIn(chess.Move.from_uci(best.split()[1]), chess.Board().legal_moves)
+
+    def test_android_binary_properties(self):
+        p = os.path.join(ROOT, "native", "dist", "chimera-android-arm64")
+        if not os.path.exists(p):
+            self.skipTest("android binary not built")
+        data = open(p, "rb").read(4096)
+        self.assertEqual(data[:4], b"\x7fELF")
+        self.assertEqual(data[18], 0xB7)               # e_machine EM_AARCH64
+        self.assertIn(b"/system/bin/linker64", open(p, "rb").read(1 << 16))

@@ -1,0 +1,2133 @@
+{
+ "summary": {
+  "positions": 100,
+  "depth": 8,
+  "margin_cp": 30,
+  "none": {
+   "changed_vs_none": 0.0,
+   "mean_attack_trait": 3.62,
+   "mean_restraint_trait": -28.13,
+   "mean_sf_loss": 30.3
+  },
+  "attack": {
+   "changed_vs_none": 0.19,
+   "mean_attack_trait": 4.26,
+   "mean_restraint_trait": -27.85,
+   "mean_sf_loss": 35.9,
+   "changed_n": 19,
+   "paired_trait_gain_on_changed": 3.37,
+   "paired_sf_loss_delta_on_changed": 32.2
+  },
+  "restraint": {
+   "changed_vs_none": 0.31,
+   "mean_attack_trait": 3.92,
+   "mean_restraint_trait": -26.68,
+   "mean_sf_loss": 38.0,
+   "changed_n": 31,
+   "paired_trait_gain_on_changed": 4.68,
+   "paired_sf_loss_delta_on_changed": 17.3
+  }
+ },
+ "rows": [
+  {
+   "fen": "r1bqkbnr/pppp1ppp/2n5/1B2p3/4P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 3 3",
+   "none": {
+    "move": "a7a6",
+    "attack": 0,
+    "restraint": -32,
+    "sf_loss": 16
+   },
+   "attack": {
+    "move": "c6d4",
+    "attack": 2,
+    "restraint": -34,
+    "sf_loss": 41
+   },
+   "restraint": {
+    "move": "a7a6",
+    "attack": 0,
+    "restraint": -32,
+    "sf_loss": 19
+   }
+  },
+  {
+   "fen": "r3kbnr/1ppb1ppp/p1pq4/8/P2pP3/2N2N2/1PP2PPP/R1BQK2R w KQkq - 0 8",
+   "none": {
+    "move": "d1d4",
+    "attack": 0,
+    "restraint": -40,
+    "sf_loss": 10
+   },
+   "attack": {
+    "move": "d1d4",
+    "attack": 0,
+    "restraint": -40,
+    "sf_loss": 13
+   },
+   "restraint": {
+    "move": "d1d4",
+    "attack": 0,
+    "restraint": -40,
+    "sf_loss": 8
+   }
+  },
+  {
+   "fen": "2kr1b1r/2pbnppp/p1p5/1p6/P2NPB1P/2N5/1PP2PP1/2KR3R b - - 0 12",
+   "none": {
+    "move": "b5b4",
+    "attack": 0,
+    "restraint": -43,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "b5b4",
+    "attack": 0,
+    "restraint": -43,
+    "sf_loss": 2
+   },
+   "restraint": {
+    "move": "b5b4",
+    "attack": 0,
+    "restraint": -43,
+    "sf_loss": 0
+   }
+  },
+  {
+   "fen": "2k1rb1r/2pb2p1/p4pn1/1p3N1p/3BP2P/2N5/1PP2PP1/2KR3R w - - 0 17",
+   "none": {
+    "move": "f2f3",
+    "attack": 0,
+    "restraint": -27,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "f2f3",
+    "attack": 0,
+    "restraint": -27,
+    "sf_loss": 1
+   },
+   "restraint": {
+    "move": "f2f3",
+    "attack": 0,
+    "restraint": -27,
+    "sf_loss": 0
+   }
+  },
+  {
+   "fen": "2k1rb1r/3b4/p1p1Npp1/1p5p/4P2P/2N1BPP1/1PP5/2KR3R b - - 0 21",
+   "none": {
+    "move": "e8e6",
+    "attack": 0,
+    "restraint": -40,
+    "sf_loss": 15
+   },
+   "attack": {
+    "move": "e8e6",
+    "attack": 0,
+    "restraint": -40,
+    "sf_loss": 16
+   },
+   "restraint": {
+    "move": "e8e6",
+    "attack": 0,
+    "restraint": -40,
+    "sf_loss": 18
+   }
+  },
+  {
+   "fen": "2k1r2r/4bb2/2p3p1/pp2p2p/3B1N1P/5PP1/1PP5/2KR3R w - - 0 26",
+   "none": {
+    "move": "d4e5",
+    "attack": 10,
+    "restraint": -27,
+    "sf_loss": 12
+   },
+   "attack": {
+    "move": "d4e5",
+    "attack": 10,
+    "restraint": -27,
+    "sf_loss": 21
+   },
+   "restraint": {
+    "move": "d4e5",
+    "attack": 10,
+    "restraint": -27,
+    "sf_loss": 20
+   }
+  },
+  {
+   "fen": "2kr2r1/4b3/2p3p1/1p1bB2p/p6P/3NRPP1/1PP5/2KR4 b - - 5 30",
+   "none": {
+    "move": "g8e8",
+    "attack": 0,
+    "restraint": -36,
+    "sf_loss": 17
+   },
+   "attack": {
+    "move": "a4a3",
+    "attack": 1,
+    "restraint": -37,
+    "sf_loss": 19
+   },
+   "restraint": {
+    "move": "b5b4",
+    "attack": 0,
+    "restraint": -35,
+    "sf_loss": 37
+   }
+  },
+  {
+   "fen": "2kr4/8/2p2Bpb/1p1b3p/7P/pP1NRPP1/2P5/2K5 w - - 1 35",
+   "none": {
+    "move": "f3f4",
+    "attack": 2,
+    "restraint": -30,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "f3f4",
+    "attack": 2,
+    "restraint": -30,
+    "sf_loss": 0
+   },
+   "restraint": {
+    "move": "f3f4",
+    "attack": 2,
+    "restraint": -30,
+    "sf_loss": 0
+   }
+  },
+  {
+   "fen": "2k3r1/8/2p2Bpb/2N4p/1Pp2P1P/p3R1P1/8/1K3b2 b - - 0 39",
+   "none": {
+    "move": "g8f8",
+    "attack": 1,
+    "restraint": -46,
+    "sf_loss": 11
+   },
+   "attack": {
+    "move": "g8f8",
+    "attack": 1,
+    "restraint": -46,
+    "sf_loss": 8
+   },
+   "restraint": {
+    "move": "g8f8",
+    "attack": 1,
+    "restraint": -46,
+    "sf_loss": 3
+   }
+  },
+  {
+   "fen": "2k2b2/8/2prR1p1/2N4p/1Pp2P1P/2B3P1/K7/5b2 w - - 5 44",
+   "none": {
+    "move": "e6e8",
+    "attack": 16,
+    "restraint": -5,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "e6e8",
+    "attack": 16,
+    "restraint": -5,
+    "sf_loss": 0
+   },
+   "restraint": {
+    "move": "e6e8",
+    "attack": 16,
+    "restraint": -5,
+    "sf_loss": 0
+   }
+  },
+  {
+   "fen": "5k2/8/2p3p1/7p/1Pp2P1P/2B3P1/1K6/5b2 b - - 1 48",
+   "none": {
+    "move": "f8e7",
+    "attack": 1,
+    "restraint": -19,
+    "sf_loss": 1
+   },
+   "attack": {
+    "move": "f1d3",
+    "attack": 5,
+    "restraint": -17,
+    "sf_loss": 0
+   },
+   "restraint": {
+    "move": "f8e8",
+    "attack": 1,
+    "restraint": -16,
+    "sf_loss": 1
+   }
+  },
+  {
+   "fen": "8/8/2p3p1/3k3p/1PpB1P1P/4K1P1/2b5/8 w - - 10 53",
+   "none": {
+    "move": "d4e5",
+    "attack": 6,
+    "restraint": -26,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "d4e5",
+    "attack": 6,
+    "restraint": -26,
+    "sf_loss": 1
+   },
+   "restraint": {
+    "move": "d4e5",
+    "attack": 6,
+    "restraint": -26,
+    "sf_loss": 0
+   }
+  },
+  {
+   "fen": "8/2B5/1Pk3p1/2p4p/b4P1P/2pK2P1/8/8 b - - 1 57",
+   "none": {
+    "move": "c3c2",
+    "attack": 3,
+    "restraint": -22,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "c3c2",
+    "attack": 3,
+    "restraint": -22,
+    "sf_loss": 0
+   },
+   "restraint": {
+    "move": "c3c2",
+    "attack": 3,
+    "restraint": -22,
+    "sf_loss": 0
+   }
+  },
+  {
+   "fen": "8/1kB5/1P4p1/7p/5P1P/1bp3P1/2p5/2K5 w - - 0 62",
+   "none": {
+    "move": "c7d8",
+    "attack": 6,
+    "restraint": -28,
+    "sf_loss": 1
+   },
+   "attack": {
+    "move": "c7d8",
+    "attack": 6,
+    "restraint": -28,
+    "sf_loss": 1
+   },
+   "restraint": {
+    "move": "c7d8",
+    "attack": 6,
+    "restraint": -28,
+    "sf_loss": 1
+   }
+  },
+  {
+   "fen": "8/8/kP4p1/7p/b2B1P1P/2p3P1/2p5/2K5 b - - 9 66",
+   "none": {
+    "move": "a4b3",
+    "attack": 6,
+    "restraint": -18,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "a4b3",
+    "attack": 6,
+    "restraint": -18,
+    "sf_loss": 0
+   },
+   "restraint": {
+    "move": "a4b3",
+    "attack": 6,
+    "restraint": -18,
+    "sf_loss": 0
+   }
+  },
+  {
+   "fen": "8/8/1P1k2p1/7p/5P1P/1bp3P1/2p2B2/2K5 w - - 18 71",
+   "none": {
+    "move": "f2d4",
+    "attack": 6,
+    "restraint": -28,
+    "sf_loss": 2
+   },
+   "attack": {
+    "move": "f2c5",
+    "attack": 10,
+    "restraint": -20,
+    "sf_loss": 2
+   },
+   "restraint": {
+    "move": "f2c5",
+    "attack": 10,
+    "restraint": -20,
+    "sf_loss": 2
+   }
+  },
+  {
+   "fen": "8/1k6/1P4p1/7p/5P1P/1bp1B1P1/2p5/2K5 b - - 27 75",
+   "none": {
+    "move": "b7c6",
+    "attack": 6,
+    "restraint": -17,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "b7c6",
+    "attack": 6,
+    "restraint": -17,
+    "sf_loss": 0
+   },
+   "restraint": {
+    "move": "b7a6",
+    "attack": 6,
+    "restraint": -14,
+    "sf_loss": 0
+   }
+  },
+  {
+   "fen": "8/3k4/1P4p1/7p/b4P1P/2p1B1P1/2p5/2K5 w - - 36 80",
+   "none": {
+    "move": "b6b7",
+    "attack": 1,
+    "restraint": -26,
+    "sf_loss": 86
+   },
+   "attack": {
+    "move": "e3c5",
+    "attack": 5,
+    "restraint": -24,
+    "sf_loss": 86
+   },
+   "restraint": {
+    "move": "e3c5",
+    "attack": 5,
+    "restraint": -24,
+    "sf_loss": 85
+   }
+  },
+  {
+   "fen": "6b1/3k4/1P5P/5p2/6p1/2p1B3/2K5/8 b - - 0 84",
+   "none": {
+    "move": "d7c6",
+    "attack": 4,
+    "restraint": -24,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "d7c6",
+    "attack": 4,
+    "restraint": -24,
+    "sf_loss": 0
+   },
+   "restraint": {
+    "move": "g8h7",
+    "attack": 2,
+    "restraint": -18,
+    "sf_loss": 0
+   }
+  },
+  {
+   "fen": "6b1/8/2k4P/5K2/8/4B1p1/8/8 w - - 0 89",
+   "none": {
+    "move": "f5f4",
+    "attack": 4,
+    "restraint": -14,
+    "sf_loss": 1
+   },
+   "attack": {
+    "move": "f5f4",
+    "attack": 4,
+    "restraint": -14,
+    "sf_loss": 1
+   },
+   "restraint": {
+    "move": "f5f4",
+    "attack": 4,
+    "restraint": -14,
+    "sf_loss": 1
+   }
+  },
+  {
+   "fen": "8/7b/7P/8/4k3/8/3B2K1/8 b - - 4 93",
+   "none": {
+    "move": "e4d3",
+    "attack": 0,
+    "restraint": -22,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "h7f5",
+    "attack": 2,
+    "restraint": -24,
+    "sf_loss": 1
+   },
+   "restraint": {
+    "move": "e4d5",
+    "attack": 0,
+    "restraint": -16,
+    "sf_loss": 0
+   }
+  },
+  {
+   "fen": "8/7b/7P/6K1/4kB2/8/8/8 w - - 13 98",
+   "none": {
+    "move": "f4h2",
+    "attack": 4,
+    "restraint": -20,
+    "sf_loss": 1
+   },
+   "attack": {
+    "move": "f4h2",
+    "attack": 4,
+    "restraint": -20,
+    "sf_loss": 1
+   },
+   "restraint": {
+    "move": "f4h2",
+    "attack": 4,
+    "restraint": -20,
+    "sf_loss": 1
+   }
+  },
+  {
+   "fen": "8/8/5K1P/3k4/4b3/8/7B/8 b - - 22 102",
+   "none": {
+    "move": "e4h7",
+    "attack": 4,
+    "restraint": -23,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "e4h7",
+    "attack": 4,
+    "restraint": -23,
+    "sf_loss": 0
+   },
+   "restraint": {
+    "move": "d5c6",
+    "attack": 4,
+    "restraint": -20,
+    "sf_loss": 1
+   }
+  },
+  {
+   "fen": "8/2B2K1b/7P/3k4/8/8/8/8 w - - 31 107",
+   "none": {
+    "move": "f7f6",
+    "attack": 4,
+    "restraint": -24,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "f7f6",
+    "attack": 4,
+    "restraint": -24,
+    "sf_loss": 0
+   },
+   "restraint": {
+    "move": "f7e8",
+    "attack": 4,
+    "restraint": -13,
+    "sf_loss": 0
+   }
+  },
+  {
+   "fen": "8/8/5K1P/3k4/5B2/3b4/8/8 b - - 40 111",
+   "none": {
+    "move": "d3h7",
+    "attack": 4,
+    "restraint": -26,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "d3h7",
+    "attack": 4,
+    "restraint": -26,
+    "sf_loss": 0
+   },
+   "restraint": {
+    "move": "d5c6",
+    "attack": 4,
+    "restraint": -23,
+    "sf_loss": 1
+   }
+  },
+  {
+   "fen": "8/8/1B3K1P/3k4/8/3b4/8/8 w - - 49 116",
+   "none": {
+    "move": "b6e3",
+    "attack": 4,
+    "restraint": -27,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "b6e3",
+    "attack": 4,
+    "restraint": -27,
+    "sf_loss": 0
+   },
+   "restraint": {
+    "move": "f6e7",
+    "attack": 4,
+    "restraint": -21,
+    "sf_loss": 0
+   }
+  },
+  {
+   "fen": "8/5K2/7P/3k4/4b3/8/3B4/8 b - - 58 120",
+   "none": {
+    "move": "d5e5",
+    "attack": 2,
+    "restraint": -23,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "d5e5",
+    "attack": 2,
+    "restraint": -23,
+    "sf_loss": 0
+   },
+   "restraint": {
+    "move": "d5c6",
+    "attack": 2,
+    "restraint": -16,
+    "sf_loss": 0
+   }
+  },
+  {
+   "fen": "8/5K2/7P/3k1b2/8/6B1/8/8 w - - 67 125",
+   "none": {
+    "move": "f7f6",
+    "attack": 4,
+    "restraint": -28,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "f7f6",
+    "attack": 4,
+    "restraint": -28,
+    "sf_loss": 0
+   },
+   "restraint": {
+    "move": "f7g7",
+    "attack": 4,
+    "restraint": -23,
+    "sf_loss": 0
+   }
+  },
+  {
+   "fen": "1B6/4K3/7P/3k1b2/8/8/8/8 b - - 76 129",
+   "none": {
+    "move": "f5e4",
+    "attack": 0,
+    "restraint": -26,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "d5d4",
+    "attack": 4,
+    "restraint": -17,
+    "sf_loss": 0
+   },
+   "restraint": {
+    "move": "d5d4",
+    "attack": 4,
+    "restraint": -17,
+    "sf_loss": 0
+   }
+  },
+  {
+   "fen": "8/8/5K1P/3k4/4b3/6B1/8/8 w - - 85 134",
+   "none": {
+    "move": "g3h4",
+    "attack": 0,
+    "restraint": -26,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "g3e5",
+    "attack": 4,
+    "restraint": -24,
+    "sf_loss": 0
+   },
+   "restraint": {
+    "move": "f6g5",
+    "attack": 4,
+    "restraint": -20,
+    "sf_loss": 0
+   }
+  },
+  {
+   "fen": "8/5K1b/7P/B1k5/8/8/8/8 b - - 94 138",
+   "none": {
+    "move": "h7e4",
+    "attack": 2,
+    "restraint": -21,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "c5d4",
+    "attack": 4,
+    "restraint": -16,
+    "sf_loss": 0
+   },
+   "restraint": {
+    "move": "c5d4",
+    "attack": 4,
+    "restraint": -16,
+    "sf_loss": 0
+   }
+  },
+  {
+   "fen": "r1bqkbnr/pppp1ppp/2n5/1B2p3/4P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 3 3",
+   "none": {
+    "move": "a7a6",
+    "attack": 0,
+    "restraint": -32,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "c6d4",
+    "attack": 2,
+    "restraint": -34,
+    "sf_loss": 21
+   },
+   "restraint": {
+    "move": "a7a6",
+    "attack": 0,
+    "restraint": -32,
+    "sf_loss": 0
+   }
+  },
+  {
+   "fen": "r3kbnr/1pp2ppp/p1p2q2/4p3/4P3/5Q1P/PPPP1PP1/RNB2RK1 w kq - 1 8",
+   "none": {
+    "move": "f3e3",
+    "attack": 0,
+    "restraint": -38,
+    "sf_loss": 17
+   },
+   "attack": {
+    "move": "f3d3",
+    "attack": 10,
+    "restraint": -35,
+    "sf_loss": 64
+   },
+   "restraint": {
+    "move": "a2a4",
+    "attack": 0,
+    "restraint": -34,
+    "sf_loss": 72
+   }
+  },
+  {
+   "fen": "r3k2r/2p1npp1/pppb1q2/4p2p/P3P3/2N4P/1PPPQPP1/R1BR2K1 b kq - 2 12",
+   "none": {
+    "move": "a6a5",
+    "attack": 5,
+    "restraint": -31,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "a6a5",
+    "attack": 5,
+    "restraint": -31,
+    "sf_loss": 0
+   },
+   "restraint": {
+    "move": "a6a5",
+    "attack": 5,
+    "restraint": -31,
+    "sf_loss": 0
+   }
+  },
+  {
+   "fen": "r6r/2k1npp1/p2b1q2/Rpp1p2p/4P3/2NPB2P/1PP1QPP1/3R2K1 w - - 2 17",
+   "none": {
+    "move": "f2f3",
+    "attack": 0,
+    "restraint": -41,
+    "sf_loss": 175
+   },
+   "attack": {
+    "move": "f2f3",
+    "attack": 0,
+    "restraint": -41,
+    "sf_loss": 198
+   },
+   "restraint": {
+    "move": "f2f3",
+    "attack": 0,
+    "restraint": -41,
+    "sf_loss": 194
+   }
+  },
+  {
+   "fen": "1rk4r/4npp1/Q2b1q2/R1p1p2p/3PP3/4B2P/1PP2PP1/R5K1 b - - 2 21",
+   "none": {
+    "move": "c8d7",
+    "attack": 5,
+    "restraint": -54,
+    "sf_loss": 79
+   },
+   "attack": {
+    "move": "c8d7",
+    "attack": 5,
+    "restraint": -54,
+    "sf_loss": 64
+   },
+   "restraint": {
+    "move": "c8d8",
+    "attack": 5,
+    "restraint": -48,
+    "sf_loss": 65
+   }
+  },
+  {
+   "fen": "3rk2r/R1b1np2/5p2/2P1p2p/4P3/4B2P/1PP2PP1/3R2K1 w - - 2 26",
+   "none": {
+    "move": "d1d8",
+    "attack": 12,
+    "restraint": -2,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "d1d8",
+    "attack": 12,
+    "restraint": -2,
+    "sf_loss": 0
+   },
+   "restraint": {
+    "move": "d1d8",
+    "attack": 12,
+    "restraint": -2,
+    "sf_loss": 0
+   }
+  },
+  {
+   "fen": "7r/4kp2/2n2p2/b1P1p2p/R1P1PP2/4B2P/1P3KP1/8 b - - 2 30",
+   "none": {
+    "move": "h5h4",
+    "attack": 3,
+    "restraint": -21,
+    "sf_loss": 32
+   },
+   "attack": {
+    "move": "h5h4",
+    "attack": 3,
+    "restraint": -21,
+    "sf_loss": 42
+   },
+   "restraint": {
+    "move": "h5h4",
+    "attack": 3,
+    "restraint": -21,
+    "sf_loss": 35
+   }
+  },
+  {
+   "fen": "8/2b1kp2/2n2p2/2P1pP2/2r1P1P1/4B3/RP3K2/8 w - - 0 35",
+   "none": {
+    "move": "a2a6",
+    "attack": 2,
+    "restraint": -23,
+    "sf_loss": 40
+   },
+   "attack": {
+    "move": "a2a6",
+    "attack": 2,
+    "restraint": -23,
+    "sf_loss": 32
+   },
+   "restraint": {
+    "move": "a2a6",
+    "attack": 2,
+    "restraint": -23,
+    "sf_loss": 37
+   }
+  },
+  {
+   "fen": "3b4/3k1p2/2n2p2/2P1pP2/4P1P1/4BK2/1r6/4R3 b - - 1 39",
+   "none": {
+    "move": "d8e7",
+    "attack": 10,
+    "restraint": -24,
+    "sf_loss": 15
+   },
+   "attack": {
+    "move": "d8e7",
+    "attack": 10,
+    "restraint": -24,
+    "sf_loss": 17
+   },
+   "restraint": {
+    "move": "d7c8",
+    "attack": 10,
+    "restraint": -18,
+    "sf_loss": 27
+   }
+  },
+  {
+   "fen": "8/3kbp2/5p2/2P2P2/2RpP1P1/4r3/4K3/8 w - - 2 44",
+   "none": {
+    "move": "e2f2",
+    "attack": 2,
+    "restraint": -35,
+    "sf_loss": 8
+   },
+   "attack": {
+    "move": "e2f2",
+    "attack": 2,
+    "restraint": -35,
+    "sf_loss": 0
+   },
+   "restraint": {
+    "move": "e2f2",
+    "attack": 2,
+    "restraint": -35,
+    "sf_loss": 0
+   }
+  },
+  {
+   "fen": "8/2k1bp2/2P2p2/5P2/3R1KP1/r7/8/8 b - - 0 48",
+   "none": {
+    "move": "e7d6",
+    "attack": 21,
+    "restraint": -11,
+    "sf_loss": 4
+   },
+   "attack": {
+    "move": "e7d6",
+    "attack": 21,
+    "restraint": -11,
+    "sf_loss": 23
+   },
+   "restraint": {
+    "move": "e7d6",
+    "attack": 21,
+    "restraint": -11,
+    "sf_loss": 8
+   }
+  },
+  {
+   "fen": "6R1/5p2/2kb1p2/5P2/5rP1/5K2/8/8 w - - 8 53",
+   "none": {
+    "move": "f3e3",
+    "attack": 0,
+    "restraint": -40,
+    "sf_loss": 8
+   },
+   "attack": {
+    "move": "f3e3",
+    "attack": 0,
+    "restraint": -40,
+    "sf_loss": 6
+   },
+   "restraint": {
+    "move": "f3g2",
+    "attack": 0,
+    "restraint": -34,
+    "sf_loss": 52
+   }
+  },
+  {
+   "fen": "6R1/4kp2/5p2/4bP2/3r2P1/4K3/8/8 b - - 17 57",
+   "none": {
+    "move": "d4a4",
+    "attack": 13,
+    "restraint": -28,
+    "sf_loss": 18
+   },
+   "attack": {
+    "move": "e7d7",
+    "attack": 16,
+    "restraint": -26,
+    "sf_loss": 13
+   },
+   "restraint": {
+    "move": "e7d7",
+    "attack": 16,
+    "restraint": -26,
+    "sf_loss": 22
+   }
+  },
+  {
+   "fen": "1b6/5pk1/5p2/3K1P2/6P1/8/8/8 w - - 4 62",
+   "none": {
+    "move": "d5c6",
+    "attack": 1,
+    "restraint": -18,
+    "sf_loss": 2
+   },
+   "attack": {
+    "move": "d5c6",
+    "attack": 1,
+    "restraint": -18,
+    "sf_loss": 1
+   },
+   "restraint": {
+    "move": "d5c6",
+    "attack": 1,
+    "restraint": -18,
+    "sf_loss": 1
+   }
+  },
+  {
+   "fen": "8/8/4Kp2/4bP2/6k1/8/8/8 b - - 1 66",
+   "none": {
+    "move": "g4g5",
+    "attack": 5,
+    "restraint": -13,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "g4g5",
+    "attack": 5,
+    "restraint": -13,
+    "sf_loss": 51
+   },
+   "restraint": {
+    "move": "g4f4",
+    "attack": 5,
+    "restraint": -10,
+    "sf_loss": 0
+   }
+  },
+  {
+   "fen": "8/8/8/4bp2/1K6/3k4/8/8 w - - 0 71",
+   "none": {
+    "move": "b4c5",
+    "attack": 0,
+    "restraint": -32,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "b4b3",
+    "attack": 0,
+    "restraint": -34,
+    "sf_loss": 250
+   },
+   "restraint": {
+    "move": "b4a4",
+    "attack": 0,
+    "restraint": -22,
+    "sf_loss": 250
+   }
+  },
+  {
+   "fen": "8/8/3K4/8/3b4/3k4/5p2/8 b - - 1 75",
+   "none": {
+    "move": "f2f1q",
+    "attack": 4,
+    "restraint": -6,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "f2f1q",
+    "attack": 4,
+    "restraint": -6,
+    "sf_loss": 0
+   },
+   "restraint": {
+    "move": "f2f1q",
+    "attack": 4,
+    "restraint": -6,
+    "sf_loss": 34
+   }
+  },
+  {
+   "fen": "rnbqkbnr/pp2pppp/3p4/2p5/3PP3/5N2/PPP2PPP/RNBQKB1R b KQkq - 0 3",
+   "none": {
+    "move": "c5d4",
+    "attack": 0,
+    "restraint": -37,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "c5d4",
+    "attack": 0,
+    "restraint": -37,
+    "sf_loss": 0
+   },
+   "restraint": {
+    "move": "c5d4",
+    "attack": 0,
+    "restraint": -37,
+    "sf_loss": 0
+   }
+  },
+  {
+   "fen": "r1bqkb1r/1p2pppp/p2p1n2/2n5/3NP3/2NB4/PPP2PPP/R1BQ1RK1 w kq - 4 8",
+   "none": {
+    "move": "d4f3",
+    "attack": 0,
+    "restraint": -35,
+    "sf_loss": 9
+   },
+   "attack": {
+    "move": "d4f3",
+    "attack": 0,
+    "restraint": -35,
+    "sf_loss": 11
+   },
+   "restraint": {
+    "move": "d4f3",
+    "attack": 0,
+    "restraint": -35,
+    "sf_loss": 11
+   }
+  },
+  {
+   "fen": "r1bqkb1r/5ppp/p2p4/1pnNp3/4P3/3B1N2/PPP2PPP/2RQ1RK1 b kq - 1 12",
+   "none": {
+    "move": "f8e7",
+    "attack": 0,
+    "restraint": -37,
+    "sf_loss": 67
+   },
+   "attack": {
+    "move": "f8e7",
+    "attack": 0,
+    "restraint": -37,
+    "sf_loss": 26
+   },
+   "restraint": {
+    "move": "c8g4",
+    "attack": 0,
+    "restraint": -36,
+    "sf_loss": 132
+   }
+  },
+  {
+   "fen": "2rqkb1r/6pp/p1bp1p2/1p1Np3/1P1PP3/1Q3N2/P4PPP/2R2RK1 w k - 2 17",
+   "none": {
+    "move": "b3a3",
+    "attack": 2,
+    "restraint": -23,
+    "sf_loss": 129
+   },
+   "attack": {
+    "move": "d5e3",
+    "attack": 5,
+    "restraint": -25,
+    "sf_loss": 52
+   },
+   "restraint": {
+    "move": "b3a3",
+    "attack": 2,
+    "restraint": -23,
+    "sf_loss": 143
+   }
+  },
+  {
+   "fen": "2rqkb2/1b4p1/p2p3r/1p1Np1Np/1P2P2P/5Q2/P4PP1/2RR2K1 b - - 3 21",
+   "none": {
+    "move": "b7d5",
+    "attack": 0,
+    "restraint": -51,
+    "sf_loss": 16
+   },
+   "attack": {
+    "move": "b7d5",
+    "attack": 0,
+    "restraint": -51,
+    "sf_loss": 21
+   },
+   "restraint": {
+    "move": "b7d5",
+    "attack": 0,
+    "restraint": -51,
+    "sf_loss": 0
+   }
+  },
+  {
+   "fen": "5b2/3qk1p1/p2pNr2/1p1Pp1Q1/1Pr4P/8/P4PP1/2RR2K1 w - - 5 26",
+   "none": {
+    "move": "c1c4",
+    "attack": 10,
+    "restraint": -17,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "c1c4",
+    "attack": 10,
+    "restraint": -17,
+    "sf_loss": 0
+   },
+   "restraint": {
+    "move": "c1c4",
+    "attack": 10,
+    "restraint": -17,
+    "sf_loss": 0
+   }
+  },
+  {
+   "fen": "8/4kr2/p2p4/1q1Pp3/1Pp3QP/8/P4PP1/2R3K1 b - - 2 30",
+   "none": {
+    "move": "b5b4",
+    "attack": 3,
+    "restraint": -44,
+    "sf_loss": 155
+   },
+   "attack": {
+    "move": "b5d5",
+    "attack": 8,
+    "restraint": -42,
+    "sf_loss": 0
+   },
+   "restraint": {
+    "move": "b5d5",
+    "attack": 8,
+    "restraint": -42,
+    "sf_loss": 0
+   }
+  },
+  {
+   "fen": "8/4k3/p2p4/4p3/1P4QP/6P1/P2q1P2/6K1 w - - 1 35",
+   "none": {
+    "move": "a2a4",
+    "attack": 10,
+    "restraint": -28,
+    "sf_loss": 140
+   },
+   "attack": {
+    "move": "a2a4",
+    "attack": 10,
+    "restraint": -28,
+    "sf_loss": 136
+   },
+   "restraint": {
+    "move": "a2a4",
+    "attack": 10,
+    "restraint": -28,
+    "sf_loss": 141
+   }
+  },
+  {
+   "fen": "3k4/8/8/pP1pp3/3Q3P/6P1/P4PK1/8 b - - 0 39",
+   "none": {
+    "move": "e5d4",
+    "attack": 0,
+    "restraint": -13,
+    "sf_loss": 4
+   },
+   "attack": {
+    "move": "e5d4",
+    "attack": 0,
+    "restraint": -13,
+    "sf_loss": 6
+   },
+   "restraint": {
+    "move": "e5d4",
+    "attack": 0,
+    "restraint": -13,
+    "sf_loss": 8
+   }
+  },
+  {
+   "fen": "8/7P/3k4/pP1p4/8/5KP1/P2p1P2/8 w - - 0 44",
+   "none": {
+    "move": "f3e2",
+    "attack": 1,
+    "restraint": -15,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "f3e2",
+    "attack": 1,
+    "restraint": -15,
+    "sf_loss": 0
+   },
+   "restraint": {
+    "move": "f3e2",
+    "attack": 1,
+    "restraint": -15,
+    "sf_loss": 0
+   }
+  },
+  {
+   "fen": "8/1Q6/6k1/3p4/5P2/3K2P1/P7/8 w - - 3 53",
+   "none": {
+    "move": "b7d5",
+    "attack": 21,
+    "restraint": -4,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "b7e7",
+    "attack": 26,
+    "restraint": -10,
+    "sf_loss": 563
+   },
+   "restraint": {
+    "move": "b7d5",
+    "attack": 21,
+    "restraint": -4,
+    "sf_loss": 0
+   }
+  },
+  {
+   "fen": "rnbqkbnr/pp2pppp/3p4/2p5/3PP3/5N2/PPP2PPP/RNBQKB1R b KQkq - 0 3",
+   "none": {
+    "move": "c5d4",
+    "attack": 0,
+    "restraint": -37,
+    "sf_loss": 4
+   },
+   "attack": {
+    "move": "c5d4",
+    "attack": 0,
+    "restraint": -37,
+    "sf_loss": 0
+   },
+   "restraint": {
+    "move": "c5d4",
+    "attack": 0,
+    "restraint": -37,
+    "sf_loss": 0
+   }
+  },
+  {
+   "fen": "r1bqkb1r/1p3ppp/p1np1n2/4p3/4P3/2N2N2/PPP1BPPP/R1BQK2R w KQkq - 2 8",
+   "none": {
+    "move": "e1g1",
+    "attack": 0,
+    "restraint": -36,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "e1g1",
+    "attack": 0,
+    "restraint": -36,
+    "sf_loss": 0
+   },
+   "restraint": {
+    "move": "e1g1",
+    "attack": 0,
+    "restraint": -36,
+    "sf_loss": 7
+   }
+  },
+  {
+   "fen": "r1bq1rk1/1p2bpp1/p2p1n1p/4p3/PnB1P3/2N2N2/1PPQ1PPP/R1B2RK1 b - - 1 12",
+   "none": {
+    "move": "d8c7",
+    "attack": 0,
+    "restraint": -46,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "d8c7",
+    "attack": 0,
+    "restraint": -46,
+    "sf_loss": 0
+   },
+   "restraint": {
+    "move": "d8a5",
+    "attack": 0,
+    "restraint": -45,
+    "sf_loss": 82
+   }
+  },
+  {
+   "fen": "r4rk1/1p2b1p1/p1nppn1p/P1q1p3/4P3/2N2N2/1PP1QPPP/R1BR2K1 w - - 3 17",
+   "none": {
+    "move": "e2e3",
+    "attack": 0,
+    "restraint": -44,
+    "sf_loss": 88
+   },
+   "attack": {
+    "move": "e2e3",
+    "attack": 0,
+    "restraint": -44,
+    "sf_loss": 69
+   },
+   "restraint": {
+    "move": "e2e3",
+    "attack": 0,
+    "restraint": -44,
+    "sf_loss": 80
+   }
+  },
+  {
+   "fen": "3r1rk1/1pb3p1/p1n1pn1p/P1p1p3/4P3/2N1BN2/1PP2PPP/R2R2K1 b - - 5 21",
+   "none": {
+    "move": "c6d4",
+    "attack": 0,
+    "restraint": -38,
+    "sf_loss": 87
+   },
+   "attack": {
+    "move": "c6d4",
+    "attack": 0,
+    "restraint": -38,
+    "sf_loss": 85
+   },
+   "restraint": {
+    "move": "c6d4",
+    "attack": 0,
+    "restraint": -38,
+    "sf_loss": 85
+   }
+  },
+  {
+   "fen": "2r3k1/1pb3p1/p3p2p/P1p1p3/N2n4/8/1PPB1PPP/3R2K1 w - - 1 26",
+   "none": {
+    "move": "h2h3",
+    "attack": 0,
+    "restraint": -28,
+    "sf_loss": 90
+   },
+   "attack": {
+    "move": "h2h3",
+    "attack": 0,
+    "restraint": -28,
+    "sf_loss": 63
+   },
+   "restraint": {
+    "move": "h2h3",
+    "attack": 0,
+    "restraint": -28,
+    "sf_loss": 103
+   }
+  },
+  {
+   "fen": "2r3k1/1N4p1/p3p2p/4p2P/3n4/8/1P1R1PP1/6K1 b - - 0 30",
+   "none": {
+    "move": "c8c1",
+    "attack": 12,
+    "restraint": -2,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "c8c1",
+    "attack": 12,
+    "restraint": -2,
+    "sf_loss": 0
+   },
+   "restraint": {
+    "move": "c8c1",
+    "attack": 12,
+    "restraint": -2,
+    "sf_loss": 0
+   }
+  },
+  {
+   "fen": "6k1/6p1/2rNp2p/p3p2P/3n4/3R1P2/1P4PK/8 w - - 3 35",
+   "none": {
+    "move": "d6e4",
+    "attack": 0,
+    "restraint": -23,
+    "sf_loss": 29
+   },
+   "attack": {
+    "move": "d6e4",
+    "attack": 0,
+    "restraint": -23,
+    "sf_loss": 3
+   },
+   "restraint": {
+    "move": "d6e4",
+    "attack": 0,
+    "restraint": -23,
+    "sf_loss": 0
+   }
+  },
+  {
+   "fen": "5k2/6p1/4p2p/4p2P/p1rnN1P1/5P2/1P1R1K2/8 b - - 0 39",
+   "none": {
+    "move": "f8e7",
+    "attack": 4,
+    "restraint": -27,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "f8e7",
+    "attack": 4,
+    "restraint": -27,
+    "sf_loss": 0
+   },
+   "restraint": {
+    "move": "c4b4",
+    "attack": 4,
+    "restraint": -20,
+    "sf_loss": 0
+   }
+  },
+  {
+   "fen": "5k2/6p1/3Np2p/4p2P/p2n2P1/5P2/1P1R1K2/2r5 w - - 9 44",
+   "none": {
+    "move": "d6e4",
+    "attack": 0,
+    "restraint": -43,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "f2g3",
+    "attack": 4,
+    "restraint": -33,
+    "sf_loss": 2
+   },
+   "restraint": {
+    "move": "f2g3",
+    "attack": 4,
+    "restraint": -33,
+    "sf_loss": 0
+   }
+  },
+  {
+   "fen": "8/8/4p1kp/4p3/p2nN1P1/R4PK1/1P6/2r5 b - - 1 48",
+   "none": {
+    "move": "d4e2",
+    "attack": 11,
+    "restraint": -17,
+    "sf_loss": 1
+   },
+   "attack": {
+    "move": "d4e2",
+    "attack": 11,
+    "restraint": -17,
+    "sf_loss": 1
+   },
+   "restraint": {
+    "move": "d4e2",
+    "attack": 11,
+    "restraint": -17,
+    "sf_loss": 2
+   }
+  },
+  {
+   "fen": "8/8/4p1kp/4p3/pr2N1PK/Rn3P2/1P6/8 w - - 10 53",
+   "none": {
+    "move": "h4h3",
+    "attack": 6,
+    "restraint": -17,
+    "sf_loss": 19
+   },
+   "attack": {
+    "move": "h4h3",
+    "attack": 6,
+    "restraint": -17,
+    "sf_loss": 20
+   },
+   "restraint": {
+    "move": "h4h3",
+    "attack": 6,
+    "restraint": -17,
+    "sf_loss": 23
+   }
+  },
+  {
+   "fen": "8/8/4p3/4pk2/N7/R4P2/2r1nK2/8 w - - 1 62",
+   "none": {
+    "move": "f2e3",
+    "attack": 2,
+    "restraint": -44,
+    "sf_loss": 505
+   },
+   "attack": {
+    "move": "f2e3",
+    "attack": 2,
+    "restraint": -44,
+    "sf_loss": 512
+   },
+   "restraint": {
+    "move": "f2e3",
+    "attack": 2,
+    "restraint": -44,
+    "sf_loss": 565
+   }
+  },
+  {
+   "fen": "8/8/4p3/4pk2/8/2n1KP2/8/8 b - - 1 66",
+   "none": {
+    "move": "c3b5",
+    "attack": 4,
+    "restraint": -17,
+    "sf_loss": 51
+   },
+   "attack": {
+    "move": "c3b5",
+    "attack": 4,
+    "restraint": -17,
+    "sf_loss": 25
+   },
+   "restraint": {
+    "move": "c3b5",
+    "attack": 4,
+    "restraint": -17,
+    "sf_loss": 15
+   }
+  },
+  {
+   "fen": "8/8/4p3/4p3/2n5/5Pk1/4K3/8 w - - 10 71",
+   "none": {
+    "move": "e2d3",
+    "attack": 1,
+    "restraint": -24,
+    "sf_loss": 272
+   },
+   "attack": {
+    "move": "e2d3",
+    "attack": 1,
+    "restraint": -24,
+    "sf_loss": 272
+   },
+   "restraint": {
+    "move": "e2d3",
+    "attack": 1,
+    "restraint": -24,
+    "sf_loss": 272
+   }
+  },
+  {
+   "fen": "8/8/4p3/8/5k2/3Kp3/8/8 b - - 1 75",
+   "none": {
+    "move": "f4f3",
+    "attack": 1,
+    "restraint": -13,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "f4f3",
+    "attack": 1,
+    "restraint": -13,
+    "sf_loss": 0
+   },
+   "restraint": {
+    "move": "f4f3",
+    "attack": 1,
+    "restraint": -13,
+    "sf_loss": 0
+   }
+  },
+  {
+   "fen": "8/8/8/4p3/2K5/8/5k2/4q3 w - - 0 80",
+   "none": {
+    "move": "c4d5",
+    "attack": 0,
+    "restraint": -31,
+    "sf_loss": 76
+   },
+   "attack": {
+    "move": "c4d5",
+    "attack": 0,
+    "restraint": -31,
+    "sf_loss": 72
+   },
+   "restraint": {
+    "move": "c4d5",
+    "attack": 0,
+    "restraint": -31,
+    "sf_loss": 82
+   }
+  },
+  {
+   "fen": "8/5K2/8/q7/8/8/4pk2/8 b - - 1 84",
+   "none": {
+    "move": "a5g5",
+    "attack": 25,
+    "restraint": -3,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "a5g5",
+    "attack": 25,
+    "restraint": -3,
+    "sf_loss": 0
+   },
+   "restraint": {
+    "move": "a5g5",
+    "attack": 25,
+    "restraint": -3,
+    "sf_loss": 0
+   }
+  },
+  {
+   "fen": "rnbqkbnr/ppp2ppp/4p3/3p4/3PP3/2N5/PPP2PPP/R1BQKBNR b KQkq - 1 3",
+   "none": {
+    "move": "d5e4",
+    "attack": 0,
+    "restraint": -39,
+    "sf_loss": 14
+   },
+   "attack": {
+    "move": "d5e4",
+    "attack": 0,
+    "restraint": -39,
+    "sf_loss": 22
+   },
+   "restraint": {
+    "move": "d5e4",
+    "attack": 0,
+    "restraint": -39,
+    "sf_loss": 22
+   }
+  },
+  {
+   "fen": "r1bqk1nr/ppp3pp/2n1p3/3pp3/3P2Q1/P1P5/2P2PPP/R1B1KBNR w KQkq - 0 8",
+   "none": {
+    "move": "g4g7",
+    "attack": 20,
+    "restraint": -24,
+    "sf_loss": 35
+   },
+   "attack": {
+    "move": "g4g7",
+    "attack": 20,
+    "restraint": -24,
+    "sf_loss": 36
+   },
+   "restraint": {
+    "move": "g4g7",
+    "attack": 20,
+    "restraint": -24,
+    "sf_loss": 27
+   }
+  },
+  {
+   "fen": "r1bq1rk1/ppp1n3/2n1p1p1/3pP2p/7P/P1PB1NQ1/2P2PP1/R1B1K2R b KQ - 1 12",
+   "none": {
+    "move": "d8e8",
+    "attack": 0,
+    "restraint": -38,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "d8e8",
+    "attack": 0,
+    "restraint": -38,
+    "sf_loss": 0
+   },
+   "restraint": {
+    "move": "d8e8",
+    "attack": 0,
+    "restraint": -38,
+    "sf_loss": 0
+   }
+  },
+  {
+   "fen": "r1b1q1k1/pp6/4p1pB/n1ppPn1p/5Q1P/P1P2N2/2P2PP1/R4RK1 w - - 0 17",
+   "none": {
+    "move": "h6g5",
+    "attack": 0,
+    "restraint": -31,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "g1h1",
+    "attack": 4,
+    "restraint": -30,
+    "sf_loss": 27
+   },
+   "restraint": {
+    "move": "g1h1",
+    "attack": 4,
+    "restraint": -30,
+    "sf_loss": 34
+   }
+  },
+  {
+   "fen": "r1b1q1k1/p5n1/4pBp1/1pppP3/2n3QP/P1P2N2/2P2P1K/R4R2 b - - 2 21",
+   "none": {
+    "move": "g7f5",
+    "attack": 2,
+    "restraint": -45,
+    "sf_loss": 182
+   },
+   "attack": {
+    "move": "g7f5",
+    "attack": 2,
+    "restraint": -45,
+    "sf_loss": 149
+   },
+   "restraint": {
+    "move": "g7f5",
+    "attack": 2,
+    "restraint": -45,
+    "sf_loss": 214
+   }
+  },
+  {
+   "fen": "r3q3/3b2nk/4p1p1/ppBpP1Q1/2n4P/P1P2N2/2P2P1K/R5R1 w - - 3 26",
+   "none": {
+    "move": "f3e1",
+    "attack": 10,
+    "restraint": -29,
+    "sf_loss": 138
+   },
+   "attack": {
+    "move": "h4h5",
+    "attack": 11,
+    "restraint": -30,
+    "sf_loss": 49
+   },
+   "restraint": {
+    "move": "f3e1",
+    "attack": 10,
+    "restraint": -29,
+    "sf_loss": 139
+   }
+  },
+  {
+   "fen": "4q1k1/3b2n1/4p1PQ/pprpN3/6R1/P1P5/2P2P1K/R7 b - - 1 30",
+   "none": {
+    "move": "c5c4",
+    "attack": 0,
+    "restraint": -60,
+    "sf_loss": 153
+   },
+   "attack": {
+    "move": "c5c4",
+    "attack": 0,
+    "restraint": -60,
+    "sf_loss": 175
+   },
+   "restraint": {
+    "move": "c5c4",
+    "attack": 0,
+    "restraint": -60,
+    "sf_loss": 225
+   }
+  },
+  {
+   "fen": "8/3k2n1/4p1PQ/pprp4/8/P1P5/2P2P1K/R7 w - - 0 35",
+   "none": {
+    "move": "h6g7",
+    "attack": 16,
+    "restraint": -5,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "h6g7",
+    "attack": 16,
+    "restraint": -5,
+    "sf_loss": 0
+   },
+   "restraint": {
+    "move": "h6g7",
+    "attack": 16,
+    "restraint": -5,
+    "sf_loss": 0
+   }
+  },
+  {
+   "fen": "8/6Q1/1k4P1/p1PpR3/8/2P5/2P2P1K/8 b - - 0 39",
+   "none": {
+    "move": "b6b5",
+    "attack": 0,
+    "restraint": -38,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "b6b5",
+    "attack": 0,
+    "restraint": -38,
+    "sf_loss": 0
+   },
+   "restraint": {
+    "move": "b6b5",
+    "attack": 0,
+    "restraint": -38,
+    "sf_loss": 0
+   }
+  },
+  {
+   "fen": "rnbqkbnr/ppp2ppp/4p3/3p4/3PP3/2N5/PPP2PPP/R1BQKBNR b KQkq - 1 3",
+   "none": {
+    "move": "d5e4",
+    "attack": 0,
+    "restraint": -39,
+    "sf_loss": 26
+   },
+   "attack": {
+    "move": "d5e4",
+    "attack": 0,
+    "restraint": -39,
+    "sf_loss": 19
+   },
+   "restraint": {
+    "move": "d5e4",
+    "attack": 0,
+    "restraint": -39,
+    "sf_loss": 26
+   }
+  },
+  {
+   "fen": "r1bq1rk1/pppnnppp/4p3/3pP3/3P4/P1P2N2/2P2PPP/R1BQKB1R w KQ - 3 8",
+   "none": {
+    "move": "f1d3",
+    "attack": 2,
+    "restraint": -24,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "f1d3",
+    "attack": 2,
+    "restraint": -24,
+    "sf_loss": 0
+   },
+   "restraint": {
+    "move": "f1b5",
+    "attack": 0,
+    "restraint": -23,
+    "sf_loss": 61
+   }
+  },
+  {
+   "fen": "r1b2rk1/pp2n1pp/4pn2/q1Pp4/2P5/P2B1N2/2P2PPP/R1BQ1RK1 b - - 0 12",
+   "none": {
+    "move": "a5c5",
+    "attack": 5,
+    "restraint": -34,
+    "sf_loss": 4
+   },
+   "attack": {
+    "move": "a5c5",
+    "attack": 5,
+    "restraint": -34,
+    "sf_loss": 13
+   },
+   "restraint": {
+    "move": "a5c5",
+    "attack": 5,
+    "restraint": -34,
+    "sf_loss": 3
+   }
+  },
+  {
+   "fen": "r5k1/ppq1nrpp/5n2/3p4/P5b1/B2B1N2/2P2PPP/R2QR1K1 w - - 5 17",
+   "none": {
+    "move": "c2c4",
+    "attack": 2,
+    "restraint": -50,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "c2c4",
+    "attack": 2,
+    "restraint": -50,
+    "sf_loss": 30
+   },
+   "restraint": {
+    "move": "c2c4",
+    "attack": 2,
+    "restraint": -50,
+    "sf_loss": 4
+   }
+  },
+  {
+   "fen": "r4rk1/1pq1R1pp/5n2/p1P5/P2p4/B2B1Q1P/5PP1/R5K1 b - - 0 21",
+   "none": {
+    "move": "c7e7",
+    "attack": 0,
+    "restraint": -43,
+    "sf_loss": 48
+   },
+   "attack": {
+    "move": "c7e7",
+    "attack": 0,
+    "restraint": -43,
+    "sf_loss": 40
+   },
+   "restraint": {
+    "move": "c7e7",
+    "attack": 0,
+    "restraint": -43,
+    "sf_loss": 54
+   }
+  },
+  {
+   "fen": "1r3k2/1Pq3p1/5n1p/p7/P2p4/3B1Q1P/5PP1/1R4K1 w - - 0 26",
+   "none": {
+    "move": "d3g6",
+    "attack": 4,
+    "restraint": -30,
+    "sf_loss": 25
+   },
+   "attack": {
+    "move": "d3g6",
+    "attack": 4,
+    "restraint": -30,
+    "sf_loss": 0
+   },
+   "restraint": {
+    "move": "d3g6",
+    "attack": 4,
+    "restraint": -30,
+    "sf_loss": 14
+   }
+  },
+  {
+   "fen": "1rQ1n1k1/1Pq3p1/B6p/p7/P2p2P1/7P/5P2/3R2K1 b - - 8 30",
+   "none": {
+    "move": "c7e5",
+    "attack": 5,
+    "restraint": -33,
+    "sf_loss": 25
+   },
+   "attack": {
+    "move": "c7e5",
+    "attack": 5,
+    "restraint": -33,
+    "sf_loss": 35
+   },
+   "restraint": {
+    "move": "c7e5",
+    "attack": 5,
+    "restraint": -33,
+    "sf_loss": 68
+   }
+  },
+  {
+   "fen": "2B1n1k1/3R2p1/8/p7/P7/7p/5P2/6K1 w - - 0 35",
+   "none": {
+    "move": "d7d5",
+    "attack": 0,
+    "restraint": -13,
+    "sf_loss": 13
+   },
+   "attack": {
+    "move": "d7d5",
+    "attack": 0,
+    "restraint": -13,
+    "sf_loss": 0
+   },
+   "restraint": {
+    "move": "d7d5",
+    "attack": 0,
+    "restraint": -13,
+    "sf_loss": 0
+   }
+  },
+  {
+   "fen": "4n3/6k1/6p1/R7/P7/3B4/5P2/6K1 b - - 4 39",
+   "none": {
+    "move": "e8d6",
+    "attack": 0,
+    "restraint": -29,
+    "sf_loss": 25
+   },
+   "attack": {
+    "move": "e8d6",
+    "attack": 0,
+    "restraint": -29,
+    "sf_loss": 25
+   },
+   "restraint": {
+    "move": "e8d6",
+    "attack": 0,
+    "restraint": -29,
+    "sf_loss": 59
+   }
+  },
+  {
+   "fen": "2n2k2/8/R7/P7/8/3B4/5P2/6K1 w - - 3 44",
+   "none": {
+    "move": "a6a8",
+    "attack": 0,
+    "restraint": -5,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "a6a8",
+    "attack": 0,
+    "restraint": -5,
+    "sf_loss": 0
+   },
+   "restraint": {
+    "move": "a6a8",
+    "attack": 0,
+    "restraint": -5,
+    "sf_loss": 0
+   }
+  },
+  {
+   "fen": "8/P7/3k4/8/8/3B4/2R2P2/6K1 b - - 0 48",
+   "none": {
+    "move": "d6d7",
+    "attack": 0,
+    "restraint": -39,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "d6d7",
+    "attack": 0,
+    "restraint": -39,
+    "sf_loss": 0
+   },
+   "restraint": {
+    "move": "d6d7",
+    "attack": 0,
+    "restraint": -39,
+    "sf_loss": 0
+   }
+  },
+  {
+   "fen": "rnbqkbnr/pp2pppp/2p5/3p4/3PP3/2N5/PPP2PPP/R1BQKBNR b KQkq - 1 3",
+   "none": {
+    "move": "d5e4",
+    "attack": 0,
+    "restraint": -39,
+    "sf_loss": 10
+   },
+   "attack": {
+    "move": "d5e4",
+    "attack": 0,
+    "restraint": -39,
+    "sf_loss": 7
+   },
+   "restraint": {
+    "move": "b7b5",
+    "attack": 0,
+    "restraint": -38,
+    "sf_loss": 86
+   }
+  },
+  {
+   "fen": "rn1qkb1r/pp2pppp/2p2n2/8/3P2b1/3B1NN1/PPP2PPP/R1BQK2R w KQkq - 7 8",
+   "none": {
+    "move": "c2c3",
+    "attack": 0,
+    "restraint": -35,
+    "sf_loss": 0
+   },
+   "attack": {
+    "move": "c2c3",
+    "attack": 0,
+    "restraint": -35,
+    "sf_loss": 0
+   },
+   "restraint": {
+    "move": "c2c3",
+    "attack": 0,
+    "restraint": -35,
+    "sf_loss": 0
+   }
+  },
+  {
+   "fen": "r3kb1r/pp1nppp1/2pq1n2/2P4p/3P2b1/5NN1/PP2BPPP/R1BQ1RK1 b kq - 0 12",
+   "none": {
+    "move": "d6c7",
+    "attack": 0,
+    "restraint": -34,
+    "sf_loss": 19
+   },
+   "attack": {
+    "move": "d6c7",
+    "attack": 0,
+    "restraint": -34,
+    "sf_loss": 30
+   },
+   "restraint": {
+    "move": "d6c7",
+    "attack": 0,
+    "restraint": -34,
+    "sf_loss": 23
+   }
+  }
+ ]
+}

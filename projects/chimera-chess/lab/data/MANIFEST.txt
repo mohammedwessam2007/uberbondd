@@ -1,0 +1,13 @@
+# lab/data manifest (V11). Regenerable files removed from git: eval_v3_merged.tsv.gz, eval_v3_train50k/150k.tsv.gz
+# merge = dedupe by first 4 FEN fields over nnue/dataset_v2_selfplay.tsv.gz + selfplay_s11..13 (see STATUS_V11 / tools in session log)
+02304e123c6fc80412ea42cbd5621ffce727bd3aeb7001bd9f6ac22860182344  lab/data/eval_v3_merged.tsv.gz
+dba86db0985eadfeead6e21571afc098b8df96e8226c34993311023b5beb6b51  lab/data/eval_v3_train150k.tsv.gz
+211f2df6e32597a8eb6e26784cf344467281498aad8976926bc1068895c1c114  lab/data/eval_v3_train50k.tsv.gz
+d73096edbcd1c57e33e314f7c030136b1a6e0ce6b0124469dfb45918adb87b96  lab/data/selfplay_s11.tsv.gz
+37e2778251550f685238c79df9f25f70db8d14143238b83d722b1df2d6ae43b3  lab/data/selfplay_s12.tsv.gz
+234b55f16b9efa91a08a4c80b90669b57b8288161bd22c34b9fb3ffb2a17dc06  lab/data/selfplay_s13.tsv.gz
+fd4e322a56744a8c29274a9ff7c67fba837865ec64c5b033b5f13b5c9b0430f8  nnue/dataset_v2_selfplay.tsv.gz
+kept 105278
+kept 105474
+kept 104459
+merged sha recorded in train.json: 02304e123c6fc80412ea42cbd5621ffce727bd3aeb7001bd9f6ac22860182344

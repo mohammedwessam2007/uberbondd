@@ -1,0 +1,5197 @@
+{
+ "summary": {
+  "ms": 1000,
+  "student": null,
+  "dev": {
+   "n": 37,
+   "base_solved": 18,
+   "union_solved": 15,
+   "solution_recall_in_candidates": 28,
+   "base_mean_loss": 129.2,
+   "union_mean_loss": 177.1,
+   "mean_time_base_s": 0.778,
+   "mean_time_union_s": 0.797
+  },
+  "fresh": {
+   "n": 43,
+   "base_solved": 24,
+   "union_solved": 13,
+   "solution_recall_in_candidates": 30,
+   "base_mean_loss": 160.8,
+   "union_mean_loss": 284.3,
+   "mean_time_base_s": 0.74,
+   "mean_time_union_s": 0.82
+  },
+  "solution_found_by_source": {
+   "multipv3": 5,
+   "artist047": 16,
+   "multipv2": 5,
+   "maia3": 46,
+   "multipv1": 3
+  }
+ },
+ "rows": [
+  {
+   "id": "0wLgQ",
+   "split": "dev",
+   "solution": "h4h5",
+   "base": "c4c5",
+   "union": "c4c5",
+   "base_ok": false,
+   "union_ok": false,
+   "base_loss": 354,
+   "union_loss": 354,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "multipv3",
+    "artist047:quiet+break"
+   ],
+   "base_s": 1.026,
+   "union_s": 0.783,
+   "candidates": {
+    "c4c5": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": 0
+    },
+    "c4d4": {
+     "src": [
+      "multipv2",
+      "maia3"
+     ],
+     "verified": 0
+    },
+    "h4h5": {
+     "src": [
+      "multipv3",
+      "artist047:quiet+break"
+     ],
+     "verified": 0
+    },
+    "g2g3": {
+     "src": [
+      "maia3",
+      "artist047:quiet+break"
+     ],
+     "verified": 0
+    },
+    "g2g4": {
+     "src": [
+      "artist047:quiet+break"
+     ],
+     "verified": -392
+    }
+   }
+  },
+  {
+   "id": "09TNk",
+   "split": "dev",
+   "solution": "e1e4",
+   "base": "c1e3",
+   "union": "c1e3",
+   "base_ok": false,
+   "union_ok": false,
+   "base_loss": 84,
+   "union_loss": 81,
+   "solution_in_candidates": false,
+   "solution_sources": null,
+   "base_s": 0.823,
+   "union_s": 0.826,
+   "candidates": {
+    "c1e3": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": -161
+    },
+    "f3f4": {
+     "src": [
+      "multipv2",
+      "artist047:king_zone+quiet"
+     ],
+     "verified": -196
+    },
+    "c3c4": {
+     "src": [
+      "multipv3",
+      "maia3"
+     ],
+     "verified": -174
+    },
+    "c1b2": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -187
+    },
+    "f3f7": {
+     "src": [
+      "artist047:sacrifice+check"
+     ],
+     "verified": -1064
+    },
+    "f3f6": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -1087
+    },
+    "f3h5": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -1972
+    }
+   }
+  },
+  {
+   "id": "1XFHh",
+   "split": "dev",
+   "solution": "d6e5",
+   "base": "d6e7",
+   "union": "d6d5",
+   "base_ok": false,
+   "union_ok": false,
+   "base_loss": 271,
+   "union_loss": 271,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "multipv2",
+    "maia3"
+   ],
+   "base_s": 0.994,
+   "union_s": 0.921,
+   "candidates": {
+    "d6d5": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": -205
+    },
+    "d6e5": {
+     "src": [
+      "multipv2",
+      "maia3"
+     ],
+     "verified": -205
+    },
+    "d6e7": {
+     "src": [
+      "multipv3",
+      "maia3"
+     ],
+     "verified": -205
+    },
+    "e3b6": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -1517
+    }
+   }
+  },
+  {
+   "id": "1EniD",
+   "split": "dev",
+   "solution": "b3c1",
+   "base": "b3c1",
+   "union": "b3c1",
+   "base_ok": true,
+   "union_ok": true,
+   "base_loss": 0,
+   "union_loss": 0,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "multipv2",
+    "artist047:sacrifice+check+king_zone"
+   ],
+   "base_s": 0.71,
+   "union_s": 0.797,
+   "candidates": {
+    "b3a5": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": -194
+    },
+    "b3c1": {
+     "src": [
+      "multipv2",
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": 43
+    },
+    "b3d2": {
+     "src": [
+      "multipv3",
+      "maia3",
+      "artist047:king_zone+quiet"
+     ],
+     "verified": -210
+    },
+    "a4a3": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -240
+    },
+    "b6f6": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -751
+    },
+    "b6e6": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -1448
+    }
+   }
+  },
+  {
+   "id": "2bwA5",
+   "split": "dev",
+   "solution": "h5h6",
+   "base": "d7f7",
+   "union": "d7f7",
+   "base_ok": false,
+   "union_ok": false,
+   "base_loss": 317,
+   "union_loss": 321,
+   "solution_in_candidates": false,
+   "solution_sources": null,
+   "base_s": 0.816,
+   "union_s": 0.851,
+   "candidates": {
+    "d7f7": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": -27
+    },
+    "d7e7": {
+     "src": [
+      "multipv2",
+      "maia3",
+      "artist047:king_zone+quiet"
+     ],
+     "verified": -220
+    },
+    "d3f3": {
+     "src": [
+      "multipv3",
+      "artist047:king_zone+quiet"
+     ],
+     "verified": -270
+    },
+    "g5f7": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -296
+    },
+    "d3h7": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -1421
+    },
+    "d7d8": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -662
+    },
+    "d7c7": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -659
+    }
+   }
+  },
+  {
+   "id": "1SHlP",
+   "split": "dev",
+   "solution": "c4a3",
+   "base": "c4a3",
+   "union": "c4a3",
+   "base_ok": true,
+   "union_ok": true,
+   "base_loss": 20,
+   "union_loss": 19,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "multipv1",
+    "maia3"
+   ],
+   "base_s": 0.593,
+   "union_s": 0.802,
+   "candidates": {
+    "c4a3": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": 110
+    },
+    "f6f5": {
+     "src": [
+      "multipv2"
+     ],
+     "verified": -67
+    },
+    "b4a5": {
+     "src": [
+      "multipv3"
+     ],
+     "verified": -80
+    },
+    "c4d2": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -411
+    },
+    "d8d1": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -82
+    },
+    "e5f4": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -839
+    },
+    "e5d4": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -628
+    },
+    "e5g3": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -979
+    }
+   }
+  },
+  {
+   "id": "0Q5KF",
+   "split": "fresh",
+   "solution": "f7f3",
+   "base": "f7f3",
+   "union": "h5f4",
+   "base_ok": true,
+   "union_ok": false,
+   "base_loss": 0,
+   "union_loss": 505,
+   "solution_in_candidates": false,
+   "solution_sources": null,
+   "base_s": 0.68,
+   "union_s": 0.813,
+   "candidates": {
+    "g5c1": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": -475
+    },
+    "h5f4": {
+     "src": [
+      "multipv2",
+      "maia3"
+     ],
+     "verified": -455
+    },
+    "g5f4": {
+     "src": [
+      "multipv3",
+      "maia3"
+     ],
+     "verified": -468
+    },
+    "g5g4": {
+     "src": [
+      "artist047:sacrifice+check"
+     ],
+     "verified": -1427
+    },
+    "f7f8": {
+     "src": [
+      "artist047:sacrifice+quiet"
+     ],
+     "verified": -1143
+    },
+    "f7c7": {
+     "src": [
+      "artist047:sacrifice+quiet"
+     ],
+     "verified": -1242
+    }
+   }
+  },
+  {
+   "id": "35yQJ",
+   "split": "fresh",
+   "solution": "g5g4",
+   "base": "g5g6",
+   "union": "g5g6",
+   "base_ok": false,
+   "union_ok": false,
+   "base_loss": 367,
+   "union_loss": 367,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "maia3"
+   ],
+   "base_s": 0.998,
+   "union_s": 0.827,
+   "candidates": {
+    "g5g6": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": 0
+    },
+    "g5h6": {
+     "src": [
+      "multipv2",
+      "maia3"
+     ],
+     "verified": 0
+    },
+    "g5h5": {
+     "src": [
+      "multipv3"
+     ],
+     "verified": 0
+    },
+    "g5g4": {
+     "src": [
+      "maia3"
+     ],
+     "verified": 0
+    }
+   }
+  },
+  {
+   "id": "2cjmX",
+   "split": "dev",
+   "solution": "e6e5",
+   "base": "e6e5",
+   "union": "e6e5",
+   "base_ok": true,
+   "union_ok": true,
+   "base_loss": 0,
+   "union_loss": 0,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "multipv2",
+    "artist047:sacrifice"
+   ],
+   "base_s": 0.587,
+   "union_s": 0.786,
+   "candidates": {
+    "e6d6": {
+     "src": [
+      "multipv1"
+     ],
+     "verified": -210
+    },
+    "e6e5": {
+     "src": [
+      "multipv2",
+      "artist047:sacrifice"
+     ],
+     "verified": 53
+    },
+    "e6b3": {
+     "src": [
+      "multipv3",
+      "maia3",
+      "artist047:king_zone+quiet"
+     ],
+     "verified": -174
+    },
+    "e6e8": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -178
+    },
+    "d1d8": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -488
+    },
+    "e6c8": {
+     "src": [
+      "artist047:sacrifice+check"
+     ],
+     "verified": -846
+    },
+    "e6f7": {
+     "src": [
+      "artist047:sacrifice+check"
+     ],
+     "verified": -621
+    },
+    "e6e7": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -1182
+    }
+   }
+  },
+  {
+   "id": "2RZNQ",
+   "split": "dev",
+   "solution": "h1h7",
+   "base": "h1d1",
+   "union": "h1h7",
+   "base_ok": false,
+   "union_ok": true,
+   "base_loss": 4,
+   "union_loss": 0,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "artist047:sacrifice+check+king_zone"
+   ],
+   "base_s": 0.898,
+   "union_s": 0.796,
+   "candidates": {
+    "h1d1": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": -36
+    },
+    "e3h6": {
+     "src": [
+      "multipv2",
+      "maia3",
+      "artist047:check+king_zone"
+     ],
+     "verified": -89
+    },
+    "b3c2": {
+     "src": [
+      "multipv3",
+      "artist047:king_zone+quiet"
+     ],
+     "verified": -79
+    },
+    "h1b1": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -76
+    },
+    "h1h7": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": 0
+    },
+    "e3b6": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -267
+    },
+    "e3g5": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -502
+    }
+   }
+  },
+  {
+   "id": "15nBh",
+   "split": "fresh",
+   "solution": "b3b7",
+   "base": "b3b7",
+   "union": "f3e5",
+   "base_ok": true,
+   "union_ok": false,
+   "base_loss": 16,
+   "union_loss": 251,
+   "solution_in_candidates": false,
+   "solution_sources": null,
+   "base_s": 0.689,
+   "union_s": 0.862,
+   "candidates": {
+    "f3e5": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": 16
+    },
+    "c1f4": {
+     "src": [
+      "multipv2"
+     ],
+     "verified": 12
+    },
+    "e1g1": {
+     "src": [
+      "multipv3",
+      "maia3"
+     ],
+     "verified": 12
+    },
+    "c1d2": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -29
+    },
+    "b3b8": {
+     "src": [
+      "artist047:sacrifice+check"
+     ],
+     "verified": -1066
+    },
+    "b3e6": {
+     "src": [
+      "artist047:sacrifice+check"
+     ],
+     "verified": -890
+    },
+    "b3b6": {
+     "src": [
+      "artist047:sacrifice+quiet"
+     ],
+     "verified": -983
+    }
+   }
+  },
+  {
+   "id": "1CsUw",
+   "split": "fresh",
+   "solution": "e2e6",
+   "base": "c4d5",
+   "union": "c4d5",
+   "base_ok": false,
+   "union_ok": false,
+   "base_loss": 268,
+   "union_loss": 257,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "multipv3",
+    "maia3",
+    "artist047:king_zone+quiet"
+   ],
+   "base_s": 0.876,
+   "union_s": 0.835,
+   "candidates": {
+    "e2h5": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": -329
+    },
+    "c4d5": {
+     "src": [
+      "multipv2",
+      "maia3"
+     ],
+     "verified": -245
+    },
+    "e2e6": {
+     "src": [
+      "multipv3",
+      "maia3",
+      "artist047:king_zone+quiet"
+     ],
+     "verified": -357
+    },
+    "h8f7": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -837
+    },
+    "h8g6": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -730
+    },
+    "e2e7": {
+     "src": [
+      "artist047:sacrifice+check"
+     ],
+     "verified": -1928
+    }
+   }
+  },
+  {
+   "id": "0kU8p",
+   "split": "fresh",
+   "solution": "g4g5",
+   "base": "d2e4",
+   "union": "d2e4",
+   "base_ok": false,
+   "union_ok": false,
+   "base_loss": 124,
+   "union_loss": 129,
+   "solution_in_candidates": false,
+   "solution_sources": null,
+   "base_s": 0.998,
+   "union_s": 0.803,
+   "candidates": {
+    "d2e4": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": 53
+    },
+    "a2a3": {
+     "src": [
+      "multipv2"
+     ],
+     "verified": 18
+    },
+    "h5g6": {
+     "src": [
+      "multipv3",
+      "maia3"
+     ],
+     "verified": 44
+    },
+    "d2f3": {
+     "src": [
+      "maia3",
+      "artist047:king_zone+quiet"
+     ],
+     "verified": 7
+    },
+    "d2c4": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -289
+    },
+    "d2b3": {
+     "src": [
+      "artist047:king_zone+quiet"
+     ],
+     "verified": -146
+    }
+   }
+  },
+  {
+   "id": "1DYqe",
+   "split": "fresh",
+   "solution": "d6g3",
+   "base": "d6g3",
+   "union": "h2f3",
+   "base_ok": true,
+   "union_ok": false,
+   "base_loss": 0,
+   "union_loss": 365,
+   "solution_in_candidates": false,
+   "solution_sources": null,
+   "base_s": 0.779,
+   "union_s": 0.768,
+   "candidates": {
+    "h2f3": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": -44
+    },
+    "g7f7": {
+     "src": [
+      "multipv2",
+      "artist047:king_zone+quiet"
+     ],
+     "verified": -95
+    },
+    "h2g4": {
+     "src": [
+      "multipv3",
+      "maia3",
+      "artist047:king_zone+quiet"
+     ],
+     "verified": -53
+    },
+    "h6h5": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -119
+    },
+    "g7b7": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -706
+    },
+    "g7g5": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -335
+    },
+    "g7g2": {
+     "src": [
+      "artist047:sacrifice+check"
+     ],
+     "verified": -623
+    }
+   }
+  },
+  {
+   "id": "2X6Ye",
+   "split": "fresh",
+   "solution": "c7c5",
+   "base": "c7c5",
+   "union": "h1h4",
+   "base_ok": true,
+   "union_ok": false,
+   "base_loss": 0,
+   "union_loss": 600,
+   "solution_in_candidates": false,
+   "solution_sources": null,
+   "base_s": 0.59,
+   "union_s": 0.84,
+   "candidates": {
+    "e1b1": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": -52
+    },
+    "h1h4": {
+     "src": [
+      "multipv2"
+     ],
+     "verified": -42
+    },
+    "h1h2": {
+     "src": [
+      "multipv3",
+      "maia3"
+     ],
+     "verified": -49
+    },
+    "d6e5": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -79
+    },
+    "e1d2": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -1315
+    },
+    "e1c1": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -1253
+    },
+    "e1g3": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -1284
+    }
+   }
+  },
+  {
+   "id": "1yslH",
+   "split": "dev",
+   "solution": "d3a6",
+   "base": "d3a6",
+   "union": "d3a6",
+   "base_ok": true,
+   "union_ok": true,
+   "base_loss": 11,
+   "union_loss": 0,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "maia3"
+   ],
+   "base_s": 0.716,
+   "union_s": 0.821,
+   "candidates": {
+    "d3d7": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": 26
+    },
+    "d3h7": {
+     "src": [
+      "multipv2",
+      "artist047:check+king_zone"
+     ],
+     "verified": 0
+    },
+    "d3d8": {
+     "src": [
+      "multipv3",
+      "artist047:king_zone+quiet"
+     ],
+     "verified": 0
+    },
+    "d3d5": {
+     "src": [
+      "maia3"
+     ],
+     "verified": 0
+    },
+    "d3a6": {
+     "src": [
+      "maia3"
+     ],
+     "verified": 184
+    },
+    "d3b5": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -1142
+    },
+    "d3d6": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -1166
+    },
+    "d3c4": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -1183
+    }
+   }
+  },
+  {
+   "id": "2hRUT",
+   "split": "fresh",
+   "solution": "c2e4",
+   "base": "e2c4",
+   "union": "e2c4",
+   "base_ok": false,
+   "union_ok": false,
+   "base_loss": 362,
+   "union_loss": 386,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "maia3"
+   ],
+   "base_s": 0.569,
+   "union_s": 0.811,
+   "candidates": {
+    "e2c4": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": -79
+    },
+    "a3c1": {
+     "src": [
+      "multipv2",
+      "maia3",
+      "artist047:king_zone+quiet"
+     ],
+     "verified": -104
+    },
+    "a3b4": {
+     "src": [
+      "multipv3",
+      "artist047:king_zone+quiet"
+     ],
+     "verified": -134
+    },
+    "c2e4": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -140
+    },
+    "f2f7": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -659
+    },
+    "a3d6": {
+     "src": [
+      "artist047:sacrifice+check"
+     ],
+     "verified": -332
+    },
+    "a3c5": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -429
+    }
+   }
+  },
+  {
+   "id": "35GqV",
+   "split": "dev",
+   "solution": "h5h6",
+   "base": "g4g5",
+   "union": "h5h6",
+   "base_ok": false,
+   "union_ok": true,
+   "base_loss": 297,
+   "union_loss": 0,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "maia3"
+   ],
+   "base_s": 0.942,
+   "union_s": 0.755,
+   "candidates": {
+    "g4g5": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": 32
+    },
+    "d1d2": {
+     "src": [
+      "multipv2",
+      "artist047:king_zone+quiet"
+     ],
+     "verified": 33
+    },
+    "d1d3": {
+     "src": [
+      "multipv3",
+      "artist047:king_zone+quiet"
+     ],
+     "verified": 32
+    },
+    "h5h6": {
+     "src": [
+      "maia3"
+     ],
+     "verified": 36
+    },
+    "d1f1": {
+     "src": [
+      "maia3"
+     ],
+     "verified": 28
+    },
+    "d1d6": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -631
+    },
+    "d1d7": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -617
+    },
+    "d1d5": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -631
+    }
+   }
+  },
+  {
+   "id": "2nw7l",
+   "split": "dev",
+   "solution": "c5c4",
+   "base": "g7g5",
+   "union": "g7g5",
+   "base_ok": false,
+   "union_ok": false,
+   "base_loss": 173,
+   "union_loss": 173,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "maia3",
+    "artist047:quiet+break"
+   ],
+   "base_s": 0.999,
+   "union_s": 0.791,
+   "candidates": {
+    "g7g5": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": 0
+    },
+    "e5d5": {
+     "src": [
+      "multipv2"
+     ],
+     "verified": -123
+    },
+    "g7g6": {
+     "src": [
+      "multipv3",
+      "artist047:quiet+break"
+     ],
+     "verified": -103
+    },
+    "c5c4": {
+     "src": [
+      "maia3",
+      "artist047:quiet+break"
+     ],
+     "verified": -97
+    },
+    "a5a4": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -93
+    },
+    "b5b4": {
+     "src": [
+      "artist047:quiet+break"
+     ],
+     "verified": -117
+    }
+   }
+  },
+  {
+   "id": "0Bvvf",
+   "split": "fresh",
+   "solution": "a7d4",
+   "base": "a7a8",
+   "union": "a7a8",
+   "base_ok": false,
+   "union_ok": false,
+   "base_loss": 342,
+   "union_loss": 343,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "maia3"
+   ],
+   "base_s": 0.606,
+   "union_s": 0.873,
+   "candidates": {
+    "a7a8": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": -137
+    },
+    "a7e7": {
+     "src": [
+      "multipv2",
+      "artist047:king_zone+quiet"
+     ],
+     "verified": -152
+    },
+    "a7b8": {
+     "src": [
+      "multipv3",
+      "maia3",
+      "artist047:check+king_zone"
+     ],
+     "verified": -150
+    },
+    "a7d4": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -176
+    },
+    "a7f7": {
+     "src": [
+      "artist047:sacrifice+check"
+     ],
+     "verified": -1179
+    },
+    "a7d7": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -1278
+    },
+    "a7b6": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -1292
+    }
+   }
+  },
+  {
+   "id": "2euDG",
+   "split": "fresh",
+   "solution": "e8e6",
+   "base": "e8g8",
+   "union": "e8e6",
+   "base_ok": false,
+   "union_ok": true,
+   "base_loss": 264,
+   "union_loss": 0,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "artist047:sacrifice"
+   ],
+   "base_s": 0.762,
+   "union_s": 0.811,
+   "candidates": {
+    "f2e2": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": 66
+    },
+    "e8g8": {
+     "src": [
+      "multipv2",
+      "maia3",
+      "artist047:check"
+     ],
+     "verified": 87
+    },
+    "f2f1": {
+     "src": [
+      "multipv3"
+     ],
+     "verified": 59
+    },
+    "e8e7": {
+     "src": [
+      "maia3"
+     ],
+     "verified": 86
+    },
+    "e8c8": {
+     "src": [
+      "artist047:sacrifice+quiet"
+     ],
+     "verified": -633
+    },
+    "e8e6": {
+     "src": [
+      "artist047:sacrifice"
+     ],
+     "verified": 176
+    },
+    "c5d4": {
+     "src": [
+      "artist047:sacrifice+quiet"
+     ],
+     "verified": -294
+    }
+   }
+  },
+  {
+   "id": "2cztA",
+   "split": "fresh",
+   "solution": "d3h7",
+   "base": "d3h7",
+   "union": "d1f3",
+   "base_ok": true,
+   "union_ok": false,
+   "base_loss": 15,
+   "union_loss": 629,
+   "solution_in_candidates": false,
+   "solution_sources": null,
+   "base_s": 0.628,
+   "union_s": 0.776,
+   "candidates": {
+    "d1b3": {
+     "src": [
+      "multipv1"
+     ],
+     "verified": -122
+    },
+    "d1f3": {
+     "src": [
+      "multipv2"
+     ],
+     "verified": -115
+    },
+    "f1e1": {
+     "src": [
+      "multipv3"
+     ],
+     "verified": -125
+    },
+    "d1g4": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -132
+    },
+    "d1h5": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -133
+    },
+    "c1c5": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -165
+    },
+    "d4f6": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -501
+    },
+    "d4b6": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -544
+    },
+    "d4e3": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -269
+    }
+   }
+  },
+  {
+   "id": "3BTJb",
+   "split": "dev",
+   "solution": "e3e4",
+   "base": "h2h4",
+   "union": "h2h4",
+   "base_ok": false,
+   "union_ok": false,
+   "base_loss": 68,
+   "union_loss": 71,
+   "solution_in_candidates": false,
+   "solution_sources": null,
+   "base_s": 0.681,
+   "union_s": 0.821,
+   "candidates": {
+    "h2h4": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": 71
+    },
+    "g6b6": {
+     "src": [
+      "multipv2",
+      "artist047:king_zone+quiet"
+     ],
+     "verified": 27
+    },
+    "g6c6": {
+     "src": [
+      "multipv3",
+      "artist047:king_zone+quiet"
+     ],
+     "verified": 18
+    },
+    "g6a6": {
+     "src": [
+      "maia3"
+     ],
+     "verified": 27
+    },
+    "h2h3": {
+     "src": [
+      "maia3"
+     ],
+     "verified": 1
+    },
+    "g6e6": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -730
+    },
+    "g6f6": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -725
+    },
+    "g6d6": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -727
+    }
+   }
+  },
+  {
+   "id": "0LKGd",
+   "split": "dev",
+   "solution": "g8g2",
+   "base": "g8g2",
+   "union": "g8g2",
+   "base_ok": true,
+   "union_ok": true,
+   "base_loss": 23,
+   "union_loss": 12,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "artist047:sacrifice+check"
+   ],
+   "base_s": 0.558,
+   "union_s": 0.784,
+   "candidates": {
+    "d8d7": {
+     "src": [
+      "multipv1"
+     ],
+     "verified": -240
+    },
+    "d8c8": {
+     "src": [
+      "multipv2"
+     ],
+     "verified": -236
+    },
+    "d8f6": {
+     "src": [
+      "multipv3",
+      "maia3"
+     ],
+     "verified": -243
+    },
+    "d5f3": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -343
+    },
+    "d8e7": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -283
+    },
+    "g8g5": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -470
+    },
+    "g8g3": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -809
+    },
+    "g8g2": {
+     "src": [
+      "artist047:sacrifice+check"
+     ],
+     "verified": 150
+    }
+   }
+  },
+  {
+   "id": "0C0Az",
+   "split": "fresh",
+   "solution": "c8c3",
+   "base": "c8c3",
+   "union": "c8c3",
+   "base_ok": true,
+   "union_ok": true,
+   "base_loss": 0,
+   "union_loss": 0,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "maia3"
+   ],
+   "base_s": 0.614,
+   "union_s": 0.82,
+   "candidates": {
+    "b5c3": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": -90
+    },
+    "f6f5": {
+     "src": [
+      "multipv2",
+      "maia3"
+     ],
+     "verified": -204
+    },
+    "c8c5": {
+     "src": [
+      "multipv3",
+      "artist047:king_zone+quiet"
+     ],
+     "verified": -213
+    },
+    "c8c3": {
+     "src": [
+      "maia3"
+     ],
+     "verified": 84
+    },
+    "c8c6": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -1411
+    },
+    "c8c4": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -1166
+    },
+    "c8c2": {
+     "src": [
+      "artist047:sacrifice+check"
+     ],
+     "verified": -1182
+    }
+   }
+  },
+  {
+   "id": "19kKK",
+   "split": "fresh",
+   "solution": "c3e2",
+   "base": "g5h7",
+   "union": "f1f4",
+   "base_ok": false,
+   "union_ok": false,
+   "base_loss": 575,
+   "union_loss": 575,
+   "solution_in_candidates": false,
+   "solution_sources": null,
+   "base_s": 0.998,
+   "union_s": 0.762,
+   "candidates": {
+    "f1f4": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": 0
+    },
+    "g5h7": {
+     "src": [
+      "multipv2",
+      "maia3",
+      "artist047:check+king_zone"
+     ],
+     "verified": 0
+    },
+    "h2h3": {
+     "src": [
+      "multipv3"
+     ],
+     "verified": -92
+    },
+    "g5e6": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -122
+    },
+    "g6e8": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -1393
+    },
+    "g6f7": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -704
+    },
+    "g6f6": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -1277
+    }
+   }
+  },
+  {
+   "id": "2vCdu",
+   "split": "dev",
+   "solution": "h2h4",
+   "base": "d2d3",
+   "union": "d2d3",
+   "base_ok": false,
+   "union_ok": false,
+   "base_loss": 343,
+   "union_loss": 313,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "maia3"
+   ],
+   "base_s": 0.662,
+   "union_s": 0.727,
+   "candidates": {
+    "h1e1": {
+     "src": [
+      "multipv1"
+     ],
+     "verified": -96
+    },
+    "b2d3": {
+     "src": [
+      "multipv2",
+      "maia3"
+     ],
+     "verified": -116
+    },
+    "d2d3": {
+     "src": [
+      "multipv3"
+     ],
+     "verified": -87
+    },
+    "h2h4": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -143
+    },
+    "b2d1": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -97
+    },
+    "e4h7": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -1152
+    },
+    "e4g6": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -1134
+    },
+    "e4b7": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -1113
+    }
+   }
+  },
+  {
+   "id": "2FcNE",
+   "split": "fresh",
+   "solution": "f3b3",
+   "base": "f3b3",
+   "union": "f3b3",
+   "base_ok": true,
+   "union_ok": true,
+   "base_loss": 0,
+   "union_loss": 0,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "maia3"
+   ],
+   "base_s": 0.866,
+   "union_s": 0.797,
+   "candidates": {
+    "f3c3": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": -18
+    },
+    "f3d3": {
+     "src": [
+      "multipv2"
+     ],
+     "verified": -200
+    },
+    "f3e3": {
+     "src": [
+      "multipv3"
+     ],
+     "verified": -199
+    },
+    "f3b3": {
+     "src": [
+      "maia3"
+     ],
+     "verified": 270
+    },
+    "c2c4": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -157
+    },
+    "f3d5": {
+     "src": [
+      "artist047:sacrifice"
+     ],
+     "verified": -1441
+    },
+    "f3f4": {
+     "src": [
+      "artist047:sacrifice+quiet"
+     ],
+     "verified": -1361
+    },
+    "f3e4": {
+     "src": [
+      "artist047:sacrifice+quiet"
+     ],
+     "verified": -1287
+    }
+   }
+  },
+  {
+   "id": "18uzL",
+   "split": "fresh",
+   "solution": "g4g5",
+   "base": "g4g5",
+   "union": "g4g5",
+   "base_ok": true,
+   "union_ok": true,
+   "base_loss": 0,
+   "union_loss": 0,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "maia3"
+   ],
+   "base_s": 0.57,
+   "union_s": 0.802,
+   "candidates": {
+    "e1e3": {
+     "src": [
+      "multipv1"
+     ],
+     "verified": 65
+    },
+    "f1f3": {
+     "src": [
+      "multipv2"
+     ],
+     "verified": 68
+    },
+    "f1f2": {
+     "src": [
+      "multipv3"
+     ],
+     "verified": 81
+    },
+    "h3h4": {
+     "src": [
+      "maia3"
+     ],
+     "verified": 21
+    },
+    "e5c6": {
+     "src": [
+      "maia3"
+     ],
+     "verified": 51
+    },
+    "g4g5": {
+     "src": [
+      "maia3"
+     ],
+     "verified": 82
+    },
+    "f5h7": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -918
+    },
+    "f5c8": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -941
+    },
+    "f5d7": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -902
+    }
+   }
+  },
+  {
+   "id": "0eSO7",
+   "split": "fresh",
+   "solution": "f6g8",
+   "base": "f6g8",
+   "union": "f6g8",
+   "base_ok": true,
+   "union_ok": true,
+   "base_loss": 0,
+   "union_loss": 0,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "multipv3",
+    "maia3"
+   ],
+   "base_s": 0.573,
+   "union_s": 0.864,
+   "candidates": {
+    "f1f4": {
+     "src": [
+      "multipv1"
+     ],
+     "verified": -92
+    },
+    "g3f3": {
+     "src": [
+      "multipv2",
+      "artist047:king_zone+quiet"
+     ],
+     "verified": -140
+    },
+    "f6g8": {
+     "src": [
+      "multipv3",
+      "maia3"
+     ],
+     "verified": 224
+    },
+    "g3g4": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -249
+    },
+    "g3h3": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -205
+    },
+    "f6e8": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -519
+    },
+    "f6d7": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -803
+    },
+    "f6e4": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -549
+    }
+   }
+  },
+  {
+   "id": "1DXWC",
+   "split": "dev",
+   "solution": "d4f5",
+   "base": "d4b3",
+   "union": "d4b3",
+   "base_ok": false,
+   "union_ok": false,
+   "base_loss": 293,
+   "union_loss": 271,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "maia3"
+   ],
+   "base_s": 0.57,
+   "union_s": 0.738,
+   "candidates": {
+    "d4b3": {
+     "src": [
+      "multipv1"
+     ],
+     "verified": -41
+    },
+    "d4e2": {
+     "src": [
+      "multipv2",
+      "maia3",
+      "artist047:check+king_zone"
+     ],
+     "verified": -62
+    },
+    "d4c6": {
+     "src": [
+      "multipv3",
+      "maia3",
+      "artist047:king_zone+quiet"
+     ],
+     "verified": -69
+    },
+    "d4f5": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -144
+    },
+    "d4e6": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -351
+    },
+    "d4f3": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -368
+    }
+   }
+  },
+  {
+   "id": "2YwXd",
+   "split": "fresh",
+   "solution": "c8e8",
+   "base": "c8e8",
+   "union": "c8e8",
+   "base_ok": true,
+   "union_ok": true,
+   "base_loss": 12,
+   "union_loss": 2,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "multipv1"
+   ],
+   "base_s": 0.749,
+   "union_s": 0.829,
+   "candidates": {
+    "c8e8": {
+     "src": [
+      "multipv1"
+     ],
+     "verified": 174
+    },
+    "c8c2": {
+     "src": [
+      "multipv2",
+      "maia3",
+      "artist047:check"
+     ],
+     "verified": -143
+    },
+    "b4b3": {
+     "src": [
+      "multipv3",
+      "artist047:king_zone+quiet"
+     ],
+     "verified": -155
+    },
+    "e6g4": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -194
+    },
+    "d5d4": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -321
+    },
+    "b4d2": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -1291
+    },
+    "b4e1": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -1240
+    },
+    "b4d6": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -1225
+    }
+   }
+  },
+  {
+   "id": "06lzB",
+   "split": "fresh",
+   "solution": "e3d4",
+   "base": "e3f4",
+   "union": "e3f4",
+   "base_ok": false,
+   "union_ok": false,
+   "base_loss": 192,
+   "union_loss": 192,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "maia3"
+   ],
+   "base_s": 0.714,
+   "union_s": 0.787,
+   "candidates": {
+    "e3f4": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": 0
+    },
+    "e3f2": {
+     "src": [
+      "multipv2"
+     ],
+     "verified": 0
+    },
+    "e3f3": {
+     "src": [
+      "multipv3"
+     ],
+     "verified": 0
+    },
+    "e3d4": {
+     "src": [
+      "maia3"
+     ],
+     "verified": 0
+    },
+    "e3d3": {
+     "src": [
+      "maia3"
+     ],
+     "verified": 0
+    },
+    "e4e5": {
+     "src": [
+      "artist047:check+king_zone+break"
+     ],
+     "verified": -248
+    },
+    "g4g5": {
+     "src": [
+      "artist047:quiet+break"
+     ],
+     "verified": -248
+    },
+    "a3a4": {
+     "src": [
+      "artist047:quiet+break"
+     ],
+     "verified": -312
+    }
+   }
+  },
+  {
+   "id": "35EBI",
+   "split": "fresh",
+   "solution": "b2b4",
+   "base": "b2b4",
+   "union": "b2h2",
+   "base_ok": true,
+   "union_ok": false,
+   "base_loss": 0,
+   "union_loss": 353,
+   "solution_in_candidates": false,
+   "solution_sources": null,
+   "base_s": 0.553,
+   "union_s": 0.808,
+   "candidates": {
+    "b2h2": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": -49
+    },
+    "g4h4": {
+     "src": [
+      "multipv2",
+      "maia3"
+     ],
+     "verified": -80
+    },
+    "b2g2": {
+     "src": [
+      "multipv3",
+      "artist047:king_zone+quiet"
+     ],
+     "verified": -106
+    },
+    "b2b3": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -193
+    },
+    "b2e2": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -911
+    },
+    "b2f2": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -789
+    },
+    "b2d2": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -823
+    }
+   }
+  },
+  {
+   "id": "1Os5K",
+   "split": "fresh",
+   "solution": "c6e5",
+   "base": "c6e5",
+   "union": "c6e5",
+   "base_ok": true,
+   "union_ok": true,
+   "base_loss": 0,
+   "union_loss": 0,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "multipv3"
+   ],
+   "base_s": 0.599,
+   "union_s": 0.827,
+   "candidates": {
+    "a8d8": {
+     "src": [
+      "multipv1"
+     ],
+     "verified": -11
+    },
+    "e8c8": {
+     "src": [
+      "multipv2",
+      "maia3"
+     ],
+     "verified": -35
+    },
+    "c6e5": {
+     "src": [
+      "multipv3"
+     ],
+     "verified": 224
+    },
+    "g8f6": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -31
+    },
+    "e7e6": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -31
+    },
+    "g4h3": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -419
+    },
+    "c6d4": {
+     "src": [
+      "artist047:sacrifice+quiet"
+     ],
+     "verified": -439
+    },
+    "c6b4": {
+     "src": [
+      "artist047:sacrifice+quiet"
+     ],
+     "verified": -400
+    }
+   }
+  },
+  {
+   "id": "0bfeM",
+   "split": "fresh",
+   "solution": "f3f4",
+   "base": "f3f4",
+   "union": "f3f4",
+   "base_ok": true,
+   "union_ok": true,
+   "base_loss": 0,
+   "union_loss": 0,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "maia3"
+   ],
+   "base_s": 0.957,
+   "union_s": 0.827,
+   "candidates": {
+    "e5g3": {
+     "src": [
+      "multipv1"
+     ],
+     "verified": -364
+    },
+    "g1g2": {
+     "src": [
+      "multipv2",
+      "maia3"
+     ],
+     "verified": -366
+    },
+    "e5e2": {
+     "src": [
+      "multipv3",
+      "artist047:king_zone+quiet"
+     ],
+     "verified": -355
+    },
+    "g1f2": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -340
+    },
+    "f3f4": {
+     "src": [
+      "maia3"
+     ],
+     "verified": 442
+    },
+    "e5h5": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -1557
+    },
+    "e5g5": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -1531
+    },
+    "e5f4": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -1531
+    }
+   }
+  },
+  {
+   "id": "18Ybg",
+   "split": "fresh",
+   "solution": "f8e8",
+   "base": "f8e8",
+   "union": "f8e8",
+   "base_ok": true,
+   "union_ok": true,
+   "base_loss": 0,
+   "union_loss": 0,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "maia3"
+   ],
+   "base_s": 0.63,
+   "union_s": 0.817,
+   "candidates": {
+    "d8d1": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": 39
+    },
+    "a7a5": {
+     "src": [
+      "multipv2",
+      "artist047:quiet+break"
+     ],
+     "verified": 30
+    },
+    "d8d3": {
+     "src": [
+      "multipv3"
+     ],
+     "verified": 24
+    },
+    "f8e8": {
+     "src": [
+      "maia3"
+     ],
+     "verified": 251
+    },
+    "f8f6": {
+     "src": [
+      "maia3"
+     ],
+     "verified": 31
+    },
+    "f8f7": {
+     "src": [
+      "artist047:sacrifice+quiet"
+     ],
+     "verified": -565
+    },
+    "f8f5": {
+     "src": [
+      "artist047:sacrifice+quiet"
+     ],
+     "verified": -136
+    },
+    "f8f4": {
+     "src": [
+      "artist047:sacrifice"
+     ],
+     "verified": -370
+    }
+   }
+  },
+  {
+   "id": "2zT00",
+   "split": "dev",
+   "solution": "f3g5",
+   "base": "f3g5",
+   "union": "h6g5",
+   "base_ok": true,
+   "union_ok": false,
+   "base_loss": 0,
+   "union_loss": 284,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "maia3"
+   ],
+   "base_s": 0.975,
+   "union_s": 0.808,
+   "candidates": {
+    "h6g5": {
+     "src": [
+      "multipv1"
+     ],
+     "verified": 43
+    },
+    "d4d5": {
+     "src": [
+      "multipv2",
+      "maia3"
+     ],
+     "verified": -47
+    },
+    "d4e5": {
+     "src": [
+      "multipv3",
+      "maia3"
+     ],
+     "verified": -24
+    },
+    "f3g5": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -101
+    },
+    "h6h8": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -1050
+    },
+    "h6h7": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -1061
+    },
+    "h6g7": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -1055
+    }
+   }
+  },
+  {
+   "id": "1qd0H",
+   "split": "dev",
+   "solution": "e5f3",
+   "base": "d7e6",
+   "union": "d7e6",
+   "base_ok": false,
+   "union_ok": false,
+   "base_loss": 461,
+   "union_loss": 465,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "maia3"
+   ],
+   "base_s": 0.999,
+   "union_s": 0.849,
+   "candidates": {
+    "d7e6": {
+     "src": [
+      "multipv1"
+     ],
+     "verified": 28
+    },
+    "c7c5": {
+     "src": [
+      "multipv2",
+      "maia3"
+     ],
+     "verified": 23
+    },
+    "e5c6": {
+     "src": [
+      "multipv3"
+     ],
+     "verified": 23
+    },
+    "e5f3": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -77
+    },
+    "e5g6": {
+     "src": [
+      "maia3"
+     ],
+     "verified": 3
+    },
+    "f5f6": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -224
+    },
+    "f5h5": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -502
+    },
+    "f5g5": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -518
+    }
+   }
+  },
+  {
+   "id": "1k9oZ",
+   "split": "dev",
+   "solution": "h3h4",
+   "base": "c1d1",
+   "union": "c1d1",
+   "base_ok": false,
+   "union_ok": false,
+   "base_loss": 346,
+   "union_loss": 351,
+   "solution_in_candidates": false,
+   "solution_sources": null,
+   "base_s": 0.998,
+   "union_s": 0.813,
+   "candidates": {
+    "c1d1": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": -56
+    },
+    "g2g3": {
+     "src": [
+      "multipv2"
+     ],
+     "verified": -57
+    },
+    "a3a4": {
+     "src": [
+      "multipv3"
+     ],
+     "verified": -96
+    },
+    "f3c6": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -96
+    },
+    "e1e4": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -616
+    },
+    "f3f7": {
+     "src": [
+      "artist047:sacrifice+check"
+     ],
+     "verified": -975
+    },
+    "f3f6": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -1123
+    },
+    "f3h5": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -1082
+    }
+   }
+  },
+  {
+   "id": "12RTh",
+   "split": "dev",
+   "solution": "g3g2",
+   "base": "d4e3",
+   "union": "d4f2",
+   "base_ok": false,
+   "union_ok": false,
+   "base_loss": 0,
+   "union_loss": 0,
+   "solution_in_candidates": false,
+   "solution_sources": null,
+   "base_s": 0.629,
+   "union_s": 0.738,
+   "candidates": {
+    "d4f2": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": 8
+    },
+    "d4g1": {
+     "src": [
+      "multipv2"
+     ],
+     "verified": 8
+    },
+    "d4e3": {
+     "src": [
+      "multipv3",
+      "maia3"
+     ],
+     "verified": 8
+    },
+    "d4c3": {
+     "src": [
+      "maia3"
+     ],
+     "verified": 0
+    },
+    "d4b2": {
+     "src": [
+      "artist047:sacrifice+quiet"
+     ],
+     "verified": -404
+    },
+    "f4f3": {
+     "src": [
+      "artist047:king_zone+quiet+break"
+     ],
+     "verified": -127
+    },
+    "c5c4": {
+     "src": [
+      "artist047:quiet+break"
+     ],
+     "verified": -105
+    }
+   }
+  },
+  {
+   "id": "26jn4",
+   "split": "dev",
+   "solution": "h7g5",
+   "base": "h7g5",
+   "union": "h7g5",
+   "base_ok": true,
+   "union_ok": true,
+   "base_loss": 0,
+   "union_loss": 0,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "artist047:sacrifice"
+   ],
+   "base_s": 0.583,
+   "union_s": 0.835,
+   "candidates": {
+    "e8g8": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": -212
+    },
+    "h7f8": {
+     "src": [
+      "multipv2"
+     ],
+     "verified": -219
+    },
+    "h8g8": {
+     "src": [
+      "multipv3"
+     ],
+     "verified": -361
+    },
+    "f7g6": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -246
+    },
+    "e6e5": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -398
+    },
+    "h7g5": {
+     "src": [
+      "artist047:sacrifice"
+     ],
+     "verified": -87
+    },
+    "f7d7": {
+     "src": [
+      "artist047:sacrifice+quiet"
+     ],
+     "verified": -1082
+    },
+    "f7f6": {
+     "src": [
+      "artist047:sacrifice+quiet"
+     ],
+     "verified": -1340
+    }
+   }
+  },
+  {
+   "id": "0kHmp",
+   "split": "fresh",
+   "solution": "c5c4",
+   "base": "f8h6",
+   "union": "f8h6",
+   "base_ok": false,
+   "union_ok": false,
+   "base_loss": 318,
+   "union_loss": 318,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "maia3"
+   ],
+   "base_s": 0.663,
+   "union_s": 0.811,
+   "candidates": {
+    "f8h6": {
+     "src": [
+      "multipv1"
+     ],
+     "verified": 0
+    },
+    "c3c2": {
+     "src": [
+      "multipv2",
+      "maia3"
+     ],
+     "verified": -193
+    },
+    "a7a5": {
+     "src": [
+      "multipv3",
+      "maia3"
+     ],
+     "verified": -193
+    },
+    "c5c4": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -265
+    },
+    "f8e7": {
+     "src": [
+      "artist047:sacrifice+quiet"
+     ],
+     "verified": -622
+    },
+    "f8d6": {
+     "src": [
+      "artist047:sacrifice+quiet"
+     ],
+     "verified": -1103
+    }
+   }
+  },
+  {
+   "id": "2ChAZ",
+   "split": "fresh",
+   "solution": "b3b4",
+   "base": "b3b4",
+   "union": "d3d4",
+   "base_ok": true,
+   "union_ok": false,
+   "base_loss": 0,
+   "union_loss": 374,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "multipv2",
+    "maia3",
+    "artist047:quiet+break"
+   ],
+   "base_s": 0.778,
+   "union_s": 0.842,
+   "candidates": {
+    "d3d4": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": -9
+    },
+    "b3b4": {
+     "src": [
+      "multipv2",
+      "maia3",
+      "artist047:quiet+break"
+     ],
+     "verified": -119
+    },
+    "d3c3": {
+     "src": [
+      "multipv3"
+     ],
+     "verified": -161
+    },
+    "c4c5": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -233
+    },
+    "e4e5": {
+     "src": [
+      "artist047:king_zone+quiet+break"
+     ],
+     "verified": -322
+    },
+    "h3h4": {
+     "src": [
+      "artist047:king_zone+quiet+break"
+     ],
+     "verified": -537
+    }
+   }
+  },
+  {
+   "id": "38Dg9",
+   "split": "fresh",
+   "solution": "f6e4",
+   "base": "a2a3",
+   "union": "a2a3",
+   "base_ok": false,
+   "union_ok": false,
+   "base_loss": 543,
+   "union_loss": 585,
+   "solution_in_candidates": false,
+   "solution_sources": null,
+   "base_s": 0.743,
+   "union_s": 0.755,
+   "candidates": {
+    "f8c8": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": -140
+    },
+    "a2a3": {
+     "src": [
+      "multipv2",
+      "maia3",
+      "artist047:check+king_zone"
+     ],
+     "verified": -138
+    },
+    "e6g4": {
+     "src": [
+      "multipv3",
+      "artist047:sacrifice"
+     ],
+     "verified": -181
+    },
+    "e6b3": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -401
+    },
+    "a2b2": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -1427
+    },
+    "a2b1": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -1434
+    },
+    "a2a1": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -1419
+    }
+   }
+  },
+  {
+   "id": "30GBt",
+   "split": "dev",
+   "solution": "g7e5",
+   "base": "g7e5",
+   "union": "e3e7",
+   "base_ok": true,
+   "union_ok": false,
+   "base_loss": 0,
+   "union_loss": 528,
+   "solution_in_candidates": false,
+   "solution_sources": null,
+   "base_s": 0.567,
+   "union_s": 0.83,
+   "candidates": {
+    "b7b5": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": 28
+    },
+    "g3c7": {
+     "src": [
+      "multipv2",
+      "artist047:king_zone+quiet"
+     ],
+     "verified": 0
+    },
+    "e3e7": {
+     "src": [
+      "multipv3"
+     ],
+     "verified": 30
+    },
+    "e3d3": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -71
+    },
+    "e3e2": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -542
+    },
+    "g3h2": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -1029
+    },
+    "g3d6": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -1080
+    },
+    "g3g4": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -1021
+    }
+   }
+  },
+  {
+   "id": "16nCX",
+   "split": "fresh",
+   "solution": "g6h5",
+   "base": "g6h5",
+   "union": "g6f7",
+   "base_ok": true,
+   "union_ok": false,
+   "base_loss": 0,
+   "union_loss": 418,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "maia3"
+   ],
+   "base_s": 0.559,
+   "union_s": 0.845,
+   "candidates": {
+    "g6f7": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": 74
+    },
+    "g6g7": {
+     "src": [
+      "multipv2"
+     ],
+     "verified": 74
+    },
+    "g6f6": {
+     "src": [
+      "multipv3",
+      "maia3"
+     ],
+     "verified": 66
+    },
+    "g6h5": {
+     "src": [
+      "maia3"
+     ],
+     "verified": 66
+    },
+    "e4e7": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -1562
+    },
+    "e4e8": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -1480
+    },
+    "e4e6": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -99992
+    }
+   }
+  },
+  {
+   "id": "1kDfD",
+   "split": "dev",
+   "solution": "b4c3",
+   "base": "b4c3",
+   "union": "d6c5",
+   "base_ok": true,
+   "union_ok": false,
+   "base_loss": 0,
+   "union_loss": 225,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "maia3",
+    "artist047:break"
+   ],
+   "base_s": 0.889,
+   "union_s": 0.782,
+   "candidates": {
+    "d6c5": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": 44
+    },
+    "c6c5": {
+     "src": [
+      "multipv2",
+      "maia3",
+      "artist047:quiet+break"
+     ],
+     "verified": 44
+    },
+    "d6c7": {
+     "src": [
+      "multipv3"
+     ],
+     "verified": 42
+    },
+    "b4c3": {
+     "src": [
+      "maia3",
+      "artist047:break"
+     ],
+     "verified": 1
+    },
+    "a5a4": {
+     "src": [
+      "artist047:quiet+break"
+     ],
+     "verified": -214
+    }
+   }
+  },
+  {
+   "id": "36u5H",
+   "split": "dev",
+   "solution": "d3h7",
+   "base": "d3h7",
+   "union": "d3g3",
+   "base_ok": true,
+   "union_ok": false,
+   "base_loss": 0,
+   "union_loss": 757,
+   "solution_in_candidates": false,
+   "solution_sources": null,
+   "base_s": 0.567,
+   "union_s": 0.828,
+   "candidates": {
+    "d3g3": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": -46
+    },
+    "d3e4": {
+     "src": [
+      "multipv2",
+      "artist047:king_zone+quiet"
+     ],
+     "verified": -135
+    },
+    "h2h4": {
+     "src": [
+      "multipv3",
+      "maia3",
+      "artist047:check+king_zone"
+     ],
+     "verified": -161
+    },
+    "e1g1": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -141
+    },
+    "d3g6": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -1591
+    },
+    "d3f5": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -1519
+    },
+    "d3e3": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -1388
+    }
+   }
+  },
+  {
+   "id": "2jGvy",
+   "split": "fresh",
+   "solution": "c7g7",
+   "base": "f4e3",
+   "union": "h5f3",
+   "base_ok": false,
+   "union_ok": false,
+   "base_loss": 599,
+   "union_loss": 580,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "artist047:sacrifice+check"
+   ],
+   "base_s": 0.911,
+   "union_s": 0.804,
+   "candidates": {
+    "h5f3": {
+     "src": [
+      "multipv1"
+     ],
+     "verified": -248
+    },
+    "f4e3": {
+     "src": [
+      "multipv2"
+     ],
+     "verified": -255
+    },
+    "f4d2": {
+     "src": [
+      "multipv3"
+     ],
+     "verified": -256
+    },
+    "f4g4": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -367
+    },
+    "h5g6": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -264
+    },
+    "f4e4": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -916
+    },
+    "c7c8": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -897
+    },
+    "c7g7": {
+     "src": [
+      "artist047:sacrifice+check"
+     ],
+     "verified": -658
+    },
+    "c7e7": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -834
+    }
+   }
+  },
+  {
+   "id": "2PjJ5",
+   "split": "fresh",
+   "solution": "c7b6",
+   "base": "c7f7",
+   "union": "c7f7",
+   "base_ok": false,
+   "union_ok": false,
+   "base_loss": 339,
+   "union_loss": 335,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "maia3"
+   ],
+   "base_s": 0.768,
+   "union_s": 0.835,
+   "candidates": {
+    "c7f7": {
+     "src": [
+      "multipv1"
+     ],
+     "verified": -26
+    },
+    "c7d8": {
+     "src": [
+      "multipv2",
+      "artist047:king_zone+quiet"
+     ],
+     "verified": -44
+    },
+    "h2h1": {
+     "src": [
+      "multipv3"
+     ],
+     "verified": -107
+    },
+    "a5a6": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -172
+    },
+    "c7b6": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -88
+    },
+    "c7g7": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -95
+    },
+    "c7b8": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -1460
+    },
+    "c7b7": {
+     "src": [
+      "artist047:sacrifice+check"
+     ],
+     "verified": -1322
+    },
+    "c7c6": {
+     "src": [
+      "artist047:sacrifice"
+     ],
+     "verified": -1322
+    }
+   }
+  },
+  {
+   "id": "1iXdx",
+   "split": "dev",
+   "solution": "d1d5",
+   "base": "d1d5",
+   "union": "f4f7",
+   "base_ok": true,
+   "union_ok": false,
+   "base_loss": 0,
+   "union_loss": 447,
+   "solution_in_candidates": false,
+   "solution_sources": null,
+   "base_s": 0.705,
+   "union_s": 0.808,
+   "candidates": {
+    "f4f7": {
+     "src": [
+      "multipv1"
+     ],
+     "verified": 128
+    },
+    "f4g4": {
+     "src": [
+      "multipv2",
+      "artist047:king_zone+quiet"
+     ],
+     "verified": 64
+    },
+    "d6f7": {
+     "src": [
+      "multipv3",
+      "maia3",
+      "artist047:sacrifice"
+     ],
+     "verified": 60
+    },
+    "c1c7": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -104
+    },
+    "d1d3": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -10
+    },
+    "d6e8": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -265
+    },
+    "d6c8": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -293
+    },
+    "d6b5": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -248
+    }
+   }
+  },
+  {
+   "id": "2I43E",
+   "split": "fresh",
+   "solution": "b6b5",
+   "base": "b6b5",
+   "union": "b6a6",
+   "base_ok": true,
+   "union_ok": false,
+   "base_loss": 5,
+   "union_loss": 707,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "maia3"
+   ],
+   "base_s": 0.591,
+   "union_s": 0.833,
+   "candidates": {
+    "b6a6": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": -14
+    },
+    "b4a5": {
+     "src": [
+      "multipv2"
+     ],
+     "verified": -210
+    },
+    "b4b5": {
+     "src": [
+      "multipv3"
+     ],
+     "verified": -233
+    },
+    "a3a2": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -131
+    },
+    "b6b5": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -20
+    },
+    "b6b8": {
+     "src": [
+      "artist047:sacrifice+quiet"
+     ],
+     "verified": -1376
+    },
+    "b6h6": {
+     "src": [
+      "artist047:sacrifice+quiet"
+     ],
+     "verified": -1842
+    },
+    "b6g6": {
+     "src": [
+      "artist047:sacrifice+quiet"
+     ],
+     "verified": -1828
+    }
+   }
+  },
+  {
+   "id": "0VOee",
+   "split": "fresh",
+   "solution": "h5h4",
+   "base": "h5h4",
+   "union": "h5h4",
+   "base_ok": true,
+   "union_ok": true,
+   "base_loss": 0,
+   "union_loss": 0,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "multipv3",
+    "maia3",
+    "artist047:quiet+break"
+   ],
+   "base_s": 0.93,
+   "union_s": 0.884,
+   "candidates": {
+    "a7a5": {
+     "src": [
+      "multipv1"
+     ],
+     "verified": 18
+    },
+    "e5e6": {
+     "src": [
+      "multipv2"
+     ],
+     "verified": -1
+    },
+    "h5h4": {
+     "src": [
+      "multipv3",
+      "maia3",
+      "artist047:quiet+break"
+     ],
+     "verified": 23
+    },
+    "e5d5": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -10
+    },
+    "f5f4": {
+     "src": [
+      "maia3",
+      "artist047:check+king_zone+break"
+     ],
+     "verified": -35
+    },
+    "g5g4": {
+     "src": [
+      "artist047:king_zone+quiet+break"
+     ],
+     "verified": -41
+    }
+   }
+  },
+  {
+   "id": "1Di96",
+   "split": "dev",
+   "solution": "f3g5",
+   "base": "e5f6",
+   "union": "g2g4",
+   "base_ok": false,
+   "union_ok": false,
+   "base_loss": 415,
+   "union_loss": 426,
+   "solution_in_candidates": false,
+   "solution_sources": null,
+   "base_s": 0.827,
+   "union_s": 0.792,
+   "candidates": {
+    "e5f6": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": -140
+    },
+    "e1c1": {
+     "src": [
+      "multipv2"
+     ],
+     "verified": -143
+    },
+    "g2g4": {
+     "src": [
+      "multipv3",
+      "maia3"
+     ],
+     "verified": -137
+    },
+    "h1h3": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -157
+    },
+    "h5h8": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -1126
+    },
+    "h5h7": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -1119
+    },
+    "h5f7": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -1166
+    }
+   }
+  },
+  {
+   "id": "2yhOx",
+   "split": "dev",
+   "solution": "g2g4",
+   "base": "g2g4",
+   "union": "g2g4",
+   "base_ok": true,
+   "union_ok": true,
+   "base_loss": 0,
+   "union_loss": 0,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "maia3"
+   ],
+   "base_s": 0.672,
+   "union_s": 0.795,
+   "candidates": {
+    "g2g5": {
+     "src": [
+      "multipv1"
+     ],
+     "verified": -41
+    },
+    "g2g6": {
+     "src": [
+      "multipv2",
+      "artist047:king_zone+quiet"
+     ],
+     "verified": -137
+    },
+    "g2g7": {
+     "src": [
+      "multipv3",
+      "maia3"
+     ],
+     "verified": -126
+    },
+    "h3g4": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -617
+    },
+    "g2g4": {
+     "src": [
+      "maia3"
+     ],
+     "verified": 261
+    },
+    "h3d7": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -617
+    },
+    "h3e6": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -862
+    },
+    "g2h2": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -493
+    }
+   }
+  },
+  {
+   "id": "16uk1",
+   "split": "dev",
+   "solution": "h3e6",
+   "base": "h4f5",
+   "union": "h3e6",
+   "base_ok": false,
+   "union_ok": true,
+   "base_loss": 434,
+   "union_loss": 0,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "multipv2",
+    "maia3"
+   ],
+   "base_s": 0.998,
+   "union_s": 0.779,
+   "candidates": {
+    "h4f5": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": -155
+    },
+    "h3e6": {
+     "src": [
+      "multipv2",
+      "maia3"
+     ],
+     "verified": 0
+    },
+    "d5b5": {
+     "src": [
+      "multipv3"
+     ],
+     "verified": -273
+    },
+    "h3d7": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -287
+    },
+    "h4g6": {
+     "src": [
+      "artist047:sacrifice+check"
+     ],
+     "verified": -460
+    },
+    "d5d8": {
+     "src": [
+      "artist047:sacrifice+quiet"
+     ],
+     "verified": -944
+    },
+    "d5g5": {
+     "src": [
+      "artist047:sacrifice"
+     ],
+     "verified": -615
+    }
+   }
+  },
+  {
+   "id": "21cDF",
+   "split": "fresh",
+   "solution": "d4c5",
+   "base": "d1b3",
+   "union": "d1b3",
+   "base_ok": false,
+   "union_ok": false,
+   "base_loss": 295,
+   "union_loss": 293,
+   "solution_in_candidates": false,
+   "solution_sources": null,
+   "base_s": 0.641,
+   "union_s": 0.814,
+   "candidates": {
+    "d1b3": {
+     "src": [
+      "multipv1"
+     ],
+     "verified": 63
+    },
+    "d1d2": {
+     "src": [
+      "multipv2",
+      "maia3"
+     ],
+     "verified": -45
+    },
+    "d1e2": {
+     "src": [
+      "multipv3"
+     ],
+     "verified": -50
+    },
+    "a3b5": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -20
+    },
+    "a1b1": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -75
+    },
+    "g5h6": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -314
+    },
+    "g5f6": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -339
+    },
+    "g5e7": {
+     "src": [
+      "artist047:sacrifice"
+     ],
+     "verified": -80
+    }
+   }
+  },
+  {
+   "id": "2bElH",
+   "split": "dev",
+   "solution": "g4g5",
+   "base": "f3d1",
+   "union": "f3d1",
+   "base_ok": false,
+   "union_ok": false,
+   "base_loss": 241,
+   "union_loss": 221,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "maia3"
+   ],
+   "base_s": 0.975,
+   "union_s": 0.758,
+   "candidates": {
+    "f2e2": {
+     "src": [
+      "multipv1"
+     ],
+     "verified": -59
+    },
+    "f3g2": {
+     "src": [
+      "multipv2",
+      "maia3"
+     ],
+     "verified": -66
+    },
+    "f3d1": {
+     "src": [
+      "multipv3",
+      "maia3"
+     ],
+     "verified": -54
+    },
+    "g4g5": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -107
+    },
+    "d4f6": {
+     "src": [
+      "artist047:sacrifice+check"
+     ],
+     "verified": -1062
+    },
+    "d4e5": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -1233
+    },
+    "d4e4": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -1274
+    }
+   }
+  },
+  {
+   "id": "0lEHe",
+   "split": "fresh",
+   "solution": "g8f8",
+   "base": "g8f8",
+   "union": "d2d1q",
+   "base_ok": true,
+   "union_ok": false,
+   "base_loss": 0,
+   "union_loss": 674,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "maia3"
+   ],
+   "base_s": 0.982,
+   "union_s": 0.837,
+   "candidates": {
+    "h2h1": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": -153
+    },
+    "d2d1q": {
+     "src": [
+      "multipv2",
+      "artist047:check+king_zone"
+     ],
+     "verified": -147
+    },
+    "d2d1b": {
+     "src": [
+      "multipv3",
+      "artist047:king_zone"
+     ],
+     "verified": -148
+    },
+    "g8f8": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -178
+    },
+    "h5h4": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -213
+    },
+    "h2f2": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -1003
+    },
+    "h2g2": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -996
+    },
+    "h2e2": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -99994
+    }
+   }
+  },
+  {
+   "id": "0Fru3",
+   "split": "fresh",
+   "solution": "g3f5",
+   "base": "h5e2",
+   "union": "a2a4",
+   "base_ok": false,
+   "union_ok": false,
+   "base_loss": 233,
+   "union_loss": 263,
+   "solution_in_candidates": false,
+   "solution_sources": null,
+   "base_s": 0.613,
+   "union_s": 0.858,
+   "candidates": {
+    "a2a4": {
+     "src": [
+      "multipv1"
+     ],
+     "verified": -10
+    },
+    "d1d2": {
+     "src": [
+      "multipv2"
+     ],
+     "verified": -14
+    },
+    "d1d3": {
+     "src": [
+      "multipv3"
+     ],
+     "verified": -15
+    },
+    "h5e2": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -13
+    },
+    "d1c2": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -16
+    },
+    "d1b3": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -24
+    },
+    "h5f7": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -329
+    },
+    "h5e8": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -307
+    },
+    "h5g6": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -333
+    }
+   }
+  },
+  {
+   "id": "23Upf",
+   "split": "dev",
+   "solution": "h4h8",
+   "base": "h4h8",
+   "union": "h4h8",
+   "base_ok": true,
+   "union_ok": true,
+   "base_loss": 0,
+   "union_loss": 8,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "artist047:sacrifice+check+king_zone"
+   ],
+   "base_s": 0.587,
+   "union_s": 0.75,
+   "candidates": {
+    "d5d6": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": -345
+    },
+    "a2b1": {
+     "src": [
+      "multipv2"
+     ],
+     "verified": -359
+    },
+    "f2f3": {
+     "src": [
+      "multipv3"
+     ],
+     "verified": -359
+    },
+    "c2c4": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -445
+    },
+    "h4h7": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -571
+    },
+    "h4h8": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": 42
+    },
+    "h4h6": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -683
+    },
+    "h4h5": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -804
+    }
+   }
+  },
+  {
+   "id": "03Sst",
+   "split": "dev",
+   "solution": "e1f1",
+   "base": "e1f1",
+   "union": "e1f1",
+   "base_ok": true,
+   "union_ok": true,
+   "base_loss": 0,
+   "union_loss": 0,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "maia3"
+   ],
+   "base_s": 0.806,
+   "union_s": 0.738,
+   "candidates": {
+    "e1e2": {
+     "src": [
+      "multipv1"
+     ],
+     "verified": -104
+    },
+    "d1g4": {
+     "src": [
+      "multipv2"
+     ],
+     "verified": -100
+    },
+    "b3d4": {
+     "src": [
+      "multipv3",
+      "maia3"
+     ],
+     "verified": -97
+    },
+    "e1e6": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -130
+    },
+    "e1f1": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -86
+    },
+    "d3h7": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -401
+    },
+    "d3a6": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -312
+    },
+    "d3f5": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -425
+    }
+   }
+  },
+  {
+   "id": "0VlXV",
+   "split": "fresh",
+   "solution": "e8a8",
+   "base": "e8a8",
+   "union": "e8a8",
+   "base_ok": true,
+   "union_ok": true,
+   "base_loss": 0,
+   "union_loss": 0,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "maia3"
+   ],
+   "base_s": 0.998,
+   "union_s": 0.794,
+   "candidates": {
+    "c5a5": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": -204
+    },
+    "c5a7": {
+     "src": [
+      "multipv2",
+      "maia3",
+      "artist047:king_zone+quiet"
+     ],
+     "verified": -181
+    },
+    "e8b8": {
+     "src": [
+      "multipv3"
+     ],
+     "verified": -221
+    },
+    "e8a8": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -147
+    },
+    "c5d4": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -1442
+    },
+    "c5c4": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -1291
+    },
+    "c5c3": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -911
+    }
+   }
+  },
+  {
+   "id": "2HyxL",
+   "split": "fresh",
+   "solution": "c3b5",
+   "base": "c3b5",
+   "union": "d2f4",
+   "base_ok": true,
+   "union_ok": false,
+   "base_loss": 0,
+   "union_loss": 346,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "multipv1",
+    "maia3"
+   ],
+   "base_s": 0.786,
+   "union_s": 0.889,
+   "candidates": {
+    "c3b5": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": -237
+    },
+    "d2f4": {
+     "src": [
+      "multipv2"
+     ],
+     "verified": -161
+    },
+    "c3e4": {
+     "src": [
+      "multipv3",
+      "maia3"
+     ],
+     "verified": -171
+    },
+    "e1g1": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -525
+    },
+    "e2e6": {
+     "src": [
+      "artist047:sacrifice+check"
+     ],
+     "verified": -1315
+    },
+    "c3d5": {
+     "src": [
+      "artist047:sacrifice+quiet"
+     ],
+     "verified": -316
+    },
+    "e2e7": {
+     "src": [
+      "artist047:sacrifice"
+     ],
+     "verified": -1680
+    }
+   }
+  },
+  {
+   "id": "2HhmZ",
+   "split": "fresh",
+   "solution": "f5d4",
+   "base": "f5d4",
+   "union": "f5d4",
+   "base_ok": true,
+   "union_ok": true,
+   "base_loss": 0,
+   "union_loss": 0,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "maia3"
+   ],
+   "base_s": 0.706,
+   "union_s": 0.765,
+   "candidates": {
+    "f5h4": {
+     "src": [
+      "multipv1"
+     ],
+     "verified": 177
+    },
+    "f5e7": {
+     "src": [
+      "multipv2",
+      "artist047:king_zone+quiet"
+     ],
+     "verified": 177
+    },
+    "d7e8": {
+     "src": [
+      "multipv3",
+      "maia3"
+     ],
+     "verified": 176
+    },
+    "d7a4": {
+     "src": [
+      "maia3"
+     ],
+     "verified": 218
+    },
+    "f5d4": {
+     "src": [
+      "maia3"
+     ],
+     "verified": 221
+    },
+    "f5d6": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -345
+    },
+    "f5g7": {
+     "src": [
+      "artist047:king_zone+quiet"
+     ],
+     "verified": 32
+    }
+   }
+  },
+  {
+   "id": "2oYLC",
+   "split": "dev",
+   "solution": "e4f6",
+   "base": "e4f6",
+   "union": "e4f6",
+   "base_ok": true,
+   "union_ok": true,
+   "base_loss": 0,
+   "union_loss": 0,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "maia3"
+   ],
+   "base_s": 0.737,
+   "union_s": 0.845,
+   "candidates": {
+    "e4c5": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": -247
+    },
+    "b1b2": {
+     "src": [
+      "multipv2"
+     ],
+     "verified": -194
+    },
+    "h6g7": {
+     "src": [
+      "multipv3",
+      "maia3"
+     ],
+     "verified": -195
+    },
+    "e4f6": {
+     "src": [
+      "maia3"
+     ],
+     "verified": 101
+    },
+    "f2f7": {
+     "src": [
+      "artist047:sacrifice+check"
+     ],
+     "verified": -324
+    },
+    "f2f6": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -393
+    },
+    "f2f5": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -1054
+    }
+   }
+  },
+  {
+   "id": "0Di7Q",
+   "split": "fresh",
+   "solution": "c5c4",
+   "base": "c5d5",
+   "union": "c5d5",
+   "base_ok": false,
+   "union_ok": false,
+   "base_loss": 393,
+   "union_loss": 393,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "maia3"
+   ],
+   "base_s": 0.651,
+   "union_s": 0.804,
+   "candidates": {
+    "c5d5": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": -21
+    },
+    "c5f5": {
+     "src": [
+      "multipv2"
+     ],
+     "verified": -46
+    },
+    "c5b5": {
+     "src": [
+      "multipv3"
+     ],
+     "verified": -50
+    },
+    "c5e5": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -47
+    },
+    "c5c4": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -34
+    },
+    "c5c8": {
+     "src": [
+      "artist047:sacrifice+quiet"
+     ],
+     "verified": -894
+    },
+    "c5c7": {
+     "src": [
+      "artist047:sacrifice+quiet"
+     ],
+     "verified": -926
+    },
+    "c5c6": {
+     "src": [
+      "artist047:sacrifice+quiet"
+     ],
+     "verified": -906
+    }
+   }
+  },
+  {
+   "id": "1DJta",
+   "split": "dev",
+   "solution": "d5e5",
+   "base": "d5e5",
+   "union": "d5e5",
+   "base_ok": true,
+   "union_ok": true,
+   "base_loss": 0,
+   "union_loss": 0,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "maia3"
+   ],
+   "base_s": 0.763,
+   "union_s": 0.847,
+   "candidates": {
+    "d5c6": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": 0
+    },
+    "d5d8": {
+     "src": [
+      "multipv2",
+      "maia3",
+      "artist047:check+king_zone"
+     ],
+     "verified": 0
+    },
+    "d5c4": {
+     "src": [
+      "multipv3",
+      "artist047:king_zone+quiet"
+     ],
+     "verified": -10
+    },
+    "d5e5": {
+     "src": [
+      "maia3"
+     ],
+     "verified": 131
+    },
+    "d5f7": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -1190
+    },
+    "d5e6": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -1202
+    },
+    "d5e4": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -1296
+    }
+   }
+  },
+  {
+   "id": "1gyQ2",
+   "split": "dev",
+   "solution": "d5d4",
+   "base": "a7a5",
+   "union": "b7b5",
+   "base_ok": false,
+   "union_ok": false,
+   "base_loss": 174,
+   "union_loss": 205,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "maia3"
+   ],
+   "base_s": 0.794,
+   "union_s": 0.8,
+   "candidates": {
+    "b7b5": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": 45
+    },
+    "a7a5": {
+     "src": [
+      "multipv2",
+      "maia3",
+      "artist047:quiet+break"
+     ],
+     "verified": 45
+    },
+    "d5e6": {
+     "src": [
+      "multipv3"
+     ],
+     "verified": 31
+    },
+    "d5d4": {
+     "src": [
+      "maia3"
+     ],
+     "verified": 27
+    },
+    "g6g5": {
+     "src": [
+      "artist047:check+king_zone+break"
+     ],
+     "verified": -202
+    },
+    "f6f5": {
+     "src": [
+      "artist047:king_zone+quiet+break"
+     ],
+     "verified": -235
+    },
+    "h5h4": {
+     "src": [
+      "artist047:king_zone+quiet+break"
+     ],
+     "verified": -166
+    }
+   }
+  },
+  {
+   "id": "2R13w",
+   "split": "fresh",
+   "solution": "e4f6",
+   "base": "e1c3",
+   "union": "e1c3",
+   "base_ok": false,
+   "union_ok": false,
+   "base_loss": 546,
+   "union_loss": 565,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "maia3"
+   ],
+   "base_s": 0.613,
+   "union_s": 0.835,
+   "candidates": {
+    "e1c3": {
+     "src": [
+      "multipv1"
+     ],
+     "verified": -226
+    },
+    "e1g3": {
+     "src": [
+      "multipv2"
+     ],
+     "verified": -405
+    },
+    "e1b4": {
+     "src": [
+      "multipv3"
+     ],
+     "verified": -497
+    },
+    "e4f6": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -253
+    },
+    "e4d6": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -478
+    },
+    "e4g5": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -536
+    },
+    "h5h7": {
+     "src": [
+      "artist047:sacrifice+check"
+     ],
+     "verified": -1178
+    },
+    "h5f7": {
+     "src": [
+      "artist047:sacrifice+check"
+     ],
+     "verified": -1487
+    },
+    "h5h6": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -1429
+    }
+   }
+  },
+  {
+   "id": "1G0al",
+   "split": "dev",
+   "solution": "e5g3",
+   "base": "b7b6",
+   "union": "b7b6",
+   "base_ok": false,
+   "union_ok": false,
+   "base_loss": 210,
+   "union_loss": 227,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "maia3"
+   ],
+   "base_s": 0.674,
+   "union_s": 0.75,
+   "candidates": {
+    "b7b6": {
+     "src": [
+      "multipv1"
+     ],
+     "verified": 63
+    },
+    "d8d7": {
+     "src": [
+      "multipv2"
+     ],
+     "verified": 42
+    },
+    "h7h5": {
+     "src": [
+      "multipv3"
+     ],
+     "verified": 50
+    },
+    "e3e2": {
+     "src": [
+      "maia3"
+     ],
+     "verified": 12
+    },
+    "e5g3": {
+     "src": [
+      "maia3"
+     ],
+     "verified": 52
+    },
+    "d8d4": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -183
+    },
+    "e5h2": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -1039
+    },
+    "e5e6": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -26
+    },
+    "e5f5": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -150
+    }
+   }
+  },
+  {
+   "id": "04vze",
+   "split": "dev",
+   "solution": "f2f3",
+   "base": "f2f3",
+   "union": "f2f3",
+   "base_ok": true,
+   "union_ok": true,
+   "base_loss": 0,
+   "union_loss": 0,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "maia3",
+    "artist047:quiet+break"
+   ],
+   "base_s": 0.737,
+   "union_s": 0.728,
+   "candidates": {
+    "d4c5": {
+     "src": [
+      "multipv1"
+     ],
+     "verified": 56
+    },
+    "d4c4": {
+     "src": [
+      "multipv2",
+      "maia3"
+     ],
+     "verified": 71
+    },
+    "d4d3": {
+     "src": [
+      "multipv3"
+     ],
+     "verified": 0
+    },
+    "d4e4": {
+     "src": [
+      "maia3"
+     ],
+     "verified": 66
+    },
+    "f2f3": {
+     "src": [
+      "maia3",
+      "artist047:quiet+break"
+     ],
+     "verified": 176
+    },
+    "f2f4": {
+     "src": [
+      "artist047:quiet+break"
+     ],
+     "verified": -35
+    }
+   }
+  },
+  {
+   "id": "05oMl",
+   "split": "dev",
+   "solution": "d5c5",
+   "base": "c4b5",
+   "union": "c4b5",
+   "base_ok": false,
+   "union_ok": false,
+   "base_loss": 241,
+   "union_loss": 248,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "maia3"
+   ],
+   "base_s": 0.998,
+   "union_s": 0.828,
+   "candidates": {
+    "c4b5": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": 160
+    },
+    "b3b4": {
+     "src": [
+      "multipv2",
+      "artist047:quiet+break"
+     ],
+     "verified": 55
+    },
+    "a3a4": {
+     "src": [
+      "multipv3",
+      "artist047:quiet+break"
+     ],
+     "verified": 33
+    },
+    "c4c5": {
+     "src": [
+      "maia3"
+     ],
+     "verified": 40
+    },
+    "d5c5": {
+     "src": [
+      "maia3"
+     ],
+     "verified": 41
+    },
+    "e5e6": {
+     "src": [
+      "artist047:king_zone+quiet+break"
+     ],
+     "verified": -81
+    }
+   }
+  },
+  {
+   "id": "0xmBv",
+   "split": "fresh",
+   "solution": "f4f6",
+   "base": "d1d2",
+   "union": "d1d2",
+   "base_ok": false,
+   "union_ok": false,
+   "base_loss": 342,
+   "union_loss": 354,
+   "solution_in_candidates": false,
+   "solution_sources": null,
+   "base_s": 0.648,
+   "union_s": 0.862,
+   "candidates": {
+    "d1d2": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": 59
+    },
+    "a3a4": {
+     "src": [
+      "multipv2",
+      "maia3"
+     ],
+     "verified": 20
+    },
+    "h5g6": {
+     "src": [
+      "multipv3"
+     ],
+     "verified": 9
+    },
+    "d1c1": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -205
+    },
+    "f4f7": {
+     "src": [
+      "artist047:sacrifice+check"
+     ],
+     "verified": -985
+    },
+    "f4f5": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -1109
+    },
+    "f4g4": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -1109
+    }
+   }
+  },
+  {
+   "id": "1GjUV",
+   "split": "fresh",
+   "solution": "b6b7",
+   "base": "b5a6",
+   "union": "b5c5",
+   "base_ok": false,
+   "union_ok": false,
+   "base_loss": 271,
+   "union_loss": 276,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "maia3"
+   ],
+   "base_s": 0.56,
+   "union_s": 0.784,
+   "candidates": {
+    "d2a5": {
+     "src": [
+      "multipv1"
+     ],
+     "verified": 7
+    },
+    "b5a6": {
+     "src": [
+      "multipv2",
+      "maia3"
+     ],
+     "verified": 19
+    },
+    "d2c1": {
+     "src": [
+      "multipv3"
+     ],
+     "verified": 0
+    },
+    "b6b7": {
+     "src": [
+      "maia3"
+     ],
+     "verified": 0
+    },
+    "b5c5": {
+     "src": [
+      "maia3"
+     ],
+     "verified": 24
+    },
+    "e2g3": {
+     "src": [
+      "artist047:sacrifice+quiet"
+     ],
+     "verified": -408
+    },
+    "e2g1": {
+     "src": [
+      "artist047:sacrifice+quiet"
+     ],
+     "verified": -336
+    },
+    "d2b4": {
+     "src": [
+      "artist047:sacrifice+quiet"
+     ],
+     "verified": -41
+    }
+   }
+  },
+  {
+   "id": "0hUg7",
+   "split": "dev",
+   "solution": "e5g4",
+   "base": "e5g4",
+   "union": "d6c5",
+   "base_ok": true,
+   "union_ok": false,
+   "base_loss": 0,
+   "union_loss": 276,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "maia3"
+   ],
+   "base_s": 0.727,
+   "union_s": 0.797,
+   "candidates": {
+    "c8f5": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": -74
+    },
+    "d6c5": {
+     "src": [
+      "multipv2",
+      "maia3",
+      "artist047:sacrifice"
+     ],
+     "verified": -72
+    },
+    "f8e8": {
+     "src": [
+      "multipv3"
+     ],
+     "verified": -160
+    },
+    "e5g4": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -83
+    },
+    "e5f3": {
+     "src": [
+      "artist047:sacrifice+check"
+     ],
+     "verified": -235
+    },
+    "c8d7": {
+     "src": [
+      "artist047:sacrifice+quiet"
+     ],
+     "verified": -233
+    }
+   }
+  },
+  {
+   "id": "2DMYR",
+   "split": "fresh",
+   "solution": "d1d6",
+   "base": "d1d6",
+   "union": "c2b3",
+   "base_ok": true,
+   "union_ok": false,
+   "base_loss": 56,
+   "union_loss": 365,
+   "solution_in_candidates": false,
+   "solution_sources": null,
+   "base_s": 0.732,
+   "union_s": 0.837,
+   "candidates": {
+    "a2b3": {
+     "src": [
+      "multipv1",
+      "maia3"
+     ],
+     "verified": -113
+    },
+    "c2b3": {
+     "src": [
+      "multipv2",
+      "maia3"
+     ],
+     "verified": -103
+    },
+    "h5h6": {
+     "src": [
+      "multipv3"
+     ],
+     "verified": -228
+    },
+    "b2f6": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -352
+    },
+    "e7f8": {
+     "src": [
+      "artist047:sacrifice+check"
+     ],
+     "verified": -604
+    },
+    "e7e8": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -1390
+    },
+    "e7d8": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -1413
+    }
+   }
+  },
+  {
+   "id": "2TK9W",
+   "split": "fresh",
+   "solution": "d3h7",
+   "base": "d2c4",
+   "union": "d2c4",
+   "base_ok": false,
+   "union_ok": false,
+   "base_loss": 439,
+   "union_loss": 426,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "maia3"
+   ],
+   "base_s": 0.957,
+   "union_s": 0.79,
+   "candidates": {
+    "f1b1": {
+     "src": [
+      "multipv1"
+     ],
+     "verified": -306
+    },
+    "d2c4": {
+     "src": [
+      "multipv2",
+      "maia3"
+     ],
+     "verified": -148
+    },
+    "f4g3": {
+     "src": [
+      "multipv3"
+     ],
+     "verified": -329
+    },
+    "d3h7": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -238
+    },
+    "g5h7": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -646
+    },
+    "h5f7": {
+     "src": [
+      "artist047:sacrifice+check"
+     ],
+     "verified": -1064
+    },
+    "h5g6": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -1273
+    },
+    "h5g4": {
+     "src": [
+      "artist047:sacrifice+king_zone+quiet"
+     ],
+     "verified": -1209
+    }
+   }
+  },
+  {
+   "id": "2peIn",
+   "split": "fresh",
+   "solution": "e5g3",
+   "base": "e5g3",
+   "union": "e5g3",
+   "base_ok": true,
+   "union_ok": true,
+   "base_loss": 0,
+   "union_loss": 0,
+   "solution_in_candidates": true,
+   "solution_sources": [
+    "artist047:sacrifice+check+king_zone"
+   ],
+   "base_s": 0.999,
+   "union_s": 0.831,
+   "candidates": {
+    "e4c4": {
+     "src": [
+      "multipv1"
+     ],
+     "verified": -353
+    },
+    "f7f6": {
+     "src": [
+      "multipv2"
+     ],
+     "verified": -390
+    },
+    "f7f5": {
+     "src": [
+      "multipv3"
+     ],
+     "verified": -373
+    },
+    "h8g8": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -364
+    },
+    "h4h3": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -390
+    },
+    "e5h2": {
+     "src": [
+      "maia3"
+     ],
+     "verified": -384
+    },
+    "e5g3": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": 0
+    },
+    "e4f5": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -1487
+    },
+    "e4f4": {
+     "src": [
+      "artist047:sacrifice+check+king_zone"
+     ],
+     "verified": -1768
+    }
+   }
+  }
+ ]
+}

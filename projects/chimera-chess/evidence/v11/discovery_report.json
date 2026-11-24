@@ -1,0 +1,228 @@
+{
+ "pool": 448,
+ "families": {
+  "capture": 79,
+  "check": 97,
+  "king-move": 50,
+  "promotion": 1,
+  "quiet": 92,
+  "quiet-offer": 129
+ },
+ "archive_cells": 16,
+ "archive": {
+  "quiet|h5": {
+   "count": 36,
+   "elite": {
+    "id": "29u4X",
+    "fen": "r4rk1/2b2ppp/p2qpB2/8/Pp1pB3/6P1/1P2QP2/5R1K w - - 1 24",
+    "move": "e2h5"
+   },
+   "elite_gain": 802
+  },
+  "quiet|h3": {
+   "count": 32,
+   "elite": {
+    "id": "33551",
+    "fen": "8/8/4k3/2P2p2/1p1K2p1/7P/P7/8 w - - 0 44",
+    "move": "h3h4"
+   },
+   "elite_gain": 951
+  },
+  "quiet-offer|h7": {
+   "count": 36,
+   "elite": {
+    "id": "2mdWc",
+    "fen": "3r2k1/pp4pp/2p2p2/8/4rP2/BP2R1P1/P1q4P/R3Q2K b - - 1 28",
+    "move": "d8d2"
+   },
+   "elite_gain": 745
+  },
+  "check|h3": {
+   "count": 34,
+   "elite": {
+    "id": "0fqq0",
+    "fen": "rn2R3/ppp2pk1/1b5p/7q/1PQ2p2/P4N1P/5P2/5K2 w - - 2 27",
+    "move": "c4c3"
+   },
+   "elite_gain": 827
+  },
+  "quiet-offer|h5": {
+   "count": 53,
+   "elite": {
+    "id": "1ts6Z",
+    "fen": "6k1/1p2pR2/p2p2pB/4b3/8/7P/q4QP1/1q3B1K w - - 1 33",
+    "move": "f7f8"
+   },
+   "elite_gain": 1123
+  },
+  "king-move|h5": {
+   "count": 16,
+   "elite": {
+    "id": "2fF4I",
+    "fen": "8/8/8/7p/4K2P/2p2pP1/5k2/3N4 b - - 1 44",
+    "move": "f2e1"
+   },
+   "elite_gain": 433
+  },
+  "capture|h5": {
+   "count": 27,
+   "elite": {
+    "id": "0qjfe",
+    "fen": "7k/2q3pp/1p6/p1pPpr2/P1P1p3/2P1PpP1/1RQ2P1r/1R4K1 w - - 0 32",
+    "move": "b2b6"
+   },
+   "elite_gain": 100123
+  },
+  "capture|h7": {
+   "count": 20,
+   "elite": {
+    "id": "27LoL",
+    "fen": "rn3k2/pp3pp1/1q1bb3/3p2N1/5P1Q/2p5/PPPB1nKP/4R3 w - - 4 23",
+    "move": "e1e6"
+   },
+   "elite_gain": 629
+  },
+  "capture|h3": {
+   "count": 32,
+   "elite": {
+    "id": "2CG7p",
+    "fen": "r4rk1/pp1n2p1/1q2p1Qp/3pP3/3P2P1/bP2BN1P/P1nN2K1/5R2 w - - 0 26",
+    "move": "e3h6"
+   },
+   "elite_gain": 866
+  },
+  "quiet|h7": {
+   "count": 24,
+   "elite": {
+    "id": "179g1",
+    "fen": "8/1p1k4/p2P2p1/4K2p/P5p1/8/5P1P/8 w - - 1 43",
+    "move": "a4a5"
+   },
+   "elite_gain": 905
+  },
+  "check|h5": {
+   "count": 37,
+   "elite": {
+    "id": "0Ppty",
+    "fen": "4r1k1/prqb1ppp/2p1n3/3p1Q2/8/6R1/P4PPP/B4RK1 w - - 0 27",
+    "move": "g3g7"
+   },
+   "elite_gain": 785
+  },
+  "quiet-offer|h3": {
+   "count": 40,
+   "elite": {
+    "id": "2rVCb",
+    "fen": "r3k3/p1pb1p2/1p6/3Pq2p/2P5/1P1BP1rp/P3Q2N/R4R1K b q - 3 22",
+    "move": "g3g2"
+   },
+   "elite_gain": 828
+  },
+  "check|h7": {
+   "count": 26,
+   "elite": {
+    "id": "096Vs",
+    "fen": "8/6k1/7p/8/1R1K4/1P6/6r1/8 b - - 0 46",
+    "move": "g2g4"
+   },
+   "elite_gain": 700
+  },
+  "king-move|h7": {
+   "count": 12,
+   "elite": {
+    "id": "32BQs",
+    "fen": "8/8/1p1k1pK1/2pP3p/2P2P1P/1p6/1P6/8 w - - 2 45",
+    "move": "g6f6"
+   },
+   "elite_gain": 747
+  },
+  "king-move|h3": {
+   "count": 22,
+   "elite": {
+    "id": "1V2Yf",
+    "fen": "8/5K2/8/3k4/6p1/8/6P1/8 w - - 1 53",
+    "move": "f7f6"
+   },
+   "elite_gain": 642
+  },
+  "promotion|h5": {
+   "count": 1,
+   "elite": {
+    "id": "2Pq6h",
+    "fen": "6R1/6NP/8/2kp4/2p5/2b4K/rp6/8 w - - 0 56",
+    "move": "h7h8q"
+   },
+   "elite_gain": 271
+  }
+ },
+ "leave_one_family_out": {
+  "capture": {
+   "n_test": 79,
+   "student_top1": 0.089,
+   "student_top3": 0.278,
+   "maia_top1": 0.405,
+   "maia_top3": 0.797,
+   "random_top3": 0.132
+  },
+  "check": {
+   "n_test": 97,
+   "student_top1": 0.495,
+   "student_top3": 0.804,
+   "maia_top1": 0.402,
+   "maia_top3": 0.773,
+   "random_top3": 0.119
+  },
+  "king-move": {
+   "n_test": 50,
+   "student_top1": 0.16,
+   "student_top3": 0.5,
+   "maia_top1": 0.54,
+   "maia_top3": 0.9,
+   "random_top3": 0.398
+  },
+  "quiet": {
+   "n_test": 92,
+   "student_top1": 0.076,
+   "student_top3": 0.391,
+   "maia_top1": 0.435,
+   "maia_top3": 0.783,
+   "random_top3": 0.176
+  },
+  "quiet-offer": {
+   "n_test": 129,
+   "student_top1": 0.209,
+   "student_top3": 0.55,
+   "maia_top1": 0.31,
+   "maia_top3": 0.659,
+   "random_top3": 0.163
+  }
+ },
+ "game_disjoint_holdout": {
+  "n_train": 350,
+  "n_test": 98,
+  "student_top1": 0.469,
+  "student_top3": 0.806,
+  "maia_top1": 0.429,
+  "maia_top3": 0.735
+ },
+ "student_weights": {
+  "P": -0.158,
+  "N": -0.1868,
+  "B": -0.1764,
+  "R": 0.5869,
+  "Q": 0.1642,
+  "K": -0.2299,
+  "capture_value": 0.4532,
+  "promotion": 0.7012,
+  "check": 0.852,
+  "dest_attacked": 1.1523,
+  "dest_hanging": 0.6825,
+  "offer_value": -0.0354,
+  "dist_enemy_king": -0.7031,
+  "dest_rank": 0.8428,
+  "king_zone_pressure": 0.9809,
+  "log_opp_moves": -1.2597,
+  "quiet": 0.3495,
+  "maia_logp": 7.0702
+ }
+}

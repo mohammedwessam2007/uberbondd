@@ -1,0 +1,22 @@
+{
+  "a": "native:2:gov=lab/governor_changed_rule.txt",
+  "b": "ref:2",
+  "tc": "10+0.1",
+  "games": 48,
+  "a_wins": 16,
+  "draws": 19,
+  "a_losses": 13,
+  "a_score": 25.5,
+  "a_pct": 0.5312,
+  "elo_diff_a_minus_b_95ci": [
+    22,
+    -78,
+    125
+  ],
+  "time_forfeits": 0,
+  "illegal_or_failure": 0,
+  "stockfish": "/usr/games/stockfish",
+  "python": "3.13.18",
+  "chess": "1.11.2",
+  "date_utc": "2026-11-24T03:56:10"
+}

@@ -79,7 +79,18 @@ def open_player(spec: str):
             opts["Skeptic"] = True
         if "plan" in rest:
             opts["PlanMemory"] = True
+        if "stateless" in rest:
+            opts["ClearStateEachMove"] = True
         for t in rest:
+            if t.startswith("mpv="):
+                opts["ForceMultiPV"] = int(t[4:])
+            if t.startswith("style="):
+                opts["StyleProfile"] = t[6:]
+            if t.startswith("margin="):
+                opts["StyleMarginCp"] = int(t[7:])
+            if t.startswith("gov="):
+                opts["Governor"] = True
+                opts["GovernorWeights"] = open(os.path.join(ROOT, t[4:])).read().strip()
             if t.startswith("file="):
                 opts["EvalFile"] = os.path.join(ROOT, t[5:])
         if "EvalFile" in opts:

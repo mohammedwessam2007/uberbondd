@@ -4,7 +4,8 @@
 #   adb push dist /data/local/tmp/chimera   then   adb shell sh /data/local/tmp/chimera/device_bench.sh
 # or run inside Termux from a private directory. Output: device_bench.txt next to this script.
 cd "$(dirname "$0")" || exit 1
-B=./chimera-linux-arm64-static
+# Prefer the bionic (NDK) build on Android; the static glibc build is the fallback.
+B=./chimera-android-arm64; [ -x "$B" ] || chmod 755 "$B" 2>/dev/null; "$B" bench 1 >/dev/null 2>&1 || B=./chimera-linux-arm64-static
 chmod 755 "$B"
 OUT=device_bench.txt
 {

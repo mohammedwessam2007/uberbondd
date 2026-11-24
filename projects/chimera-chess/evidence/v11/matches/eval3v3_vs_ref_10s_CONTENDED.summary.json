@@ -1,0 +1,22 @@
+{
+  "a": "native:3:file=nnue/eval_v3_all.bin",
+  "b": "ref:2",
+  "tc": "10+0.1",
+  "games": 48,
+  "a_wins": 14,
+  "draws": 9,
+  "a_losses": 25,
+  "a_score": 18.5,
+  "a_pct": 0.3854,
+  "elo_diff_a_minus_b_95ci": [
+    -81,
+    -193,
+    16
+  ],
+  "time_forfeits": 0,
+  "illegal_or_failure": 0,
+  "stockfish": "/usr/games/stockfish",
+  "python": "3.13.18",
+  "chess": "1.11.2",
+  "date_utc": "2026-11-24T03:08:59"
+}

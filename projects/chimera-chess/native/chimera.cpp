@@ -18,6 +18,7 @@
 #include <thread>
 #include <vector>
 #include <unistd.h>
+#include <cmath>
 
 using U64 = uint64_t;
 using Clock = std::chrono::steady_clock;
@@ -111,7 +112,28 @@ static std::string move_str(Move m) {
 
 struct Undo { int captured; int castle; int ep; int half; U64 hash; };
 
+// ---- V11: quantized incremental accumulator for the trained evaluator (exactly reversible integer arithmetic)
+static const int NN_MAXH = 256, NN_Q = 1024;
+static int NN_H = 0;
+static std::vector<int16_t> NN_W1Q;   // [768][H], round(w * NN_Q)
+static std::vector<int32_t> NN_B1Q;   // [H]
+static inline int nn_index(int persp, int c, int t, int s) { return ((c == persp ? 0 : 6) + t) * 64 + (persp == WHITE ? s : (s ^ 56)); }
+
 struct Position {
+  int32_t acc[2][NN_MAXH];  // accumulator per perspective (white, black); valid when NN_H > 0
+  inline void acc_update(int c, int t, int s, int sign) {
+    for (int persp = 0; persp < 2; persp++) {
+      const int16_t *w = &NN_W1Q[(size_t)nn_index(persp, c, t, s) * NN_H];
+      int32_t *a = acc[persp];
+      if (sign > 0) for (int i = 0; i < NN_H; i++) a[i] += w[i];
+      else for (int i = 0; i < NN_H; i++) a[i] -= w[i];
+    }
+  }
+  void nn_refresh() {
+    if (!NN_H) return;
+    for (int persp = 0; persp < 2; persp++) for (int i = 0; i < NN_H; i++) acc[persp][i] = NN_B1Q[i];
+    for (int sq = 0; sq < 64; sq++) if (board[sq] != -1) acc_update(board[sq] / 6, board[sq] % 6, sq, +1);
+  }
   U64 bb[2][6];
   U64 occ[2];
   int board[64];  // -1 or color*6+type
@@ -125,9 +147,10 @@ struct Position {
     memset(bb, 0, sizeof bb); occ[0] = occ[1] = 0;
     for (int &x : board) x = NONE;
     side = WHITE; castle = 0; ep = -1; half = 0; fullmove = 1; hash = 0; history.clear(); undo.clear();
+    if (NN_H) for (int persp = 0; persp < 2; persp++) for (int i = 0; i < NN_H; i++) acc[persp][i] = NN_B1Q[i];
   }
-  void put(int c, int p, int s) { bb[c][p] |= bit(s); occ[c] |= bit(s); board[s] = c * 6 + p; hash ^= ZP[c * 6 + p][s]; }
-  void remove(int s) { int pc = board[s]; int c = pc / 6, p = pc % 6; bb[c][p] &= ~bit(s); occ[c] &= ~bit(s); board[s] = NONE; hash ^= ZP[pc][s]; }
+  void put(int c, int p, int s) { bb[c][p] |= bit(s); occ[c] |= bit(s); board[s] = c * 6 + p; hash ^= ZP[c * 6 + p][s]; if (NN_H) acc_update(c, p, s, +1); }
+  void remove(int s) { int pc = board[s]; int c = pc / 6, p = pc % 6; bb[c][p] &= ~bit(s); occ[c] &= ~bit(s); board[s] = NONE; hash ^= ZP[pc][s]; if (NN_H) acc_update(c, p, s, -1); }
   U64 compute_hash() const {
     U64 h = 0;
     for (int s = 0; s < 64; s++) if (board[s] != NONE) h ^= ZP[board[s]][s];
@@ -333,7 +356,14 @@ static int MG_PST[6][64], EG_PST[6][64];
 static const int PASSED_BONUS[8] = {0, 5, 10, 18, 32, 55, 90, 0};
 static int EVAL_VERSION = 2;
 static int ARTIST_EXT = 0;
-static int SKEPTIC = 0;          // V9 independent Skeptic (different evaluator + separate TT); off until it passes prereg
+static int SKEPTIC = 0;
+static int MULTIPV = 1;            // V11: exact scores for the top-k root moves
+static int STYLE_PROFILE = 0;      // V11: 0 none, 1 attack, 2 restraint (trait-conditioned choice among near-best moves)
+static int STYLE_MARGIN = 30;
+static int CLEAR_STATE = 0;              // V11 memory ablation: wipe TT/history/plan before every move (memoryless control)
+static int GOV_TRACE = 0, GOVERNOR = 0;   // V11 value-of-computation governor
+static double GOV_W[7] = {0, 0, 0, 0, 0, 0, 0};  // bias + 6 features; set by GovernorWeights option
+static double GOV_HI = 0.5, GOV_LO = 0.15;      // cp window below the best move inside which a trait may decide          // V9 independent Skeptic (different evaluator + separate TT); off until it passes prereg
 static int SKEPTIC_FIRED = 0, SKEPTIC_OVERRULED = 0;  // root sacrifice extension (#163/#118); off until it passes the pre-registered test
 
 static int centre(int s) { int f = file_of(s), r = rank_of(s); return 6 - (std::abs(2 * f - 7) + std::abs(2 * r - 7)) / 2; }
@@ -363,7 +393,6 @@ static inline int fdiv(int a, int b) { int q = a / b; if ((a % b != 0) && ((a < 
 // ---- EvalVersion 3: trained evaluator (tools/train_nnue.py), float32, side-to-move relative
 static std::vector<float> NN_W1, NN_B1, NN_W2;
 static float NN_B2 = 0;
-static int NN_H = 0;
 static int NN_RESIDUAL = 0;  // CHNNUE2: eval = EvalV2 + net
 static std::string NN_FILE;
 static bool nnue_load(const std::string &path) {
@@ -371,33 +400,42 @@ static bool nnue_load(const std::string &path) {
   if (!f) return false;
   char magic[8]; int32_t H = 0;
   bool ok = fread(magic, 1, 8, f) == 8 && (memcmp(magic, "CHNNUE1", 7) == 0 || memcmp(magic, "CHNNUE2", 7) == 0) &&
-            fread(&H, 4, 1, f) == 1 && H > 0 && H <= 4096;
+            fread(&H, 4, 1, f) == 1 && H > 0 && H <= NN_MAXH;
   int residual = ok && magic[6] == '2';
   if (ok) {
     std::vector<float> w1((size_t)768 * H), b1(H), w2(H); float b2;
     ok = fread(w1.data(), 4, w1.size(), f) == w1.size() && fread(b1.data(), 4, H, f) == (size_t)H &&
          fread(w2.data(), 4, H, f) == (size_t)H && fread(&b2, 4, 1, f) == 1;
-    if (ok) { NN_W1.swap(w1); NN_B1.swap(b1); NN_W2.swap(w2); NN_B2 = b2; NN_H = H; NN_FILE = path; NN_RESIDUAL = residual; }
+    if (ok) {
+      NN_W1.swap(w1); NN_B1.swap(b1); NN_W2.swap(w2); NN_B2 = b2; NN_FILE = path; NN_RESIDUAL = residual;
+      NN_W1Q.assign((size_t)768 * H, 0); NN_B1Q.assign(H, 0);
+      for (size_t i = 0; i < NN_W1Q.size(); i++) NN_W1Q[i] = (int16_t)std::max(-32767.0f, std::min(32767.0f, std::round(NN_W1[i] * NN_Q)));
+      for (int i = 0; i < H; i++) NN_B1Q[i] = (int32_t)std::lround(NN_B1[i] * NN_Q);
+      NN_H = H;
+    }
   }
   fclose(f);
   return ok;
 }
-static int nnue_eval(const Position &p) {
-  float acc[4096];
+// full-precision reference (recomputed from scratch, float weights) - used only for parity checks
+static float nnue_eval_float(const Position &p) {
+  float acc[NN_MAXH];
   for (int i = 0; i < NN_H; i++) acc[i] = NN_B1[i];
   int stm = p.side;
-  for (int c = 0; c < 2; c++) for (int pt = 0; pt < 6; pt++) {
-    U64 b = p.bb[c][pt];
-    while (b) {
-      int s = pop_lsb(b);
-      int own = c == stm;
-      int sq = stm == WHITE ? s : (s ^ 56);
-      const float *w = &NN_W1[(size_t)(((own ? 0 : 6) + pt) * 64 + sq) * NN_H];
-      for (int i = 0; i < NN_H; i++) acc[i] += w[i];
-    }
+  for (int sq = 0; sq < 64; sq++) if (p.board[sq] != NONE) {
+    const float *w = &NN_W1[(size_t)nn_index(stm, p.board[sq] / 6, p.board[sq] % 6, sq) * NN_H];
+    for (int i = 0; i < NN_H; i++) acc[i] += w[i];
   }
   float out = NN_B2;
   for (int i = 0; i < NN_H; i++) { float h = acc[i] < 0 ? 0 : (acc[i] > 1 ? 1 : acc[i]); out += h * NN_W2[i]; }
+  return out * 400.0f;
+}
+// incremental quantized evaluation: reads the side-to-move accumulator maintained by make/unmake
+static int nnue_eval(const Position &p) {
+  const int32_t *a = p.acc[p.side];
+  float out = NN_B2;
+  const float inv = 1.0f / NN_Q;
+  for (int i = 0; i < NN_H; i++) { int32_t v = a[i] < 0 ? 0 : (a[i] > NN_Q ? NN_Q : a[i]); out += (float)v * inv * NN_W2[i]; }
   int cp = (int)(out * 400.0f);
   return std::max(-3000, std::min(3000, cp));
 }
@@ -520,6 +558,8 @@ struct Searcher {
   Move killers[128][2];
   int hist[2][64][64];
   Move root_best = 0; int root_score = 0;
+  std::vector<std::pair<Move, int>> last_mpv;  // last fully completed MultiPV set (move, exact score)
+  int style_changed = 0;
   Move plan_hint = 0;   // Architect: next move of the persisted plan (ordering only, never forced)
   int stable_iters = 0; // how many final iterations kept the same best move (plan confidence input)
   bool aborted = false;
@@ -574,6 +614,36 @@ struct Searcher {
     for (int q = 0; q < 6; q++) if (att & pos.bb[pos.side ^ 1][q]) { cheapest = PV[q]; break; }
     int val = PV[mpromo(m) ? mpromo(m) : pt];
     return !def || cheapest < val;
+  }
+
+  // V11 trait measures (from the mover's perspective, after the move). Heuristic, measurable, NOT a named-master model.
+  double trait(Move m, int profile) {
+    int us = pos.side;
+    if (!pos.make(m)) return -1e18;
+    double v = 0;
+    U64 o = pos.all();
+    if (profile == 1) {  // attack: weighted pressure on the enemy king zone, check bonus
+      int ek = pos.king_sq(us ^ 1);
+      U64 zone = ek >= 0 ? (KG[ek] | bit(ek)) : 0;
+      static const int W[6] = {1, 2, 2, 3, 5, 0};
+      for (int pt = 0; pt < 5; pt++) {
+        U64 b = pos.bb[us][pt];
+        while (b) {
+          int sq = pop_lsb(b);
+          U64 a = pt == PAWN ? PA[us][sq] : pt == KNIGHT ? KN[sq] : pt == BISHOP ? bishop_att(sq, o) : pt == ROOK ? rook_att(sq, o) : (bishop_att(sq, o) | rook_att(sq, o));
+          v += W[pt] * popcnt(a & zone);
+        }
+      }
+      if (pos.in_check()) v += 6;
+    } else {  // restraint: fewer opponent legal moves and less pressure on our king zone
+      std::vector<Move> l; pos.legal(l);
+      int ok = pos.king_sq(us);
+      int pressure = 0;
+      if (ok >= 0) { U64 z = KG[ok]; while (z) pressure += popcnt(pos.attackers(pop_lsb(z), us ^ 1, o)); }
+      v = -(double)l.size() - 3.0 * pressure;
+    }
+    pos.unmake(m);
+    return v;
   }
 
   int score_move(Move m, Move tt, int ply) {
@@ -750,6 +820,7 @@ struct Searcher {
   // returns best move; prints info lines via callback
   Move think(const Limits &lim, double soft_ms, double hard_ms, bool print, int &out_depth) {
     start = Clock::now();
+    pos.nn_refresh();
     has_deadline = hard_ms > 0;
     if (has_deadline) hard_deadline = start + std::chrono::microseconds((long long)(hard_ms * 1000));
     node_limit = lim.nodes;
@@ -777,6 +848,10 @@ struct Searcher {
       if (it != root.end()) std::rotate(root.begin(), it, it + 1);
     }
     stable_iters = 0;
+    int changes_total = 0; Move prev_best_iter = 0; int prev_score_iter = 0;
+    last_mpv.clear();
+    style_changed = 0;
+    const int K_MPV = MULTIPV;  // V11 style variant 2: no forced MultiPV (MultiPV-4 cost -243 Elo, evidence/v11/matches/mpv4_nostyle_vs_ref_10s)
     std::vector<int> scores(root.size(), -INF);
     std::vector<char> art(root.size(), 0);
     int n_art = 0;
@@ -824,7 +899,37 @@ struct Searcher {
       for (size_t i = 0; i < root.size(); i++) rs.push_back({{scores[i], (int)art[i]}, root[i]});
       std::stable_sort(rs.begin(), rs.end(), [](auto &x, auto &y) { return x.first.first > y.first.first; });
       for (size_t i = 0; i < root.size(); i++) { root[i] = rs[i].second; scores[i] = rs[i].first.first; art[i] = (char)rs[i].first.second; }
+      bool mpv_aborted = false;
+      if (K_MPV > 1 && root.size() > 1) {
+        std::vector<std::pair<Move, int>> cur{{best, best_score}};
+        size_t K = std::min((size_t)K_MPV, root.size());
+        for (size_t j = 1; j < K; j++) {
+          int bs = -INF, a = -INF; size_t bi = j;
+          for (size_t i = j; i < root.size(); i++) {
+            pos.make(root[i]);
+            int sc2 = (i == j) ? -negamax(depth - 1, -INF, -a, 1, true) : -negamax(depth - 1, -a - 1, -a, 1, true);
+            if (!aborted && i != j && sc2 > a) sc2 = -negamax(depth - 1, -INF, -a, 1, true);
+            pos.unmake(root[i]);
+            if (aborted) break;
+            if (sc2 > bs) { bs = sc2; bi = i; }
+            if (sc2 > a) a = sc2;
+          }
+          if (aborted) { mpv_aborted = true; break; }
+          std::swap(root[j], root[bi]); std::swap(scores[j], scores[bi]); std::swap(art[j], art[bi]);
+          scores[j] = bs;
+          cur.push_back({root[j], bs});
+        }
+        if (!mpv_aborted) last_mpv = cur;
+        aborted = false;  // the main iteration itself completed; MultiPV extras are best-effort
+      }
       double el = std::chrono::duration<double, std::milli>(Clock::now() - start).count();
+      if (print && MULTIPV > 1 && !mpv_aborted) {
+        for (size_t k = 1; k < last_mpv.size(); k++) {
+          printf("info depth %d multipv %zu score cp %d pv %s\n", depth, k + 1, last_mpv[k].second, pv_line(last_mpv[k].first).c_str());
+        }
+        fflush(stdout);
+      }
+      if (mpv_aborted) break;
       if (print) {
         std::string sc;
         if (best_score >= MATE_BOUND) sc = "mate " + std::to_string((MATE - best_score + 1) / 2);
@@ -835,8 +940,54 @@ struct Searcher {
         fflush(stdout);
       }
       if (std::abs(best_score) >= MATE_BOUND && depth > 2 * (MATE - std::abs(best_score)) + 2) break;
+      // V11 governor features (same definitions are used offline in tools/governor_lab.py)
+      changes_total += (depth > 1 && best != prev_best_iter) ? 1 : 0;
+      double gf[6] = {(double)stable_iters / depth, std::min(5.0, std::abs(best_score - prev_score_iter) / 100.0),
+                      (depth > 1 && best != prev_best_iter) ? 1.0 : 0.0, std::log((double)root.size() + 1.0),
+                      std::min(1.0, std::abs(best_score) / 1000.0), (double)changes_total / depth};
+      prev_best_iter = best; prev_score_iter = best_score;
+      if (GOV_TRACE) { printf("info string gov depth %d time %d best %s score %d f %.4f %.4f %.4f %.4f %.4f %.4f\n", depth, (int)el, move_str(best).c_str(), best_score, gf[0], gf[1], gf[2], gf[3], gf[4], gf[5]); fflush(stdout); }
+      if (GOVERNOR && soft_ms > 0 && depth >= 4) {
+        double z = GOV_W[0];
+        for (int q = 0; q < 6; q++) z += GOV_W[q + 1] * gf[q];
+        double pchg = 1.0 / (1.0 + std::exp(-z));
+        if (el > 0.5 * soft_ms && pchg < GOV_LO) break;                       // confident: stop early, bank the time
+        if (el > soft_ms && !(pchg > GOV_HI && el < std::min(2.5 * soft_ms, hard_ms > 0 ? 0.7 * hard_ms : 2.5 * soft_ms))) break;
+        continue;
+      }
       if (soft_ms > 0 && el > soft_ms) break;
       if (stop.load()) break;
+    }
+    if (STYLE_PROFILE && MULTIPV == 1 && out_depth >= 4 && best && std::abs(best_score) < MATE_BOUND) {
+      // variant 2: null-window probes "is alternative within STYLE_MARGIN of best?" at depth-1, top-6 by last ordering
+      int thr = best_score - STYLE_MARGIN;
+      std::vector<std::pair<Move, int>> ok{{best, best_score}};
+      int probes = 0;
+      for (Move m : root) {
+        if (m == best) continue;
+        if (++probes > 6) break;
+        pos.make(m);
+        int sc2 = -negamax(out_depth - 1, -thr, -thr + 1, 1, true);
+        pos.unmake(m);
+        if (aborted) break;
+        if (sc2 >= thr) ok.push_back({m, sc2});
+      }
+      aborted = false;
+      if (ok.size() >= 2) last_mpv = ok;
+    }
+    if (STYLE_PROFILE && last_mpv.size() >= 2 && std::abs(last_mpv[0].second) < MATE_BOUND && best == last_mpv[0].first) {
+      int top = last_mpv[0].second;
+      Move pick = best; double pick_trait = -1e18; int pick_score = top;
+      for (auto &e : last_mpv) {
+        if (e.second < top - STYLE_MARGIN) continue;
+        double tr = trait(e.first, STYLE_PROFILE);
+        if (tr > pick_trait + 1e-9 || (std::abs(tr - pick_trait) < 1e-9 && e.second > pick_score)) { pick_trait = tr; pick = e.first; pick_score = e.second; }
+      }
+      if (pick != best) {
+        style_changed = 1;
+        if (print) { printf("info string style %s chose %s (%d) over %s (%d) trait %.1f\n", STYLE_PROFILE == 1 ? "attack" : "restraint", move_str(pick).c_str(), pick_score, move_str(best).c_str(), top, pick_trait); fflush(stdout); }
+        best = pick; best_score = pick_score;
+      }
     }
     if (SKEPTIC && best && out_depth >= 4 && artistic(best)) {
       Move alt = 0;
@@ -871,6 +1022,24 @@ struct Searcher {
     return best;
   }
 };
+
+// ------------------------------------------------------------------ accumulator parity walk (V11)
+static void nn_walk(Position &p, int d, long long &nodes, long long &bad, double &maxq) {
+  nodes++;
+  int32_t keep[2][NN_MAXH];
+  memcpy(keep, p.acc, sizeof keep);
+  p.nn_refresh();
+  if (memcmp(keep, p.acc, sizeof(int32_t) * 2 * NN_MAXH) != 0) {
+    bool diff = false;
+    for (int q = 0; q < 2; q++) for (int i = 0; i < NN_H; i++) if (keep[q][i] != p.acc[q][i]) diff = true;
+    if (diff) bad++;
+  }
+  double dq = std::abs((double)nnue_eval(p) - (double)std::max(-3000.0f, std::min(3000.0f, nnue_eval_float(p))));
+  if (dq > maxq) maxq = dq;
+  if (d == 0) return;
+  std::vector<Move> mv; p.gen(mv, false);
+  for (Move m : mv) { if (!p.make(m)) continue; nn_walk(p, d - 1, nodes, bad, maxq); p.unmake(m); }
+}
 
 // ------------------------------------------------------------------ perft
 static U64 perft(Position &p, int d) {
@@ -1025,6 +1194,14 @@ int main(int argc, char **argv) {
       printf("option name ArtistExtension type check default false\n");
       printf("option name PlanMemory type check default false\n");
       printf("option name Skeptic type check default false\n");
+      printf("option name MultiPV type spin default 1 min 1 max 16\n");
+      printf("option name ForceMultiPV type spin default 1 min 1 max 16\n");
+      printf("option name StyleProfile type combo default none var none var attack var restraint\n");
+      printf("option name StyleMarginCp type spin default 30 min 0 max 300\n");
+      printf("option name GovernorTrace type check default false\n");
+      printf("option name ClearStateEachMove type check default false\n");
+      printf("option name Governor type check default false\n");
+      printf("option name GovernorWeights type string default 0,0,0,0,0,0,0\n");
       printf("uciok\n"); fflush(stdout);
     } else if (cmd == "isready") { join(); printf("readyok\n"); fflush(stdout); }
     else if (cmd == "setoption") {
@@ -1043,10 +1220,17 @@ int main(int argc, char **argv) {
         EVAL_VERSION = std::max(1, std::min(3, atoi(value.c_str())));
         if (EVAL_VERSION == 3 && NN_H == 0) { printf("info string EvalVersion 3 requested but no EvalFile loaded; using EvalVersion 2\n"); fflush(stdout); EVAL_VERSION = 2; }
       }
-      else if (name == "EvalFile") { if (nnue_load(value)) printf("info string loaded %s H=%d\n", value.c_str(), NN_H); else printf("info string failed to load %s\n", value.c_str()); fflush(stdout); }
+      else if (name == "EvalFile") { if (nnue_load(value)) { S.pos.nn_refresh(); printf("info string loaded %s H=%d\n", value.c_str(), NN_H); } else printf("info string failed to load %s\n", value.c_str()); fflush(stdout); }
       else if (name == "ArtistExtension") ARTIST_EXT = value == "true" ? 1 : 0;
       else if (name == "PlanMemory") PLAN_MEMORY = value == "true" ? 1 : 0;
       else if (name == "Skeptic") SKEPTIC = value == "true" ? 1 : 0;
+      else if (name == "MultiPV" || name == "ForceMultiPV") MULTIPV = std::max(1, std::min(16, atoi(value.c_str())));
+      else if (name == "StyleProfile") STYLE_PROFILE = value == "attack" ? 1 : value == "restraint" ? 2 : 0;
+      else if (name == "GovernorTrace") GOV_TRACE = value == "true";
+      else if (name == "ClearStateEachMove") CLEAR_STATE = value == "true";
+      else if (name == "Governor") GOVERNOR = value == "true";
+      else if (name == "GovernorWeights") { std::stringstream ss(value); std::string x; int q = 0; while (std::getline(ss, x, ',') && q < 9) { if (q < 7) GOV_W[q] = atof(x.c_str()); else if (q == 7) GOV_HI = atof(x.c_str()); else GOV_LO = atof(x.c_str()); q++; } }
+      else if (name == "StyleMarginCp") STYLE_MARGIN = std::max(0, std::min(300, atoi(value.c_str())));
     } else if (cmd == "ucinewgame") { join(); { int v = PLAN.version; PLAN = PlanState(); PLAN.version = v + 1; } tt_resize((int)((TT.size() * sizeof(TTE)) >> 20)); memset(S.hist, 0, sizeof S.hist); S.pos.set_fen(START); }
     else if (cmd == "position") {
       join();
@@ -1106,6 +1290,11 @@ int main(int argc, char **argv) {
         hard = std::max(1.0, std::min(base * 2.5, t_left * 0.25) - overhead_ms);
         soft = std::max(1.0, std::min(base, t_left * 0.25) - overhead_ms) * 0.6;
       }
+      if (CLEAR_STATE) {
+        std::fill(TT.begin(), TT.end(), TTE{0, 0, 0, -1, 0});
+        memset(S.hist, 0, sizeof S.hist);
+        int v = PLAN.version; PLAN = PlanState(); PLAN.version = v + 1;
+      }
       double mult = plan_observe(S.pos, game_moves);
       S.plan_hint = 0;
       if (PLAN_MEMORY) {
@@ -1125,6 +1314,11 @@ int main(int argc, char **argv) {
     } else if (cmd == "stop") { S.stop = true; join(); }
     else if (cmd == "quit") { S.stop = true; join(); break; }
     else if (cmd == "d") { printf("hash %016llx side %d castle %d ep %d half %d\n", (unsigned long long)S.pos.hash, S.pos.side, S.pos.castle, S.pos.ep, S.pos.half); fflush(stdout); }
+    else if (cmd == "nncheck") {
+      int d = 3; is >> d; long long n = 0, bad = 0; double mq = 0;
+      if (NN_H) { S.pos.nn_refresh(); nn_walk(S.pos, d, n, bad, mq); }
+      printf("nncheck nodes %lld incremental_mismatch %lld max_quant_err_cp %.2f H %d\n", n, bad, mq, NN_H); fflush(stdout);
+    }
     else if (cmd == "eval") { printf("eval %d\n", evaluate(S.pos)); fflush(stdout); }
   }
   join();

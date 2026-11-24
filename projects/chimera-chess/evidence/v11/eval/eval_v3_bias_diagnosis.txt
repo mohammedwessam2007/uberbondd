@@ -1,0 +1,3 @@
+stm=w n=1850 label_mean=73.0 eval2_mean=6.0 eval3_mean=42.0 corr2=0.753 corr3=0.798 MAE2=181.9 MAE3=158.0
+stm=b n=1861 label_mean=-12.3 eval2_mean=-47.6 eval3_mean=-54.4 corr2=0.768 corr3=0.822 MAE2=173.4 MAE3=156.8
+training stm counts {'w': 379904, 'b': 0}

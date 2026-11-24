@@ -202,10 +202,12 @@ class WholeMind:
                         ms += bd[n]; bd[n] *= 2
             capped, groups = 0.0, {}
             cp_units = sum(bd.get(n, 0.0) for n in (1, 12, 36, 177))   # PDF states anti-draw penalties in centipawns: unscaled
+            gs = cfg.group_scale or {}
             for n, v in bd.items():
                 if n in (1, 12, 36, 177):
                     continue
                 g = M.REGISTRY[n].group
+                v = v * gs.get(g, 1.0) * gs.get(f"#{n}", 1.0)
                 groups[g] = groups.get(g, 0.0) + v
             for g, v in groups.items():
                 capped += max(-CAPS.get(g, 99), min(CAPS.get(g, 99), v))

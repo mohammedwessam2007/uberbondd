@@ -139,7 +139,7 @@ class WholeMind:
             x = board.copy(); x.push(chess.Move.from_uci(u))
             return x.is_repetition(2) or x.is_stalemate() or x.can_claim_fifty_moves() or x.is_insufficient_material()
         if best < MATE_T and best >= -80 and gate and all(drawish(u) for u in gate):
-            contempt = cfg.anti_draw_contempt_cp if board.fullmove_number <= 30 else -250.0
+            contempt = cfg.anti_draw_contempt_cp if board.fullmove_number <= 30 else cfg.anti_draw_contempt_cp - 130.0   # PDF: -120 -> -250 past move 30
             extra = {u: v for u, v in cand.items() if v >= contempt and not drawish(u)}
             if extra:
                 gate.update(extra)

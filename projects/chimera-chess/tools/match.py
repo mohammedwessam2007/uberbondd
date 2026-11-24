@@ -111,6 +111,8 @@ def open_player(spec: str):
                 opts["StyleExtreme"] = False
             if t.startswith("root="):
                 opts["RootNodes"] = int(t[5:])
+            if t.startswith("style="):
+                opts["StyleFile"] = os.path.join(ROOT, t[6:])
         eng.configure(opts)
         eng.chimera_nodes = next((int(t[6:]) for t in rest if t.startswith("nodes=")), None)
         return eng

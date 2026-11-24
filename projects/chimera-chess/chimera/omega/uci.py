@@ -16,7 +16,7 @@ class UCI:
     def __init__(self, out=sys.stdout):
         self.out = out
         self.opts = {"Preset": "Trauma_GM_2685", "Profile": "WHOLE_MIND", "Deterministic": True, "Seed": 42, "Verifier": "stockfish",
-                     "RootNodes": 120000, "ReplyNodes": 20000, "TraceFile": "", "MoveOverheadMs": 50, "StyleExtreme": True, "BookFile": ""}
+                     "RootNodes": 120000, "ReplyNodes": 20000, "TraceFile": "", "MoveOverheadMs": 50, "StyleExtreme": True, "BookFile": "", "StyleFile": ""}
         self.board = chess.Board()
         self.mind = None
         self.worker = None
@@ -33,6 +33,11 @@ class UCI:
             cfg = C.make(self.opts["Preset"], self.opts["Profile"], deterministic=self.opts["Deterministic"], seed=int(self.opts["Seed"]),
                          verifier=self.opts["Verifier"], root_nodes=int(self.opts["RootNodes"]), reply_nodes=int(self.opts["ReplyNodes"]),
                          style_extreme=self.opts["StyleExtreme"])
+            if self.opts["StyleFile"]:   # calibration overrides (group_scale, contempt, motif_scale) -- never the soundness gate
+                import json
+                for k, v in json.load(open(self.opts["StyleFile"])).items():
+                    if k in ("group_scale", "anti_draw_contempt_cp", "motif_scale"):
+                        setattr(cfg, k, v)
             self.mind = WholeMind(cfg, trace_path=self.opts["TraceFile"] or None)
         return self.mind
 
@@ -55,6 +60,7 @@ class UCI:
             self.say("option name MoveOverheadMs type spin default 50 min 0 max 5000")
             self.say("option name TraceFile type string default <empty>")
             self.say("option name BookFile type string default <empty>")
+            self.say("option name StyleFile type string default <empty>")
             self.say("uciok")
         elif c == "isready":
             self.join()

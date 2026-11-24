@@ -22,3 +22,13 @@
  22                  ref:2 - native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin 1/2-1/2 THREEFOLD_REPETITION 105
  23 native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin - ref:2                  1-0     CHECKMATE 143
  24                  ref:2 - native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin 1-0     CHECKMATE 129
+ 25 native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin - ref:2                  1-0     CHECKMATE 159
+ 26                  ref:2 - native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin 1-0     CHECKMATE 129
+ 27 native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin - ref:2                  1-0     CHECKMATE 137
+ 28                  ref:2 - native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin 1/2-1/2 INSUFFICIENT_MATERIAL 197
+ 29 native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin - ref:2                  1-0     CHECKMATE 67
+ 30                  ref:2 - native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin 0-1     CHECKMATE 150
+ 31 native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin - ref:2                  0-1     CHECKMATE 168
+ 32                  ref:2 - native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin 1-0     CHECKMATE 193
+ 33 native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin - ref:2                  0-1     CHECKMATE 140
+ 34                  ref:2 - native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin 0-1     CHECKMATE 142

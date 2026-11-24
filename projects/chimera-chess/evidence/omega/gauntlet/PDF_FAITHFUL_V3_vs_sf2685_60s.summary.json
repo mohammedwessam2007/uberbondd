@@ -1,0 +1,22 @@
+{
+  "a": "omega:PDF_FAITHFUL_V3:trace=evidence/omega/gauntlet/trace_V3_sf2685.jsonl",
+  "b": "sf:2685",
+  "tc": "60+0.6",
+  "games": 10,
+  "a_wins": 2,
+  "draws": 6,
+  "a_losses": 2,
+  "a_score": 5.0,
+  "a_pct": 0.5,
+  "elo_diff_a_minus_b_95ci": [
+    0,
+    -252,
+    252
+  ],
+  "time_forfeits": 0,
+  "illegal_or_failure": 0,
+  "stockfish": "/usr/games/stockfish",
+  "python": "3.13.18",
+  "chess": "1.11.2",
+  "date_utc": "2026-11-24T21:01:22"
+}

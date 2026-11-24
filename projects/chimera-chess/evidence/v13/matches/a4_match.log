@@ -21,3 +21,4 @@
  21 native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin - ref:2                  1-0     CHECKMATE 75
  22                  ref:2 - native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin 1/2-1/2 THREEFOLD_REPETITION 105
  23 native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin - ref:2                  1-0     CHECKMATE 143
+ 24                  ref:2 - native:3:rscale=50:file=nnue/v12/eval_v4_residual.bin 1-0     CHECKMATE 129

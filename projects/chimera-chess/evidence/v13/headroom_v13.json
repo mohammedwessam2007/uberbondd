@@ -1,0 +1,525 @@
+{
+ "scanned": 4266,
+ "reasons": {
+  "rating<1800": 3030,
+  "headroom": 51,
+  "oracle-best-in-V8-top3": 1177,
+  "used-by-earlier-suite-or-game": 8
+ },
+ "items": [
+  {
+   "id": "2WIR7",
+   "split": "confirm",
+   "fen": "r4rk1/5ppp/3pp1P1/7P/1p2QP2/1Pq5/P1P5/1KR4R b - - 0 24",
+   "solution": "a8a2",
+   "v8": "d6d5",
+   "v8_loss": 614,
+   "rating": 2255,
+   "themes": "crushing endgame long sacrifice"
+  },
+  {
+   "id": "2ayHi",
+   "split": "confirm",
+   "fen": "8/8/2k1b1p1/2p3P1/5pN1/2PK3P/2P5/8 b - - 1 36",
+   "solution": "e6g4",
+   "v8": "e6f5",
+   "v8_loss": 657,
+   "rating": 1846,
+   "themes": "advancedPawn crushing endgame veryLong"
+  },
+  {
+   "id": "0WzSE",
+   "split": "confirm",
+   "fen": "8/2b5/kNp1p1pp/P1P2p2/1K1PpPP1/4P2P/8/8 b - - 1 38",
+   "solution": "f5g4",
+   "v8": "g6g5",
+   "v8_loss": 462,
+   "rating": 2262,
+   "themes": "crushing endgame long"
+  },
+  {
+   "id": "2jlHc",
+   "split": "confirm",
+   "fen": "8/5pk1/6p1/4p3/5rPR/5P1P/5K2/8 b - - 6 44",
+   "solution": "e5e4",
+   "v8": "f4a4",
+   "v8_loss": 710,
+   "rating": 2187,
+   "themes": "crushing endgame rookEndgame short"
+  },
+  {
+   "id": "1D0Z3",
+   "split": "dev",
+   "fen": "5r1r/pp2q1kp/6p1/2pR1b2/4p3/2N5/PP1Q2PP/4R1K1 w - - 0 28",
+   "solution": "c3e4",
+   "v8": "g2g4",
+   "v8_loss": 392,
+   "rating": 2119,
+   "themes": "crushing long middlegame pin sacrifice"
+  },
+  {
+   "id": "1Z4da",
+   "split": "confirm",
+   "fen": "8/8/6p1/6k1/7p/5KP1/7P/8 w - - 0 45",
+   "solution": "g3g4",
+   "v8": "h2h3",
+   "v8_loss": 775,
+   "rating": 2376,
+   "themes": "crushing endgame pawnEndgame quietMove veryLong zugzwang"
+  },
+  {
+   "id": "2odPl",
+   "split": "dev",
+   "fen": "2b5/8/1p1p4/1P1P2p1/2K1P2p/4kB1P/6P1/8 b - - 8 45",
+   "solution": "g5g4",
+   "v8": "e3f4",
+   "v8_loss": 402,
+   "rating": 2512,
+   "themes": "advantage bishopEndgame deflection endgame long"
+  },
+  {
+   "id": "1SPgW",
+   "split": "dev",
+   "fen": "8/8/8/2k1p3/p2n1p1R/5P1P/2pK2P1/8 b - - 0 45",
+   "solution": "e5e4",
+   "v8": "a4a3",
+   "v8_loss": 489,
+   "rating": 2828,
+   "themes": "crushing endgame short"
+  },
+  {
+   "id": "2c9R6",
+   "split": "dev",
+   "fen": "5rk1/3R1pp1/5b1p/8/5QR1/5N1P/rq3PPK/8 w - - 0 32",
+   "solution": "d7d2",
+   "v8": "f4h6",
+   "v8_loss": 372,
+   "rating": 2344,
+   "themes": "crushing middlegame pin sacrifice veryLong"
+  },
+  {
+   "id": "37PYr",
+   "split": "dev",
+   "fen": "6k1/8/2p5/p2p1pp1/P3r3/1P6/2P1R3/4K3 w - - 2 43",
+   "solution": "e2e4",
+   "v8": "e1d2",
+   "v8_loss": 1043,
+   "rating": 1824,
+   "themes": "crushing endgame master quietMove rookEndgame veryLong"
+  },
+  {
+   "id": "2bea7",
+   "split": "dev",
+   "fen": "6rk/1Q3p1p/2p2q2/8/P1N3p1/1P6/4rPP1/R4RK1 b - - 0 25",
+   "solution": "g4g3",
+   "v8": "g8e8",
+   "v8_loss": 1068,
+   "rating": 2733,
+   "themes": "crushing defensiveMove long middlegame"
+  },
+  {
+   "id": "2PqR6",
+   "split": "confirm",
+   "fen": "8/5pkp/4p1p1/K1B5/P7/2P5/5P1P/1r6 w - - 1 33",
+   "solution": "c5b4",
+   "v8": "c3c4",
+   "v8_loss": 200,
+   "rating": 2270,
+   "themes": "advantage defensiveMove endgame long quietMove"
+  },
+  {
+   "id": "06smt",
+   "split": "dev",
+   "fen": "2kr3r/pp4pp/8/2p1Q3/3p1P1q/3P4/PP5P/R1B2K1R b - - 2 20",
+   "solution": "d8e8",
+   "v8": "h4h3",
+   "v8_loss": 376,
+   "rating": 2744,
+   "themes": "advantage defensiveMove long middlegame"
+  },
+  {
+   "id": "1n6Y3",
+   "split": "confirm",
+   "fen": "8/2n5/8/P1K2k1p/1p1p3P/3P4/2P5/8 w - - 1 43",
+   "solution": "c5b6",
+   "v8": "c5d4",
+   "v8_loss": 441,
+   "rating": 2086,
+   "themes": "advantage defensiveMove endgame knightEndgame short"
+  },
+  {
+   "id": "1cV8Q",
+   "split": "dev",
+   "fen": "8/5p1R/3k4/5p2/bpp2P2/6P1/P3K2P/8 b - - 1 28",
+   "solution": "b4b3",
+   "v8": "f7f6",
+   "v8_loss": 829,
+   "rating": 2296,
+   "themes": "advancedPawn crushing endgame veryLong"
+  },
+  {
+   "id": "1q11u",
+   "split": "confirm",
+   "fen": "r4rk1/p4p1p/4pBp1/2pnP3/3PQ3/3R4/P1q2PPP/4R1K1 w - - 0 22",
+   "solution": "e4h4",
+   "v8": "d4c5",
+   "v8_loss": 555,
+   "rating": 2182,
+   "themes": "crushing master middlegame short"
+  },
+  {
+   "id": "1bi5F",
+   "split": "dev",
+   "fen": "3q1k1r/5pp1/Q2bp1p1/3p2P1/1P1r1P2/5R2/3B3P/R5K1 w - - 0 29",
+   "solution": "a6b7",
+   "v8": "a6a8",
+   "v8_loss": 202,
+   "rating": 2362,
+   "themes": "advantage clearance middlegame pin sacrifice short"
+  },
+  {
+   "id": "2Jwzz",
+   "split": "dev",
+   "fen": "6rk/pp3p2/2p1p1rp/5p2/3P3q/P1P2Q1P/1P4BK/R5R1 b - - 3 28",
+   "solution": "g6g3",
+   "v8": "g6g5",
+   "v8_loss": 676,
+   "rating": 2607,
+   "themes": "advantage clearance middlegame quietMove veryLong"
+  },
+  {
+   "id": "2zUNE",
+   "split": "dev",
+   "fen": "6k1/4Qpp1/1p3n1B/p2p1P2/3P2P1/1q3PK1/7P/8 w - - 0 36",
+   "solution": "e7d8",
+   "v8": "h6g5",
+   "v8_loss": 485,
+   "rating": 2763,
+   "themes": "crushing endgame master short"
+  },
+  {
+   "id": "2eDhK",
+   "split": "dev",
+   "fen": "1R6/p4ppk/3Pp3/6Pp/3Qb2P/6K1/1P3P2/1q6 b - - 4 32",
+   "solution": "e6e5",
+   "v8": "b1h1",
+   "v8_loss": 591,
+   "rating": 2696,
+   "themes": "crushing endgame veryLong"
+  },
+  {
+   "id": "2n2Qk",
+   "split": "confirm",
+   "fen": "8/p6k/1p3p1p/2p2P2/8/1PP3KP/6P1/8 b - - 0 40",
+   "solution": "c5c4",
+   "v8": "h7g7",
+   "v8_loss": 468,
+   "rating": 2386,
+   "themes": "crushing endgame pawnEndgame quietMove veryLong"
+  },
+  {
+   "id": "1WBV2",
+   "split": "confirm",
+   "fen": "8/2k2p2/3p2pp/pP1p4/P2P1PP1/4K3/7P/8 w - - 1 35",
+   "solution": "h2h4",
+   "v8": "g4g5",
+   "v8_loss": 436,
+   "rating": 2713,
+   "themes": "crushing defensiveMove endgame pawnEndgame quietMove veryLong"
+  },
+  {
+   "id": "1KpSC",
+   "split": "dev",
+   "fen": "8/2k3p1/1n2pp2/1P5p/2NK1P2/6P1/7P/8 w - - 0 41",
+   "solution": "c4b6",
+   "v8": "c4e3",
+   "v8_loss": 515,
+   "rating": 1869,
+   "themes": "crushing defensiveMove endgame knightEndgame short"
+  },
+  {
+   "id": "22myy",
+   "split": "dev",
+   "fen": "1r3rk1/4Qp2/p2p2p1/1ppP4/2n2R2/q5PP/4P1BK/2R5 w - - 2 27",
+   "solution": "e7f6",
+   "v8": "c1f1",
+   "v8_loss": 534,
+   "rating": 2237,
+   "themes": "advantage long master middlegame"
+  },
+  {
+   "id": "1pkce",
+   "split": "confirm",
+   "fen": "k2r3r/1p3pp1/p1p2q1p/3p1b2/Q2P4/1R1BP3/PPR2PPP/1K6 w - - 6 25",
+   "solution": "d3a6",
+   "v8": "f2f4",
+   "v8_loss": 642,
+   "rating": 2212,
+   "themes": "crushing middlegame short"
+  },
+  {
+   "id": "1sPrk",
+   "split": "confirm",
+   "fen": "1kr4r/1p1b1p2/1B6/p2Pp2p/4P2p/3BQK1P/Pq4P1/2R4R b - - 1 26",
+   "solution": "d7g4",
+   "v8": "h8g8",
+   "v8_loss": 99982,
+   "rating": 1927,
+   "themes": "attraction crushing long middlegame sacrifice"
+  },
+  {
+   "id": "2CRh9",
+   "split": "dev",
+   "fen": "4q1k1/2Q2pp1/5b1p/B7/2Np1Pb1/1P1P2P1/P3r1BP/R5K1 b - - 2 23",
+   "solution": "e2g2",
+   "v8": "g7g5",
+   "v8_loss": 700,
+   "rating": 2699,
+   "themes": "advantage attraction kingsideAttack middlegame quietMove sacrifice veryLong"
+  },
+  {
+   "id": "00cZE",
+   "split": "confirm",
+   "fen": "4k3/5p2/3r4/p1R3Pp/2P1p3/6P1/1KP4P/8 b - - 0 31",
+   "solution": "e4e3",
+   "v8": "a5a4",
+   "v8_loss": 423,
+   "rating": 2591,
+   "themes": "advancedPawn crushing endgame long rookEndgame"
+  },
+  {
+   "id": "3AaMj",
+   "split": "dev",
+   "fen": "6rk/3Q2bp/1q3p2/p1p5/5P2/p1BpP3/1P5P/1K4R1 w - - 8 36",
+   "solution": "g1g7",
+   "v8": "d7d3",
+   "v8_loss": 599,
+   "rating": 2433,
+   "themes": "advantage endgame long sacrifice"
+  },
+  {
+   "id": "278wi",
+   "split": "confirm",
+   "fen": "2r1k2r/4ppbp/p5p1/2BnN3/N2P4/7b/PPP2P1P/R3K1R1 b Qk - 2 17",
+   "solution": "g7e5",
+   "v8": "f7f6",
+   "v8_loss": 350,
+   "rating": 2586,
+   "themes": "advantage middlegame quietMove veryLong"
+  },
+  {
+   "id": "02FTV",
+   "split": "dev",
+   "fen": "r1q1k3/pppb4/3p2r1/3Ppnn1/1PP3p1/P1NBQ3/5PPN/R4RK1 w q - 0 21",
+   "solution": "d3f5",
+   "v8": "e3e2",
+   "v8_loss": 528,
+   "rating": 2052,
+   "themes": "advantage long middlegame"
+  },
+  {
+   "id": "2vCPs",
+   "split": "dev",
+   "fen": "2kr2r1/1q3p2/4p3/3p1n2/1N3P1p/2P5/3Q1K1P/RR6 w - - 1 29",
+   "solution": "b4d3",
+   "v8": "b4c2",
+   "v8_loss": 534,
+   "rating": 2437,
+   "themes": "advantage attraction exposedKing fork middlegame pin quietMove sacrifice veryLong"
+  },
+  {
+   "id": "0tFKh",
+   "split": "confirm",
+   "fen": "8/R5p1/P3pkp1/3p4/4nr2/1P6/2P2P1p/1K2R3 b - - 0 42",
+   "solution": "f4g4",
+   "v8": "e4f2",
+   "v8_loss": 1011,
+   "rating": 2454,
+   "themes": "advancedPawn crushing endgame long promotion quietMove"
+  },
+  {
+   "id": "1R1Ho",
+   "split": "confirm",
+   "fen": "6k1/6p1/3K4/3p2RP/p3p3/Pb6/8/8 b - - 0 59",
+   "solution": "d5d4",
+   "v8": "g8h7",
+   "v8_loss": 515,
+   "rating": 2139,
+   "themes": "crushing endgame master quietMove short"
+  },
+  {
+   "id": "1KKck",
+   "split": "dev",
+   "fen": "1rb2rk1/1p1n1ppp/p2qp3/3p4/3B1P2/2PB4/P5PP/R2Q1R1K w - - 0 18",
+   "solution": "d3h7",
+   "v8": "d1g4",
+   "v8_loss": 695,
+   "rating": 2443,
+   "themes": "attraction crushing kingsideAttack long middlegame sacrifice"
+  },
+  {
+   "id": "2b3GN",
+   "split": "dev",
+   "fen": "3qk1n1/1Q2ppb1/p5p1/2p5/8/2NP4/PPP3Pr/R1B2K2 w - - 0 17",
+   "solution": "c1f4",
+   "v8": "c3a4",
+   "v8_loss": 474,
+   "rating": 2440,
+   "themes": "crushing long middlegame sacrifice"
+  },
+  {
+   "id": "1409j",
+   "split": "confirm",
+   "fen": "r6k/pp4p1/3p1r1p/8/4Q3/1BP2pK1/PP1q1P2/R6R b - - 3 30",
+   "solution": "d2g5",
+   "v8": "d2b2",
+   "v8_loss": 788,
+   "rating": 2555,
+   "themes": "advantage defensiveMove exposedKing long middlegame"
+  },
+  {
+   "id": "27WOY",
+   "split": "dev",
+   "fen": "r2q2k1/pB1np1br/1p3nQB/2p5/3P4/6P1/PP2PP2/R3K2R w KQ - 2 19",
+   "solution": "b7d5",
+   "v8": "b7a8",
+   "v8_loss": 727,
+   "rating": 2187,
+   "themes": "crushing exposedKing fork long middlegame pin sacrifice"
+  },
+  {
+   "id": "1K4EW",
+   "split": "confirm",
+   "fen": "3r2k1/b1q2p2/p3p2Q/P1p1n3/2Pp4/5P2/5P1P/R3R1K1 w - - 0 29",
+   "solution": "e1e5",
+   "v8": "g1h1",
+   "v8_loss": 341,
+   "rating": 2133,
+   "themes": "advantage clearance long middlegame pin sacrifice"
+  },
+  {
+   "id": "2hJlJ",
+   "split": "confirm",
+   "fen": "8/8/N7/1p1k2pp/1Pb1pp2/P1P3P1/3K1P1P/8 b - - 0 41",
+   "solution": "e4e3",
+   "v8": "h5h4",
+   "v8_loss": 425,
+   "rating": 2722,
+   "themes": "advantage deflection endgame veryLong"
+  },
+  {
+   "id": "2A6M9",
+   "split": "confirm",
+   "fen": "1r6/4kppp/4p3/pB2P3/P4P2/1pR5/6PP/6K1 b - - 1 28",
+   "solution": "b8b5",
+   "v8": "b3b2",
+   "v8_loss": 922,
+   "rating": 1914,
+   "themes": "advantage defensiveMove endgame sacrifice short"
+  },
+  {
+   "id": "0LobT",
+   "split": "dev",
+   "fen": "1R6/p5kp/6p1/3P1p2/5P2/1P2p1PK/3r3P/8 b - - 1 40",
+   "solution": "g6g5",
+   "v8": "d2d5",
+   "v8_loss": 405,
+   "rating": 2702,
+   "themes": "advancedPawn crushing defensiveMove endgame master rookEndgame veryLong"
+  },
+  {
+   "id": "1QHfP",
+   "split": "dev",
+   "fen": "1r3rk1/6bp/2Pppqp1/1N6/4n1Q1/1P2B2P/6P1/3RKB1R b K - 1 21",
+   "solution": "b8b5",
+   "v8": "e4f2",
+   "v8_loss": 260,
+   "rating": 2131,
+   "themes": "advantage exposedKing fork long middlegame sacrifice"
+  },
+  {
+   "id": "1bUH2",
+   "split": "confirm",
+   "fen": "r2q3k/ppp1n1pp/6r1/4b2b/1PP2p2/PB2PN1P/3NQPP1/1R3RK1 b - - 1 19",
+   "solution": "d8d2",
+   "v8": "a7a5",
+   "v8_loss": 495,
+   "rating": 2325,
+   "themes": "advantage deflection enPassant long middlegame pin sacrifice"
+  },
+  {
+   "id": "0QNTd",
+   "split": "confirm",
+   "fen": "8/8/1p1k1p2/1Pp3pp/2P1P2P/4K1P1/8/8 w - - 2 45",
+   "solution": "g3g4",
+   "v8": "e3f3",
+   "v8_loss": 453,
+   "rating": 1956,
+   "themes": "crushing defensiveMove endgame pawnEndgame short"
+  },
+  {
+   "id": "0tLQw",
+   "split": "confirm",
+   "fen": "r5k1/pp2q1bp/2pp2p1/4nr2/2PB4/1P3P2/P3B1PP/1R1QK2R b K - 1 18",
+   "solution": "e5f3",
+   "v8": "a8e8",
+   "v8_loss": 399,
+   "rating": 2122,
+   "themes": "crushing exposedKing middlegame sacrifice veryLong"
+  },
+  {
+   "id": "0bD8k",
+   "split": "confirm",
+   "fen": "r1bq1rk1/pp1nbpp1/5p1p/3p3P/3p4/2PBPQ2/PP2NPP1/RN2K2R w KQ - 0 12",
+   "solution": "f3f5",
+   "v8": "c3d4",
+   "v8_loss": 400,
+   "rating": 2437,
+   "themes": "crushing long opening"
+  },
+  {
+   "id": "0Yesd",
+   "split": "dev",
+   "fen": "8/8/1K3p1p/2pk4/5PP1/1P6/8/8 b - - 6 52",
+   "solution": "f6f5",
+   "v8": "c5c4",
+   "v8_loss": 544,
+   "rating": 2810,
+   "themes": "crushing endgame pawnEndgame quietMove veryLong"
+  },
+  {
+   "id": "36E33",
+   "split": "confirm",
+   "fen": "8/1p6/2k2ppp/1p1p4/1P1K1PP1/P1P5/6P1/8 w - - 0 38",
+   "solution": "g4g5",
+   "v8": "g2g3",
+   "v8_loss": 396,
+   "rating": 2134,
+   "themes": "crushing endgame long pawnEndgame"
+  },
+  {
+   "id": "30hkq",
+   "split": "confirm",
+   "fen": "4r2k/ppp3p1/3pQb1p/3P4/qPP5/P4RNP/6PK/8 w - - 2 35",
+   "solution": "f3f6",
+   "v8": "e6f7",
+   "v8_loss": 592,
+   "rating": 2347,
+   "themes": "crushing endgame intermezzo kingsideAttack long sacrifice"
+  },
+  {
+   "id": "27xwC",
+   "split": "dev",
+   "fen": "2r2rk1/p1qb3p/4p1p1/1p2P3/3Bp2P/2P5/P2Q2R1/1K4R1 w - - 0 27",
+   "solution": "g2g6",
+   "v8": "h4h5",
+   "v8_loss": 551,
+   "rating": 2484,
+   "themes": "crushing kingsideAttack middlegame quietMove sacrifice veryLong"
+  }
+ ],
+ "frozen_from": [
+  "lab/headroom/v13_s0.jsonl",
+  "lab/headroom/v13_s1.jsonl"
+ ]
+}

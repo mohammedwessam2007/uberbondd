@@ -125,6 +125,37 @@ if os.path.isfile("evidence/v13/memory/causal_intervention.json"):
         "decision change rate, deterministic oracle loss", json.dumps(s), ["evidence/v13/PREREG_causal_memory.md", "evidence/v13/memory/causal_intervention.json", "tools/causal_memory.py", "native/chimera.cpp"],
         "H1 channel causal PASS; H2 wrong-memory harm FAIL (CI includes 0); H3 irrelevant RESET 100% but decisions differ from 'none' in 17% because the history heuristic table is not cleared (cache confound); H4 no loss benefit",
         "clear history table in the control; plan-interruption suite; benefit test at longer horizons")
+
+if os.path.isfile("evidence/v13/highlights/a4_highlights.json"):
+    h = J("evidence/v13/highlights/a4_highlights.json"); st = h["stats"]
+    put("#167", st["verified"] / max(1, st["claims"]) >= 0.8, "tools/highlights.py (deterministic-oracle turning points / only moves, prior-move links, 1M-node independent re-verification)",
+        "python tools/highlights.py evidence/v13/matches/eval4R50_vs_ref_40s.pgn evidence/v13/highlights/a4_highlights 6", "claims before verification", "factual fidelity = verified/claims at 1M nodes",
+        f"{st}; fidelity {round(st['verified']/max(1,st['claims']),3)}; quiet only-moves {h['quiet_only_moves']}; 6 games",
+        ["evidence/v13/highlights/a4_highlights.json", "evidence/v13/highlights/a4_highlights.pgn", "tools/highlights.py"],
+        "NOT pre-registered (descriptive; 0.8 fidelity bar applied post hoc); no human usefulness raters; aesthetic proxy = quiet only-moves only", "blinded human usefulness ratings")
+if os.path.isfile("evidence/v13/style/transform_120_d8.json"):
+    t = J("evidence/v13/style/transform_120_d8.json")["summary"]; ml = t["mean_loss"]
+    h1 = ml["transform"] <= ml["attack"] + 2
+    h2 = t["high_mobility_states"]["opp_mob_after"]["transform"] < t["high_mobility_states"]["opp_mob_after"]["attack"]
+    h3 = t["low_mobility_states"]["king_press"]["transform"] >= t["low_mobility_states"]["king_press"]["restraint"]
+    put("#050", h1 and h2 and h3, "native StyleProfile=transform (state-conditioned restraint->attack switch) + tools/transform_style.py",
+        "python tools/transform_style.py evidence/v13/human_v13_frozen166.jsonl evidence/v13/style/transform_120_d8.json 120 8", "attack-only, restraint-only, averaged, no style",
+        "oracle loss, restriction (opp mobility), attack (king pressure) by state", f"H1 {h1} H2 {h2} H3 {h3}; {json.dumps(t)}",
+        ["evidence/v13/PREREG_transform.md", "evidence/v13/style/transform_120_d8.json", "evidence/v13/style/transform_120_INVALID_nodes.json", "tools/transform_style.py", "native/chimera.cpp"],
+        "fixed-depth lab only; style is INACTIVE under node limits (post-search probes abort) -- engine limitation found in V13; heuristic traits, not learned from Petrosian/Tal games", "fix node-limit probe abort; game test vs attack-only")
+if os.path.isfile("evidence/v13/creative/roothint_controls.json"):
+    c = J("evidence/v13/creative/roothint_controls.json"); g = c["gate038_vs_random_routing_expected_loss"]
+    put("#038", g["gate"] < g["random_same_rate"] and g["gate"] <= g["always_on"], "tools/roothint_controls.py gate038 (Maia hint only when Maia top-1 != native 2k-node move)",
+        "python tools/roothint_controls.py evidence/v13/headroom_v13.json evidence/v13/creative/roothint_controls.json 200000", "always-on hint, always-off, random routing at same fire rate",
+        "deterministic oracle loss (1.5M)", f"{g}; fire rate {c['all']['gate_fire_rate']}",
+        ["evidence/v13/PREREG_roothint_controls.md", "evidence/v13/creative/roothint_controls.json", "evidence/v13/headroom_v13.json", "tools/roothint_controls.py", "tools/headroom_miner.py"],
+        f"headroom suite only {c['all']['n']} items (miner yield ~1.2%); random routing evaluated as expectation", "larger suite; wall-clock accounting")
+    a = c["all"]; cf = c["confirm"]
+    put("#002", cf["maia"]["solved"] > cf["random"]["solved"], "tools/roothint_controls.py (V12 RootHint, V13 controls incl. oracle-best upper bound)",
+        "python tools/roothint_controls.py evidence/v13/headroom_v13.json evidence/v13/creative/roothint_controls.json 200000", "none / random / learned / oracle-best hint",
+        "solved (loss<=30) at equal nodes", f"all {json.dumps({k: a[k] for k in ('none','maia','random','learned','oracle')})}; confirm {json.dumps({k: cf[k] for k in ('none','maia','random','learned','oracle')})}; hint recall {a['hint_recall']}",
+        ["evidence/v13/PREREG_roothint_controls.md", "evidence/v13/creative/roothint_controls.json", "evidence/v13/headroom_v13.json"],
+        "small suite; RootHint is ordering + 1-ply extension only", "verification budget experiments informed by the oracle-hint upper bound")
 L["records"] = [R[r["id"]] for r in L["records"]]
 L["v13"] = {"newly_attempted_ids": NEW, "newly_attempted_and_passed": VALID}
 json.dump(L, open("canon/LEDGER_V13_167.json", "w"), indent=1)

@@ -4,7 +4,7 @@ opponent mobility <= 28 or attack pressure >= 6, then attack). 'averaged' = the 
 agree, else the plain choice (a non-sequential blend). Metrics: deterministic oracle loss (soundness), opponent mobility after the
 move (restriction), king-zone pressure after the move (attack), and for transform the mode actually used.
 H (pre-registered evidence/v13/PREREG_transform.md): transform loss <= attack-only loss, and in low-mobility states transform
-attacks while in high-mobility states it restricts more than attack-only. Usage: python tools/transform_style.py in.jsonl out.json N nodes"""
+attacks while in high-mobility states it restricts more than attack-only. Usage: python tools/transform_style.py in.jsonl out.json N depth  (V13 fix: fixed DEPTH, because under a node limit the post-search style probes abort immediately -- style never acts in node-limited search)"""
 import json, subprocess, sys
 import chess
 ROOT = __file__.rsplit("/tools/", 1)[0]
@@ -13,7 +13,7 @@ from lab.oracle import Oracle
 
 
 def run(fen, nodes, prof):
-    cmd = (f"setoption name StyleProfile value {prof}\nsetoption name StyleMarginCp value 30\n" if prof != "none" else "") + f"position fen {fen}\ngo nodes {nodes}\nisready\nquit\n"
+    cmd = (f"setoption name StyleProfile value {prof}\nsetoption name StyleMarginCp value 30\n" if prof != "none" else "") + f"position fen {fen}\ngo depth {nodes}\nisready\nquit\n"
     o = subprocess.run([ROOT + "/native/chimera"], input=cmd, capture_output=True, text=True).stdout.splitlines()
     mode = next((l.split()[3] for l in o if l.startswith("info string style")), None)
     return [l.split()[1] for l in o if l.startswith("bestmove")][-1], mode

@@ -5,3 +5,9 @@ checkpoints/*.zip.tmp
 native/chimera
 native/ref/chimera-v8-ref
 lab/oracle_cache.sqlite
+# V13 in-progress working files (frozen copies are committed under evidence/v13 when each job ends)
+lab/human_v13.jsonl
+lab/human_v13.log
+lab/headroom/
+evidence/v13/logs/
+evidence/v13/highlights/

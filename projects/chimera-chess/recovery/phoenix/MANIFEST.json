@@ -1,0 +1,121 @@
+{
+ "recovered_commit_base": "87f6b5d5f7b7acce46c94af9553a9304e53cbf28",
+ "original_codex_commit": "f65025f5e8e76bbbdb10bf8e9486108491836e40",
+ "codex_commit_available": false,
+ "recovery_branch": "recovery/chimera-phoenix-total-transfer",
+ "project": "projects/chimera-chess",
+ "tracked_source_files": 588,
+ "runtime_assets": [
+  {
+   "asset": "recovery/phoenix/assets/lab/human_v13.jsonl",
+   "size": 256153,
+   "sha256": "91b6ccde1a547a79bb2bf6f3f5c0507410cb41a4d4f628c90d0ad5b0d6977b2c",
+   "chunks": [
+    "recovery/phoenix/assets/lab/human_v13.jsonl"
+   ],
+   "restore_to": "lab/human_v13.jsonl"
+  },
+  {
+   "asset": "recovery/phoenix/assets/lab/oracle_cache.sqlite",
+   "size": 6316032,
+   "sha256": "cff2a8bb8b9d2726e07c51a3dadada57ae486aedcd24bf8e794341b2510bc8c2",
+   "chunks": [
+    "recovery/phoenix/assets/lab/oracle_cache.sqlite"
+   ],
+   "restore_to": "lab/oracle_cache.sqlite"
+  },
+  {
+   "asset": "recovery/phoenix/assets/lab/headroom/s0.log",
+   "size": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "chunks": [
+    "recovery/phoenix/assets/lab/headroom/s0.log"
+   ],
+   "restore_to": "lab/headroom/s0.log"
+  },
+  {
+   "asset": "recovery/phoenix/assets/lab/headroom/s1.log",
+   "size": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "chunks": [
+    "recovery/phoenix/assets/lab/headroom/s1.log"
+   ],
+   "restore_to": "lab/headroom/s1.log"
+  },
+  {
+   "asset": "recovery/phoenix/assets/lab/headroom/s1b.log",
+   "size": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "chunks": [
+    "recovery/phoenix/assets/lab/headroom/s1b.log"
+   ],
+   "restore_to": "lab/headroom/s1b.log"
+  },
+  {
+   "asset": "recovery/phoenix/assets/lab/headroom/v13_s0.jsonl",
+   "size": 455800,
+   "sha256": "28e30bcbde65f7afad899b94cd53e65bb954127ee4d9e94e98729a0fdfaa3d6e",
+   "chunks": [
+    "recovery/phoenix/assets/lab/headroom/v13_s0.jsonl"
+   ],
+   "restore_to": "lab/headroom/v13_s0.jsonl"
+  },
+  {
+   "asset": "recovery/phoenix/assets/lab/headroom/v13_s1.jsonl",
+   "size": 455944,
+   "sha256": "30d44c057627b121b7bab772c4f16a1ac73cb887ebe8ddb86d4e24752032c86b",
+   "chunks": [
+    "recovery/phoenix/assets/lab/headroom/v13_s1.jsonl"
+   ],
+   "restore_to": "lab/headroom/v13_s1.jsonl"
+  },
+  {
+   "asset": "recovery/phoenix/assets/models/maia3_5m.onnx",
+   "size": 22550022,
+   "sha256": "f7bd01b3e41dceb5e93eb9f4c61e9c4db8b35411effd1d8c984b006cd74bb804",
+   "chunks": [
+    "recovery/phoenix/assets/models/maia3_5m.onnx"
+   ],
+   "restore_to": "models/maia3_5m.onnx"
+  },
+  {
+   "asset": "recovery/phoenix/assets/native/chimera.x86_64",
+   "size": 163104,
+   "sha256": "9b84eb47b7b432c85a86c5605ba7b4207447e30440604784d19483d5f636cb26",
+   "chunks": [
+    "recovery/phoenix/assets/native/chimera.x86_64"
+   ],
+   "restore_to": "native/chimera"
+  },
+  {
+   "asset": "recovery/phoenix/assets/native/ref/chimera-v8-ref.x86_64",
+   "size": 104384,
+   "sha256": "cf47a57fe63fcdb84f3d9bf65fe22eaaec3953a9aca671fec9dcecb1dad23546",
+   "chunks": [
+    "recovery/phoenix/assets/native/ref/chimera-v8-ref.x86_64"
+   ],
+   "restore_to": "native/ref/chimera-v8-ref"
+  }
+ ],
+ "runtime_asset_bytes": 30301439,
+ "dependencies": {
+  "python": "3.11+ (tested 3.13)",
+  "python-chess": "1.11.2",
+  "numpy": "2.x",
+  "onnxruntime": "1.29.0",
+  "stockfish": "Ubuntu package stockfish 16-1build1 (/usr/games/stockfish); Stockfish 19 NOT available here",
+  "compiler": "g++ C++17 (native/build.sh)"
+ },
+ "missing": [
+  "Codex commit f65025f5e8e76bbbdb10bf8e9486108491836e40 and everything after 87f6b5d (not present locally or on GitHub)",
+  "Codex ~600 MB executable checkpoint and its incremental git bundle prerequisites",
+  "Codex frozen confirmation gauntlet (2/50 games vs Stockfish 19 at 180+2, 25 paired openings, journal, frozen binaries/hashes) -- never existed in this environment",
+  "Stockfish 19 binary"
+ ],
+ "regenerable": {
+  "models/maia3_5m.onnx": "tools/fetch_models.sh (pinned sha) -- also included here",
+  "native binaries": "sh native/build.sh; g++ native/ref/chimera_v8_996f592.cpp",
+  "/tmp/puzzles16.csv": "curl -r 0-16000000 https://database.lichess.org/lichess_db_puzzle.csv.zst | zstd -d"
+ },
+ "provenance": "Claude Code session environment (branch ccr-9399d410-lphg3o at 87f6b5d); assets copied from the working tree, untracked by .gitignore"
+}

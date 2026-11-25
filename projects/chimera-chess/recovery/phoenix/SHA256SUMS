@@ -1,0 +1,10 @@
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  ./lab/headroom/s0.log
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  ./lab/headroom/s1.log
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  ./lab/headroom/s1b.log
+28e30bcbde65f7afad899b94cd53e65bb954127ee4d9e94e98729a0fdfaa3d6e  ./lab/headroom/v13_s0.jsonl
+30d44c057627b121b7bab772c4f16a1ac73cb887ebe8ddb86d4e24752032c86b  ./lab/headroom/v13_s1.jsonl
+91b6ccde1a547a79bb2bf6f3f5c0507410cb41a4d4f628c90d0ad5b0d6977b2c  ./lab/human_v13.jsonl
+cff2a8bb8b9d2726e07c51a3dadada57ae486aedcd24bf8e794341b2510bc8c2  ./lab/oracle_cache.sqlite
+f7bd01b3e41dceb5e93eb9f4c61e9c4db8b35411effd1d8c984b006cd74bb804  ./models/maia3_5m.onnx
+9b84eb47b7b432c85a86c5605ba7b4207447e30440604784d19483d5f636cb26  ./native/chimera.x86_64
+cf47a57fe63fcdb84f3d9bf65fe22eaaec3953a9aca671fec9dcecb1dad23546  ./native/ref/chimera-v8-ref.x86_64

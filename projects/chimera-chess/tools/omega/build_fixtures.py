@@ -10,7 +10,7 @@ from chimera.omega import motifs as M
 
 def main(pat, out):
     pos, neg = {n: [] for n in M.REGISTRY}, {n: [] for n in M.REGISTRY}
-    files = sorted(glob.glob(pat, recursive=True))
+    files = [f for f in sorted(glob.glob(pat, recursive=True)) if "NO_MOTIFS" not in f]   # ablation with motifs disabled: no valid negatives
     for f in files:
         for line in open(f):
             t = json.loads(line)
@@ -23,6 +23,8 @@ def main(pat, out):
                 rec = {"src": f, "start_fen": t["start_fen"], "history": t["history"], "move": c["move"], "eval": c["eval"], "best": best,
                        "cand": cand, "evidence": c.get("evidence"), "state": t.get("state", {}), "traced": c["bd"]}
                 for n in M.REGISTRY:
+                    if n == 50 and "opp_cp_drops_after" not in rec["state"]:
+                        continue   # older traces snapshot opp_cp_drops before this move's drop was added (fixed in mind.py)
                     k = f"#{n}"
                     if k in c["bd"] and c["bd"][k] != 0 and len(pos[n]) < 3:
                         pos[n].append(rec)

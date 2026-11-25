@@ -118,6 +118,7 @@ class WholeMind:
         tr["root"] = dict(sorted(cand.items(), key=lambda kv: -kv[1]))
         self.partial = max(cand, key=cand.get)
         self.note_root_eval(max(cand.values()))
+        tr["state"]["opp_cp_drops"] = list(self.state.opp_cp_drops); tr["state"]["opp_cp_drops_after"] = True
         # 3 ARTIST
         if cfg.use_creative:
             extra = [u for u in dict.fromkeys(extra) if u not in cand]

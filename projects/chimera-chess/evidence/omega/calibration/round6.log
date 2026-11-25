@@ -1,0 +1,56 @@
+  1 omega:PDF_STYLE_V5:trace=evidence/omega/calibration/trace_round6.jsonl:style=evidence/omega/calibration/style_round6.json - sf:2685                0-1     CHECKMATE 96
+  2                sf:2685 - omega:PDF_STYLE_V5:trace=evidence/omega/calibration/trace_round6.jsonl:style=evidence/omega/calibration/style_round6.json 1/2-1/2 THREEFOLD_REPETITION 84
+  3 omega:PDF_STYLE_V5:trace=evidence/omega/calibration/trace_round6.jsonl:style=evidence/omega/calibration/style_round6.json - sf:2685                0-1     CHECKMATE 98
+  4                sf:2685 - omega:PDF_STYLE_V5:trace=evidence/omega/calibration/trace_round6.jsonl:style=evidence/omega/calibration/style_round6.json 1-0     CHECKMATE 87
+  5 omega:PDF_STYLE_V5:trace=evidence/omega/calibration/trace_round6.jsonl:style=evidence/omega/calibration/style_round6.json - sf:2685                1/2-1/2 THREEFOLD_REPETITION 155
+  6                sf:2685 - omega:PDF_STYLE_V5:trace=evidence/omega/calibration/trace_round6.jsonl:style=evidence/omega/calibration/style_round6.json 1-0     CHECKMATE 101
+<UciProtocol (pid=3705)>: stderr >> Exception in callback Protocol.pipe_data_received()
+<UciProtocol (pid=3705)>: stderr >> handle: <Handle Protocol.pipe_data_received()>
+<UciProtocol (pid=3705)>: stderr >> Traceback (most recent call last):
+<UciProtocol (pid=3705)>: stderr >>   File "/usr/local/lib/python3.13/asyncio/events.py", line 89, in _run
+<UciProtocol (pid=3705)>: stderr >>     self._context.run(self._callback, *self._args)
+<UciProtocol (pid=3705)>: stderr >>     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<UciProtocol (pid=3705)>: stderr >>   File "/usr/local/lib/python3.13/site-packages/chess/engine.py", line 968, in pipe_data_received
+<UciProtocol (pid=3705)>: stderr >>     self._line_received(line)
+<UciProtocol (pid=3705)>: stderr >>     ~~~~~~~~~~~~~~~~~~~^^^^^^
+<UciProtocol (pid=3705)>: stderr >>   File "/usr/local/lib/python3.13/site-packages/chess/engine.py", line 981, in _line_received
+<UciProtocol (pid=3705)>: stderr >>     self.command._line_received(line)
+<UciProtocol (pid=3705)>: stderr >>     ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+<UciProtocol (pid=3705)>: stderr >>   File "/usr/local/lib/python3.13/site-packages/chess/engine.py", line 1294, in _line_received
+<UciProtocol (pid=3705)>: stderr >>     self.line_received(line)
+<UciProtocol (pid=3705)>: stderr >>     ~~~~~~~~~~~~~~~~~~^^^^^^
+<UciProtocol (pid=3705)>: stderr >>   File "/usr/local/lib/python3.13/site-packages/chess/engine.py", line 1740, in line_received
+<UciProtocol (pid=3705)>: stderr >>     self._readyok()
+<UciProtocol (pid=3705)>: stderr >>     ~~~~~~~~~~~~~^^
+<UciProtocol (pid=3705)>: stderr >>   File "/usr/local/lib/python3.13/site-packages/chess/engine.py", line 1753, in _readyok
+<UciProtocol (pid=3705)>: stderr >>     self.result.set_result(self.analysis)
+<UciProtocol (pid=3705)>: stderr >>     ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+<UciProtocol (pid=3705)>: stderr >> asyncio.exceptions.InvalidStateError: invalid state
+  7 omega:PDF_STYLE_V5:trace=evidence/omega/calibration/trace_round6.jsonl:style=evidence/omega/calibration/style_round6.json - sf:2685                0-1     CHECKMATE 86
+  8                sf:2685 - omega:PDF_STYLE_V5:trace=evidence/omega/calibration/trace_round6.jsonl:style=evidence/omega/calibration/style_round6.json 1/2-1/2 INSUFFICIENT_MATERIAL 169
+  9 omega:PDF_STYLE_V5:trace=evidence/omega/calibration/trace_round6.jsonl:style=evidence/omega/calibration/style_round6.json - sf:2685                0-1     CHECKMATE 108
+ 10                sf:2685 - omega:PDF_STYLE_V5:trace=evidence/omega/calibration/trace_round6.jsonl:style=evidence/omega/calibration/style_round6.json 1-0     CHECKMATE 117
+/home/user/uberbondd/projects/chimera-chess/tools/match.py:252: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  "date_utc": datetime.datetime.utcnow().isoformat(timespec="seconds")}
+{
+  "a": "omega:PDF_STYLE_V5:trace=evidence/omega/calibration/trace_round6.jsonl:style=evidence/omega/calibration/style_round6.json",
+  "b": "sf:2685",
+  "tc": "60+0.6",
+  "games": 10,
+  "a_wins": 0,
+  "draws": 3,
+  "a_losses": 7,
+  "a_score": 1.5,
+  "a_pct": 0.15,
+  "elo_diff_a_minus_b_95ci": [
+    -301,
+    -512,
+    -91
+  ],
+  "time_forfeits": 0,
+  "illegal_or_failure": 0,
+  "stockfish": "/usr/games/stockfish",
+  "python": "3.13.18",
+  "chess": "1.11.2",
+  "date_utc": "2026-11-25T08:20:41"
+}

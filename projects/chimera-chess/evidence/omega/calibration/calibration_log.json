@@ -296,5 +296,196 @@
    "score": 2.0,
    "draw_rate": 0.4
   }
+ },
+ {
+  "round": 6,
+  "style": {
+   "group_scale": {
+    "tactic": 5.0,
+    "style-extreme": 2.0,
+    "construction": 2.0,
+    "human": 0.6,
+    "#209": 0.15,
+    "#172": 0.3,
+    "#215": 1.5,
+    "#217": 1.5,
+    "#220": 1.5,
+    "#176": 3.0,
+    "#186": 2.0,
+    "#194": 2.0,
+    "#203": 2.0,
+    "#4": 2.0,
+    "#46": 2.0,
+    "#142": 2.0
+   },
+   "anti_draw_contempt_cp": -120.0,
+   "motif_scale": 0.15
+  },
+  "per_game": {
+   "tal_sacrifices": 2.4,
+   "maia_panic_traps": 3.5,
+   "multipin_battery_nets": 2.3,
+   "underpromotion_fakeouts": 0.0,
+   "zero_retreat_ep_setups": 3.5,
+   "judas_zombie_0check": 4.1
+  },
+  "pdf_target": {
+   "tal_sacrifices": 4.2,
+   "maia_panic_traps": 3.8,
+   "multipin_battery_nets": 5.1,
+   "underpromotion_fakeouts": 2.4,
+   "zero_retreat_ep_setups": 3.1,
+   "judas_zombie_0check": 2.8
+  },
+  "ratio": {
+   "tal_sacrifices": 0.57,
+   "maia_panic_traps": 0.92,
+   "multipin_battery_nets": 0.45,
+   "underpromotion_fakeouts": 0.0,
+   "zero_retreat_ep_setups": 1.13,
+   "judas_zombie_0check": 1.46
+  },
+  "match": {
+   "file": "evidence/omega/calibration/round6_vs_sf2685.summary.json",
+   "b": "sf:2685",
+   "games": 10,
+   "W-D-L": [
+    0,
+    3,
+    7
+   ],
+   "score": 1.5,
+   "draw_rate": 0.3
+  }
+ },
+ {
+  "round": 7,
+  "style": {
+   "group_scale": {
+    "tactic": 8.0,
+    "style-extreme": 2.0,
+    "construction": 2.0,
+    "human": 0.633,
+    "#209": 0.139,
+    "#172": 0.278,
+    "#215": 1.174,
+    "#217": 1.174,
+    "#220": 1.174,
+    "#176": 6.0,
+    "#186": 4.0,
+    "#194": 4.0,
+    "#203": 4.0,
+    "#4": 2.8,
+    "#46": 2.8,
+    "#142": 2.8,
+    "sacrifice": 1.43,
+    "#197": 2.0,
+    "#201": 0.925,
+    "#196": 1.4
+   },
+   "anti_draw_contempt_cp": -120.0,
+   "motif_scale": 0.15
+  },
+  "per_game": {
+   "tal_sacrifices": 3.2,
+   "maia_panic_traps": 4.2,
+   "multipin_battery_nets": 3.2,
+   "underpromotion_fakeouts": 0.0,
+   "zero_retreat_ep_setups": 7.5,
+   "judas_zombie_0check": 2.9
+  },
+  "pdf_target": {
+   "tal_sacrifices": 4.2,
+   "maia_panic_traps": 3.8,
+   "multipin_battery_nets": 5.1,
+   "underpromotion_fakeouts": 2.4,
+   "zero_retreat_ep_setups": 3.1,
+   "judas_zombie_0check": 2.8
+  },
+  "ratio": {
+   "tal_sacrifices": 0.76,
+   "maia_panic_traps": 1.11,
+   "multipin_battery_nets": 0.63,
+   "underpromotion_fakeouts": 0.0,
+   "zero_retreat_ep_setups": 2.42,
+   "judas_zombie_0check": 1.04
+  },
+  "match": {
+   "file": "evidence/omega/calibration/round7_vs_sf2685.summary.json",
+   "b": "sf:2685",
+   "games": 10,
+   "W-D-L": [
+    0,
+    8,
+    2
+   ],
+   "score": 4.0,
+   "draw_rate": 0.8
+  }
+ },
+ {
+  "round": 8,
+  "style": {
+   "group_scale": {
+    "tactic": 8.0,
+    "style-extreme": 2.0,
+    "construction": 2.0,
+    "human": 0.593,
+    "#209": 0.1,
+    "#172": 0.155,
+    "#215": 1.148,
+    "#217": 1.148,
+    "#220": 1.148,
+    "#176": 8.0,
+    "#186": 8.0,
+    "#194": 8.0,
+    "#203": 8.0,
+    "#4": 3.92,
+    "#46": 3.92,
+    "#142": 3.92,
+    "sacrifice": 1.705,
+    "#197": 4.0,
+    "#201": 0.517,
+    "#196": 1.96
+   },
+   "anti_draw_contempt_cp": -120.0,
+   "motif_scale": 0.15
+  },
+  "per_game": {
+   "tal_sacrifices": 4.2,
+   "maia_panic_traps": 5.4,
+   "multipin_battery_nets": 4.5,
+   "underpromotion_fakeouts": 0.1,
+   "zero_retreat_ep_setups": 9.2,
+   "judas_zombie_0check": 2.6
+  },
+  "pdf_target": {
+   "tal_sacrifices": 4.2,
+   "maia_panic_traps": 3.8,
+   "multipin_battery_nets": 5.1,
+   "underpromotion_fakeouts": 2.4,
+   "zero_retreat_ep_setups": 3.1,
+   "judas_zombie_0check": 2.8
+  },
+  "ratio": {
+   "tal_sacrifices": 1.0,
+   "maia_panic_traps": 1.42,
+   "multipin_battery_nets": 0.88,
+   "underpromotion_fakeouts": 0.04,
+   "zero_retreat_ep_setups": 2.97,
+   "judas_zombie_0check": 0.93
+  },
+  "match": {
+   "file": "evidence/omega/calibration/round8_vs_sf2685.summary.json",
+   "b": "sf:2685",
+   "games": 10,
+   "W-D-L": [
+    0,
+    6,
+    4
+   ],
+   "score": 3.0,
+   "draw_rate": 0.6
+  }
  }
 ]

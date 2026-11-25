@@ -46,6 +46,15 @@ def main():
                     n = int(k[1:]); influence[n] = influence.get(n, 0) + 1
         for v in t.get("vetoed", []):
             vetoed[v["move"]] = 1
+    camp = json.load(open("evidence/omega/integration_campaign.json")) if os.path.isfile("evidence/omega/integration_campaign.json") else {}
+    for k, v in camp.items():   # targeted integration campaign: real positions through the full runtime
+        n = int(k)
+        if v.get("reached"):
+            fired[n] = fired.get(n, 0) + 1
+        if v.get("selected"):
+            chosen[n] = chosen.get(n, 0) + 1
+        if v.get("causal"):
+            influence[n] = influence.get(n, 0) + 1
     fx = json.load(open("tests/fixtures/omega_fixtures.json")) if os.path.isfile("tests/fixtures/omega_fixtures.json") else {"positives": {}, "negatives": {}}
     dedicated = {186, 192, 201, 215, 220, 144, 214}
     recs, counts = [], {}
@@ -74,7 +83,7 @@ def main():
             "implemented": cls != "RESTRICTED_ARCHIVE",
             "unit_tested": (cls == "MOTIF" and (pos > 0 or n in dedicated)) or (cls == "CONTROL" and "tests." in CONTROLS[n][2]),
             "positive_fixtures": pos, "negative_fixtures": neg,
-            "integration_fired_on_candidates": fired.get(n, 0), "fired_on_deep_candidates": deep_fired.get(n, 0),
+            "integration_fired_on_candidates": fired.get(n, 0), "campaign_status": camp.get(str(n), {}).get("status"), "fired_on_deep_candidates": deep_fired.get(n, 0),
             "on_chosen_move": chosen.get(n, 0), "decision_influence_events": influence.get(n, 0),
             "integration_tested": fired.get(n, 0) > 0 or (cls == "CONTROL" and n in (29, 150, 151, 165, 180, 149, 159)),
             "experimentally_supported": False, "validated": False, "archived": cls == "RESTRICTED_ARCHIVE",

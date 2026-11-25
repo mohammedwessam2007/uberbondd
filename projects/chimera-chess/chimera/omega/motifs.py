@@ -130,7 +130,7 @@ def _drawish(nb: chess.Board) -> bool:
     return nb.is_stalemate() or nb.can_claim_fifty_moves() or nb.is_repetition(3) or nb.is_insufficient_material()
 
 
-@motif(1, "Negative Draw Contempt", -1.20, ["eval"], group="anti-draw")
+@motif(1, "Negative Draw Contempt", -1.20, ["eval", "history"], group="anti-draw")
 def m001(c):  # -120 cp when the move leads to repetition/stalemate/50-move draw while eval >= -80
     # V3 fix: 'leads to repetition' includes re-entering an already-seen position (2-fold), from which the opponent can complete
     # the threefold; the gauntlet showed 6/6 PDF_FAITHFUL draws were threefold repetitions with the 3-fold-only test.
@@ -1382,7 +1382,7 @@ def m176(c):
     return nightmare_potential(c.nb, c.us) - nightmare_potential(c.board, c.us)
 
 
-@motif(177, "Dynamic Contempt Curve", -1.0, ["eval"], group="anti-draw")
+@motif(177, "Dynamic Contempt Curve", -1.0, ["eval", "history"], group="anti-draw")
 def m177(c):  # contempt escalates from -1.20 to -2.50 past move 30 (replaces #1 magnitude after move 30)
     if c.board.fullmove_number <= 30 or c.ev() < -80 or not (_drawish(c.nb) or c.nb.is_repetition(2)):
         return 0.0
@@ -1530,7 +1530,7 @@ def m196(c):
     return -1.0 if trade else (1.0 if c.piece.piece_type == chess.PAWN and wall(c.nb) >= 4 and wall(c.nb) > wall(c.board) else 0.0)
 
 
-@motif(197, "Two-Time Repetition Fake-Out", 1.0, ["eval"], group="style-extreme")
+@motif(197, "Two-Time Repetition Fake-Out", 1.0, ["eval", "history"], group="style-extreme")
 def m197(c):
     if c.ev() < 250:
         return 0.0
@@ -1622,7 +1622,7 @@ def m208(c):
     return 1.0 if m198(c) and sum(1 for n in (("a4", "h4", "b4", "g4") if c.us else ("a5", "h5", "b5", "g5")) if c.nb.piece_at(chess.parse_square(n)) == chess.Piece(chess.PAWN, c.us)) >= 2 else 0.0
 
 
-@motif(209, "Thermobaric Zero-Retreat", 1.0, group="attack")
+@motif(209, "Thermobaric Zero-Retreat", 1.0, ["history"], group="attack")
 def m209(c):
     if c.ply <= 16:
         return 0.0

@@ -63,3 +63,54 @@ def nightmare_potential(b: chess.Board, us: chess.Color) -> float:
         phi += 1.0 + (0.5 if blocked else 0.0)
     phi += 0.5 * sum(1 for s in b.pieces(chess.PAWN, us) if F.rel_rank(us, s) == 7)
     return phi
+
+
+def immediate_mates(board, legal=None):
+    mates = []
+    for move in board.legal_moves if legal is None else legal:
+        if board.gives_check(move):
+            after = board.copy(stack=False)
+            after.push(move)
+            if after.is_checkmate():
+                mates.append(move)
+    return mates
+
+
+def bounded_mate(board, attacker, plies=5, node_limit=512):
+    """Prove mate against all defenses or return False, including on exhaustion."""
+    nodes = 0
+
+    def prove(remaining):
+        nonlocal nodes
+        nodes += 1
+        if nodes > node_limit:
+            return False
+        if board.is_checkmate():
+            return board.turn != attacker
+        if not remaining or board.is_insufficient_material() or board.is_seventyfive_moves() or board.is_fivefold_repetition():
+            return False
+        attacking = board.turn == attacker
+        if not attacking and (board.can_claim_fifty_moves() or board.can_claim_threefold_repetition()):
+            return False
+        legal = list(board.legal_moves)
+        if not legal:
+            return False
+        if attacking and immediate_mates(board, legal):
+            return True
+        if remaining <= 1:
+            return False
+        if attacking:
+            legal.sort(key=lambda move: not board.gives_check(move))
+        for move in legal:
+            board.push(move)
+            try:
+                wins = prove(remaining - 1)
+            finally:
+                board.pop()
+            if wins == attacking:
+                return wins
+            if nodes > node_limit:
+                return False
+        return not attacking
+
+    return prove(plies)

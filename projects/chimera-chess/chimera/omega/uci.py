@@ -3,6 +3,10 @@
 #164 five presets, #166/#167 supervised backends + graceful teardown, #168 strict FEN/move validation, #160 trace export.
 Never sleeps to imitate humans (restricted #28 #53 #80 #210). On any backend failure it emits a LEGAL move and reports
 the failure as 'info string error', never an invented evaluation."""
+from concurrent.futures import ThreadPoolExecutor
+from copy import deepcopy
+from dataclasses import dataclass, field
+import json
 import sys
 import threading
 import time
@@ -11,6 +15,21 @@ import chess
 import chess.polyglot
 
 from chimera.omega import config as C
+from chimera.omega.backend import SearchBudget, SearchStopped
+from chimera.omega.mind import immediate_mates
+
+
+@dataclass
+class Request:
+    board: chess.Board
+    fallback: chess.Move | None
+    budget: SearchBudget
+    timer: threading.Timer | None = field(default=None)
+
+
+def clock_budget(left, increment, moves_to_go, overhead):
+    """Allocate clock time before search, reserving overhead and remaining time."""
+    return min(left / max(moves_to_go, 10) + 0.75 * increment, left * 0.2) - overhead
 
 
 class UCI:
@@ -20,27 +39,38 @@ class UCI:
                      "RootNodes": 120000, "ReplyNodes": 20000, "TraceFile": "", "MoveOverheadMs": 50, "StyleExtreme": True, "BookFile": "", "StyleFile": ""}
         self.board = chess.Board()
         self.mind = None
-        self.worker = None
-        self.result = None
-        self.stop_ev = threading.Event()
+        self.executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix="uci-search")
+        self.lock = threading.RLock()
+        self.active = None
+        self.mind_opts = None
         self.prev_opp_time = None
 
     def say(self, s):
-        self.out.write(s + "\n"); self.out.flush()
+        with self.lock:
+            self.out.write(s + "\n")
+            self.out.flush()
 
-    def build(self):
-        if self.mind is None:
+    def build(self, opts):
+        if self.mind_opts != opts:
+            if self.mind is not None:
+                self.mind.close()
+                self.mind = None
             from chimera.omega.mind import WholeMind
-            cfg = C.make(self.opts["Preset"], self.opts["Profile"], deterministic=self.opts["Deterministic"], seed=int(self.opts["Seed"]),
-                         verifier=self.opts["Verifier"], root_nodes=int(self.opts["RootNodes"]), reply_nodes=int(self.opts["ReplyNodes"]),
-                         style_extreme=self.opts["StyleExtreme"])
-            if self.opts["StyleFile"]:   # calibration overrides (group_scale, contempt, motif_scale) -- never the soundness gate
-                import json
-                for k, v in json.load(open(self.opts["StyleFile"])).items():
-                    if k in ("group_scale", "anti_draw_contempt_cp", "motif_scale"):
-                        setattr(cfg, k, v)
-            self.mind = WholeMind(cfg, trace_path=self.opts["TraceFile"] or None)
+            cfg = C.make(opts["Preset"], opts["Profile"], deterministic=opts["Deterministic"], seed=opts["Seed"],
+                         verifier=opts["Verifier"], root_nodes=opts["RootNodes"], reply_nodes=opts["ReplyNodes"],
+                         style_extreme=opts["StyleExtreme"])
+            if opts["StyleFile"]:
+                with open(opts["StyleFile"]) as source:
+                    for key, value in json.load(source).items():
+                        if key in ("group_scale", "anti_draw_contempt_cp", "motif_scale"):
+                            setattr(cfg, key, value)
+            self.mind = WholeMind(cfg)
+            self.mind_opts = opts
         return self.mind
+
+    def _newgame(self):
+        if self.mind is not None:
+            self.mind.newgame()
 
     def cmd(self, line):
         t = line.split()
@@ -64,37 +94,73 @@ class UCI:
             self.say("option name StyleFile type string default <empty>")
             self.say("uciok")
         elif c == "isready":
-            self.join()
+            # During a search UCI requires an immediate reply. Startup is performed
+            # by the same executor that owns the engine.
+            with self.lock:
+                idle = self.active is None
+            if idle and self.mind_opts != self.opts:
+                def warm():
+                    self.build(self.opts.copy()).warm()
+
+                try:
+                    self.executor.submit(warm).result()
+                except Exception as ex:
+                    self.say(f"info string error {ex}")
             self.say("readyok")
         elif c == "setoption":
-            name = " ".join(t[t.index("name") + 1:t.index("value")]) if "value" in t else " ".join(t[2:])
-            val = " ".join(t[t.index("value") + 1:]) if "value" in t else ""
-            if name in self.opts:
-                cur = self.opts[name]
-                self.opts[name] = (val.lower() == "true") if isinstance(cur, bool) else (int(val) if isinstance(cur, int) else ("" if val == "<empty>" else val))
-                if self.mind:
-                    self.mind.close(); self.mind = None
+            try:
+                self.set_option(t)
+            except ValueError as ex:
+                self.say(f"info string error {ex}")
         elif c == "ucinewgame":
-            self.join()
+            self.stop()
             self.board = chess.Board()
-            if self.mind:
-                self.mind.newgame()
+            self.prev_opp_time = None
+            self.executor.submit(self._newgame)
         elif c == "position":
-            self.join()
+            self.stop()
             try:
                 self.board = self.parse_position(t)
             except ValueError as ex:
                 self.say(f"info string error {ex}")
         elif c == "go":
-            self.go(t)
+            try:
+                self.go(t)
+            except ValueError as ex:
+                self.say(f"info string error {ex}")
         elif c == "stop":
-            self.stop_ev.set(); self.join()
+            self.stop()
         elif c == "quit":
-            self.stop_ev.set(); self.join()
-            if self.mind:
-                self.mind.close()
             return False
         return True
+
+    def set_option(self, tokens):
+        if len(tokens) < 3 or tokens[1] != "name":
+            raise ValueError("expected setoption name")
+        split = tokens.index("value", 2) if "value" in tokens[2:] else len(tokens)
+        name = " ".join(tokens[2:split])
+        value = " ".join(tokens[split + 1:])
+        if not name:
+            raise ValueError("missing option name")
+        if name not in self.opts:
+            return
+        cur = self.opts[name]
+        choices = {"Profile": C.PROFILES, "Preset": C.ELO_PRESETS, "Verifier": ("stockfish", "none")}
+        if name in choices and value not in choices[name]:
+            raise ValueError(f"invalid value for {name}")
+        if isinstance(cur, bool):
+            if value.lower() not in ("true", "false"):
+                raise ValueError(f"invalid value for {name}")
+            value = value.lower() == "true"
+        elif isinstance(cur, int):
+            lower, upper = {"Seed": (0, 2147483647), "RootNodes": (5000, 50000000),
+                            "ReplyNodes": (1000, 5000000), "MoveOverheadMs": (0, 5000)}[name]
+            value = int(value)
+            if not lower <= value <= upper:
+                raise ValueError(f"value outside range for {name}")
+        elif value == "<empty>":
+            value = ""
+        self.opts[name] = value
 
     @staticmethod
     def parse_position(t):
@@ -110,7 +176,9 @@ class UCI:
             rest = t[end:]
         else:
             raise ValueError("bad position command")
-        if rest and rest[0] == "moves":
+        if rest:
+            if rest[0] != "moves":
+                raise ValueError("unexpected position arguments")
             for u in rest[1:]:
                 m = chess.Move.from_uci(u)
                 if m not in b.legal_moves:
@@ -119,8 +187,20 @@ class UCI:
         return b
 
     def go(self, t):
-        self.join()
-        a = {t[i]: t[i + 1] for i in range(1, len(t) - 1) if t[i] in ("wtime", "btime", "winc", "binc", "movetime", "nodes", "movestogo", "depth")}
+        started = time.monotonic()
+        a = {}
+        for i, token in enumerate(t[1:], start=1):
+            if token in ("wtime", "btime", "winc", "binc", "movetime", "nodes", "movestogo", "depth"):
+                if i + 1 == len(t):
+                    raise ValueError(f"missing go {token} value")
+                a[token] = int(t[i + 1])
+                if a[token] < 0:
+                    raise ValueError(f"negative go {token} value")
+        nodes = int(a["nodes"]) if "nodes" in a else None
+        depth = int(a["depth"]) if "depth" in a else None
+        if any(value is not None and value <= 0 for value in (nodes, depth)):
+            raise ValueError("go nodes and depth must be positive")
+        self.stop()
         us = self.board.turn
         left = float(a.get("wtime" if us else "btime", -1)) / 1000
         inc = float(a.get("winc" if us else "binc", 0)) / 1000
@@ -130,17 +210,24 @@ class UCI:
         if "movetime" in a:
             budget = float(a["movetime"]) / 1000 - overhead
         elif left >= 0:
-            budget = min(left / max(mtg, 10) + 0.75 * inc, left * 0.2) - overhead     # #153 + #162
+            budget = clock_budget(left, inc, mtg, overhead)     # #153 + #162
         else:
             budget = None
         scale = 1.0 if budget is None else max(0.05, min(3.0, budget / 1.2))       # 1.2 s ~ default node budgets on this host
         reflex = left >= 0 and left < 5.0                                           # #157
+        if reflex and budget is not None:
+            budget = min(0.15, budget)
         think = None
         if opp_left >= 0 and self.prev_opp_time is not None and self.prev_opp_time > 0:
             think = max(0.0, (self.prev_opp_time - opp_left) / self.prev_opp_time)
         self.prev_opp_time = opp_left if opp_left >= 0 else None
         board = self.board.copy()
-        if self.opts["BookFile"]:                                                   # #163 polyglot book
+        legal = list(board.legal_moves)
+        if not legal:
+            self.say("bestmove 0000")
+            return
+        mates = immediate_mates(board, legal)
+        if self.opts["BookFile"] and not mates:                                                   # #163 polyglot book
             try:
                 with chess.polyglot.open_reader(self.opts["BookFile"]) as r:
                     e = r.weighted_choice(board, random=__import__("random").Random(int(self.opts["Seed"]) + board.ply()))
@@ -149,54 +236,101 @@ class UCI:
                 return
             except (IndexError, OSError):
                 pass
-        self.stop_ev.clear()
-        self.result = None
-        mind = self.build()
-        mind.partial = None
+        opts = self.opts.copy()
+        limit = SearchBudget(None if budget is None else started + max(0, budget), threading.Event())
+        job = Request(board, next(iter(mates or legal)), limit)
+        with self.lock:
+            self.active = job
+            if limit.deadline is not None:
+                job.timer = threading.Timer(max(0, limit.deadline - time.monotonic()), self.expire, (job,))
+                job.timer.daemon = True
+                job.timer.start()
+
+        def fallback(move):
+            with self.lock:
+                if self.active is job:
+                    job.fallback = move
 
         def work():
+            mind = None
+            snapshot = None
+            published = False
             try:
-                self.result = mind.choose(board, budget_scale=0.08 if reflex else scale, opp_clock_s=opp_left if opp_left >= 0 else None, opp_think_frac=think,
-                                          budget_s=(0.15 if reflex else budget) if budget else None)
+                limit.check()
+                mind = self.build(opts)
+                snapshot = deepcopy(mind.state), mind.last, mind.rng.getstate()
+                move, trace = mind.choose(board, budget_scale=0.08 if reflex else scale,
+                                          opp_clock_s=opp_left if opp_left >= 0 else None, opp_think_frac=think,
+                                          budget_s=budget, budget=limit, nodes=nodes, depth=depth,
+                                          fallback=fallback, mates=mates)
+                with self.lock:
+                    if self.active is job and not limit.stopped():
+                        self.publish(job, move, trace)
+                        published = True
+                if published and opts["TraceFile"]:
+                    with open(opts["TraceFile"], "a") as out:
+                        out.write(json.dumps(trace) + "\n")
+            except SearchStopped:
+                pass
             except Exception as ex:
-                self.result = (None, {"error": repr(ex)})
+                with self.lock:
+                    if self.active is job:
+                        self.say(f"info string error {ex!r}")
+                        self.publish(job, None, {})
+            finally:
+                if snapshot is not None and not published:
+                    mind.state, mind.last, rng = snapshot
+                    mind.rng.setstate(rng)
 
-        self.worker = threading.Thread(target=work, daemon=True)
-        self.worker.start()
-        deadline = None if budget is None and "nodes" not in a else (time.time() + max(0.05, budget * 2.5) if budget is not None else None)
-        while self.worker.is_alive():
-            self.worker.join(0.01)
-            if self.stop_ev.is_set() or (deadline and time.time() > deadline):
-                break
-        mv, tr = self.result if self.result else (None, {"error": "deadline"})
-        if mv is None or mv not in board.legal_moves:
-            if tr.get("error"):
-                self.say(f"info string error {tr['error']}")
-            p = getattr(mind, "partial", None)
-            mv = chess.Move.from_uci(p) if p and chess.Move.from_uci(p) in board.legal_moves else next(iter(board.legal_moves), None)
-        if mv is None:
-            self.say("bestmove 0000")
-            return
-        ch = tr.get("chosen", {}) if isinstance(tr, dict) else {}
-        if ch.get("eval") is not None:
-            ev = ch["eval"]
-            sc = f"mate {int((100000 - ev + 1) // 2) or 1}" if ev >= 99000 else (f"mate -{int((100000 + ev + 1) // 2) or 1}" if ev <= -99000 else f"cp {int(ev)}")
-            self.say(f"info depth 1 score {sc} pv {mv.uci()}")
-        if ch.get("bd"):
-            self.say("info string motifs " + " ".join(f"{k}={v}" for k, v in sorted(ch["bd"].items())))
-        self.say(f"bestmove {mv.uci()}")
+        self.executor.submit(work)
 
-    def join(self):
-        if self.worker is not None and self.worker.is_alive():
-            self.worker.join()
-        self.worker = None
+    def publish(self, job, move, trace):
+        self.active = None
+        if job.timer is not None:
+            job.timer.cancel()
+        if move is None or move not in job.board.legal_moves:
+            move = job.fallback
+        chosen = trace.get("chosen", {})
+        if chosen.get("eval") is not None:
+            evaluation = chosen["eval"]
+            if abs(evaluation) >= 99000:
+                score = f"mate {int(100000 - abs(evaluation)) * (1 if evaluation > 0 else -1)}"
+            else:
+                score = f"cp {int(evaluation)}"
+            root = trace.get("root_search", {})
+            self.say(f"info depth {root.get('depth', 0)} nodes {root.get('nodes', 0)} score {score} pv {move.uci()}")
+        if chosen.get("bd"):
+            self.say("info string motifs " + " ".join(f"{k}={v}" for k, v in sorted(chosen["bd"].items())))
+        self.say(f"bestmove {move.uci() if move else '0000'}")
+
+    def expire(self, job):
+        with self.lock:
+            if self.active is job:
+                self.say("info string deadline fallback")
+                self.stop()
+
+    def stop(self):
+        with self.lock:
+            job = self.active
+            if job is not None:
+                job.budget.cancelled.set()
+                self.publish(job, None, {})
+
+    def close(self):
+        self.stop()
+        self.executor.shutdown(cancel_futures=True)
+        if self.mind is not None:
+            self.mind.close()
 
 
 def main():
     u = UCI()
-    for line in sys.stdin:
-        if not u.cmd(line.strip()):
-            break
+    try:
+        for line in sys.stdin:
+            if not u.cmd(line.strip()):
+                break
+    finally:
+        u.close()
 
 
 if __name__ == "__main__":

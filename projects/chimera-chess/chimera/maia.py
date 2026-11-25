@@ -46,7 +46,7 @@ def tokenize(board: chess.Board) -> np.ndarray:
 
 def history_tokens(board: chess.Board) -> np.ndarray:
     boards: List[chess.Board] = []
-    b = board.copy()
+    b = board.copy(stack=HISTORY - 1)
     boards.append(b.copy(stack=False))
     while b.move_stack and len(boards) < HISTORY:
         b.pop()
@@ -73,21 +73,33 @@ class MaiaPolicy:
 
     def predict(self, board: chess.Board, elo: int = 2200, oppo_elo: Optional[int] = None
                 ) -> Tuple[Dict[str, float], Tuple[float, float, float]]:
-        tok = history_tokens(board)[None]
-        out = self.session.run(None, {"tokens": tok, "self_elo": np.array([elo], np.int64),
-                                      "oppo_elo": np.array([oppo_elo or elo], np.int64)})
-        logits, value = out[0][0], out[1][0]
+        return self.predict_many([board], elo, oppo_elo)[0]
+
+    def predict_many(self, boards, elo: int = 2200, oppo_elo: Optional[int] = None):
+        if not boards:
+            return []
+        out = self.session.run(None, {
+            "tokens": np.stack([history_tokens(board) for board in boards]),
+            "self_elo": np.full(len(boards), elo, dtype=np.int64),
+            "oppo_elo": np.full(len(boards), oppo_elo if oppo_elo is not None else elo, dtype=np.int64),
+        })
+        return [self._distribution(board, logits, value) for board, logits, value in zip(boards, *out)]
+
+    def _distribution(self, board, logits, value):
         mirrored = board.turn == chess.BLACK
         legal = []
         for m in board.legal_moves:
             u = m.uci()
             idx = self.index.get(_mirror_uci(u) if mirrored else u)
-            if idx is not None:
-                legal.append((u, logits[idx]))
-        xs = np.array([l for _, l in legal], dtype=np.float64)
-        xs = np.exp(xs - xs.max())
-        xs /= xs.sum()
-        probs = {u: float(p) for (u, _), p in zip(legal, xs)}
+            if idx is None:
+                raise ValueError(f"legal move {u} is absent from the Maia vocabulary")
+            legal.append((u, logits[idx]))
+        probs = {}
+        if legal:
+            xs = np.array([logit for _, logit in legal], dtype=np.float64)
+            xs = np.exp(xs - xs.max())
+            xs /= xs.sum()
+            probs = {u: float(p) for (u, _), p in zip(legal, xs)}
         v = np.exp(value - value.max())
         v /= v.sum()
         return probs, (float(v[2]), float(v[1]), float(v[0]))  # win, draw, loss

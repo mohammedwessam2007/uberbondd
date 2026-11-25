@@ -17,6 +17,7 @@ from typing import Callable, Dict, List, Optional, Set
 import chess
 
 from chimera.omega import features as F
+from chimera.omega.construct import bounded_mate
 
 V = F.PIECE_VALUES
 
@@ -43,6 +44,7 @@ class MatchState:
     opp_clock_s: Optional[float] = None
     declined_sac: bool = False                                 # our last move offered material and it was declined
     repetition_used: int = 0
+    last_only_move: bool = False
 
     def reset(self):
         self.__init__()
@@ -174,10 +176,16 @@ def m006(c):
     return {"open": 1.25, "semi": 0.75}.get(st, 0.0)
 
 
-@motif(7, "Bishop-Pair Preservation", -1.10)
+@motif(7, "Bishop-Pair Preservation", -1.10, ["replies"], level="VERIFICATION")
 def m007(c):
-    pawns = len(c.board.pieces(chess.PAWN, chess.WHITE)) + len(c.board.pieces(chess.PAWN, chess.BLACK))
-    return 1.0 if pawns < 10 and len(c.board.pieces(chess.BISHOP, c.us)) == 2 and len(c.nb.pieces(chess.BISHOP, c.us)) < 2 else 0.0
+    pawns = chess.popcount(c.board.pawns)
+    if (pawns >= 10 or len(c.board.pieces(chess.BISHOP, c.us)) != 2
+            or c.piece.piece_type != chess.BISHOP or not c.is_capture or not c.reply or not c.reply.evals):
+        return 0.0
+    best = min(c.reply.evals.values())
+    return float(any(value == best and chess.Move.from_uci(uci).to_square == c.move.to_square
+                     and chess.Move.from_uci(uci) in c.nb.legal_moves
+                     for uci, value in c.reply.evals.items()))
 
 
 @motif(8, "Passed-Pawn Escalator", 1.0)
@@ -873,15 +881,27 @@ def _ray_ok(b, s, t):
     return pt == chess.QUEEN or (pt == chess.BISHOP and diag) or (pt == chess.ROOK and not diag)
 
 
+def battery_targets(board, color):
+    """Files on which a queen behind two unobstructed rooks supports their advance."""
+    targets = set()
+    for queen in board.pieces(chess.QUEEN, color):
+        direction = 8 if color else -8
+        file = chess.square_file(queen)
+        if F.file_state(board, file, color) == "closed":
+            continue
+        ray = [sq for sq in range(queen + direction, 64 if color else -1, direction)]
+        occupied = [sq for sq in ray if board.piece_type_at(sq)]
+        if len(occupied) < 2 or any(board.piece_at(sq) != chess.Piece(chess.ROOK, color) for sq in occupied[:2]):
+            continue
+        front = occupied[1] + direction
+        if 0 <= front < 64 and board.color_at(front) != color:
+            targets.add(file)
+    return targets
+
+
 @motif(98, "Alekhine's Gun Stacker", 3.10, group="attack")
 def m098(c):
-    def gun(b):
-        for f in range(8):
-            on = [s for s in chess.SquareSet(chess.BB_FILES[f]) if b.color_at(s) == c.us and b.piece_type_at(s) in (chess.QUEEN, chess.ROOK)]
-            if len(on) >= 3 and sum(b.piece_type_at(s) == chess.ROOK for s in on) >= 2 and F.file_state(b, f, c.us) != "closed":
-                return True
-        return False
-    return 1.0 if gun(c.nb) and not gun(c.board) else 0.0
+    return float(bool(battery_targets(c.nb, c.us) - battery_targets(c.board, c.us)))
 
 
 def _mate(c):
@@ -1234,7 +1254,7 @@ def m136(c):
 
 @motif(137, "Clock-Burn Maze Escalator", 2.65, ["replies", "history"], level="VERIFICATION")
 def m137(c):
-    return 1.0 if m109(c) and c.state.our_moves and getattr(c.state, "last_only_move", False) else 0.0
+    return 1.0 if m109(c) and c.state.our_moves and c.state.last_only_move else 0.0
 
 
 @motif(138, "Quiet-Move Shockwave", 2.55, ["replies"], level="VERIFICATION")
@@ -1450,22 +1470,46 @@ def m187(c):
     return 1.0 if chess.square_name(c.move.to_square) in names and all(c.nb.piece_at(chess.parse_square(s)) is None for s in cen) else 0.0
 
 
-@motif(188, "Triple-En-Prise Ghost Chain", 2.65, ["eval"], level="VERIFICATION", group="sacrifice")
+def en_prise_captures(board, color):
+    hanging = set(F.hanging_pieces(board, color))
+    return [m for m in board.generate_legal_captures() if m.to_square in hanging]
+
+
+@motif(188, "Triple-En-Prise Ghost Chain", 2.65, ["eval", "replies"], level="VERIFICATION", group="sacrifice")
 def m188(c):
-    hp = F.hanging_pieces(c.nb, c.us)
-    return float(len(hp)) if len(hp) >= 3 and c.ev(-999) >= -35 else 0.0
+    if c.ev(-999) < -35 or not c.reply:
+        return 0.0
+    captures = en_prise_captures(c.nb, c.us)
+    targets = {m.to_square for m in captures}
+    if len(targets) < 3:
+        return 0.0
+    # The tactical backend screens the offers, and exact legal proof closes them.
+    if any(c.reply.evals.get(m.uci(), 0) < 99997 for m in captures):
+        return 0.0
+    return float(len(targets)) if all(bounded_mate(_after(c.nb, m), c.us) for m in captures) else 0.0
 
 
 @motif(189, "Cognitive-Freeze Clock Drain", 2.90, ["replies"], level="VERIFICATION")
 def m189(c):  # opponent has >= 5 natural captures that lose, and only a backward retreat survives
     if not c.reply or not c.reply.evals:
         return 0.0
-    caps = [m for m in c.nb.legal_moves if c.nb.is_capture(m)]
-    if len(caps) < 5:
+    replies = list(c.nb.legal_moves)
+    caps = [m for m in replies if c.nb.is_capture(m)]
+    if len(caps) < 5 or any(m.uci() not in c.reply.evals for m in replies):
         return 0.0
-    good = [u for u, v in c.reply.evals.items() if v - min(c.reply.evals.values()) < 100]
-    back = [u for u in good if F.rel_rank(c.them, chess.Move.from_uci(u).to_square) < F.rel_rank(c.them, chess.Move.from_uci(u).from_square)]
-    return 1.0 if len(good) == 1 and back and sum(1 for m in caps if m.uci() in c.reply.evals and c.reply.evals[m.uci()] - min(c.reply.evals.values()) >= 100) >= 5 else 0.0
+    scores = {m.uci(): c.reply.evals[m.uci()] for m in replies}
+    best = min(scores.values())
+    # A unique least-bad reply in a decisively lost position is not survival.
+    # Use the same 100 cp material-loss boundary as the tactical separation.
+    if best >= 100:
+        return 0.0
+    good = [u for u, v in scores.items() if v - best < 100]
+    back = []
+    for uci in good:
+        move = chess.Move.from_uci(uci)
+        if not c.nb.is_capture(move) and F.rel_rank(c.them, move.to_square) < F.rel_rank(c.them, move.from_square):
+            back.append(uci)
+    return 1.0 if len(good) == 1 and back and sum(1 for m in caps if m.uci() in c.reply.evals and scores[m.uci()] - best >= 100) >= 5 else 0.0
 
 
 @motif(190, "Botez-Gambit Suffocation", 4.80, ["eval"], level="VERIFICATION", group="sacrifice")
@@ -1501,7 +1545,8 @@ def m193(c):  # opponent gets checks (2-3 forcing replies) yet every check leave
 def m194(c):
     if c.move.promotion != chess.KNIGHT or c.nb.is_insufficient_material() or c.ev(-999) < 200:
         return 0.0
-    return float(max(0, len(c.nb.pieces(chess.KNIGHT, c.us)) - 2))
+    count = len(c.nb.pieces(chess.KNIGHT, c.us))
+    return float(count - 2) if 3 <= count <= 6 else 0.0
 
 
 @motif(195, "Symmetry-Mirror Gaslight", 4.00, ["history"], group="opening")
@@ -1576,21 +1621,37 @@ def m202(c):
 def m203(c):
     if c.move.promotion != chess.BISHOP or c.nb.is_insufficient_material() or c.ev(-999) < 200:
         return 0.0
-    return float(max(0, F.max_same_color_bishops(c.nb, c.us) - 1))
+    squares = chess.BB_LIGHT_SQUARES if chess.BB_SQUARES[c.move.to_square] & chess.BB_LIGHT_SQUARES else chess.BB_DARK_SQUARES
+    count = len(c.nb.pieces(chess.BISHOP, c.us) & chess.SquareSet(squares))
+    return float(count - 1) if 2 <= count <= 4 else 0.0
 
 
 @motif(204, "Statue-of-Liberty Queen", 3.60, ["replies", "history"], level="VERIFICATION", group="sacrifice")
 def m204(c):
-    qs = list(c.nb.pieces(chess.QUEEN, c.us))
-    cen = [s for s in qs if 2 <= chess.square_file(s) <= 5 and 2 <= chess.square_rank(s) <= 5]
-    if not cen or c.nb.attackers(c.us, cen[0]) or not c.nb.attackers(c.them, cen[0]) or not c.reply:
+    if len(c.board.move_stack) < 2 or not c.reply:
         return 0.0
-    takes = [u for u in c.reply.evals if chess.Move.from_uci(u).to_square == cen[0]]
-    return 1.0 if takes and all(_reply_loss(c, u) >= 150 for u in takes) else 0.0
+    before = c.board.copy(stack=2)
+    before.pop()
+    previous = before.pop()
+    for square in c.nb.pieces(chess.QUEEN, c.us):
+        if square in (c.move.to_square, previous.to_square) or before.piece_at(square) != chess.Piece(chess.QUEEN, c.us):
+            continue
+        if not all(2 <= coord <= 5 for coord in (chess.square_file(square), chess.square_rank(square))):
+            continue
+        attackers = c.nb.attackers(c.them, square)
+        if (not attackers or c.nb.attackers(c.us, square)
+                or not c.board.attackers(c.them, square) or c.board.attackers(c.us, square)):
+            continue
+        takes = [m.uci() for m in c.nb.generate_legal_captures(to_mask=chess.BB_SQUARES[square])]
+        if takes and all(u in c.reply.evals and _reply_loss(c, u) >= 150 for u in takes):
+            return 1.0
+        if not takes and all(c.nb.is_pinned(c.them, sq) for sq in attackers):
+            return 1.0
+    return 0.0
 
 
 @motif(205, "49.5-Move Cliffhanger", 1.0, ["eval"], group="style-extreme")
-def m205(c):  # dead-won (>= +500): reward the mating move exactly at halfmove_clock == 99; until then pure shuffles keep the clock
+def m205(c):  # dead-won (>= +500): reward the mating move exactly at halfmove_clock == 99; this affects immediate mates only
     if c.ev() < 500:
         return 0.0
     if c.nb.is_checkmate() and c.board.halfmove_clock == 99:
@@ -1606,15 +1667,28 @@ def m206(c):
     return 1.0 if F.pawn_islands(c.nb, c.us) > F.pawn_islands(c.board, c.us) and tied(c.nb) >= 1 else 0.0
 
 
-@motif(207, "Queen Conveyor Sacrifice", 4.10, ["history"], level="CONSTRUCTION", group="mate")
+@motif(207, "Queen Conveyor Sacrifice", 4.10, ["eval", "history"], level="CONSTRUCTION", group="mate")
 def m207(c):  # we promoted to a queen last move; now the new queen sacrifices itself to clear lines for a knight mate
-    if not c.state.our_moves or not chess.Move.from_uci(c.state.our_moves[-1]).promotion == chess.QUEEN:
+    if c.ev(-999) < 99997:
         return 0.0
-    qsq = chess.Move.from_uci(c.state.our_moves[-1]).to_square
-    if c.move.from_square != qsq:
+    just_promoted = c.move.promotion == chess.QUEEN
+    if not just_promoted:
+        if len(c.board.move_stack) < 2:
+            return 0.0
+        promotion = c.board.move_stack[-2]
+        if (promotion.promotion != chess.QUEEN or c.move.from_square != promotion.to_square
+                or c.piece.piece_type != chess.QUEEN):
+            return 0.0
+    captures = list(c.nb.generate_legal_captures(to_mask=chess.BB_SQUARES[c.move.to_square]))
+    if not captures or (just_promoted and len(captures) != c.nb.legal_moves.count()):
         return 0.0
-    nb = c.nb
-    return 1.0 if c.sac_value() >= 5 and any(_after(nb, r).is_checkmate() is False for r in list(nb.legal_moves)[:1]) and c.ev(-999) >= 99000 else 0.0
+    for capture in captures:
+        after = _after(c.nb, capture)
+        knights = after.pieces_mask(chess.KNIGHT, c.us)
+        if not any(after.gives_check(m) and _after(after, m).is_checkmate()
+                   for m in after.generate_legal_moves(from_mask=knights)):
+            return 0.0
+    return 1.0
 
 
 @motif(208, "Hollow-Ring Vortex", 2.45, group="space")
@@ -1649,12 +1723,30 @@ def m212(c):
     return 1.0 if all(c.reply.evals[u] >= 200 for u in checks) else 0.0
 
 
-@motif(213, "Meatgrinder Exchange Sac", 5.40, ["eval", "history"], level="VERIFICATION", group="sacrifice")
-def m213(c):  # second rook-for-minor trade completing R+R -> N+B while >= 5 files are locked
-    if not m014_like(c) or F.closed_files_count(c.nb) < 5:
+@motif(213, "Meatgrinder Exchange Sac", 5.40, ["eval", "history", "replies"], level="VERIFICATION", group="sacrifice")
+def m213(c):
+    if (not m014_like(c) or F.closed_files_count(c.nb) < 5 or c.ev(-999) < -35
+            or not c.reply or not c.reply.evals):
         return 0.0
-    rooks_lost = 2 - len(c.nb.pieces(chess.ROOK, c.us)) if len(c.nb.pieces(chess.ROOK, c.them)) >= 2 else 0
-    return 1.0 if rooks_lost >= 1 and c.ev(-999) >= -35 else 0.0
+    best = min(c.reply.evals.values())
+    recaptures = list(c.nb.generate_legal_captures(to_mask=chess.BB_SQUARES[c.move.to_square]))
+    if (not recaptures or any(m.uci() not in c.reply.evals for m in recaptures)
+            or not any(c.reply.evals[m.uci()] == best for m in recaptures)
+            or any(c.reply.evals[m.uci()] < -35 for m in recaptures)):
+        return 0.0
+    minor = c.board.piece_type_at(c.move.to_square)
+    before = c.board.root()
+    moves = c.board.move_stack
+    for i, move in enumerate(moves):
+        offer = (before.turn == c.us and before.piece_type_at(move.from_square) == chess.ROOK
+                 and before.is_capture(move)
+                 and {minor, before.piece_type_at(move.to_square)} == {chess.KNIGHT, chess.BISHOP})
+        before.push(move)
+        if offer and i + 1 < len(moves):
+            reply = moves[i + 1]
+            if reply.to_square == move.to_square and before.is_capture(reply):
+                return 1.0
+    return 0.0
 
 
 def m014_like(c):
@@ -1727,10 +1819,11 @@ IMPLEMENTED = sorted(REGISTRY)
 def score_move(ctx: Ctx, enabled: Optional[Set[int]] = None, weights: Optional[Dict[int, float]] = None, have: Set[str] = frozenset()):
     """Returns (total, breakdown) over motifs whose evidence needs are available. breakdown: id -> weighted value."""
     total, bd = 0.0, {}
+    available = have | {"history", "clock"}
     for n, m in REGISTRY.items():
         if enabled is not None and n not in enabled:
             continue
-        if not m.needs <= set(have) | {"history", "clock"}:
+        if not m.needs <= available:
             continue
         v = m.fn(ctx)
         if v:

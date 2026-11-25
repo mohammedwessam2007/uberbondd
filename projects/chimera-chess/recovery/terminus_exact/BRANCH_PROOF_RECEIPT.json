@@ -1,0 +1,21 @@
+{
+  "status": "EXPERIMENTAL_RUNTIME_INTEGRATION_SOURCE_ONLY",
+  "baseline": "exact recovered Terminus source trees; archived original untouched",
+  "profile": "PDF_FAST_BRANCH_PROOF",
+  "scope": [
+    "CORE167-073",
+    "CORE167-108",
+    "CORE167-117"
+  ],
+  "local_reference_tests": 9,
+  "retained_reference_tests": 33,
+  "actual_backend_tests": "NOT_RUN: python-chess, onnxruntime and Stockfish unavailable in local container; remote tunnel unavailable",
+  "proof_kernel_sha": "991ceafccd01cd6c46ed82ca45a63a81d739886d",
+  "limitations": [
+    "only bounded exact mating plans; not learned strategy",
+    "cooperative deadline, individual board operations can run beyond check",
+    "512 proof node and 12 ms limits uncalibrated on actual hybrid",
+    "no frozen gauntlet change; older baseline tests and benchmark scripts retained"
+  ],
+  "remote_test": "cd projects/chimera-chess && python -m unittest tests.test_branch_plan_integration"
+}

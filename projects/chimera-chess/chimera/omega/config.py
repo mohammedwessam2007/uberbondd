@@ -2,7 +2,7 @@
 
 PDF values are kept verbatim (target_ipr, softmax_temp, soundness_floor_cp, max_cp_drop, anti_draw_contempt_cp, presets).
 Engineering differences (recorded in canon/PDF_CONTRADICTIONS.json):
- * Stockfish 19 is unavailable in this environment (github downloads refused, 403) -> verifier = installed Stockfish 16.
+ * STOCKFISH_PATH selects the verifier and hybrid tactical executable. The convergence runs pin SF16 for historical comparisons and SF19 for source-version smoke tests.
  * CSSLab maia3-uci is unavailable (repo unreachable, not on PyPI) -> Maia3-5M ONNX port (chimera/maia.py, parity 61/61).
  * enable_clock_delay is ALWAYS False: artificial delays to imitate human timing are restricted (#28 #53 #80 #210).
  * target_ipr is kept as a label of the preset; nothing in the runtime optimises screening statistics (#179 restricted part).
@@ -35,6 +35,10 @@ class ChimeraConfig:
     use_motifs: bool = True
     use_maia: bool = True
     use_memory: bool = True              # native Architect PlanMemory + PlanBias causal channel
+    branch_proof: bool = False           # opt-in exact tactical witness research
+    branch_proof_nodes: int = 512
+    branch_proof_ms: int = 12
+    branch_proof_horizon: int = 5
     use_creative: bool = True            # Artist: Maia + motif-constructive extra candidates
     use_neural: bool = True              # native residual NNUE (EvalVersion 3, x0.5) + Maia
     verifier: str = "stockfish"          # Skeptic backend for sacrifice verification: stockfish | native | none
@@ -88,8 +92,17 @@ PROFILES = {  # gauntlet ablations (section 16 of the mandate)
                      "motif_scale": 0.15, "artist_scan": 12, "artist_nodes": 15000,
                      "group_scale": {"tactic": 2.5, "style-extreme": 2.0, "construction": 2.0, "human": 0.6, "#209": 0.4, "#172": 0.6,
                                      "#215": 1.5, "#217": 1.5, "#220": 1.5}},
+    # Resource-limited variant for the 205 ms host development benchmark.
+    "PDF_FAST_EXPERIMENT": {"tactical": "stockfish", "root_multipv": 12, "sf_time_sec": 0.08,
+                            "root_time_frac": -1.0, "reply_k": 2, "reply_nodes": 6000,
+                            "verify_nodes": 60000, "motif_scale": 0.15, "artist_scan": 12, "artist_nodes": 12000},
     "WHOLE_MIND_V2": {"root_multipv": 4, "root_time_frac": 0.6, "reply_k": 3, "reply_nodes": 15000, "verify_nodes": 150000},
 }
+
+
+PROFILES["PDF_REFERENCE"] = PROFILES["PDF_FAITHFUL_V4"].copy()
+PROFILES["PDF_FAST"] = PROFILES["PDF_FAST_EXPERIMENT"].copy()
+PROFILES["PDF_FAST_BRANCH_PROOF"] = {**PROFILES["PDF_FAST"], "branch_proof": True}
 
 
 def make(preset: str = "Trauma_GM_2685", profile: str = "WHOLE_MIND", **kw) -> ChimeraConfig:

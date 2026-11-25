@@ -843,12 +843,19 @@ struct Searcher {
   }
 
   // returns best move; prints info lines via callback
+  static std::string uci_score(int value) {
+    if (value >= MATE_BOUND) return "mate " + std::to_string((MATE - value + 1) / 2);
+    if (value <= -MATE_BOUND) return "mate -" + std::to_string((MATE + value + 1) / 2);
+    return "cp " + std::to_string(value);
+  }
+
   Move think(const Limits &lim, double soft_ms, double hard_ms, bool print, int &out_depth) {
     start = Clock::now();
     pos.nn_refresh();
     has_deadline = hard_ms > 0;
     if (has_deadline) hard_deadline = start + std::chrono::microseconds((long long)(hard_ms * 1000));
-    node_limit = lim.nodes;
+    const bool reserve_style_nodes = STYLE_PROFILE && MULTIPV == 1 && lim.nodes >= 8000;
+    node_limit = reserve_style_nodes ? lim.nodes - lim.nodes / 8 : lim.nodes;
     nodes = 0; aborted = false;
     st_q = st_tt = st_tthit = st_null = st_nullcut = st_lmr = st_lmrre = st_cut = st_cut1 = st_rfp = st_fut = 0;
     memset(killers, 0, sizeof killers);
@@ -956,16 +963,14 @@ struct Searcher {
       double el = std::chrono::duration<double, std::milli>(Clock::now() - start).count();
       if (print && MULTIPV > 1 && !mpv_aborted) {
         for (size_t k = 1; k < last_mpv.size(); k++) {
-          printf("info depth %d multipv %zu score cp %d pv %s\n", depth, k + 1, last_mpv[k].second, pv_line(last_mpv[k].first).c_str());
+          printf("info depth %d multipv %zu score %s pv %s\n", depth, k + 1,
+                 uci_score(last_mpv[k].second).c_str(), pv_line(last_mpv[k].first).c_str());
         }
         fflush(stdout);
       }
       if (mpv_aborted) break;
       if (print) {
-        std::string sc;
-        if (best_score >= MATE_BOUND) sc = "mate " + std::to_string((MATE - best_score + 1) / 2);
-        else if (best_score <= -MATE_BOUND) sc = "mate -" + std::to_string((MATE + best_score + 1) / 2);
-        else sc = "cp " + std::to_string(best_score);
+        std::string sc = uci_score(best_score);
         printf("info depth %d score %s nodes %lld time %d nps %lld pv %s\n", depth, sc.c_str(), nodes, (int)el,
                (long long)(nodes / std::max(el / 1000.0, 1e-6)), pv_line(best).c_str());
         fflush(stdout);
@@ -989,11 +994,16 @@ struct Searcher {
       if (soft_ms > 0 && el > soft_ms) break;
       if (stop.load()) break;
     }
+    if (reserve_style_nodes) {
+      node_limit = lim.nodes;
+      aborted = false;
+    }
     if (STYLE_PROFILE && MULTIPV == 1 && out_depth >= 4 && best && std::abs(best_score) < MATE_BOUND) {
       // variant 2: null-window probes "is alternative within STYLE_MARGIN of best?" at depth-1, top-6 by last ordering
       int thr = best_score - STYLE_MARGIN;
       std::vector<std::pair<Move, int>> ok{{best, best_score}};
-      int probes = 0;
+      int probes = 0, completed_probes = 0;
+      const long long start_probe_nodes = nodes;
       for (Move m : root) {
         if (m == best) continue;
         if (++probes > 6) break;
@@ -1001,10 +1011,17 @@ struct Searcher {
         int sc2 = -negamax(out_depth - 1, -thr, -thr + 1, 1, true);
         pos.unmake(m);
         if (aborted) break;
+        completed_probes++;
         if (sc2 >= thr) ok.push_back({m, sc2});
       }
       aborted = false;
       if (ok.size() >= 2) last_mpv = ok;
+      if (print && reserve_style_nodes) {
+        printf("info string style probes completed %d search_nodes %lld total_nodes %lld budget %lld\n",
+               completed_probes, nodes - start_probe_nodes, nodes, lim.nodes);
+        printf("info nodes %lld\n", nodes);
+        fflush(stdout);
+      }
     }
     if (STYLE_PROFILE && last_mpv.size() >= 2 && std::abs(last_mpv[0].second) < MATE_BOUND && best == last_mpv[0].first) {
       int top = last_mpv[0].second;

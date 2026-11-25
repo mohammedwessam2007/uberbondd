@@ -105,21 +105,28 @@ These implement statistical screening evasion, fabricated human move timing, or 
 
 Meter: `tools/omega/pdf_characteristics.py`. It counts events on moves actually played, per game. The mapping from PDF categories to motif IDs is in the script.
 
-| Per game | PDF | V3 | Round 1 | Round 2 | Round 3 | Round 4 | Round 5 | Round 6 (V6) |
-|---|---|---|---|---|---|---|---|---|
-| Tal sacrifices | 4.2 | 4.1 | 2.8 | 5.9 | 2.0 | 3.9 | 6.2 | 2.4 |
-| Maia panic traps | 3.8 | 7.0 | 6.6 | 6.1 | 4.4 | 4.0 | 4.7 | **3.5** |
-| Multi-pin & battery nets | 5.1 | 1.4 | 2.0 | 2.6 | 2.3 | 2.2 | 2.3 | 2.3 |
-| Underpromotions / fake-outs | 2.4 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| Zero-retreat / e.p.# setups | 3.1 | 10.7 | 9.1 | 8.8 | 5.3 | 6.3 | 6.2 | **3.5** |
-| Judas / Zombie / 0-check | 2.8 | 2.2 | 2.7 | 4.0 | 2.9 | 2.4 | 3.5 | 4.1 |
-| Score vs SF 2685 (PDF 4.8/10) | 4.8 | **5.0** | 4.0 | 3.5 | 2.0 | 2.0 | 2.0 | 1.5 |
+| Per game | PDF | V3 | R1 | R2 | R3 | R4 | R5 | R6 (V6) | R7 | **R8** | R9 |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| Tal sacrifices | 4.2 | 4.1 | 2.8 | 5.9 | 2.0 | 3.9 | 6.2 | 2.4 | 3.2 | **4.2** | 2.1 |
+| Maia panic traps | 3.8 | 7.0 | 6.6 | 6.1 | 4.4 | 4.0 | 4.7 | **3.5** | 4.2 | 5.4 | 4.8 |
+| Multi-pin & battery nets | 5.1 | 1.4 | 2.0 | 2.6 | 2.3 | 2.2 | 2.3 | 2.3 | 3.2 | **4.5** | 1.7 |
+| Underpromotions / fake-outs | 2.4 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0.1 | 0 |
+| Zero-retreat / e.p.# setups | 3.1 | 10.7 | 9.1 | 8.8 | 5.3 | 6.3 | 6.2 | **3.5** | 7.5 | 9.2 | 6.0 |
+| Judas / Zombie / 0-check | 2.8 | 2.2 | 2.7 | 4.0 | 2.9 | 2.4 | 3.5 | 4.1 | 2.9 | **2.6** | 3.1 |
+| Score vs SF 2685 (PDF 4.8/10) | 4.8 | **5.0** | 4.0 | 3.5 | 2.0 | 2.0 | 2.0 | 1.5 | 4.0 | 3.0 | 1.5 |
+
+The best style match is round 8 (`evidence/omega/calibration/style_round8.json`):
+- **Within ±30% of the PDF:** 3 of 6 categories (Tal 4.2 exact, pins 4.5, Judas 2.6).
+- **Out of range:** panic traps at 1.4×, zero-retreat at 3×, underpromotion near 0.
+- **Score:** 3/10.
+
+Round 7 drew 8 of 10 games. Round 9 overshot. Calibration is noisy at 10 games per round.
 
 - Rounds 3–5 pushed contempt to −360 cp. That was a mistake: no fewer draws, and a worse score.
 - V6 (round 6+) adds:
   - a conversion guard: when winning by at least +5 with the halfmove clock at 60 or more, style-extreme motifs pause and progress moves get a bonus;
   - anti-liquidation knobs.
-- Calibration rounds 7–9 may still be running (see section 9).
+- Rounds 7–9 are finished. Start any further calibration from `style_round8.json`.
 
 Other targets:
 - **Latency:** median 294 ms per ply offline (V4), against the PDF's 105–205 ms. Reply searches, Maia and the Skeptic are included and not cut.

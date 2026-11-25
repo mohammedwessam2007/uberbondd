@@ -1,25 +1,24 @@
 {
+  "status": "EXACT_RUNTIME_SOURCE_SUBTREES_RESTORED_NOT_EXECUTED",
   "source_commit": "f65025f5e8e76bbbdb10bf8e9486108491836e40",
   "runtime_commit": "c943858719021689fc02bffb9989ffb0c29b5172",
-  "project_tree": "49b0cba3106259f799b127be06dbc3d49e0a33e6",
-  "recovery_base": "a756012e2950c0ba1db008bb26f8bd91274abb95",
-  "bundle_sha256": "c4df8512721bc392c0b52f39360b796fd03a85b630ff5df7a53e9241ec399624",
-  "status": "PARTIAL_EXACT_SOURCE_SALVAGE_NOT_RUNNABLE_RELEASE",
-  "method": "Reconstructed from supplied Git thin-pack delta bytes and original GitHub base blobs; verified original Git blob hashes before publication. Stored separately to avoid mixing runtimes.",
-  "files": [
-    {
-      "path": "native/chimera.cpp",
-      "sha": "1d4fc471b8849e936b5d56dd59128be767f6c3b5"
-    },
-    {
-      "path": "chimera/maia.py",
-      "sha": "2b4d0890327c2972c5d4cba945ddaaaa90991204"
-    },
-    {
-      "path": "chimera/omega/controls.py",
-      "sha": "a90baf17ab8069b69d5601483b4068fda8cfa59e"
-    }
-  ],
-  "frozen_gauntlet": "2/50, unchanged; not resumed",
-  "notes": "Other source files, model/executable dependencies and actual benchmarks are not yet verified."
+  "frozen_commit": "ed05336f3f31e4352aedc8ff27ce253952ddf21d",
+  "source_bundle_sha256": "c4df8512721bc392c0b52f39360b796fd03a85b630ff5df7a53e9241ec399624",
+  "current": {
+    "chimera": "889fb11c5c36f7ede4178b860d73320f1fb8100c",
+    "native": "94587ca52f33764d650c7487dd03054a6d70512a",
+    "omega": "1e5bbce0a9c197a04d2cf06ef0eecf785aa2995c"
+  },
+  "frozen": {
+    "chimera": "e6bd66950b3321e700c39715101fcd6240b4bfde",
+    "native": "b5bd9ad23559b0e118ab0a87a0e9d2bfb1ded22c",
+    "omega": "515b18707795b9cf96a54a72001dc6bb786704b0"
+  },
+  "evidence": "All four source subtree Git object IDs match supplied original thin-bundle trees; not a reconstruction of original root commit or executable binaries. Source archived separately; baseline left untouched. No fresh engine test, model inference, or game execution.",
+  "pending": [
+    "Full project tests, benchmark harness and generated registry delta recovery",
+    "Stockfish 19 binary and exact frozen native binary/environment hashes",
+    "50-game frozen gauntlet remains 2/50",
+    "CORE167 learned mechanisms, #189 competitive survival, full-width speed and handset execution remain open"
+  ]
 }

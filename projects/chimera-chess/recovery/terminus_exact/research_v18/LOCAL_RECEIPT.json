@@ -1,0 +1,29 @@
+{
+  "status": "LOCAL_REFERENCE_EXECUTED_NOT_TERMINUS_INTEGRATED",
+  "source": "V17 separate Python reference checkpoint",
+  "core167": [
+    "#073",
+    "#108",
+    "#117"
+  ],
+  "results": {
+    "new_tests": 7,
+    "local_suite": 33,
+    "synthetic_mate_in_three": 3,
+    "terminal_paths": 10,
+    "defensive_branches": 6,
+    "branch_memory_32_units": 6,
+    "pv_then_fresh_32_units": 3,
+    "fresh_32_units": 0,
+    "integrated_reverified": 4,
+    "uci_bestmove": "c2g6"
+  },
+  "limits": [
+    "Development compositions selected during search; no independent holdout",
+    "Continuation benchmark excludes initial proof construction cost",
+    "Imports are from the separate V17 reference ZIP, not native Terminus",
+    "No Stockfish 19 execution or new gauntlet games",
+    "No claim of learned recurrent memory or complete CORE167 faculty"
+  ],
+  "original_frozen_unchanged": true
+}

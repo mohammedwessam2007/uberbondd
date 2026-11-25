@@ -30,6 +30,34 @@ class TestBranchPlan(unittest.TestCase):
             self.assertEqual(BP.resume(b, p, ops, BP.Allowance(100))[0], "unrelated")
         self.assertEqual(count, 6)
 
+    def test_whole_mind_reverified_branch_without_backend(self):
+        # Real choose() integration, not a second implementation of its control flow.
+        from chimera.omega.mind import WholeMind
+        from chimera.omega.motifs import MatchState
+        import random
+        ops = BP.ChessOps()
+        fen, first = CASES[0]
+        root = chess.Board(fen)
+        status, cert = BP.search(root, root.turn, 5, ops, BP.Allowance(100000), fixed=first)
+        self.assertEqual(status, "proved")
+        plan = BP.after_move(root.turn, 5, cert)
+        after = ops.child(root, chess.Move.from_uci(first))
+        actual = ops.child(after, chess.Move.from_uci("g1h1"))
+        m = WholeMind.__new__(WholeMind)
+        m.cfg = make(profile="PDF_FAST_BRANCH_PROOF", branch_proof_ms=1000, branch_proof_nodes=1000)
+        m.state = MatchState()
+        m.last = {"position": m._position_key(after), "branch_plan": plan}
+        m.trace_path = None
+        m.rng = random.Random(0)
+        m.backend = None
+        callbacks = []
+        selected, trace = m.choose(actual, fallback=callbacks.append)
+        self.assertEqual(trace["reason"], "exact branch mate proof")
+        self.assertEqual(trace["branch_proof"]["status"], "proved")
+        self.assertIn(selected, actual.legal_moves)
+        self.assertEqual(callbacks, [selected])
+        self.assertEqual(m.last["position"], m._position_key(actual, selected))
+
     def test_default_is_unchanged(self):
         self.assertFalse(make(profile="PDF_FAST").branch_proof)
         self.assertTrue(make(profile="PDF_FAST_BRANCH_PROOF").branch_proof)

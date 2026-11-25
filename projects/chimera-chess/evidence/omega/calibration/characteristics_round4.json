@@ -1,0 +1,42 @@
+{
+ "trace": "evidence/omega/calibration/trace_round4.jsonl",
+ "games": 10,
+ "per_game": {
+  "tal_sacrifices": 3.9,
+  "maia_panic_traps": 4.0,
+  "multipin_battery_nets": 2.2,
+  "underpromotion_fakeouts": 0.0,
+  "zero_retreat_ep_setups": 6.3,
+  "judas_zombie_0check": 2.4
+ },
+ "pdf_target": {
+  "tal_sacrifices": 4.2,
+  "maia_panic_traps": 3.8,
+  "multipin_battery_nets": 5.1,
+  "underpromotion_fakeouts": 2.4,
+  "zero_retreat_ep_setups": 3.1,
+  "judas_zombie_0check": 2.8
+ },
+ "ratio_to_pdf": {
+  "tal_sacrifices": 0.93,
+  "maia_panic_traps": 1.05,
+  "multipin_battery_nets": 0.43,
+  "underpromotion_fakeouts": 0.0,
+  "zero_retreat_ep_setups": 2.03,
+  "judas_zombie_0check": 0.86
+ },
+ "matches": [
+  {
+   "file": "evidence/omega/calibration/round4_vs_sf2685.summary.json",
+   "b": "sf:2685",
+   "games": 10,
+   "W-D-L": [
+    0,
+    4,
+    6
+   ],
+   "score": 2.0,
+   "draw_rate": 0.4
+  }
+ ]
+}

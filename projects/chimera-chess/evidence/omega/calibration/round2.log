@@ -1,0 +1,166 @@
+  1 omega:PDF_STYLE_V5:trace=evidence/omega/calibration/trace_round2.jsonl:style=evidence/omega/calibration/style_round2.json - sf:2685                0-1     CHECKMATE 106
+  2                sf:2685 - omega:PDF_STYLE_V5:trace=evidence/omega/calibration/trace_round2.jsonl:style=evidence/omega/calibration/style_round2.json 1-0     CHECKMATE 155
+<UciProtocol (pid=11339)>: stderr >> Exception in callback Protocol.pipe_data_received()
+<UciProtocol (pid=11339)>: stderr >> handle: <Handle Protocol.pipe_data_received()>
+<UciProtocol (pid=11339)>: stderr >> Traceback (most recent call last):
+<UciProtocol (pid=11339)>: stderr >>   File "/usr/local/lib/python3.13/asyncio/events.py", line 89, in _run
+<UciProtocol (pid=11339)>: stderr >>     self._context.run(self._callback, *self._args)
+<UciProtocol (pid=11339)>: stderr >>     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<UciProtocol (pid=11339)>: stderr >>   File "/usr/local/lib/python3.13/site-packages/chess/engine.py", line 968, in pipe_data_received
+<UciProtocol (pid=11339)>: stderr >>     self._line_received(line)
+<UciProtocol (pid=11339)>: stderr >>     ~~~~~~~~~~~~~~~~~~~^^^^^^
+<UciProtocol (pid=11339)>: stderr >>   File "/usr/local/lib/python3.13/site-packages/chess/engine.py", line 981, in _line_received
+<UciProtocol (pid=11339)>: stderr >>     self.command._line_received(line)
+<UciProtocol (pid=11339)>: stderr >>     ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+<UciProtocol (pid=11339)>: stderr >>   File "/usr/local/lib/python3.13/site-packages/chess/engine.py", line 1294, in _line_received
+<UciProtocol (pid=11339)>: stderr >>     self.line_received(line)
+<UciProtocol (pid=11339)>: stderr >>     ~~~~~~~~~~~~~~~~~~^^^^^^
+<UciProtocol (pid=11339)>: stderr >>   File "/usr/local/lib/python3.13/site-packages/chess/engine.py", line 1740, in line_received
+<UciProtocol (pid=11339)>: stderr >>     self._readyok()
+<UciProtocol (pid=11339)>: stderr >>     ~~~~~~~~~~~~~^^
+<UciProtocol (pid=11339)>: stderr >>   File "/usr/local/lib/python3.13/site-packages/chess/engine.py", line 1753, in _readyok
+<UciProtocol (pid=11339)>: stderr >>     self.result.set_result(self.analysis)
+<UciProtocol (pid=11339)>: stderr >>     ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+<UciProtocol (pid=11339)>: stderr >> asyncio.exceptions.InvalidStateError: invalid state
+<UciProtocol (pid=10976)>: stderr >> Exception in callback Protocol.pipe_data_received()
+<UciProtocol (pid=10976)>: stderr >> handle: <Handle Protocol.pipe_data_received()>
+<UciProtocol (pid=10976)>: stderr >> Traceback (most recent call last):
+<UciProtocol (pid=10976)>: stderr >>   File "/usr/local/lib/python3.13/asyncio/events.py", line 89, in _run
+<UciProtocol (pid=10976)>: stderr >>     self._context.run(self._callback, *self._args)
+<UciProtocol (pid=10976)>: stderr >>     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<UciProtocol (pid=10976)>: stderr >>   File "/usr/local/lib/python3.13/site-packages/chess/engine.py", line 968, in pipe_data_received
+<UciProtocol (pid=10976)>: stderr >>     self._line_received(line)
+<UciProtocol (pid=10976)>: stderr >>     ~~~~~~~~~~~~~~~~~~~^^^^^^
+<UciProtocol (pid=10976)>: stderr >>   File "/usr/local/lib/python3.13/site-packages/chess/engine.py", line 981, in _line_received
+<UciProtocol (pid=10976)>: stderr >>     self.command._line_received(line)
+<UciProtocol (pid=10976)>: stderr >>     ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+<UciProtocol (pid=10976)>: stderr >>   File "/usr/local/lib/python3.13/site-packages/chess/engine.py", line 1294, in _line_received
+<UciProtocol (pid=10976)>: stderr >>     self.line_received(line)
+<UciProtocol (pid=10976)>: stderr >>     ~~~~~~~~~~~~~~~~~~^^^^^^
+<UciProtocol (pid=10976)>: stderr >>   File "/usr/local/lib/python3.13/site-packages/chess/engine.py", line 1740, in line_received
+<UciProtocol (pid=10976)>: stderr >>     self._readyok()
+<UciProtocol (pid=10976)>: stderr >>     ~~~~~~~~~~~~~^^
+<UciProtocol (pid=10976)>: stderr >>   File "/usr/local/lib/python3.13/site-packages/chess/engine.py", line 1753, in _readyok
+<UciProtocol (pid=10976)>: stderr >>     self.result.set_result(self.analysis)
+<UciProtocol (pid=10976)>: stderr >>     ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+<UciProtocol (pid=10976)>: stderr >> asyncio.exceptions.InvalidStateError: invalid state
+  3 omega:PDF_STYLE_V5:trace=evidence/omega/calibration/trace_round2.jsonl:style=evidence/omega/calibration/style_round2.json - sf:2685                1/2-1/2 INSUFFICIENT_MATERIAL 211
+  4                sf:2685 - omega:PDF_STYLE_V5:trace=evidence/omega/calibration/trace_round2.jsonl:style=evidence/omega/calibration/style_round2.json 1/2-1/2 THREEFOLD_REPETITION 162
+<UciProtocol (pid=13192)>: stderr >> Exception in callback Protocol.pipe_data_received()
+<UciProtocol (pid=13192)>: stderr >> handle: <Handle Protocol.pipe_data_received()>
+<UciProtocol (pid=13192)>: stderr >> Traceback (most recent call last):
+<UciProtocol (pid=13192)>: stderr >>   File "/usr/local/lib/python3.13/asyncio/events.py", line 89, in _run
+<UciProtocol (pid=13192)>: stderr >>     self._context.run(self._callback, *self._args)
+<UciProtocol (pid=13192)>: stderr >>     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<UciProtocol (pid=13192)>: stderr >>   File "/usr/local/lib/python3.13/site-packages/chess/engine.py", line 968, in pipe_data_received
+<UciProtocol (pid=13192)>: stderr >>     self._line_received(line)
+<UciProtocol (pid=13192)>: stderr >>     ~~~~~~~~~~~~~~~~~~~^^^^^^
+<UciProtocol (pid=13192)>: stderr >>   File "/usr/local/lib/python3.13/site-packages/chess/engine.py", line 981, in _line_received
+<UciProtocol (pid=13192)>: stderr >>     self.command._line_received(line)
+<UciProtocol (pid=13192)>: stderr >>     ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+<UciProtocol (pid=13192)>: stderr >>   File "/usr/local/lib/python3.13/site-packages/chess/engine.py", line 1294, in _line_received
+<UciProtocol (pid=13192)>: stderr >>     self.line_received(line)
+<UciProtocol (pid=13192)>: stderr >>     ~~~~~~~~~~~~~~~~~~^^^^^^
+<UciProtocol (pid=13192)>: stderr >>   File "/usr/local/lib/python3.13/site-packages/chess/engine.py", line 1740, in line_received
+<UciProtocol (pid=13192)>: stderr >>     self._readyok()
+<UciProtocol (pid=13192)>: stderr >>     ~~~~~~~~~~~~~^^
+<UciProtocol (pid=13192)>: stderr >>   File "/usr/local/lib/python3.13/site-packages/chess/engine.py", line 1753, in _readyok
+<UciProtocol (pid=13192)>: stderr >>     self.result.set_result(self.analysis)
+<UciProtocol (pid=13192)>: stderr >>     ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+<UciProtocol (pid=13192)>: stderr >> asyncio.exceptions.InvalidStateError: invalid state
+<UciProtocol (pid=13192)>: stderr >> Exception in callback Protocol.pipe_data_received()
+<UciProtocol (pid=13192)>: stderr >> handle: <Handle Protocol.pipe_data_received()>
+<UciProtocol (pid=13192)>: stderr >> Traceback (most recent call last):
+<UciProtocol (pid=13192)>: stderr >>   File "/usr/local/lib/python3.13/asyncio/events.py", line 89, in _run
+<UciProtocol (pid=13192)>: stderr >>     self._context.run(self._callback, *self._args)
+<UciProtocol (pid=13192)>: stderr >>     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<UciProtocol (pid=13192)>: stderr >>   File "/usr/local/lib/python3.13/site-packages/chess/engine.py", line 968, in pipe_data_received
+<UciProtocol (pid=13192)>: stderr >>     self._line_received(line)
+<UciProtocol (pid=13192)>: stderr >>     ~~~~~~~~~~~~~~~~~~~^^^^^^
+<UciProtocol (pid=13192)>: stderr >>   File "/usr/local/lib/python3.13/site-packages/chess/engine.py", line 981, in _line_received
+<UciProtocol (pid=13192)>: stderr >>     self.command._line_received(line)
+<UciProtocol (pid=13192)>: stderr >>     ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+<UciProtocol (pid=13192)>: stderr >>   File "/usr/local/lib/python3.13/site-packages/chess/engine.py", line 1294, in _line_received
+<UciProtocol (pid=13192)>: stderr >>     self.line_received(line)
+<UciProtocol (pid=13192)>: stderr >>     ~~~~~~~~~~~~~~~~~~^^^^^^
+<UciProtocol (pid=13192)>: stderr >>   File "/usr/local/lib/python3.13/site-packages/chess/engine.py", line 1740, in line_received
+<UciProtocol (pid=13192)>: stderr >>     self._readyok()
+<UciProtocol (pid=13192)>: stderr >>     ~~~~~~~~~~~~~^^
+<UciProtocol (pid=13192)>: stderr >>   File "/usr/local/lib/python3.13/site-packages/chess/engine.py", line 1753, in _readyok
+<UciProtocol (pid=13192)>: stderr >>     self.result.set_result(self.analysis)
+<UciProtocol (pid=13192)>: stderr >>     ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+<UciProtocol (pid=13192)>: stderr >> asyncio.exceptions.InvalidStateError: invalid state
+<UciProtocol (pid=13301)>: stderr >> Exception in callback Protocol.pipe_data_received()
+<UciProtocol (pid=13301)>: stderr >> handle: <Handle Protocol.pipe_data_received()>
+<UciProtocol (pid=13301)>: stderr >> Traceback (most recent call last):
+<UciProtocol (pid=13301)>: stderr >>   File "/usr/local/lib/python3.13/asyncio/events.py", line 89, in _run
+<UciProtocol (pid=13301)>: stderr >>     self._context.run(self._callback, *self._args)
+<UciProtocol (pid=13301)>: stderr >>     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<UciProtocol (pid=13301)>: stderr >>   File "/usr/local/lib/python3.13/site-packages/chess/engine.py", line 968, in pipe_data_received
+<UciProtocol (pid=13301)>: stderr >>     self._line_received(line)
+<UciProtocol (pid=13301)>: stderr >>     ~~~~~~~~~~~~~~~~~~~^^^^^^
+<UciProtocol (pid=13301)>: stderr >>   File "/usr/local/lib/python3.13/site-packages/chess/engine.py", line 981, in _line_received
+<UciProtocol (pid=13301)>: stderr >>     self.command._line_received(line)
+<UciProtocol (pid=13301)>: stderr >>     ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+<UciProtocol (pid=13301)>: stderr >>   File "/usr/local/lib/python3.13/site-packages/chess/engine.py", line 1294, in _line_received
+<UciProtocol (pid=13301)>: stderr >>     self.line_received(line)
+<UciProtocol (pid=13301)>: stderr >>     ~~~~~~~~~~~~~~~~~~^^^^^^
+<UciProtocol (pid=13301)>: stderr >>   File "/usr/local/lib/python3.13/site-packages/chess/engine.py", line 1740, in line_received
+<UciProtocol (pid=13301)>: stderr >>     self._readyok()
+<UciProtocol (pid=13301)>: stderr >>     ~~~~~~~~~~~~~^^
+<UciProtocol (pid=13301)>: stderr >>   File "/usr/local/lib/python3.13/site-packages/chess/engine.py", line 1753, in _readyok
+<UciProtocol (pid=13301)>: stderr >>     self.result.set_result(self.analysis)
+<UciProtocol (pid=13301)>: stderr >>     ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+<UciProtocol (pid=13301)>: stderr >> asyncio.exceptions.InvalidStateError: invalid state
+<UciProtocol (pid=13192)>: stderr >> Exception in callback Protocol.pipe_data_received()
+<UciProtocol (pid=13192)>: stderr >> handle: <Handle Protocol.pipe_data_received()>
+<UciProtocol (pid=13192)>: stderr >> Traceback (most recent call last):
+<UciProtocol (pid=13192)>: stderr >>   File "/usr/local/lib/python3.13/asyncio/events.py", line 89, in _run
+<UciProtocol (pid=13192)>: stderr >>     self._context.run(self._callback, *self._args)
+<UciProtocol (pid=13192)>: stderr >>     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<UciProtocol (pid=13192)>: stderr >>   File "/usr/local/lib/python3.13/site-packages/chess/engine.py", line 968, in pipe_data_received
+<UciProtocol (pid=13192)>: stderr >>     self._line_received(line)
+<UciProtocol (pid=13192)>: stderr >>     ~~~~~~~~~~~~~~~~~~~^^^^^^
+<UciProtocol (pid=13192)>: stderr >>   File "/usr/local/lib/python3.13/site-packages/chess/engine.py", line 981, in _line_received
+<UciProtocol (pid=13192)>: stderr >>     self.command._line_received(line)
+<UciProtocol (pid=13192)>: stderr >>     ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+<UciProtocol (pid=13192)>: stderr >>   File "/usr/local/lib/python3.13/site-packages/chess/engine.py", line 1294, in _line_received
+<UciProtocol (pid=13192)>: stderr >>     self.line_received(line)
+<UciProtocol (pid=13192)>: stderr >>     ~~~~~~~~~~~~~~~~~~^^^^^^
+<UciProtocol (pid=13192)>: stderr >>   File "/usr/local/lib/python3.13/site-packages/chess/engine.py", line 1740, in line_received
+<UciProtocol (pid=13192)>: stderr >>     self._readyok()
+<UciProtocol (pid=13192)>: stderr >>     ~~~~~~~~~~~~~^^
+<UciProtocol (pid=13192)>: stderr >>   File "/usr/local/lib/python3.13/site-packages/chess/engine.py", line 1753, in _readyok
+<UciProtocol (pid=13192)>: stderr >>     self.result.set_result(self.analysis)
+<UciProtocol (pid=13192)>: stderr >>     ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+<UciProtocol (pid=13192)>: stderr >> asyncio.exceptions.InvalidStateError: invalid state
+  5 omega:PDF_STYLE_V5:trace=evidence/omega/calibration/trace_round2.jsonl:style=evidence/omega/calibration/style_round2.json - sf:2685                1-0     CHECKMATE 187
+  6                sf:2685 - omega:PDF_STYLE_V5:trace=evidence/omega/calibration/trace_round2.jsonl:style=evidence/omega/calibration/style_round2.json 1-0     CHECKMATE 141
+  7 omega:PDF_STYLE_V5:trace=evidence/omega/calibration/trace_round2.jsonl:style=evidence/omega/calibration/style_round2.json - sf:2685                1/2-1/2 INSUFFICIENT_MATERIAL 160
+  8                sf:2685 - omega:PDF_STYLE_V5:trace=evidence/omega/calibration/trace_round2.jsonl:style=evidence/omega/calibration/style_round2.json 1/2-1/2 ply cap 300 300
+  9 omega:PDF_STYLE_V5:trace=evidence/omega/calibration/trace_round2.jsonl:style=evidence/omega/calibration/style_round2.json - sf:2685                0-1     CHECKMATE 152
+ 10                sf:2685 - omega:PDF_STYLE_V5:trace=evidence/omega/calibration/trace_round2.jsonl:style=evidence/omega/calibration/style_round2.json 1/2-1/2 THREEFOLD_REPETITION 176
+/home/user/uberbondd/projects/chimera-chess/tools/match.py:252: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  "date_utc": datetime.datetime.utcnow().isoformat(timespec="seconds")}
+{
+  "a": "omega:PDF_STYLE_V5:trace=evidence/omega/calibration/trace_round2.jsonl:style=evidence/omega/calibration/style_round2.json",
+  "b": "sf:2685",
+  "tc": "60+0.6",
+  "games": 10,
+  "a_wins": 1,
+  "draws": 5,
+  "a_losses": 4,
+  "a_score": 3.5,
+  "a_pct": 0.35,
+  "elo_diff_a_minus_b_95ci": [
+    -108,
+    -496,
+    104
+  ],
+  "time_forfeits": 0,
+  "illegal_or_failure": 0,
+  "stockfish": "/usr/games/stockfish",
+  "python": "3.13.18",
+  "chess": "1.11.2",
+  "date_utc": "2026-11-25T00:30:36"
+}

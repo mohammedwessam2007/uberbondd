@@ -1,0 +1,15 @@
+{
+ "group_scale": {
+  "tactic": 2.5,
+  "style-extreme": 2.0,
+  "construction": 2.0,
+  "human": 0.6,
+  "#209": 0.4,
+  "#172": 0.6,
+  "#215": 1.5,
+  "#217": 1.5,
+  "#220": 1.5
+ },
+ "anti_draw_contempt_cp": -120.0,
+ "motif_scale": 0.15
+}

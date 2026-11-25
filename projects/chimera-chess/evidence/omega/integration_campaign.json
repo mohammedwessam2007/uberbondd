@@ -1,0 +1,1481 @@
+{
+ "1": {
+  "motif": 1,
+  "name": "Negative Draw Contempt",
+  "attempts": [
+   {
+    "fen": "K7/P1k5/6p1/5p1P/5Pp1/8/8/8 b - - 0 49",
+    "history": [
+     "h4h5"
+    ],
+    "prefilter_moves": [
+     "g6h5"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "g4g3",
+    "chosen_off": "g4g3",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "forced obligation: mate available, only mating moves"
+   },
+   {
+    "fen": "7k/7B/6K1/8/8/8/8/3q1R2 w - - 0 53",
+    "history": [
+     "d2d1q"
+    ],
+    "prefilter_moves": [
+     "f1d1"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "f1f8",
+    "chosen_off": "f1f8",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "forced obligation: mate available, only mating moves"
+   },
+   {
+    "fen": "8/8/8/7p/5P1k/6pP/7K/8 w - - 0 43",
+    "history": [
+     "g4g3"
+    ],
+    "prefilter_moves": [
+     "h2g2"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "h2g1",
+    "chosen_off": "h2g1",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "eval >= 353"
+   },
+   {
+    "fen": "r4b1r/1p2p1pp/2p5/p4k2/P5nP/6K1/2n1b1P1/7q b - - 4 26",
+    "history": [
+     "e2e4",
+     "c7c6",
+     "d2d4",
+     "d7d5",
+     "b1c3",
+     "d5e4",
+     "c3e4",
+     "c8f5",
+     "c1d2",
+     "f5e4",
+     "d1h5",
+     "d8d4",
+     "g1f3",
+     "d4b2",
+     "f1e2",
+     "b2a1",
+     "e2d1",
+     "e4c2",
+     "h5f7",
+     "e8f7",
+     "f3g5",
+     "f7e8",
+     "e1g1",
+     "c2d1",
+     "d2b4",
+     "b8a6",
+     "h2h3",
+     "a6b4",
+     "g5e6",
+     "e8f7",
+     "f2f3",
+     "f7e6",
+     "a2a3",
+     "a1d4",
+     "g1h1",
+     "b4c2",
+     "f3f4",
+     "a7a5",
+     "h3h4",
+     "d1e2",
+     "f1a1",
+     "d4a1",
+     "h1h2",
+     "g8f6",
+     "f4f5",
+     "e6f5",
+     "a3a4",
+     "f6g4",
+     "h2h3",
+     "a1h1",
+     "h3g3"
+    ],
+    "prefilter_moves": [
+     "h7h5"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "h1h2",
+    "chosen_off": "h1h2",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "forced obligation: mate available, only mating moves"
+   },
+   {
+    "fen": "rn2kb1r/p4p1p/2p2p1p/8/3P4/P7/1q3PPP/2qRKR2 b kq - 3 20",
+    "history": [
+     "d2d4",
+     "d7d5",
+     "c2c4",
+     "c7c6",
+     "g1f3",
+     "g8f6",
+     "b1c3",
+     "d5c4",
+     "e2e4",
+     "b7b5",
+     "c1h6",
+     "g7h6",
+     "f3e5",
+     "d8d6",
+     "f1c4",
+     "b5c4",
+     "h1f1",
+     "c8a6",
+     "d1a4",
+     "f6e4",
+     "a4a3",
+     "d6a3",
+     "c3e4",
+     "a3b2",
+     "a1d1",
+     "c4c3",
+     "e5d3",
+     "a6d3",
+     "d1d3",
+     "c3c2",
+     "a2a3",
+     "c2c1q",
+     "d3d1",
+     "c1c4",
+     "e4f6",
+     "e7f6",
+     "d1d3",
+     "c4c1",
+     "d3d1"
+    ],
+    "prefilter_moves": [
+     "c1c4"
+    ],
+    "runtime_fired_on": [
+     "c1c4"
+    ],
+    "chosen_on": "b2d2",
+    "chosen_off": "b2d2",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "forced obligation: mate available, only mating moves"
+   }
+  ],
+  "reached": true,
+  "selected": false,
+  "causal": false,
+  "status": "REACHED"
+ },
+ "7": {
+  "motif": 7,
+  "name": "Bishop-Pair Preservation",
+  "attempts": [],
+  "reached": false,
+  "selected": false,
+  "causal": false,
+  "status": "NO_POSITION_FOUND"
+ },
+ "12": {
+  "motif": 12,
+  "name": "Perpetual-Check Blocker",
+  "attempts": [
+   {
+    "fen": "5b1r/pp2p1pp/4k3/1p6/3P2n1/7P/1qr3P1/n4R1K b - - 3 23",
+    "history": [
+     "e2e4",
+     "d7d5",
+     "e4d5",
+     "d8d5",
+     "b1c3",
+     "d5a5",
+     "f1b5",
+     "c7c6",
+     "c3d5",
+     "c6b5",
+     "d1h5",
+     "b8c6",
+     "g1f3",
+     "c8e6",
+     "f3g5",
+     "e6d5",
+     "f2f4",
+     "c6d4",
+     "e1g1",
+     "d4c2",
+     "h5h3",
+     "g8f6",
+     "g5f7",
+     "e8f7",
+     "f4f5",
+     "a8c8",
+     "d2d4",
+     "c2a1",
+     "h3e3",
+     "c8c2",
+     "e3e6",
+     "d5e6",
+     "f5e6",
+     "f7e6",
+     "h2h3",
+     "a5a2",
+     "c1e3",
+     "a2b2",
+     "e3f2",
+     "f6e4",
+     "g1h1",
+     "e4f2",
+     "h1h2",
+     "f2g4",
+     "h2h1"
+    ],
+    "prefilter_moves": [
+     "g4f2"
+    ],
+    "runtime_fired_on": [
+     "g4f2"
+    ],
+    "chosen_on": "c2g2",
+    "chosen_off": "c2g2",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "forced obligation: mate available, only mating moves"
+   }
+  ],
+  "reached": true,
+  "selected": false,
+  "causal": false,
+  "status": "REACHED"
+ },
+ "14": {
+  "motif": 14,
+  "name": "Speculative Exchange Sac",
+  "attempts": [
+   {
+    "fen": "5rk1/p5p1/3bRr1p/1Pp4q/3p4/1P1Q1N2/P4PPP/4R1K1 b - - 0 22",
+    "history": [
+     "e4e6"
+    ],
+    "prefilter_moves": [
+     "f6f3"
+    ],
+    "runtime_fired_on": [
+     "f6f3"
+    ],
+    "chosen_on": "f6f3",
+    "chosen_off": "f6f3",
+    "selected": true,
+    "vetoed": [],
+    "gate_rule": "eval >= 96"
+   }
+  ],
+  "reached": true,
+  "selected": true,
+  "causal": false,
+  "status": "REACHED"
+ },
+ "27": {
+  "motif": 27,
+  "name": "Offbeat Opening Router",
+  "attempts": [
+   {
+    "fen": "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2",
+    "history": [
+     "e2e4",
+     "e7e5"
+    ],
+    "prefilter_moves": [
+     "b1c3",
+     "f2f4"
+    ],
+    "runtime_fired_on": [
+     "b1c3",
+     "f2f4"
+    ],
+    "chosen_on": "d1h5",
+    "chosen_off": "d1h5",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "eval >= -45"
+   }
+  ],
+  "reached": true,
+  "selected": false,
+  "causal": false,
+  "status": "REACHED"
+ },
+ "33": {
+  "motif": 33,
+  "name": "Smothered-Mate Matcher",
+  "attempts": [
+   {
+    "fen": "r4rk1/pp3ppp/3b4/2p1pPB1/7N/2PP3n/PP4PP/R2Q2RK b - - 0 18",
+    "history": [
+     "f1g1"
+    ],
+    "prefilter_moves": [
+     "h3f2"
+    ],
+    "runtime_fired_on": [
+     "h3f2"
+    ],
+    "chosen_on": "h3f2",
+    "chosen_off": "h3f2",
+    "selected": true,
+    "vetoed": [],
+    "gate_rule": "forced obligation: mate available, only mating moves"
+   }
+  ],
+  "reached": true,
+  "selected": true,
+  "causal": false,
+  "status": "REACHED"
+ },
+ "34": {
+  "motif": 34,
+  "name": "Greek-Gift Amplifier",
+  "attempts": [
+   {
+    "fen": "r2q1rk1/pbppnppp/8/2b1p3/8/2PB3N/2PP1PPP/R1BQK2R w KQ - 1 10",
+    "history": [
+     "e8g8"
+    ],
+    "prefilter_moves": [
+     "d3h7"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "d3h7",
+    "chosen_off": "d3h7",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "eval >= -45"
+   },
+   {
+    "fen": "1k3r2/2p3pp/3bQ3/p7/8/2N1P3/1PP1q1PP/3R2K1 b - - 2 25",
+    "history": [
+     "a4c3"
+    ],
+    "prefilter_moves": [
+     "d6h2"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "e2f2",
+    "chosen_off": "e2f2",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "forced obligation: mate available, only mating moves"
+   },
+   {
+    "fen": "7r/2pkqppp/Qpbb4/3r4/1P1N4/P3P3/5PPP/R1B2RK1 b - - 2 21",
+    "history": [
+     "f3d4"
+    ],
+    "prefilter_moves": [
+     "d6h2"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "d5d4",
+    "chosen_off": "d5d4",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "eval >= 65"
+   },
+   {
+    "fen": "r5r1/p2k1p1p/2pb4/6q1/4Q1b1/P1N1P3/1PPP1PPP/R1B2RK1 b - - 2 21",
+    "history": [
+     "b1c3"
+    ],
+    "prefilter_moves": [
+     "d6h2"
+    ],
+    "runtime_fired_on": [
+     "d6h2"
+    ],
+    "chosen_on": "d6h2",
+    "chosen_off": "d6h2",
+    "selected": true,
+    "vetoed": [],
+    "gate_rule": "eval >= -45"
+   }
+  ],
+  "reached": true,
+  "selected": true,
+  "causal": false,
+  "status": "REACHED"
+ },
+ "35": {
+  "motif": 35,
+  "name": "Double-Check Line Opener",
+  "attempts": [
+   {
+    "fen": "1r3b2/5p1k/3P1qRP/r1n1p3/ppB5/P2Q1P2/1PP5/1K6 w - - 1 36",
+    "history": [
+     "g8h7"
+    ],
+    "prefilter_moves": [
+     "g6g7"
+    ],
+    "runtime_fired_on": [
+     "g6g7"
+    ],
+    "chosen_on": "g6g7",
+    "chosen_off": "g6g7",
+    "selected": true,
+    "vetoed": [],
+    "gate_rule": "forced obligation: mate available, only mating moves"
+   }
+  ],
+  "reached": true,
+  "selected": true,
+  "causal": false,
+  "status": "REACHED"
+ },
+ "44": {
+  "motif": 44,
+  "name": "Anti-Symmetry Deviator",
+  "attempts": [
+   {
+    "fen": "r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 2 3",
+    "history": [
+     "e2e4",
+     "e7e5",
+     "g1f3",
+     "b8c6"
+    ],
+    "prefilter_moves": [
+     "f3e5",
+     "h2h3",
+     "g2g3",
+     "d2d3",
+     "c2c3"
+    ],
+    "runtime_fired_on": [
+     "d2d4",
+     "c2c3",
+     "a2a4",
+     "d2d3",
+     "h2h4",
+     "g2g3",
+     "c2c4",
+     "a2a3",
+     "h2h3",
+     "b2b3"
+    ],
+    "chosen_on": "d2d4",
+    "chosen_off": "d2d4",
+    "selected": true,
+    "vetoed": [],
+    "gate_rule": "eval >= -45"
+   }
+  ],
+  "reached": true,
+  "selected": true,
+  "causal": false,
+  "status": "REACHED"
+ },
+ "59": {
+  "motif": 59,
+  "name": "Windmill Tactic Builder",
+  "attempts": [
+   {
+    "fen": "r1b2rk1/5p1p/p3pq2/1p1p4/7n/1P5P/P1P1QPB1/1K1R2R1 w - - 0 22",
+    "history": [
+     "f4f6"
+    ],
+    "prefilter_moves": [
+     "g2d5",
+     "g2e4",
+     "g2f3",
+     "g2h1",
+     "g2f1"
+    ],
+    "runtime_fired_on": [
+     "g2d5"
+    ],
+    "chosen_on": "g2d5",
+    "chosen_off": "g2d5",
+    "selected": true,
+    "vetoed": [],
+    "gate_rule": "eval >= 261"
+   }
+  ],
+  "reached": true,
+  "selected": true,
+  "causal": false,
+  "status": "REACHED"
+ },
+ "61": {
+  "motif": 61,
+  "name": "Move-2 Offbeat Deviator",
+  "attempts": [
+   {
+    "fen": "rnbqkb1r/pppppppp/5n2/8/3P4/8/PPP1PPPP/RNBQKBNR w KQkq - 1 2",
+    "history": [
+     "d2d4",
+     "g8f6"
+    ],
+    "prefilter_moves": [
+     "c1g5",
+     "h2h4",
+     "g2g4",
+     "b2b4",
+     "a2a4"
+    ],
+    "runtime_fired_on": [
+     "a2a4",
+     "h2h4",
+     "c1g5",
+     "b2b4"
+    ],
+    "chosen_on": "c1f4",
+    "chosen_off": "c1f4",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "eval >= -45"
+   }
+  ],
+  "reached": true,
+  "selected": false,
+  "causal": false,
+  "status": "REACHED"
+ },
+ "62": {
+  "motif": 62,
+  "name": "Anti-London / Caro Disruptor",
+  "attempts": [
+   {
+    "fen": "rnbqkbnr/ppp1pppp/8/3p4/3P1B2/8/PPP1PPPP/RN1QKBNR b KQkq - 1 2",
+    "history": [
+     "d2d4",
+     "d7d5",
+     "c1f4"
+    ],
+    "prefilter_moves": [
+     "c7c5"
+    ],
+    "runtime_fired_on": [
+     "c7c5"
+    ],
+    "chosen_on": "c7c5",
+    "chosen_off": "c7c5",
+    "selected": true,
+    "vetoed": [],
+    "gate_rule": "eval >= -45"
+   }
+  ],
+  "reached": true,
+  "selected": true,
+  "causal": false,
+  "status": "REACHED"
+ },
+ "63": {
+  "motif": 63,
+  "name": "Anti-Sicilian Wing Gambit",
+  "attempts": [
+   {
+    "fen": "rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2",
+    "history": [
+     "e2e4",
+     "c7c5"
+    ],
+    "prefilter_moves": [
+     "b2b4"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "f1b5",
+    "chosen_off": "f1b5",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "eval >= -45"
+   }
+  ],
+  "reached": false,
+  "selected": false,
+  "causal": false,
+  "status": "PREDICATE_FOUND_NOT_REACHED"
+ },
+ "64": {
+  "motif": 64,
+  "name": "Early Flank Space-Grabber",
+  "attempts": [
+   {
+    "fen": "rnbqk1nr/ppppppbp/6p1/8/3PP3/8/PPP2PPP/RNBQKBNR w KQkq - 1 3",
+    "history": [
+     "e2e4",
+     "g7g6",
+     "d2d4",
+     "f8g7"
+    ],
+    "prefilter_moves": [
+     "h2h3",
+     "a2a3",
+     "h2h4",
+     "a2a4"
+    ],
+    "runtime_fired_on": [
+     "h2h3",
+     "a2a4",
+     "h2h4",
+     "a2a3"
+    ],
+    "chosen_on": "f1c4",
+    "chosen_off": "h2h4",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "eval >= -45"
+   }
+  ],
+  "reached": true,
+  "selected": false,
+  "causal": false,
+  "status": "REACHED"
+ },
+ "66": {
+  "motif": 66,
+  "name": "Asymmetric Material Ratio",
+  "attempts": [
+   {
+    "fen": "4rk2/3P1p1b/5P1p/4R1p1/6P1/1p5P/8/6K1 w - - 0 44",
+    "history": [
+     "d8e8"
+    ],
+    "prefilter_moves": [
+     "d7e8q"
+    ],
+    "runtime_fired_on": [
+     "d7e8q"
+    ],
+    "chosen_on": "d7e8q",
+    "chosen_off": "d7e8q",
+    "selected": true,
+    "vetoed": [],
+    "gate_rule": "forced obligation: mate available, only mating moves"
+   }
+  ],
+  "reached": true,
+  "selected": true,
+  "causal": false,
+  "status": "REACHED"
+ },
+ "82": {
+  "motif": 82,
+  "name": "Mate-In-N Delay Obfuscator",
+  "attempts": [
+   {
+    "fen": "8/3B2pp/p5k1/6P1/1ppp1K2/8/1P6/8 w - - 0 39",
+    "history": [
+     "c5c4"
+    ],
+    "prefilter_moves": [
+     "d7e8"
+    ],
+    "runtime_fired_on": [
+     "d7e8"
+    ],
+    "chosen_on": "d7e8",
+    "chosen_off": "d7e8",
+    "selected": true,
+    "vetoed": [],
+    "gate_rule": "forced obligation: mate available, only mating moves"
+   }
+  ],
+  "reached": true,
+  "selected": true,
+  "causal": false,
+  "status": "REACHED"
+ },
+ "88": {
+  "motif": 88,
+  "name": "Cross-Fire Intersection",
+  "attempts": [
+   {
+    "fen": "2kr1br1/ppBb1ppp/8/3P2Q1/6n1/5n2/PP3qPP/RN2R2K w - - 0 17",
+    "history": [
+     "d4f3"
+    ],
+    "prefilter_moves": [
+     "e1e8"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "g5d8",
+    "chosen_off": "g5d8",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "forced obligation: mate available, only mating moves"
+   },
+   {
+    "fen": "r1b4r/pp1k2p1/2nb2qp/1B1p2B1/3p3Q/8/PPP2PPP/3RR1K1 w - - 0 18",
+    "history": [
+     "h7h6"
+    ],
+    "prefilter_moves": [
+     "g5d8"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "h4g4",
+    "chosen_off": "h4g4",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "eval >= 374"
+   },
+   {
+    "fen": "3br1kr/7p/4p1pQ/P5P1/1B5P/P6q/5R2/6K1 w - - 2 36",
+    "history": [
+     "f7g8"
+    ],
+    "prefilter_moves": [
+     "h6g7",
+     "b4e7",
+     "b4d6",
+     "b4c5",
+     "f2f7"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "f2f8",
+    "chosen_off": "f2f8",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "forced obligation: mate available, only mating moves"
+   },
+   {
+    "fen": "8/6kp/4b1q1/1p6/1PpPN2Q/2P1P3/r5P1/5RK1 b - - 0 34",
+    "history": [
+     "d2e4"
+    ],
+    "prefilter_moves": [
+     "e6h3"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "g6g2",
+    "chosen_off": "g6g2",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "forced obligation: mate available, only mating moves"
+   },
+   {
+    "fen": "3r1q2/5prk/p3pQpp/1p2P3/2p4R/2P2P1P/PPB2P2/6K1 w - - 3 30",
+    "history": [
+     "g8f8"
+    ],
+    "prefilter_moves": [
+     "h4h6",
+     "h4g4"
+    ],
+    "runtime_fired_on": [
+     "h4h6"
+    ],
+    "chosen_on": "h4h6",
+    "chosen_off": "h4h6",
+    "selected": true,
+    "vetoed": [],
+    "gate_rule": "eval >= 749"
+   }
+  ],
+  "reached": true,
+  "selected": true,
+  "causal": false,
+  "status": "REACHED"
+ },
+ "98": {
+  "motif": 98,
+  "name": "Alekhine's Gun Stacker",
+  "attempts": [
+   {
+    "fen": "5rk1/p5p1/3bRr1p/1Pp4q/3p4/1P1Q1N2/P4PPP/4R1K1 b - - 0 22",
+    "history": [
+     "e4e6"
+    ],
+    "prefilter_moves": [
+     "h5f7",
+     "h5f5",
+     "h5f3"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "f6f3",
+    "chosen_off": "f6f3",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "eval >= 96"
+   },
+   {
+    "fen": "5r1k/5rp1/p7/1b2B2p/1P1P1Pq1/2R3Q1/P3p1P1/2R3K1 b - - 1 41",
+    "history": [
+     "e3g3"
+    ],
+    "prefilter_moves": [
+     "g4f5",
+     "g4f4",
+     "g4f3"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "f7f4",
+    "chosen_off": "f7f4",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "eval >= 71"
+   },
+   {
+    "fen": "k1r1b3/p1r1nppp/Bp1qpn2/2Np4/1P1P4/PQR1PN2/5PPP/2R3K1 b - - 1 19",
+    "history": [
+     "d3a6"
+    ],
+    "prefilter_moves": [
+     "d6c6",
+     "d6c5"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "b6c5",
+    "chosen_off": "b6c5",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "eval >= 237"
+   },
+   {
+    "fen": "3rnrk1/1b3pp1/4pb2/p3q3/1p1N4/3B2R1/PPPQN2P/1K4R1 w - - 2 24",
+    "history": [
+     "a8d8"
+    ],
+    "prefilter_moves": [
+     "d2g5"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "d2h6",
+    "chosen_off": "d2h6",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "eval >= 395"
+   },
+   {
+    "fen": "r5k1/2p1pp2/pp4p1/1q5r/5P2/2QP2R1/PP6/1K4R1 w - - 1 33",
+    "history": [
+     "d5h5"
+    ],
+    "prefilter_moves": [
+     "c3g7"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "g3g6",
+    "chosen_off": "g3g6",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "eval >= -45"
+   },
+   {
+    "fen": "1k1r3r/8/pp1n2p1/2q5/1Q6/3R2P1/PPP2P1P/3R2K1 w - - 5 30",
+    "history": [
+     "c7c5"
+    ],
+    "prefilter_moves": [
+     "b4d4",
+     "b4d2"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "b4c5",
+    "chosen_off": "b4c5",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "eval >= 382"
+   }
+  ],
+  "reached": false,
+  "selected": false,
+  "causal": false,
+  "status": "PREDICATE_FOUND_NOT_REACHED"
+ },
+ "99": {
+  "motif": 99,
+  "name": "Anastasia's Mate Scorer",
+  "attempts": [
+   {
+    "fen": "r4r2/1pp1Nppk/3p4/p3n3/4P3/1PPP2P1/1P1K2P1/3R4 w - - 0 23",
+    "history": [
+     "h8h7"
+    ],
+    "prefilter_moves": [
+     "d1h1"
+    ],
+    "runtime_fired_on": [
+     "d1h1"
+    ],
+    "chosen_on": "d1h1",
+    "chosen_off": "d1h1",
+    "selected": true,
+    "vetoed": [],
+    "gate_rule": "forced obligation: mate available, only mating moves"
+   }
+  ],
+  "reached": true,
+  "selected": true,
+  "causal": false,
+  "status": "REACHED"
+ },
+ "100": {
+  "motif": 100,
+  "name": "Boden's Mate Scorer",
+  "attempts": [
+   {
+    "fen": "N6r/1p1k1ppp/2np4/b3p3/4P1b1/N1Q5/P4PPP/R3KB1R b KQ - 0 18",
+    "history": [
+     "c7a8"
+    ],
+    "prefilter_moves": [
+     "a5c3"
+    ],
+    "runtime_fired_on": [
+     "a5c3"
+    ],
+    "chosen_on": "a5c3",
+    "chosen_off": "a5c3",
+    "selected": true,
+    "vetoed": [],
+    "gate_rule": "forced obligation: mate available, only mating moves"
+   }
+  ],
+  "reached": true,
+  "selected": true,
+  "causal": false,
+  "status": "REACHED"
+ },
+ "101": {
+  "motif": 101,
+  "name": "Lolli's Mate Scorer",
+  "attempts": [
+   {
+    "fen": "5r1k/pp4pp/5r2/3NQ3/3P4/5pN1/Pq5P/2R2R1K b - - 1 29",
+    "history": [
+     "e3d5"
+    ],
+    "prefilter_moves": [
+     "b2g2"
+    ],
+    "runtime_fired_on": [
+     "b2g2"
+    ],
+    "chosen_on": "b2g2",
+    "chosen_off": "b2g2",
+    "selected": true,
+    "vetoed": [],
+    "gate_rule": "forced obligation: mate available, only mating moves"
+   }
+  ],
+  "reached": true,
+  "selected": true,
+  "causal": false,
+  "status": "REACHED"
+ },
+ "102": {
+  "motif": 102,
+  "name": "Opera-Mate Scorer",
+  "attempts": [
+   {
+    "fen": "8/6pp/6k1/5pN1/5P2/5rPb/4R2P/6K1 b - - 1 35",
+    "history": [
+     "e6g5"
+    ],
+    "prefilter_moves": [
+     "f3f1"
+    ],
+    "runtime_fired_on": [
+     "f3f1"
+    ],
+    "chosen_on": "f3f1",
+    "chosen_off": "f3f1",
+    "selected": true,
+    "vetoed": [],
+    "gate_rule": "forced obligation: mate available, only mating moves"
+   }
+  ],
+  "reached": true,
+  "selected": true,
+  "causal": false,
+  "status": "REACHED"
+ },
+ "103": {
+  "motif": 103,
+  "name": "Greco's Mate Scorer",
+  "attempts": [
+   {
+    "fen": "r3k2r/pb1p1ppp/1b4q1/1Q2P3/8/2NP1PP1/PP4P1/R1B2R1K b kq - 0 17",
+    "history": [
+     "h2g3"
+    ],
+    "prefilter_moves": [
+     "g6h5"
+    ],
+    "runtime_fired_on": [
+     "g6h5"
+    ],
+    "chosen_on": "g6h5",
+    "chosen_off": "g6h5",
+    "selected": true,
+    "vetoed": [],
+    "gate_rule": "forced obligation: mate available, only mating moves"
+   }
+  ],
+  "reached": true,
+  "selected": true,
+  "causal": false,
+  "status": "REACHED"
+ },
+ "104": {
+  "motif": 104,
+  "name": "Legal's Mate Pin-Trap",
+  "attempts": [
+   {
+    "fen": "r2q1rk1/p3bpp1/2pp2b1/4p1Q1/4n3/1B3N1P/PPP3P1/R1B2RK1 w - - 1 19",
+    "history": [
+     "f6e4"
+    ],
+    "prefilter_moves": [
+     "f3e5"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "g5g6",
+    "chosen_off": "g5g6",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "eval >= 93"
+   },
+   {
+    "fen": "2kr1b1r/1ppq2pp/p4p2/4nn2/6b1/1BP2N2/PP2QPPP/RNB1R1K1 w - - 0 13",
+    "history": [
+     "c6e5"
+    ],
+    "prefilter_moves": [
+     "f3e5"
+    ],
+    "runtime_fired_on": [
+     "f3e5"
+    ],
+    "chosen_on": "f3e5",
+    "chosen_off": "f3e5",
+    "selected": true,
+    "vetoed": [],
+    "gate_rule": "eval >= 388"
+   }
+  ],
+  "reached": true,
+  "selected": true,
+  "causal": false,
+  "status": "REACHED"
+ },
+ "105": {
+  "motif": 105,
+  "name": "Epaulette Mate Scorer",
+  "attempts": [
+   {
+    "fen": "2rkr3/3n2Q1/p3p1P1/4PB2/3R1P2/qbp1P3/2R4P/3K4 w - - 4 33",
+    "history": [
+     "a2b3"
+    ],
+    "prefilter_moves": [
+     "g7d7",
+     "d4d7"
+    ],
+    "runtime_fired_on": [
+     "g7d7",
+     "d4d7"
+    ],
+    "chosen_on": "g7d7",
+    "chosen_off": "g7d7",
+    "selected": true,
+    "vetoed": [],
+    "gate_rule": "forced obligation: mate available, only mating moves"
+   }
+  ],
+  "reached": true,
+  "selected": true,
+  "causal": false,
+  "status": "REACHED"
+ },
+ "122": {
+  "motif": 122,
+  "name": "Middlegame Zugzwang",
+  "attempts": [
+   {
+    "fen": "6rk/pq3p1p/1p3RrB/1Pp1p3/2PnP2Q/P5P1/6KP/5R2 b - - 3 28",
+    "history": [
+     "b1f1"
+    ],
+    "prefilter_moves": [
+     "g6g3"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "g6g4",
+    "chosen_off": "g6g4",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "eval >= 82"
+   },
+   {
+    "fen": "2rqr3/6k1/1pb1p1pp/p2pPp2/2pP1B1P/P1P2NQ1/1P1R1PP1/6K1 w - - 1 39",
+    "history": [
+     "h7g7"
+    ],
+    "prefilter_moves": [
+     "f4h6"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "h4h5",
+    "chosen_off": "h4h5",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "eval >= 27"
+   },
+   {
+    "fen": "r5k1/1b3p1p/4pPpP/4P3/1Pp2P2/1q1p3R/1B1Q4/1K1R4 b - - 1 37",
+    "history": [
+     "d4b2"
+    ],
+    "prefilter_moves": [
+     "a8a1"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "c4c3",
+    "chosen_off": "c4c3",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "eval >= 241"
+   },
+   {
+    "fen": "6r1/2p2p1k/1p2nr1p/pPb1p2Q/P1P1P3/3P2PP/R4PK1/6R1 b - - 4 30",
+    "history": [
+     "d1h5"
+    ],
+    "prefilter_moves": [
+     "f6f2",
+     "e6f4"
+    ],
+    "runtime_fired_on": [
+     "e6f4"
+    ],
+    "chosen_on": "e6f4",
+    "chosen_off": "e6f4",
+    "selected": true,
+    "vetoed": [],
+    "gate_rule": "eval >= 441"
+   }
+  ],
+  "reached": true,
+  "selected": true,
+  "causal": false,
+  "status": "REACHED"
+ },
+ "125": {
+  "motif": 125,
+  "name": "Bare-King Herding Net",
+  "attempts": [
+   {
+    "fen": "6k1/4pp1p/8/5n1p/8/8/3q2P1/6K1 b - - 1 41",
+    "history": [
+     "f2f4",
+     "d7d5",
+     "g1f3",
+     "g8f6",
+     "e2e3",
+     "g7g6",
+     "b1c3",
+     "f8g7",
+     "d2d4",
+     "e8g8",
+     "f1e2",
+     "a7a6",
+     "e1g1",
+     "b7b5",
+     "c1d2",
+     "b8c6",
+     "f3e5",
+     "c8b7",
+     "b2b4",
+     "c6b4",
+     "a2a4",
+     "c7c5",
+     "d4c5",
+     "d8c7",
+     "a4b5",
+     "a6b5",
+     "c3b5",
+     "c7c5",
+     "c2c3",
+     "b4c6",
+     "e5d3",
+     "c5b5",
+     "a1b1",
+     "b5a6",
+     "d3c5",
+     "a6a7",
+     "c5b7",
+     "f8b8",
+     "d1b3",
+     "c6d8",
+     "b3c2",
+     "d8b7",
+     "c3c4",
+     "b8c8",
+     "b1b5",
+     "d5c4",
+     "e2c4",
+     "b7d6",
+     "b5b4",
+     "f6e4",
+     "f1c1",
+     "g7c3",
+     "d2c3",
+     "a7e3",
+     "g1h1",
+     "e4f2",
+     "h1g1",
+     "f2d3",
+     "g1h1",
+     "d3b4",
+     "c3b4",
+     "c8c4",
+     "b4d2",
+     "e3d4",
+     "h2h3",
+     "c4c2",
+     "c1c2",
+     "a8a1",
+     "c2c1",
+     "a1c1",
+     "d2c1",
+     "d4d1",
+     "h1h2",
+     "d1c1",
+     "f4f5",
+     "d6f5",
+     "h3h4",
+     "c1d2",
+     "h4h5",
+     "g6h5",
+     "h2g1"
+    ],
+    "prefilter_moves": [
+     "d2g2"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "f5g3",
+    "chosen_off": "f5g3",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "forced obligation: mate available, only mating moves"
+   }
+  ],
+  "reached": false,
+  "selected": false,
+  "causal": false,
+  "status": "PREDICATE_FOUND_NOT_REACHED"
+ },
+ "126": {
+  "motif": 126,
+  "name": "One-Tempo Pawn Race",
+  "attempts": [
+   {
+    "fen": "8/8/3p4/2kP2P1/1p6/2pK4/P7/8 b - - 0 42",
+    "history": [
+     "g4g5"
+    ],
+    "prefilter_moves": [
+     "c3c2"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "c5d5",
+    "chosen_off": "c5d5",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "eval >= 330"
+   },
+   {
+    "fen": "8/1P6/8/7p/3P4/3k1p1P/4p3/4K3 b - - 1 49",
+    "history": [
+     "d1e1"
+    ],
+    "prefilter_moves": [
+     "f3f2"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "d3e3",
+    "chosen_off": "d3e3",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "forced obligation: mate available, only mating moves"
+   },
+   {
+    "fen": "8/8/8/ppp2kPp/P6P/5K2/8/8 w - - 0 44",
+    "history": [
+     "b6b5"
+    ],
+    "prefilter_moves": [
+     "g5g6"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "a4b5",
+    "chosen_off": "a4b5",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "eval >= 110"
+   },
+   {
+    "fen": "8/8/8/6KP/p7/1k6/8/8 w - - 1 51",
+    "history": [
+     "a2b3"
+    ],
+    "prefilter_moves": [
+     "h5h6"
+    ],
+    "runtime_fired_on": [
+     "h5h6"
+    ],
+    "chosen_on": "h5h6",
+    "chosen_off": "h5h6",
+    "selected": true,
+    "vetoed": [],
+    "gate_rule": "eval >= 3383"
+   }
+  ],
+  "reached": true,
+  "selected": true,
+  "causal": false,
+  "status": "REACHED"
+ },
+ "127": {
+  "motif": 127,
+  "name": "Stalemate-Trap Detector",
+  "attempts": [
+   {
+    "fen": "r1bqkbnr/1ppp2pp/2n2p2/6B1/2ppP3/5N2/PPP2PPP/RN3RK1 b kq - 1 8",
+    "history": [
+     "e2e4",
+     "e7e5",
+     "g1f3",
+     "b8c6",
+     "f1b5",
+     "a7a6",
+     "d2d4",
+     "a6b5",
+     "d1e2",
+     "e5d4",
+     "e2c4",
+     "b5c4",
+     "c1g5",
+     "f7f6",
+     "e1g1"
+    ],
+    "prefilter_moves": [
+     "g8e7",
+     "g8h6",
+     "f8e7",
+     "f8d6",
+     "f8c5"
+    ],
+    "runtime_fired_on": [
+     "f6g5",
+     "c6b4",
+     "g8e7"
+    ],
+    "chosen_on": "f6g5",
+    "chosen_off": "f6g5",
+    "selected": true,
+    "vetoed": [],
+    "gate_rule": "eval >= 1075"
+   }
+  ],
+  "reached": true,
+  "selected": true,
+  "causal": false,
+  "status": "REACHED"
+ },
+ "132": {
+  "motif": 132,
+  "name": "False-Material-Lead Trap",
+  "attempts": [
+   {
+    "fen": "r6k/pp2r2p/4Rp1Q/3p4/8/1N1P2b1/PqP3PP/7K w - - 0 25",
+    "history": [
+     "f2g3"
+    ],
+    "prefilter_moves": [
+     "h6f8",
+     "h6h7",
+     "h6g7",
+     "h6g6",
+     "h6f6"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "e6e7",
+    "chosen_off": "e6e7",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "eval >= 444"
+   },
+   {
+    "fen": "r4rk1/pp3ppp/8/2bqp2Q/3N4/P2Bn2P/1PPN1P2/R1B2RK1 b - - 0 15",
+    "history": [
+     "d1h5"
+    ],
+    "prefilter_moves": [
+     "g8h8",
+     "f8e8",
+     "f8d8",
+     "f8c8",
+     "f8b8"
+    ],
+    "runtime_fired_on": [
+     "d5g2"
+    ],
+    "chosen_on": "d5g2",
+    "chosen_off": "d5g2",
+    "selected": true,
+    "vetoed": [],
+    "gate_rule": "forced obligation: mate available, only mating moves"
+   }
+  ],
+  "reached": true,
+  "selected": true,
+  "causal": false,
+  "status": "REACHED"
+ },
+ "135": {
+  "motif": 135,
+  "name": "Premature-Resign Deterrent",
+  "attempts": [
+   {
+    "fen": "r6k/pp2r2p/4Rp1Q/3p4/8/1N1P2b1/PqP3PP/7K w - - 0 25",
+    "history": [
+     "f2g3"
+    ],
+    "prefilter_moves": [
+     "e6e7"
+    ],
+    "runtime_fired_on": [
+     "e6e7"
+    ],
+    "chosen_on": "e6e7",
+    "chosen_off": "e6e7",
+    "selected": true,
+    "vetoed": [],
+    "gate_rule": "eval >= 477"
+   }
+  ],
+  "reached": true,
+  "selected": true,
+  "causal": false,
+  "status": "REACHED"
+ },
+ "137": {
+  "motif": 137,
+  "name": "Clock-Burn Maze Escalator",
+  "attempts": [],
+  "reached": false,
+  "selected": false,
+  "causal": false,
+  "status": "NO_POSITION_FOUND"
+ }
+}

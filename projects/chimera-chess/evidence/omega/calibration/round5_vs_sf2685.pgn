@@ -1,0 +1,130 @@
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.25"]
+[Round "1"]
+[White "omega:PDF_STYLE_V5:trace=evidence/omega/calibration/trace_round5.jsonl:style=evidence/omega/calibration/style_round5.json"]
+[Black "sf:2685"]
+[Result "1/2-1/2"]
+[Opening "Ruy Lopez"]
+[TimeControl "60+0.6"]
+[Termination "INSUFFICIENT_MATERIAL"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Bxc6 dxc6 5. d4 Nf6 6. Nxe5 c5 7. Bg5 Qxd4 8. Qxd4 cxd4 9. f3 Nd7 10. Bf4 Nxe5 11. Bxe5 c5 12. c3 Bd7 13. Kf2 Rc8 14. h4 f6 15. Bf4 h6 16. Rd1 Be6 17. h5 Rc6 18. Na3 Kf7 19. Nc2 Rg8 20. cxd4 cxd4 21. Nxd4 Rb6 22. Nxe6 Kxe6 23. b4 Rb5 24. Rd5 Bxb4 25. Rxb5 axb5 26. Rb1 Be7 27. Rxb5 Ra8 28. Rxb7 Rxa2+ 29. Kg3 Ra1 30. Rxe7+ Kxe7 31. Bc7 Kd7 32. Bf4 Kc6 33. Kh4 Ra7 34. g4 Ra5 35. Kg3 Rb5 36. Kf2 Ra5 37. Ke3 Ra7 38. Kd4 Rd7+ 39. Kc4 Ra7 40. Kd3 Rb7 41. Kc4 Kd7 42. Kd5 Rb4 43. Bd6 Rb3 44. e5 f5 45. e6+ Ke8 46. gxf5 Rxf3 47. Ke4 Rf1 48. Be5 Rg1 49. Bd4 Rg3 50. Be5 Rg2 51. Kf3 Rg5 52. Ke4 Rg2 53. f6 gxf6 54. Bxf6 Rg1 55. Kf5 Rg8 56. Ke5 Rg4 57. e7 Rg1 58. Kf5 Rg3 59. Ke6 Rh3 60. Bg7 Rxh5 61. Kf6 Rh2 62. Bf8 Rh3 63. Kg7 Rh1 64. Kf6 Rh3 65. Kf5 Kf7 66. Kg4 Rh2 67. Kg3 Rh1 68. Kg2 Rh4 69. Kg3 Rh5 70. Kg4 Rg5+ 71. Kf4 Rg2 72. e8=Q+ Kxe8 73. Bxh6 Rg5 74. Bf8 Rf5+ 75. Kxf5 1/2-1/2
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.25"]
+[Round "2"]
+[White "sf:2685"]
+[Black "omega:PDF_STYLE_V5:trace=evidence/omega/calibration/trace_round5.jsonl:style=evidence/omega/calibration/style_round5.json"]
+[Result "1/2-1/2"]
+[Opening "Ruy Lopez"]
+[TimeControl "60+0.6"]
+[Termination "THREEFOLD_REPETITION"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Bxc6 dxc6 5. Nc3 Bg4 6. h3 Bxf3 7. Qxf3 Qf6 8. d3 Qxf3 9. gxf3 Bb4 10. f4 exf4 11. h4 f5 12. exf5 Bxc3+ 13. bxc3 f3 14. Rh3 Ne7 15. Rb1 b5 16. Ba3 Nxf5 17. Rxf3 Nd6 18. Kf1 Rf8 19. Rxf8+ Kxf8 20. Bc5 Re8 21. c4 bxc4 22. Rb4 Kg8 23. Ra4 cxd3 24. cxd3 a5 25. Bd4 Rf8 26. Rxa5 Rf4 27. Bc5 Rf5 28. d4 Nb7 29. Ra8+ Kf7 30. Rf8+ Ke6 31. Bb4 c5 32. Rxf5 Kxf5 33. Bc3 Ke4 34. dxc5 g6 35. Bh8 Kf3 36. c6 Nd8 37. Bf6 Nxc6 38. a3 Nb8 39. Ke1 Ke4 40. Ke2 Nc6 41. Kd2 Nb8 42. a4 Na6 43. a5 Nb4 44. Bc3 Na6 45. Bh8 Nc5 46. Ke2 Kd5 47. Ke3 Ne6 48. f3 c5 49. a6 Kc6 50. Kd3 Nf4+ 51. Ke3 Ng2+ 52. Ke4 Nxh4 53. a7 Kb7 54. a8=B+ Kxa8 55. Bf6 Nxf3 56. Kxf3 g5 57. Kg3 h5 58. Kh3 g4+ 59. Kh2 h4 60. Bxh4 g3+ 61. Kg2 Kb7 62. Bg5 Kc6 63. Bd8 Kd5 64. Bg5 Ke4 65. Bh4 Ke3 66. Bf6 Ke2 67. Ba1 Kd3 68. Bg7 Ke2 69. Bc3 Kd3 70. Bh8 Ke2 71. Bc3 Ke3 72. Ba1 Ke2 1/2-1/2
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.25"]
+[Round "3"]
+[White "omega:PDF_STYLE_V5:trace=evidence/omega/calibration/trace_round5.jsonl:style=evidence/omega/calibration/style_round5.json"]
+[Black "sf:2685"]
+[Result "1/2-1/2"]
+[Opening "Sicilian Najdorf"]
+[TimeControl "60+0.6"]
+[Termination "FIFTY_MOVES"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 a6 6. Nf3 Nc6 7. Be3 e6 8. Bg5 h6 9. Bxf6 gxf6 10. Be2 h5 11. h4 Bd7 12. Qd3 Nb4 13. Qd1 Nc6 14. Qd2 Qb6 15. Rb1 Ne5 16. Nxe5 dxe5 17. Qe3 Qxe3 18. fxe3 Rc8 19. Kf2 Rh6 20. Rhd1 f5 21. exf5 b5 22. fxe6 Bxe6 23. a4 Rf6+ 24. Kg1 Bc5 25. Ne4 Bxe3+ 26. Kh2 Bf4+ 27. g3 Bxg3+ 28. Kxg3 Rg6+ 29. Ng5 Rg7 30. c4 f6 31. Rd6 fxg5 32. Rxe6+ Kf7 33. Rd6 Ke7 34. Rb6 gxh4+ 35. Kh2 bxa4 36. Rb7+ Kf8 37. Rf1+ Kg8 38. Rxg7+ Kxg7 39. Rg1+ Kf7 40. Rf1+ Ke6 41. Rd1 Rb8 42. Rd2 Rb6 43. c5 Rc6 44. Bc4+ Kf5 45. Rd5 Kf4 46. Bd3 h3 47. Bc2 Rc7 48. Bg6 a5 49. Bc2 a3 50. bxa3 Rg7 51. Bd1 Rg2+ 52. Kh1 Ra2 53. c6 Ra1 54. c7 Rc1 55. Rd7 Kf5 56. Kh2 Rc3 57. Rg7 Ke6 58. Bf3 Kd6 59. a4 h4 60. Rf7 Ke6 61. c8=Q+ Rxc8 62. Bg4+ Kxf7 63. Bxc8 e4 64. Bf5 Kf6 65. Bc8 e3 66. Ba6 Kg5 67. Be2 Kh6 68. Ba6 Kg6 69. Be2 Kh7 70. Ba6 Kh8 71. Be2 Kg8 72. Ba6 e2 73. Bc4+ Kh7 74. Bd3+ Kh8 75. Bxe2 Kg8 76. Bd3 Kf7 77. Be2 Kg7 78. Bd3 Kh6 79. Be2 Kg5 80. Bd3 Kh6 81. Kg1 Kg5 82. Kf2 Kf4 83. Kg1 Ke3 84. Bc4 Kf3 85. Bd3 Kf4 86. Kf2 h2 87. Kg2 h1=B+ 88. Kxh1 Kg3 89. Kg1 h3 90. Kh1 Kh4 91. Kh2 Kg5 92. Kxh3 Kh5 93. Kg2 Kg5 94. Kg3 Kf6 95. Kf4 Ke7 96. Ke5 Kd7 97. Ba6 Ke7 98. Kf5 Kf8 99. Kf6 Kg8 100. Kg6 Kh8 101. Kf6 Kh7 102. Kf7 Kh6 103. Kf6 Kh5 104. Kf7 Kg4 105. Kf6 Kf3 106. Kf5 Ke3 107. Ke5 Kf2 108. Kf6 Kf3 109. Ke7 Ke4 110. Ke6 Kd4 111. Ke7 Kc3 112. Kd6 Kc2 113. Kd7 Kc1 114. Kd6 Kc2 115. Ke7 Kb2 116. Ke6 Kb3 117. Bb5 Ka3 118. Ke7 Kb4 119. Kf8 Kc5 120. Ke7 Kd5 121. Ke8 Ke6 122. Ba6 Kd6 123. Bc4 Kc6 124. Ba6 Kc7 125. Ke7 Kb6 126. Bc4 Kc5 127. Bf7 Kc6 128. Kf6 Kd7 129. Bg6 Kd8 130. Ke6 Kc8 131. Bf5 Kb7 132. Kd7 Kb8 133. Be4 Ka7 134. Kc7 Ka6 135. Kc6 Ka7 136. Kd6 Kb6 137. Kd7 Kc5 138. Kc7 Kc4 139. Kb6 Kb4 140. Bc6 Ka3 141. Kb5 Kb2 1/2-1/2
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.25"]
+[Round "4"]
+[White "sf:2685"]
+[Black "omega:PDF_STYLE_V5:trace=evidence/omega/calibration/trace_round5.jsonl:style=evidence/omega/calibration/style_round5.json"]
+[Result "1-0"]
+[Opening "Sicilian Najdorf"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 a6 6. Be3 e5 7. Nb3 Ng4 8. Bc1 Nf6 9. Be3 Qc7 10. f3 Qd8 11. g4 d5 12. g5 d4 13. gxf6 dxc3 14. fxg7 Qxd1+ 15. Kxd1 Bxg7 16. bxc3 h5 17. Rg1 Bf8 18. Bc4 Nc6 19. Bd5 Ne7 20. c4 Bh6 21. Kd2 Bxe3+ 22. Kxe3 Nxd5+ 23. cxd5 Bd7 24. c4 Rc8 25. c5 Ba4 26. Rab1 Bxb3 27. Rxb3 Rxc5 28. Rxb7 Rc3+ 29. Kd2 Ra3 30. Rb8+ Kd7 31. Rxh8 Rxa2+ 32. Kc3 Ra3+ 33. Kc4 Ra4+ 34. Kc5 Ra5+ 35. Kb6 Rb5+ 36. Ka7 Ra5 37. Rh7 Kc7 38. Rc1+ Kd6 39. Rh6+ Ke7 40. d6+ Ke8 41. Rh7 Kd7 42. Rh6 Rc5 43. Rxc5 Ke8 44. Rh7 Kd7 45. Rxf7+ Ke6 46. d7 Kd6 47. Rd5+ Kc6 48. Kxa6 Kc7 49. Rc5+ Kd6 50. Kb5 Ke6 51. d8=N+ Kd6 52. Rd5# 1-0
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.25"]
+[Round "5"]
+[White "omega:PDF_STYLE_V5:trace=evidence/omega/calibration/trace_round5.jsonl:style=evidence/omega/calibration/style_round5.json"]
+[Black "sf:2685"]
+[Result "0-1"]
+[Opening "French Winawer"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. e4 e6 2. d4 d5 3. Nc3 Bb4 4. Qg4 Nf6 5. Qxg7 Rg8 6. Qh6 Rg6 7. Qh4 Nxe4 8. Qxd8+ Kxd8 9. Bd3 Nc6 10. a3 Bxc3+ 11. bxc3 Rxg2 12. Bxe4 dxe4 13. Bf4 b6 14. d5 exd5 15. Rd1 Ne7 16. Bg3 c5 17. Kf1 Bg4 18. Rd2 Rxg1+ 19. Rxg1 Be6 20. Bh4 Rc8 21. f3 exf3 22. Rg7 Kd7 23. Bxe7 Kxe7 24. Rg3 Kd6 25. Rg5 b5 26. Rd1 Rc6 27. Rg3 Ra6 28. Ra1 Ra4 29. Rxf3 a5 30. Rf6 h5 31. Ke2 b4 32. cxb4 axb4 33. Kd1 bxa3 34. Rh6 h4 35. Rf6 h3 36. Rh6 a2 37. Rf6 Ke5 38. Rh6 d4 39. Rh4 Ra3 40. Rh5+ Kd6 41. Rh6 Ra8 42. Rf6 Ke5 43. Rh6 Rg8 44. Rh5+ Kd6 45. Kd2 Kc6 46. Rh6 Kd7 47. Rf6 Rg2+ 48. Kc1 Rxh2 49. Rh6 Kc7 50. Rf6 d3 51. cxd3 Rg2 52. Rh6 h2 53. Rxa2 Rxa2 54. Rh7 h1=R+ 55. Rxh1 Ra1+ 56. Kd2 Rxh1 57. Kc3 Rh2 58. d4 Rh3+ 59. Kc2 cxd4 60. Kd2 Kd6 61. Ke2 Kc5 62. Kf2 Kc6 63. Kf1 Kc5 64. Ke2 Kd5 65. Kd2 Kc5 66. Ke2 d3+ 67. Kd1 Kd4 68. Kd2 Kc4 69. Ke1 Kd4 70. Kd2 Bc4 71. Kd1 Rh2 72. Kc1 Kc3 73. Kd1 Rh1# 0-1
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.25"]
+[Round "6"]
+[White "sf:2685"]
+[Black "omega:PDF_STYLE_V5:trace=evidence/omega/calibration/trace_round5.jsonl:style=evidence/omega/calibration/style_round5.json"]
+[Result "1/2-1/2"]
+[Opening "French Winawer"]
+[TimeControl "60+0.6"]
+[Termination "INSUFFICIENT_MATERIAL"]
+
+1. e4 e6 2. d4 d5 3. Nc3 Bb4 4. a3 Bxc3+ 5. bxc3 Qh4 6. Ne2 Qxe4 7. Be3 Qh4 8. Ng1 c5 9. dxc5 Qf6 10. c4 Qc3+ 11. Bd2 Qe5+ 12. Ne2 Nf6 13. Bc3 Qc7 14. Qd2 dxc4 15. Ng3 Qxc5 16. Rd1 Nc6 17. h3 Qe7 18. Bb2 c3 19. Qxc3 e5 20. Bb5 O-O 21. a4 Qb4 22. Qxb4 Nxb4 23. Rd2 Nbd5 24. Bxe5 a6 25. Be2 Re8 26. Ba1 Nf4 27. a5 Nxe2 28. Rxe2 Rxe2+ 29. Kxe2 Nd5 30. Nh5 f6 31. Rd1 Nc7 32. g4 Kf7 33. f4 Be6 34. Ng3 Re8 35. Kf2 Bd5 36. Nf5 Re6 37. Rd3 Bc6 38. Bb2 h6 39. h4 Ne8 40. Ba3 Re4 41. Rd4 Rxd4 42. Nxd4 Bd5 43. Bc5 g5 44. Nf5 Be4 45. hxg5 fxg5 46. Nd6+ Nxd6 47. Bxd6 Ke6 48. Bb8 gxf4 49. c4 b6 50. axb6 f3 51. Bf4 Ba8 52. Kg1 Be4 53. Bxh6 Ke5 54. Bc1 Ba8 55. g5 Bc6 56. Bd2 Be4 57. Kf2 Ba8 58. Kf1 Bc6 59. Ke1 Be4 60. Be3 Ba8 61. Kd2 Be4 62. c5 Ba8 63. Bd4+ Kf5 64. Be3 Be4 65. Kd1 Bd5 66. Bd2 Bb3+ 67. Ke1 Bd5 68. Be3 Ke4 69. Bf2 Ke5 70. g6 Kf6 71. g7 Kxg7 72. Kd1 Bb3+ 73. Ke1 Bd5 74. Kd1 Be4 75. Bd4+ Kf8 76. Ke1 f2+ 77. Ke2 f1=Q+ 78. Kxf1 Bd3+ 79. Ke1 Be4 80. Bf2 Bf3 81. c6 Bxc6 82. Bc5+ Kf7 83. Bd4 Bf3 84. Bb2 Bd5 85. Kd2 Bf3 86. Bg7 Bd5 87. Ke2 Be4 88. Ba1 Bd5 89. Ke3 Ke6 90. Bf6 Kf5 91. Ba1 Be4 92. Bc3 Bd5 93. Bd4 Be4 94. Bc3 a5 95. Ba1 Bd5 96. Kf2 Kf4 97. Bc3 Bf3 98. b7 Bxb7 99. Bd2+ Ke5 100. Bc3+ Kf5 101. Bb2 Bf3 102. Bc3 Be2 103. Ba1 Bf3 104. Bh8 Be2 105. Bb2 Bf1 106. Bc3 Bg2 107. Ba1 Bf1 108. Kf3 Be2+ 109. Kg2 Bf3+ 110. Kf1 Be2+ 111. Kg1 Bf1 112. Bc3 Bg2 113. Bb2 Bh1 114. Ba1 Bg2 115. Bh8 Bh1 116. Bd4 Bg2 117. Bc3 Bh1 118. Bxa5 Bg2 119. Be1 Bf1 120. Kh1 Bg2+ 121. Kxg2 1/2-1/2
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.25"]
+[Round "7"]
+[White "omega:PDF_STYLE_V5:trace=evidence/omega/calibration/trace_round5.jsonl:style=evidence/omega/calibration/style_round5.json"]
+[Black "sf:2685"]
+[Result "0-1"]
+[Opening "Caro-Kann"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. e4 c6 2. d4 d5 3. Nc3 dxe4 4. Nxe4 Bf5 5. Ng3 e6 6. Nxf5 exf5 7. Qe2+ Be7 8. Qd3 Nf6 9. Qxf5 O-O 10. Qd3 c5 11. d5 Na6 12. Qb3 b5 13. Bxb5 Rb8 14. a4 Nxd5 15. Nf3 Bf6 16. Qc4 Qa5+ 17. Bd2 Nab4 18. Qxc5 Rfe8+ 19. Kf1 Red8 20. c3 Nd3 21. Qa3 Nc7 22. Bxd3 Rxd3 23. b4 Qf5 24. Qa2 Rbd8 25. Re1 Nd5 26. Qc4 h5 27. Qb5 a6 28. Re8+ Kh7 29. Qc6 Rxf3 30. gxf3 Qxf3 31. Rg1 Ne3+ 32. Rxe3 Qxc6 33. b5 Qd6 34. Re7 Qxd2 35. Re2 Qc1+ 36. Re1 Qf4 37. Rg2 Bxc3 38. Rb1 Qf5 39. Rxg7+ Kxg7 40. Kg1 Qg6+ 41. Kh1 Qe4+ 42. Kg1 Rd6 43. Rb4 Rg6+ 44. Kf1 Qe1# 0-1
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.25"]
+[Round "8"]
+[White "sf:2685"]
+[Black "omega:PDF_STYLE_V5:trace=evidence/omega/calibration/trace_round5.jsonl:style=evidence/omega/calibration/style_round5.json"]
+[Result "1-0"]
+[Opening "Caro-Kann"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. e4 c6 2. d4 d5 3. Nc3 dxe4 4. Nxe4 Bf5 5. Bd3 Qxd4 6. Nf3 Qd8 7. Nfd2 Bxe4 8. Nxe4 e6 9. Qf3 Nf6 10. O-O Nxe4 11. Qxe4 Qd5 12. Qe2 Qd4 13. Bd2 Qh4 14. Rad1 Nd7 15. Bc3 Nf6 16. Ba6 Bd6 17. Rxd6 bxa6 18. b3 Ne4 19. Qc4 Nxc3 20. Rxe6+ fxe6 21. Qxh4 Ne2+ 22. Kh1 Ng3+ 23. fxg3 Rf8 24. Rd1 Rf2 25. Qc4 Rf6 26. Qxc6+ Kf7 27. Qxa8 Kg6 28. h4 h5 29. Qe8+ Kh6 30. Rd7 e5 31. Kg1 Rf7 32. Qxf7 g5 33. Rd6# 1-0
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.25"]
+[Round "9"]
+[White "omega:PDF_STYLE_V5:trace=evidence/omega/calibration/trace_round5.jsonl:style=evidence/omega/calibration/style_round5.json"]
+[Black "sf:2685"]
+[Result "0-1"]
+[Opening "QGD"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. d4 d5 2. c4 e6 3. Nc3 Nf6 4. Bg5 Be7 5. Bxf6 Bxf6 6. e3 c5 7. dxc5 Bxc3+ 8. bxc3 Qf6 9. Qa4+ Bd7 10. Qa3 dxc4 11. c6 Bxc6 12. Nf3 Nd7 13. Nd4 e5 14. Nf3 Rc8 15. Qxa7 Bxf3 16. gxf3 Qxf3 17. Rg1 Nc5 18. Rxg7 Ke7 19. Rd1 Nd3+ 20. Bxd3 cxd3 21. Rxd3 Qh1+ 22. Ke2 Rhd8 23. Rxd8 Rxd8 24. Qc5+ Kf6 25. Qb6+ Kxg7 26. Qxd8 Qe4 27. Qe7 Qc2+ 28. Kf1 Qd3+ 29. Kg2 Qe4+ 30. f3 Qc2+ 31. Kh3 Qf5+ 32. Kg3 b5 33. e4 Qf4+ 34. Kg2 Kg6 35. Qd6+ f6 36. Qb4 Qd2+ 37. Kg3 Qf4+ 38. Kf2 Qxh2+ 39. Ke3 Qg1+ 40. Ke2 Qh2+ 41. Ke1 Qg1+ 42. Kd2 Qf2+ 43. Kc1 Qxf3 44. Qxb5 h5 45. Qd5 Kh6 46. Qd6 h4 47. Qf8+ Kh5 48. Qf7+ Kg4 49. Qg6+ Kh3 50. Qh7 Kg3 51. Qg7+ Qg4 52. Qe7 h3 53. Qd6 Qf3 54. Qe6 Qxe4 55. Qg8+ Kf2 56. Qf7 h2 57. Qxf6+ Qf4+ 58. Qxf4+ exf4 59. Kd2 h1=Q 60. a3 Kg1 61. Ke2 f3+ 62. Ke3 f2 63. a4 Qd5 64. c4 Qe5+ 65. Kd2 f1=Q 66. a5 Qd4+ 67. Kc2 Qfd3+ 68. Kc1 Qf1+ 69. Kc2 Qdd3+ 70. Kb2 Qxc4 71. Ka3 Qg2 72. a6 Qga2# 0-1
+
+[Event "CHIMERA V7 match"]
+[Site "local container"]
+[Date "2026.11.25"]
+[Round "10"]
+[White "sf:2685"]
+[Black "omega:PDF_STYLE_V5:trace=evidence/omega/calibration/trace_round5.jsonl:style=evidence/omega/calibration/style_round5.json"]
+[Result "1-0"]
+[Opening "QGD"]
+[TimeControl "60+0.6"]
+[Termination "CHECKMATE"]
+
+1. d4 d5 2. c4 e6 3. Nc3 Nf6 4. Bg5 Be7 5. e3 Ne4 6. Qa4+ Bd7 7. Bxe7 Qxe7 8. Qb3 Nxc3 9. Qxc3 dxc4 10. Nf3 b5 11. Be2 a5 12. O-O Qb4 13. a4 Qxc3 14. bxc3 c6 15. Ne5 f6 16. Nxd7 Kxd7 17. axb5 cxb5 18. Rfb1 a4 19. Rxb5 a3 20. Bxc4 Rc8 21. Rb4 e5 22. Rb7+ Kd8 23. Be6 Rxc3 24. dxe5 Rd3 25. Rxg7 fxe5 26. Rc1 Nd7 27. Bxd7 a2 28. Rg8+ Ke7 29. Rxa8 a1=R 30. Rcxa1 Rxd7 31. R1a7 Rxa7 32. Rxa7+ Kf6 33. Rxh7 Kg5 34. Rd7 Kf6 35. g4 Kg5 36. Rg7+ Kf6 37. Ra7 Kg5 38. Re7 Kxg4 39. Rxe5 Kf3 40. Kf1 Kg4 41. Ke2 Kh4 42. h3 Kxh3 43. Kf3 Kh2 44. Rh5+ Kg1 45. Rh8 Kf1 46. Rd8 Ke1 47. Rd5 Kf1 48. Rd1# 1-0
+

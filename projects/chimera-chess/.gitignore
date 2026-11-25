@@ -9,7 +9,4 @@ lab/oracle_cache.sqlite
 lab/human_v13.jsonl
 lab/human_v13.log
 lab/headroom/
-evidence/omega/integration_campaign*
-evidence/omega/gauntlet/
-evidence/omega/calibration/
 evidence/omega/calibration_aborted_pre_restart/

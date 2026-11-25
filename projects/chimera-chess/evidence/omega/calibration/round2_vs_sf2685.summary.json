@@ -1,0 +1,22 @@
+{
+  "a": "omega:PDF_STYLE_V5:trace=evidence/omega/calibration/trace_round2.jsonl:style=evidence/omega/calibration/style_round2.json",
+  "b": "sf:2685",
+  "tc": "60+0.6",
+  "games": 10,
+  "a_wins": 1,
+  "draws": 5,
+  "a_losses": 4,
+  "a_score": 3.5,
+  "a_pct": 0.35,
+  "elo_diff_a_minus_b_95ci": [
+    -108,
+    -496,
+    104
+  ],
+  "time_forfeits": 0,
+  "illegal_or_failure": 0,
+  "stockfish": "/usr/games/stockfish",
+  "python": "3.13.18",
+  "chess": "1.11.2",
+  "date_utc": "2026-11-25T00:30:36"
+}

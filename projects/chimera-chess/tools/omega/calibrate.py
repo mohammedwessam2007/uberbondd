@@ -36,19 +36,23 @@ def update(style, ch):
             gs[kk] = round(min(8.0, max(0.1, gs.get(kk, 1.0) * f)), 3)
     st = dict(style, group_scale=gs)
     dr = ch["matches"][0]["draw_rate"]
-    if dr > 0.20:
-        st["anti_draw_contempt_cp"] = max(-400.0, style.get("anti_draw_contempt_cp", -120.0) - 60.0)
-    elif dr < 0.14:
-        st["anti_draw_contempt_cp"] = min(-60.0, style.get("anti_draw_contempt_cp", -120.0) + 30.0)
+    # V6: draws come from liquidation into bare endings -> steer the PDF's anti-liquidation motifs, contempt stays at -120
+    f = 1.4 if dr > 0.20 else (0.8 if dr < 0.14 else 1.0)
+    for kk in ("#4", "#46", "#142", "#196"):
+        gs[kk] = round(min(6.0, max(0.3, gs.get(kk, 1.0) * f)), 3)
+    st["group_scale"] = gs
+    st["anti_draw_contempt_cp"] = -120.0
     return st
 
 
-def main(rounds, start=None):
+def main(rounds, start=None, first=1):
     os.makedirs(OUT, exist_ok=True)
     from chimera.omega.config import PROFILES
     style = json.load(open(start)) if start else {"group_scale": PROFILES["PDF_STYLE_V5"]["group_scale"], "anti_draw_contempt_cp": -120.0, "motif_scale": 0.15}
-    log = []
-    for k in range(1, rounds + 1):
+    lp = os.path.join(OUT, "calibration_log.json")
+    log = json.load(open(lp)) if os.path.isfile(lp) else []
+    log = [r for r in log if r["round"] < first]
+    for k in range(first, first + rounds):
         ch = run_round(k, style)
         rec = {"round": k, "style": style, "per_game": ch["per_game"], "pdf_target": TARGET, "ratio": ch["ratio_to_pdf"], "match": ch["matches"][0]}
         log.append(rec); json.dump(log, open(os.path.join(OUT, "calibration_log.json"), "w"), indent=1)
@@ -58,4 +62,4 @@ def main(rounds, start=None):
 
 if __name__ == "__main__":
     sys.path.insert(0, ROOT)
-    main(int(sys.argv[1]), sys.argv[2] if len(sys.argv) > 2 else None)
+    main(int(sys.argv[1]), sys.argv[2] if len(sys.argv) > 2 else None, int(sys.argv[3]) if len(sys.argv) > 3 else 1)

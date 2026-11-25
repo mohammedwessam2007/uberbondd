@@ -1477,5 +1477,988 @@
   "selected": false,
   "causal": false,
   "status": "NO_POSITION_FOUND"
+ },
+ "143": {
+  "motif": 143,
+  "name": "Piece-Parade Tempo Taunt",
+  "attempts": [],
+  "reached": false,
+  "selected": false,
+  "causal": false,
+  "status": "NO_POSITION_FOUND"
+ },
+ "144": {
+  "motif": 144,
+  "name": "Humiliation Finish Ranker",
+  "attempts": [],
+  "reached": false,
+  "selected": false,
+  "causal": false,
+  "status": "NO_POSITION_FOUND"
+ },
+ "145": {
+  "motif": 145,
+  "name": "Anti-Fortress Demolition",
+  "attempts": [
+   {
+    "fen": "8/5R2/1p2P3/p4r2/P6p/1P3Pk1/4K3/8 b - - 2 64",
+    "history": [
+     "e7f7"
+    ],
+    "prefilter_moves": [
+     "f5f3"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "f5e5",
+    "chosen_off": "f5e5",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "eval >= 30"
+   },
+   {
+    "fen": "r4r2/1p3pkp/p7/3R1p1Q/3P4/8/P1q2P2/3R2K1 w - - 0 26",
+    "history": [
+     "g6f5"
+    ],
+    "prefilter_moves": [
+     "d5f5"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "h5g5",
+    "chosen_off": "d5c5",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "eval >= -45"
+   },
+   {
+    "fen": "6k1/pp1r1pp1/2p1p2p/4P2P/3q1Q2/1P4R1/P1Pr1PP1/R5K1 w - - 5 24",
+    "history": [
+     "b6d4"
+    ],
+    "prefilter_moves": [
+     "g3g7"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "f4f6",
+    "chosen_off": "f4f6",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "eval >= 16"
+   },
+   {
+    "fen": "6k1/5p2/4p3/P1B5/2P4P/4Pnp1/Rb2r3/5K2 w - - 0 34",
+    "history": [
+     "d2e2"
+    ],
+    "prefilter_moves": [
+     "a2b2"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "f1e2",
+    "chosen_off": "f1e2",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "eval >= 392"
+   },
+   {
+    "fen": "4r1k1/1p2R1p1/p2p2Pp/P1pP4/8/1R3p2/1P1q3P/5B1K w - - 0 35",
+    "history": [
+     "f4d2"
+    ],
+    "prefilter_moves": [
+     "e7g7"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "e7e8",
+    "chosen_off": "e7e8",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "forced obligation: mate available, only mating moves"
+   },
+   {
+    "fen": "4r3/p5k1/2R4p/2Pp4/1P1pr1P1/P6P/8/3R3K b - - 0 35",
+    "history": [
+     "f6c6"
+    ],
+    "prefilter_moves": [
+     "e4g4"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "e4e1",
+    "chosen_off": "e4e1",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "eval >= 38"
+   }
+  ],
+  "reached": false,
+  "selected": false,
+  "causal": false,
+  "status": "PREDICATE_FOUND_NOT_REACHED"
+ },
+ "146": {
+  "motif": 146,
+  "name": "Multi-Piece Pin Web",
+  "attempts": [
+   {
+    "fen": "2kr2r1/1bp4n/1pq1p2p/p1P5/1P3B2/P6P/5RP1/RB3QK1 b - - 4 26",
+    "history": [
+     "e1f1"
+    ],
+    "prefilter_moves": [
+     "c6c5"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "d8d1",
+    "chosen_off": "d8d1",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "eval >= 167"
+   },
+   {
+    "fen": "4b1k1/4Pr2/3R2pp/1ppBP2q/8/PP4P1/2P4P/3R3K w - - 3 39",
+    "history": [
+     "g5h5"
+    ],
+    "prefilter_moves": [
+     "d6d8"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "d1f1",
+    "chosen_off": "d1f1",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "eval >= -36"
+   },
+   {
+    "fen": "5k2/p4pp1/1qn3r1/3pP2p/3N1P2/2PQ4/Pr3RPP/R5K1 b - - 6 24",
+    "history": [
+     "b3d4"
+    ],
+    "prefilter_moves": [
+     "b6d4"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "b2f2",
+    "chosen_off": "b2f2",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "eval >= 102"
+   },
+   {
+    "fen": "r5k1/2p1pp2/pp4p1/1q5r/5P2/2QP2R1/PP6/1K4R1 w - - 1 33",
+    "history": [
+     "d5h5"
+    ],
+    "prefilter_moves": [
+     "c3c4",
+     "c3b3"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "g3g6",
+    "chosen_off": "g3g6",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "eval >= -45"
+   },
+   {
+    "fen": "3rk2r/2qn2p1/p1Q1p3/3n3p/8/8/PP4PP/5R1K w k - 0 24",
+    "history": [
+     "f7e6"
+    ],
+    "prefilter_moves": [
+     "f1e1"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "c6e6",
+    "chosen_off": "c6e6",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "forced obligation: mate available, only mating moves"
+   },
+   {
+    "fen": "r2qr2k/1pp2Qp1/1b4np/pP2P3/P4n2/B1N2N1P/5PP1/R3R1K1 b - - 0 20",
+    "history": [
+     "b3f7"
+    ],
+    "prefilter_moves": [
+     "d8g5",
+     "d8d1"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "d8d3",
+    "chosen_off": "d8d3",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "eval >= -45"
+   }
+  ],
+  "reached": false,
+  "selected": false,
+  "causal": false,
+  "status": "PREDICATE_FOUND_NOT_REACHED"
+ },
+ "147": {
+  "motif": 147,
+  "name": "Sacrifice-Chain Escalator",
+  "attempts": [],
+  "reached": false,
+  "selected": false,
+  "causal": false,
+  "status": "NO_POSITION_FOUND"
+ },
+ "176": {
+  "motif": 176,
+  "name": "Nightmare Endgame Router",
+  "attempts": [
+   {
+    "fen": "3R4/8/8/KB2b3/1p6/1P2k3/3p4/8 b - - 0 58",
+    "history": [
+     "a6a5"
+    ],
+    "prefilter_moves": [
+     "d2d1q",
+     "d2d1r",
+     "d2d1b",
+     "d2d1n"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "e5c7",
+    "chosen_off": "e5c7",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "eval >= 194"
+   },
+   {
+    "fen": "8/8/8/6p1/5N2/3p3P/5kP1/3K4 b - - 0 56",
+    "history": [
+     "d5f4"
+    ],
+    "prefilter_moves": [
+     "d3d2"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "g5f4",
+    "chosen_off": "g5f4",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "eval >= 512"
+   },
+   {
+    "fen": "8/8/1p6/k7/P7/1KR4r/8/8 b - - 27 64",
+    "history": [
+     "c4c3"
+    ],
+    "prefilter_moves": [
+     "h3c3"
+    ],
+    "runtime_fired_on": [
+     "h3c3"
+    ],
+    "chosen_on": "h3c3",
+    "chosen_off": "h3c3",
+    "selected": true,
+    "vetoed": [],
+    "gate_rule": "eval >= 555"
+   }
+  ],
+  "reached": true,
+  "selected": true,
+  "causal": false,
+  "status": "REACHED"
+ },
+ "177": {
+  "motif": 177,
+  "name": "Dynamic Contempt Curve",
+  "attempts": [
+   {
+    "fen": "K7/P1k5/6p1/5p1P/5Pp1/8/8/8 b - - 0 49",
+    "history": [
+     "h4h5"
+    ],
+    "prefilter_moves": [
+     "g6h5"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "g4g3",
+    "chosen_off": "g4g3",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "forced obligation: mate available, only mating moves"
+   },
+   {
+    "fen": "7k/7B/6K1/8/8/8/8/3q1R2 w - - 0 53",
+    "history": [
+     "d2d1q"
+    ],
+    "prefilter_moves": [
+     "f1d1"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "f1f8",
+    "chosen_off": "f1f8",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "forced obligation: mate available, only mating moves"
+   },
+   {
+    "fen": "8/8/8/7p/5P1k/6pP/7K/8 w - - 0 43",
+    "history": [
+     "g4g3"
+    ],
+    "prefilter_moves": [
+     "h2g2"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "h2g1",
+    "chosen_off": "h2g1",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "eval >= 353"
+   },
+   {
+    "fen": "6R1/8/8/5b2/3K1k2/7p/4r3/8 b - - 15 89",
+    "history": [
+     "e2e4",
+     "e7e5",
+     "g1f3",
+     "b8c6",
+     "f1b5",
+     "a7a6",
+     "b5c6",
+     "d7c6",
+     "h2h3",
+     "g8f6",
+     "d2d3",
+     "f8d6",
+     "b1c3",
+     "b7b5",
+     "a2a3",
+     "e8g8",
+     "e1g1",
+     "c6c5",
+     "c3d5",
+     "f6d5",
+     "e4d5",
+     "c8b7",
+     "f1e1",
+     "b7d5",
+     "c2c4",
+     "b5c4",
+     "f3e5",
+     "d6e5",
+     "e1e5",
+     "d5b7",
+     "c1e3",
+     "c4d3",
+     "e5c5",
+     "d8d6",
+     "d1g4",
+     "f8e8",
+     "g4f4",
+     "e8e7",
+     "f4d6",
+     "c7d6",
+     "c5c4",
+     "b7e4",
+     "a1e1",
+     "d6d5",
+     "c4c5",
+     "a8d8",
+     "e3g5",
+     "f7f6",
+     "g5d2",
+     "e7e6",
+     "f2f3",
+     "e4f5",
+     "e1e6",
+     "f5e6",
+     "c5c6",
+     "e6c8",
+     "d2a5",
+     "d8e8",
+     "a5b4",
+     "h7h5",
+     "c6d6",
+     "c8e6",
+     "d6a6",
+     "g7g5",
+     "g1f2",
+     "h5h4",
+     "f3f4",
+     "g5f4",
+     "f2f3",
+     "g8g7",
+     "f3f4",
+     "e6f7",
+     "a6a7",
+     "e8e2",
+     "f4f3",
+     "e2b2",
+     "a7b7",
+     "g7g6",
+     "b7e7",
+     "f6f5",
+     "f3e3",
+     "b2g2",
+     "e3d3",
+     "g2g3",
+     "d3d4",
+     "g3h3",
+     "e7b7",
+     "f5f4",
+     "d4e5",
+     "h3f3",
+     "b4d2",
+     "f3a3",
+     "b7b6",
+     "g6h5",
+     "d2f4",
+     "h5g4",
+     "b6b7",
+     "f7g6",
+     "b7g7",
+     "a3a6",
+     "f4h2",
+     "g4h3",
+     "h2f4",
+     "g6e4",
+     "f4e3",
+     "h3h2",
+     "e3g1",
+     "h2h1",
+     "g1d4",
+     "h4h3",
+     "g7g1",
+     "h1h2",
+     "g1g8",
+     "a6a2",
+     "e5d6",
+     "a2g2",
+     "g8h8",
+     "g2g4",
+     "h8a8",
+     "g4g6",
+     "d6c5",
+     "h2g3",
+     "d4e5",
+     "g3g4",
+     "e5h2",
+     "g4f5",
+     "a8f8",
+     "f5e6",
+     "f8h8",
+     "e4g2",
+     "h8e8",
+     "e6f5",
+     "e8e5",
+     "f5f6",
+     "e5h5",
+     "g6g4",
+     "h2e5",
+     "f6g6",
+     "h5h8",
+     "g4c4",
+     "c5b5",
+     "g6f5",
+     "e5g3",
+     "c4c2",
+     "h8h4",
+     "g2f1",
+     "b5b6",
+     "f5g5",
+     "h4h8",
+     "d5d4",
+     "h8g8",
+     "g5h5",
+     "g8f8",
+     "f1c4",
+     "g3f4",
+     "d4d3",
+     "b6c5",
+     "d3d2",
+     "f4d2",
+     "c4a2",
+     "d2c3",
+     "c2c3",
+     "c5d4",
+     "c3c2",
+     "f8h8",
+     "h5g4",
+     "d4d3",
+     "a2b1",
+     "d3d4",
+     "c2e2",
+     "h8g8",
+     "g4f4",
+     "g8b8",
+     "b1e4",
+     "b8f8",
+     "e4f5",
+     "f8g8"
+    ],
+    "prefilter_moves": [
+     "f5b1"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "e2e4",
+    "chosen_off": "e2e4",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "eval >= 516"
+   },
+   {
+    "fen": "7R/8/8/8/3K2b1/6k1/4r2p/8 b - - 5 92",
+    "history": [
+     "e2e4",
+     "e7e5",
+     "g1f3",
+     "b8c6",
+     "f1b5",
+     "a7a6",
+     "b5c6",
+     "d7c6",
+     "h2h3",
+     "g8f6",
+     "d2d3",
+     "f8d6",
+     "b1c3",
+     "b7b5",
+     "a2a3",
+     "e8g8",
+     "e1g1",
+     "c6c5",
+     "c3d5",
+     "f6d5",
+     "e4d5",
+     "c8b7",
+     "f1e1",
+     "b7d5",
+     "c2c4",
+     "b5c4",
+     "f3e5",
+     "d6e5",
+     "e1e5",
+     "d5b7",
+     "c1e3",
+     "c4d3",
+     "e5c5",
+     "d8d6",
+     "d1g4",
+     "f8e8",
+     "g4f4",
+     "e8e7",
+     "f4d6",
+     "c7d6",
+     "c5c4",
+     "b7e4",
+     "a1e1",
+     "d6d5",
+     "c4c5",
+     "a8d8",
+     "e3g5",
+     "f7f6",
+     "g5d2",
+     "e7e6",
+     "f2f3",
+     "e4f5",
+     "e1e6",
+     "f5e6",
+     "c5c6",
+     "e6c8",
+     "d2a5",
+     "d8e8",
+     "a5b4",
+     "h7h5",
+     "c6d6",
+     "c8e6",
+     "d6a6",
+     "g7g5",
+     "g1f2",
+     "h5h4",
+     "f3f4",
+     "g5f4",
+     "f2f3",
+     "g8g7",
+     "f3f4",
+     "e6f7",
+     "a6a7",
+     "e8e2",
+     "f4f3",
+     "e2b2",
+     "a7b7",
+     "g7g6",
+     "b7e7",
+     "f6f5",
+     "f3e3",
+     "b2g2",
+     "e3d3",
+     "g2g3",
+     "d3d4",
+     "g3h3",
+     "e7b7",
+     "f5f4",
+     "d4e5",
+     "h3f3",
+     "b4d2",
+     "f3a3",
+     "b7b6",
+     "g6h5",
+     "d2f4",
+     "h5g4",
+     "b6b7",
+     "f7g6",
+     "b7g7",
+     "a3a6",
+     "f4h2",
+     "g4h3",
+     "h2f4",
+     "g6e4",
+     "f4e3",
+     "h3h2",
+     "e3g1",
+     "h2h1",
+     "g1d4",
+     "h4h3",
+     "g7g1",
+     "h1h2",
+     "g1g8",
+     "a6a2",
+     "e5d6",
+     "a2g2",
+     "g8h8",
+     "g2g4",
+     "h8a8",
+     "g4g6",
+     "d6c5",
+     "h2g3",
+     "d4e5",
+     "g3g4",
+     "e5h2",
+     "g4f5",
+     "a8f8",
+     "f5e6",
+     "f8h8",
+     "e4g2",
+     "h8e8",
+     "e6f5",
+     "e8e5",
+     "f5f6",
+     "e5h5",
+     "g6g4",
+     "h2e5",
+     "f6g6",
+     "h5h8",
+     "g4c4",
+     "c5b5",
+     "g6f5",
+     "e5g3",
+     "c4c2",
+     "h8h4",
+     "g2f1",
+     "b5b6",
+     "f5g5",
+     "h4h8",
+     "d5d4",
+     "h8g8",
+     "g5h5",
+     "g8f8",
+     "f1c4",
+     "g3f4",
+     "d4d3",
+     "b6c5",
+     "d3d2",
+     "f4d2",
+     "c4a2",
+     "d2c3",
+     "c2c3",
+     "c5d4",
+     "c3c2",
+     "f8h8",
+     "h5g4",
+     "d4d3",
+     "a2b1",
+     "d3d4",
+     "c2e2",
+     "h8g8",
+     "g4f4",
+     "g8b8",
+     "b1e4",
+     "b8f8",
+     "e4f5",
+     "f8g8",
+     "h3h2",
+     "g8h8",
+     "f4g3",
+     "h8g8",
+     "f5g4",
+     "g8h8"
+    ],
+    "prefilter_moves": [
+     "g4f5"
+    ],
+    "runtime_fired_on": [
+     "g4f5"
+    ],
+    "chosen_on": "g4f3",
+    "chosen_off": "g4f3",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "eval >= 505"
+   }
+  ],
+  "reached": true,
+  "selected": false,
+  "causal": false,
+  "status": "REACHED"
+ },
+ "183": {
+  "motif": 183,
+  "name": "Offensive King Vanguard",
+  "attempts": [
+   {
+    "fen": "1r3k2/5p1p/2p1pp2/P2n4/r3N3/P4PK1/2R2P1P/2R5 w - - 10 30",
+    "history": [
+     "c4a4"
+    ],
+    "prefilter_moves": [
+     "g3h4",
+     "g3g4"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "e4c5",
+    "chosen_off": "e4c5",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "eval >= 2"
+   },
+   {
+    "fen": "3Q4/p1p2ppp/4k3/8/5P2/4P3/Prqn2PP/3R1RK1 b - - 0 22",
+    "history": [
+     "g5d8"
+    ],
+    "prefilter_moves": [
+     "e6f5"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "d2f3",
+    "chosen_off": "d2f3",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "forced obligation: mate available, only mating moves"
+   },
+   {
+    "fen": "1r4k1/r5q1/p2p1pP1/4pn2/2p1P2Q/2Pb1BK1/P6R/2R5 w - - 0 36",
+    "history": [
+     "e3f5"
+    ],
+    "prefilter_moves": [
+     "g3g4"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "e4f5",
+    "chosen_off": "e4f5",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "eval >= 408"
+   },
+   {
+    "fen": "4r3/R5p1/4r2p/3k1n2/3p4/P5B1/1P4PP/4R1K1 b - - 0 28",
+    "history": [
+     "c7a7"
+    ],
+    "prefilter_moves": [
+     "d5c4"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "e6e1",
+    "chosen_off": "e6e1",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "eval >= 279"
+   },
+   {
+    "fen": "4r3/7P/1p4Q1/1b4B1/1k4n1/8/1P2n1P1/4R2K b - - 3 41",
+    "history": [
+     "h2h1"
+    ],
+    "prefilter_moves": [
+     "b4b3"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "e2g3",
+    "chosen_off": "e2g3",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "forced obligation: mate available, only mating moves"
+   },
+   {
+    "fen": "5r1r/p6R/k1ppb1n1/4p1Q1/N3P3/1P1P4/P1P3PP/6K1 b - - 0 23",
+    "history": [
+     "b7h7"
+    ],
+    "prefilter_moves": [
+     "a6b5",
+     "a6a5"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "g6f4",
+    "chosen_off": "g6f4",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "eval >= 51"
+   }
+  ],
+  "reached": false,
+  "selected": false,
+  "causal": false,
+  "status": "PREDICATE_FOUND_NOT_REACHED"
+ },
+ "186": {
+  "motif": 186,
+  "name": "Underpromotion Taunts",
+  "attempts": [
+   {
+    "fen": "8/8/6q1/8/8/4NQ2/4K1pk/8 b - - 5 67",
+    "history": [
+     "d3e2"
+    ],
+    "prefilter_moves": [
+     "g2g1b",
+     "g2g1n"
+    ],
+    "runtime_fired_on": [
+     "g2g1n"
+    ],
+    "chosen_on": "g2g1n",
+    "chosen_off": "g2g1n",
+    "selected": true,
+    "vetoed": [],
+    "gate_rule": "eval >= 361"
+   }
+  ],
+  "reached": true,
+  "selected": true,
+  "causal": false,
+  "status": "REACHED"
+ },
+ "188": {
+  "motif": 188,
+  "name": "Triple-En-Prise Ghost Chain",
+  "attempts": [
+   {
+    "fen": "6k1/pp1r1pp1/2p1p2p/4P2P/3q1Q2/1P4R1/P1Pr1PP1/R5K1 w - - 5 24",
+    "history": [
+     "b6d4"
+    ],
+    "prefilter_moves": [
+     "g3g7",
+     "g3d3"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "f4f6",
+    "chosen_off": "f4f6",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "eval >= 16"
+   },
+   {
+    "fen": "6k1/p1p3pp/4N3/1p6/2q1r1n1/2B5/PP4PP/3R1R1K w - - 0 29",
+    "history": [
+     "h8g8"
+    ],
+    "prefilter_moves": [
+     "d1d6",
+     "d1d5"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "d1d8",
+    "chosen_off": "d1d8",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "forced obligation: mate available, only mating moves"
+   },
+   {
+    "fen": "2r1kbnr/pp4pp/4p3/3pq1N1/8/1P2B3/P3Q1PP/nN3RK1 w k - 0 17",
+    "history": [
+     "d4e5"
+    ],
+    "prefilter_moves": [
+     "e3b6",
+     "e3c5",
+     "e3d4"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "f1f8",
+    "chosen_off": "f1f8",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "eval >= 151"
+   },
+   {
+    "fen": "rn3rk1/p5pp/3N4/4np1q/5Q2/1P6/PB1P1KP1/2R4R b - - 1 25",
+    "history": [
+     "f3f2"
+    ],
+    "prefilter_moves": [
+     "f8c8"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "e5d3",
+    "chosen_off": "e5d3",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "eval >= 245"
+   },
+   {
+    "fen": "r1b1kb1Q/ppp4p/6pB/3P4/2pn4/8/PPP1qPPP/RNK4R b q - 3 13",
+    "history": [
+     "d1c1"
+    ],
+    "prefilter_moves": [
+     "c8h3",
+     "e2f1",
+     "e2e1"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "e2c2",
+    "chosen_off": "e2c2",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "forced obligation: mate available, only mating moves"
+   },
+   {
+    "fen": "2kr1br1/ppBb1ppp/8/3P2Q1/6n1/5n2/PP3qPP/RN2R2K w - - 0 17",
+    "history": [
+     "d4f3"
+    ],
+    "prefilter_moves": [
+     "c7b8",
+     "c7d6",
+     "c7b6",
+     "g5g7",
+     "g5h6"
+    ],
+    "runtime_fired_on": [],
+    "chosen_on": "g5d8",
+    "chosen_off": "g5d8",
+    "selected": false,
+    "vetoed": [],
+    "gate_rule": "forced obligation: mate available, only mating moves"
+   }
+  ],
+  "reached": false,
+  "selected": false,
+  "causal": false,
+  "status": "PREDICATE_FOUND_NOT_REACHED"
+ },
+ "189": {
+  "motif": 189,
+  "name": "Cognitive-Freeze Clock Drain",
+  "attempts": [],
+  "reached": false,
+  "selected": false,
+  "causal": false,
+  "status": "NO_POSITION_FOUND"
  }
 }

@@ -203,17 +203,23 @@ class WholeMind:
             capped, groups = 0.0, {}
             cp_units = sum(bd.get(n, 0.0) for n in (1, 12, 36, 177))   # PDF states anti-draw penalties in centipawns: unscaled
             gs = cfg.group_scale or {}
+            converting = best >= 500 and board.halfmove_clock >= 60 and best < MATE_T   # V6 conversion guard (forced obligation)
             for n, v in bd.items():
                 if n in (1, 12, 36, 177):
                     continue
                 g = M.REGISTRY[n].group
+                if converting and g == "style-extreme":
+                    continue
                 v = v * gs.get(g, 1.0) * gs.get(f"#{n}", 1.0)
                 groups[g] = groups.get(g, 0.0) + v
             for g, v in groups.items():
                 capped += max(-CAPS.get(g, 99), min(CAPS.get(g, 99), v))
             ev = gate[u]
             evu = max(-30.0, min(30.0, ev / 100.0)) if abs(ev) < MATE_T else (40.0 if ev > 0 else -40.0)
-            util = evu + cp_units + cfg.motif_scale * mult * capped
+            prog = 0.0
+            if converting and (m.promotion or board.is_capture(m) or board.piece_type_at(m.from_square) == chess.PAWN):
+                prog = 1.0                                                    # resets the 50-move counter: progress
+            util = evu + cp_units + prog + cfg.motif_scale * mult * capped
             sac = any(M.REGISTRY[n].group in SAC_GROUPS for n in bd) or ctx.sac_value() >= 1
             rec = {"move": u, "eval": ev, "motif": round(capped, 3), "util": round(util, 3), "bd": {f"#{n}": round(v, 3) for n, v in bd.items()},
                    "sac": sac, "deep": u in deep}

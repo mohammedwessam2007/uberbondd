@@ -67,7 +67,7 @@ def main(puzzle_csv, out, ids=None):
     status = json.load(open("canon/IMPLEMENTATION_STATUS.json"))["per_id"]
     todo = ids or [int(k[-3:]) for k, v in status.items() if v["class"] == "MOTIF" and v["integration_fired_on_candidates"] == 0]
     res = json.load(open(out)) if os.path.isfile(out) else {}
-    cfg = make(profile="PDF_FAITHFUL_V4")
+    cfg = make(profile="PDF_STYLE_V5")
     mind = WholeMind(cfg)
     try:
         for n in todo:

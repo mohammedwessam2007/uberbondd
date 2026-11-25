@@ -8,6 +8,7 @@ import threading
 import time
 
 import chess
+import chess.polyglot
 
 from chimera.omega import config as C
 
@@ -140,7 +141,6 @@ class UCI:
         self.prev_opp_time = opp_left if opp_left >= 0 else None
         board = self.board.copy()
         if self.opts["BookFile"]:                                                   # #163 polyglot book
-            import chess.polyglot
             try:
                 with chess.polyglot.open_reader(self.opts["BookFile"]) as r:
                     e = r.weighted_choice(board, random=__import__("random").Random(int(self.opts["Seed"]) + board.ply()))
